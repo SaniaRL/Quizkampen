@@ -31,3 +31,4 @@ bin/
 ### Other ###
 .idea/
 Quizkampen.iml
+.idea/misc.xml
