@@ -1,3 +1,5 @@
+package Question;
+
 public enum QuestionCategoryENUM {
 
         MOVIES("Film"),
