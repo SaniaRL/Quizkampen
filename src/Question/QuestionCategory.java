@@ -1,6 +1,6 @@
 package Question;
 
-public enum QuestionCategoryENUM {
+public enum QuestionCategory {
 
         MOVIES("Film"),
         HISTORY("Historia"),
@@ -11,7 +11,9 @@ public enum QuestionCategoryENUM {
         TECHNOLOGY("Teknologi"),
         SPACE("Rymden");
 
-        public final String questionCategoryENUM;
+        public final String label;
 
-        QuestionCategoryENUM(String questionCategoryENUM){this.questionCategoryENUM = questionCategoryENUM;}
+        QuestionCategory(String label){
+                this.label = label;
+        }
 }

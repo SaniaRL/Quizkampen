@@ -1,3 +1,32 @@
 ANIMALS;Hur många ben har en katt?;Fyra ben;Fem ben;Två armar;En stövel
+ANIMALS;Vilket är det största däggdjuret?;Blåval;Späckhuggare;Elefant;Giraffe
+ANIMALS;Vilken stor katt är känd för dess svarta päls och är inhemsk till Sydostasiens skogar?;Svart Panter;Jaguar;Tiger;Leopard
+ANIMALS;Vilket djur betraktas som det snabbaste landlevande djuret?;Gepard;Leopard;Jaguar;Mungo
 MOVIES;Vem är den bästa karaktären i julkalendern Mumindalen från 1975?;Förfadern;Ekorren med den vackra svansen;Mumintrollet;Lilla My
+MOVIES;Vad var namnet på protagonisten i "Shawshank Redemption"?;Andy Dufresne;Red Redding;Ellis Boyd "Red" Redding; Tommy Williams
+MOVIES;Vilken film vann en Academy Award för bästa film 1994?Forrest Gump;Pulp Fiction;Schindler's List;The Silence of the Lambs
+MOVIES;Vem regisserade Jurassic Park?Steven Spielberg;Christopher Nolan;James Cameron;George Lucas
 SPORT;Vad av följande är inte en erkänd sport?;Tandborstning;Fotboll;Hockey;Konståkning
+SPORT;Vilket land vann VM 2018?Frankrike;Argentina;Tyskland;Brasilien
+SPORT;I vilken sport används termerna "Eagle" och "Birdie"?;Golf;Bordstennis;Badminton;Simning;
+SPORT;Vilken tennisspelare har vunnit flest Grand Slam singel-titlar?Novak Djokovic;Serena Williams;Rafael Nadal;Roger Federer
+HISTORY;Vem var Förenta Staternas första president?;George Washington;Thomas Jefferson;John Adams;Benjamin Franklin
+HISTORY;Vilken historisk civilisation byggde Machu Picchu?;Inkan;Aztekerna;Mayafolket;Egypterna
+HISTORY;När föll Berlinmuren?;1989;1991;1985;1990
+HISTORY;Vilken händelse anses ofta vara starten av första världskriget?Lönnmordet av Franz Ferdinand;Versaillesfreden;Bombandet av Pearl Harbor;Belägringen av Leningrad
+MUSIC;Vem anses var "Kungen av Pop"?;Michael Jackson;Prince;Elvis Presley;Madonna
+MUSIC;Vem sammansatte det kända stycket Für Elise?;Beethoven;Mozart;Bach;Schubert
+MUSIC;Vilket band släppte albumet "The dark side of the moon"?;Pink Floyd;The Beatles;Led Zeppelin;Queen
+MUSIC;Vilken är den högsta kvinnliga sångrösten?;Soprano;Alto;Tenor;Baritone
+LITERATURE;Vem skrev novellen "Ondskan"?;Jan Guillou;Astrid Lindgren;Vilhelm Moberg;Selma Lagerlöf
+LITERATURE;I "Lord of the Rings" vem ärver "the One Ring"?;Frodo Baggins;Samwise Gamgee;Bilbo Baggins;Pippin Took
+LITERATURE;Vem skrev "Hamlet"?;William Shakespeare;Oscar Wilde; Tennessee Williams;George Bernard Shaw
+LITERATURE;Vilken författare skapade detektiven Sherlock Holmes?;Arthur Conan Doyle;Agatha Christie;Edgar Allan Poe;Raymond Chandler
+TECHNOLOGY;Vad står C för i CPU?;Central;Computer;Control;Core
+TECHNOLOGY;Vilket företag utvecklade operativsystemet Windows?;Microsoft;Apple;IBM;Google
+TECHNOLOGY;Vilket programmeringsspråk används främst för att utveckla iOS-appar?;Swift;Kotlin;Java;C#
+TECHNOLOGY;Vad står VPN för inom nätverk?;Virtual Private Network;Visual Proxy Network;Voice Protocol Network;Virtual Protocol Node
+SPACE;Vilken är den största planeten i vårat solsystem?;Jupiter;Saturnus;Venus;Mars
+SPACE;Vilken himlakropp är känd som jordens naturliga satellit?;Månen;Saturnus;Solen;Mars
+SPACE;Vad är namnet på galaxen vi befinner oss i?;Vintergatan;Andromeda;Orion;Triangulum
+SPACE;Vad är termen för en stjärna som exploderar och blir extremt ljus innan den gradvis bleknar?;Supernova;Svart hål;Nova;Kvasar

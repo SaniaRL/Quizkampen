@@ -34,7 +34,7 @@ public class QuestionCollection {
                         tempArray[5],
 
                 };
-                allQuestions.add(new Question(tempArray[1], options, findCategory(tempArray)));
+                allQuestions.add(new Question(tempArray[1], options, findCategory(tempArray[0])));
 
             }
         } catch (IOException e) {
@@ -42,42 +42,24 @@ public class QuestionCollection {
         }
 
     }
-    private QuestionCategoryENUM findCategory(String[] question){
-        switch(question[0]){
-            case "MOVIES" -> {
-                return  QuestionCategoryENUM.MOVIES;
-            }
-            case "ANIMALS" -> {
-                return QuestionCategoryENUM.ANIMALS;
-            }
-            case "LITERATURE" -> {
-                return QuestionCategoryENUM.LITERATURE;
-            }
-            case "SPACE" -> {
-                return QuestionCategoryENUM.SPACE;
-            }
-            case "TECHNOLOGY" -> {
-                return QuestionCategoryENUM.TECHNOLOGY;
-            }
-            case "SPORT" -> {
-                return QuestionCategoryENUM.SPORT;
-            }
-            case "MUSIC" -> {
-                return QuestionCategoryENUM.MUSIC;
-            }
-            case "HISTORY" -> {
-                return QuestionCategoryENUM.HISTORY;
-            }
-            default -> {
-                return null;
-            }
-        }
+    private QuestionCategory findCategory(String question){
+        return switch(question){
+            case "MOVIES" -> QuestionCategory.MOVIES;
+            case "ANIMALS" -> QuestionCategory.ANIMALS;
+            case "LITERATURE" -> QuestionCategory.LITERATURE;
+            case "SPACE" -> QuestionCategory.SPACE;
+            case "TECHNOLOGY" -> QuestionCategory.TECHNOLOGY;
+            case "SPORT" -> QuestionCategory.SPORT;
+            case "MUSIC" -> QuestionCategory.MUSIC;
+            case "HISTORY" -> QuestionCategory.HISTORY;
+            default -> null;
+        };
     }
 
     public List<Question> getCategoryList(String category){
         List<Question> categorizedList = new ArrayList<>();
         for(Question question : allQuestions){
-            if(question.getCategory().equals(QuestionCategoryENUM.valueOf(category))){
+            if(question.getCategory().equals(QuestionCategory.valueOf(category))){
                 categorizedList.add(question);
             }
         }

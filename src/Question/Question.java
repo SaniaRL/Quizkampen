@@ -3,9 +3,9 @@ package Question;
 public class Question {
     private String question;
     private String[] questionOptions;
-    private QuestionCategoryENUM category;
+    private QuestionCategory category;
 
-    public Question(String question, String[] questionOptions, QuestionCategoryENUM category){
+    public Question(String question, String[] questionOptions, QuestionCategory category){
         this.question = question;
         this.questionOptions = questionOptions;
         this.category = category;
@@ -27,11 +27,11 @@ public class Question {
         this.questionOptions = questionOptions;
     }
 
-    public QuestionCategoryENUM getCategory() {
+    public QuestionCategory getCategory() {
         return category;
     }
 
-    public void setCategory(QuestionCategoryENUM category) {
+    public void setCategory(QuestionCategory category) {
         this.category = category;
     }
 }
