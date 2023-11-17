@@ -29,5 +29,5 @@ bin/
 .DS_Store
 
 ### Other ###
-.idea
+.idea/
 Quizkampen.iml
