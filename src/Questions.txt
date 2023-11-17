@@ -1,0 +1,3 @@
+ANIMALS;Hur många ben har en katt?;Fyra ben;Fem ben;Två armar;En stövel
+MOVIES;Vem är den bästa karaktären i julkalendern Mumindalen från 1975?;Förfadern;Ekorren med den vackra svansen;Mumintrollet;Lilla My
+SPORT;Vad av följande är inte en erkänd sport?;Tandborstning;Fotboll;Hockey;Konståkning
