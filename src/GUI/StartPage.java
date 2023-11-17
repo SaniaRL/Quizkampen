@@ -50,8 +50,9 @@ public class StartPage extends JPanel {
         startNewGame.setMinimumSize(buttonSize);
         startNewGame.setMaximumSize(buttonSize);
         startNewGame.setBackground(new Color(60,255,230));
+        startNewGame.setLocation(200, 200);
         startNewGame.setText("New Game");
-        startNewGame.setFont(new Font("Open Sans", Font.PLAIN, 14));
+        startNewGame.setFont(new Font("Open Sans", Font.PLAIN, 25));
 
         centerLabel.add(startNewGame);
     }
