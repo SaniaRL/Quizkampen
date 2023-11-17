@@ -28,7 +28,7 @@ public class ContentFrame extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setTitle("Quizkampen");
-        ImageIcon image = new ImageIcon("Yellow/Sun.png");
+        ImageIcon image = new ImageIcon("Icons/Sun.png");
         setIconImage(image.getImage());
 
         add(startPage);
