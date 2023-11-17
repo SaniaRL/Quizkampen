@@ -1,15 +1,17 @@
+package Question;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionCategory {
+public class QuestionCollection {
     String path;
     List<Question> allQuestions = new ArrayList<>();
 
 
-    public QuestionCategory() throws IOException {
+    public QuestionCollection() throws IOException {
         path = "src/Questions.txt";
     }
 
