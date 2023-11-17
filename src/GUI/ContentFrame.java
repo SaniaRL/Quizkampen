@@ -34,4 +34,6 @@ public class ContentFrame extends JFrame {
         add(startPage);
         setVisible(true);
     }
+
+
 }

@@ -11,14 +11,15 @@ public class StartPage extends JPanel {
 
     JButton startNewGame;
     JButton homeButton;
-    JButton settingsButton;
-    JButton notificationsButton;
 
     Color colorTheme;
+    Color buttonColor;
+
 
     public StartPage(){
         homeButton = new JButton();
         colorTheme = new Color(190, 103, 208);
+        buttonColor= new Color(93,246,246);
 
         addComponents();
     }
@@ -43,7 +44,6 @@ public class StartPage extends JPanel {
     public void generateCenterPanel(){
         centerPanel = new JPanel();
         centerPanel.setLayout(new GridLayout(3, 1));
-
         Dimension centerPanelSize = new Dimension(800, 600);
         centerPanel.setSize(centerPanelSize);
         centerPanel.setMinimumSize(centerPanelSize);
@@ -66,7 +66,9 @@ public class StartPage extends JPanel {
         startNewGame.setText("New Game");
         startNewGame.setFont(new Font("Open Sans", Font.PLAIN, 45));
 
+        generateEastWestPanels(BorderLayout.WEST);
         centerPanel.add(startNewGame);
+        generateEastWestPanels(BorderLayout.EAST);
 
         JLabel emptyLabel2 = new JLabel();
         emptyLabel1.setBackground(colorTheme);
@@ -83,11 +85,7 @@ public class StartPage extends JPanel {
 
         Color color = new Color(93,246,246);
 
-        settingsButton = new JButton();
-        settingsButton.setBackground(color);
-
-        ImageIcon settings = new ImageIcon(new ImageIcon("Icons/settings.png").getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
-        settingsButton.setIcon(settings);
+        JButton settingsButton = createButton("Icons/Settings.png");
         northPanel.add(settingsButton);
 
         for(int i = 0; i < 5; i++){
@@ -97,11 +95,7 @@ public class StartPage extends JPanel {
             northPanel.add(label);
         }
 
-        notificationsButton = new JButton();
-        notificationsButton.setBackground(color);
-
-        ImageIcon notifications = new ImageIcon(new ImageIcon("Icons/message.png").getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
-        notificationsButton.setIcon(notifications);
+        JButton notificationsButton = createButton("Icons/message.png");
         northPanel.add(notificationsButton);
     }
 
@@ -114,29 +108,38 @@ public class StartPage extends JPanel {
         southPanel.setMaximumSize(northPanelSize);
         southPanel.setMinimumSize(northPanelSize);
 
-        Color color = new Color(93,246,246);
 
-        settingsButton = new JButton();
-        settingsButton.setBackground(color);
-
-        ImageIcon settings = new ImageIcon(new ImageIcon("Icons/settings.png").getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
-        settingsButton.setIcon(settings);
-        southPanel.add(settingsButton);
+        JButton homeButton = createButton("Icons/house.png");
+        southPanel.add(homeButton);
 
         for(int i = 0; i < 5; i++){
             JLabel label = new JLabel();
-            label.setBackground(color);
+            label.setBackground(buttonColor);
             label.setOpaque(true);
             southPanel.add(label);
         }
 
-        notificationsButton = new JButton();
-        notificationsButton.setBackground(color);
-
-        ImageIcon notifications = new ImageIcon(new ImageIcon("Icons/message.png").getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
-        notificationsButton.setIcon(notifications);
-        southPanel.add(notificationsButton);
+        JButton catButton = createButton("Icons/cat.png");
+        southPanel.add(catButton);
     }
 
+    public JButton createButton(String path){
+        JButton jButton = new JButton();
+        jButton.setBackground(buttonColor);
+
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
+        jButton.setIcon(imageIcon);
+
+        return jButton;
+    }
+
+    public void generateEastWestPanels(String borderLayout){
+        JPanel panel = new JPanel();
+        panel.setPreferredSize(new Dimension(100, 400));
+        panel.setBackground(colorTheme);
+        add(panel, borderLayout);
+
+
+    }
 
 }
