@@ -1,19 +1,20 @@
 package GUI;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class ContentFrame extends JFrame {
 
     JPanel contentPanel;
     StartPage startPage;
+    ChooseCategoryPage chooseCategoryPage;
 
     public ContentFrame(){
+
         contentPanel = new JPanel();
         startPage = new StartPage();
+        chooseCategoryPage = new ChooseCategoryPage();
 
         buildFrame();
-
     }
 
     //TODO Remove main
@@ -31,7 +32,7 @@ public class ContentFrame extends JFrame {
         ImageIcon image = new ImageIcon("Icons/Sun.png");
         setIconImage(image.getImage());
 
-        add(startPage);
+        add(chooseCategoryPage);
         setVisible(true);
     }
 
