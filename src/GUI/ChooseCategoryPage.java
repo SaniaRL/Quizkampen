@@ -42,11 +42,10 @@ public class ChooseCategoryPage extends JPanel {
         setLayout(new BorderLayout());
         setOpaque(true);
 
-        generateCategoryLabels();
-
         generateNorthPanel();
-        add(northPanel, BorderLayout.NORTH);
+        generateSouthPanel();
 
+        add(northPanel, BorderLayout.NORTH);
         add(southPanel, BorderLayout.SOUTH);
 
         setVisible(true);
@@ -62,11 +61,14 @@ public class ChooseCategoryPage extends JPanel {
 
     public void generateNorthPanel(){
         northPanel.setLayout(new GridLayout(3, 1));
-        northPanel.setPreferredSize(new Dimension(800,200));
+        northPanel.setPreferredSize(new Dimension(800,300));
         northPanel.setOpaque(false);
 
-        JLabel empty = new JLabel();
-        empty.setPreferredSize(new Dimension(800, 100));
+        JLabel empty1 = new JLabel();
+        empty1.setPreferredSize(new Dimension(800, 100));
+
+        JLabel empty2 = new JLabel();
+        empty1.setPreferredSize(new Dimension(800, 100));
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -80,13 +82,37 @@ public class ChooseCategoryPage extends JPanel {
 
         panel.add(text, BorderLayout.CENTER);
 
-        northPanel.add(empty);
+        northPanel.add(empty1);
         northPanel.add(text);
-    }
-    public void generateCategoryLabels(JLabel label){
-        //Just nu gör denna alla fult rosa för att jag ska gitta i rätt kategori
-
-        
+        northPanel.add(empty2);
     }
 
+    public void generateSouthPanel(){
+        southPanel.setLayout(new GridLayout(4, 1));
+        southPanel.setPreferredSize(new Dimension(800,500));
+        southPanel.setOpaque(false);
+
+        JPanel emptyPanel = new JPanel();
+        emptyPanel.setPreferredSize(new Dimension(800, 50));
+
+        generateCategoryLabels(categoryOption1, southPanel);
+        generateCategoryLabels(categoryOption2, southPanel);
+        generateCategoryLabels(categoryOption3, southPanel);
+
+    }
+    public void generateCategoryLabels(JLabel label, JPanel panel){
+        //Just nu gör denna alla svart för att jag ska gitta i rätt kategori och inte har fixat
+        //ikonerna för alla olika kategorier, lagt dem i en lista och blandat
+        JPanel labelPanel = new JPanel();
+        label.setBackground(Color.BLACK);
+        label.setOpaque(true);
+        label.setVisible(true);
+        label.setPreferredSize(new Dimension(600, 100));
+
+        labelPanel.setPreferredSize(new Dimension(800, 150));
+        labelPanel.setOpaque(false);
+
+        labelPanel.add(label, SwingConstants.CENTER);
+        panel.add(labelPanel);
+    }
 }
