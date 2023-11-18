@@ -1,7 +1,6 @@
 package GUI;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class ContentFrame extends JFrame {
 
@@ -27,7 +26,7 @@ public class ContentFrame extends JFrame {
     public void buildFrame(){
         setSize(800,800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-//        setResizable(false);
+        setResizable(false);
         setLocationRelativeTo(null);
         setTitle("Quizkampen");
         ImageIcon image = new ImageIcon("Icons/Sun.png");

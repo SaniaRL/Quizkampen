@@ -8,6 +8,9 @@ public class ChooseCategoryPage extends JPanel {
     JPanel northPanel;
     JPanel southPanel;
 
+    String path;
+    Image backgroundImage;
+
     JLabel categoryOption1;
     JLabel categoryOption2;
     JLabel categoryOption3;
@@ -19,6 +22,9 @@ public class ChooseCategoryPage extends JPanel {
     public ChooseCategoryPage(){
         northPanel = new JPanel();
         southPanel = new JPanel();
+
+        path = "Backgrounds/blueBackground.png";
+        backgroundImage = new ImageIcon(path).getImage();
 
         categoryOption1 = new JLabel();
         categoryOption2 = new JLabel();
@@ -36,7 +42,7 @@ public class ChooseCategoryPage extends JPanel {
         setLayout(new BorderLayout());
         setOpaque(true);
 
-        generateCategoryPanels();
+        generateCategoryLabels();
 
         generateNorthPanel();
         add(northPanel, BorderLayout.NORTH);
@@ -46,12 +52,18 @@ public class ChooseCategoryPage extends JPanel {
         setVisible(true);
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+        }
+    }
+
     public void generateNorthPanel(){
         northPanel.setLayout(new GridLayout(3, 1));
         northPanel.setPreferredSize(new Dimension(800,200));
-        northPanel.setBackground(colorTheme);
-        northPanel.setOpaque(true);
-        northPanel.setVisible(true);
+        northPanel.setOpaque(false);
 
         JLabel empty = new JLabel();
         empty.setPreferredSize(new Dimension(800, 100));
@@ -64,19 +76,17 @@ public class ChooseCategoryPage extends JPanel {
         JLabel text = new JLabel("Välj en kategori", SwingConstants.CENTER);
         text.setFont(new Font("Open Sans", Font.PLAIN, 54));
         text.setPreferredSize(new Dimension(800, 100));
-//        text.setVerticalAlignment(SwingConstants.CENTER);
+        text.setOpaque(false);
 
-   //     empty.add(text, BorderLayout.WEST);
         panel.add(text, BorderLayout.CENTER);
-//        panel.add(text, BorderLayout.CENTER);
 
         northPanel.add(empty);
         northPanel.add(text);
     }
-    public void generateCategoryPanels(){
-        categoryOption1.setBackground(Color.blue);
-        categoryOption2.setBackground(Color.GREEN);
-        categoryOption3.setBackground(Color.ORANGE);
+    public void generateCategoryLabels(JLabel label){
+        //Just nu gör denna alla fult rosa för att jag ska gitta i rätt kategori
+
+        
     }
 
 }
