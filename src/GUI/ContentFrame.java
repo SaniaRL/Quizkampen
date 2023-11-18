@@ -7,13 +7,15 @@ public class ContentFrame extends JFrame {
 
     JPanel contentPanel;
     StartPage startPage;
+    ChooseCategoryPage chooseCategoryPage;
 
     public ContentFrame(){
+
         contentPanel = new JPanel();
         startPage = new StartPage();
+        chooseCategoryPage = new ChooseCategoryPage();
 
         buildFrame();
-
     }
 
     //TODO Remove main
@@ -25,13 +27,13 @@ public class ContentFrame extends JFrame {
     public void buildFrame(){
         setSize(800,800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
+//        setResizable(false);
         setLocationRelativeTo(null);
         setTitle("Quizkampen");
         ImageIcon image = new ImageIcon("Icons/Sun.png");
         setIconImage(image.getImage());
 
-        add(startPage);
+        add(chooseCategoryPage);
         setVisible(true);
     }
 

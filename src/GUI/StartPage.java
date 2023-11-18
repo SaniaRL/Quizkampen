@@ -10,14 +10,21 @@ public class StartPage extends JPanel {
     JPanel southPanel;
 
     JButton startNewGame;
+    JLabel settings;
+    JButton notifications;
     JButton homeButton;
+    JButton catButton;
 
     Color colorTheme;
     Color buttonColor;
 
 
     public StartPage(){
+        settings = new JLabel();
+        notifications = new JButton();
         homeButton = new JButton();
+        catButton = new JButton();
+
         colorTheme = new Color(190, 103, 208);
         buttonColor= new Color(93,246,246);
 
@@ -85,8 +92,11 @@ public class StartPage extends JPanel {
 
         Color color = new Color(93,246,246);
 
-        JButton settingsButton = createButton("Icons/Settings.png");
-        northPanel.add(settingsButton);
+        settings.setIcon(new ImageIcon(new ImageIcon("Icons/Settings.png").getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH)));
+        settings.setBackground(buttonColor);
+        settings.setOpaque(true);
+        //        settings = createButton(settings, "Icons/Settings.png");
+        northPanel.add(settings);
 
         for(int i = 0; i < 5; i++){
             JLabel label = new JLabel();
@@ -95,8 +105,8 @@ public class StartPage extends JPanel {
             northPanel.add(label);
         }
 
-        JButton notificationsButton = createButton("Icons/message.png");
-        northPanel.add(notificationsButton);
+        notifications = createButton(notifications, "Icons/message.png");
+        northPanel.add(notifications);
     }
 
     public void generateSouthPanel(){
@@ -109,7 +119,7 @@ public class StartPage extends JPanel {
         southPanel.setMinimumSize(northPanelSize);
 
 
-        JButton homeButton = createButton("Icons/house.png");
+        homeButton = createButton(homeButton, "Icons/house.png");
         southPanel.add(homeButton);
 
         for(int i = 0; i < 5; i++){
@@ -119,18 +129,17 @@ public class StartPage extends JPanel {
             southPanel.add(label);
         }
 
-        JButton catButton = createButton("Icons/cat.png");
+        catButton = createButton(catButton, "Icons/cat.png");
         southPanel.add(catButton);
     }
 
-    public JButton createButton(String path){
-        JButton jButton = new JButton();
-        jButton.setBackground(buttonColor);
+    public JButton createButton(JButton button, String path){
+        button.setBackground(buttonColor);
 
         ImageIcon imageIcon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
-        jButton.setIcon(imageIcon);
+        button.setIcon(imageIcon);
 
-        return jButton;
+        return button;
     }
 
     public void generateEastWestPanels(String borderLayout){
@@ -138,8 +147,6 @@ public class StartPage extends JPanel {
         panel.setPreferredSize(new Dimension(100, 400));
         panel.setBackground(colorTheme);
         add(panel, borderLayout);
-
-
     }
 
 }
