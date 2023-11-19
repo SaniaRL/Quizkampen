@@ -10,9 +10,18 @@ public class QuestionCollection {
     String path;
     List<Question> allQuestions = new ArrayList<>();
 
+/*
+    public static void main(String[] args) throws IOException {
+        QuestionCollection questionCollection = new QuestionCollection();
+        for(Question question : questionCollection.allQuestions){
+            System.out.println("Hej");
+        }
+    }
 
+ */
     public QuestionCollection() throws IOException {
-        path = "src/Questions.txt";
+        path = "src/Question/Questions.txt";
+        addQuestionsFromFile();
     }
 
     public void run(){
@@ -27,15 +36,16 @@ public class QuestionCollection {
 
             while((temp = bufferedReader.readLine()) != null){
                 tempArray = temp.split(";");
-                String[] options = {
-                        tempArray[2],
-                        tempArray[3],
-                        tempArray[4],
-                        tempArray[5],
+                if(tempArray.length >= 6){
+                    String[] options = {
+                            tempArray[2],
+                            tempArray[3],
+                            tempArray[4],
+                            tempArray[5],
 
-                };
-                allQuestions.add(new Question(tempArray[1], options, findCategory(tempArray[0])));
-
+                    };
+                    allQuestions.add(new Question(tempArray[1], options, findCategory(tempArray[0])));
+                }
             }
         } catch (IOException e) {
             e.printStackTrace(System.err);
