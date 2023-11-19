@@ -2,27 +2,31 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class ContentFrame extends JFrame {
 
     JPanel contentPanel;
     CardLayout cardLayout;
+
     StartPage startPage;
     ChooseCategoryPage chooseCategoryPage;
+    QuestionPage questionPage;
 
-    public ContentFrame(){
+    public ContentFrame() throws IOException {
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
         contentPanel.setLayout(cardLayout);
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
+        questionPage = new QuestionPage();
 
         buildFrame();
     }
 
     //TODO Remove main
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         @SuppressWarnings("unused")
         ContentFrame contentFrame = new ContentFrame();
     }
@@ -38,6 +42,7 @@ public class ContentFrame extends JFrame {
 
         contentPanel.add(startPage, "StartPage");
         contentPanel.add(chooseCategoryPage, "ChooseCategoryPage");
+        contentPanel.add(questionPage, "QuestionPage");
 
         add(contentPanel);
         addActionEvents();
@@ -46,7 +51,7 @@ public class ContentFrame extends JFrame {
 
     public void addActionEvents(){
         startPage.getStartNewGame().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ChooseCategoryPage"));
-        startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ChooseCategoryPage"));
+        startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "QuestionPage"));
     }
 
 }
