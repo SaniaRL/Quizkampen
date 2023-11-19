@@ -8,7 +8,7 @@ public class ChooseCategoryPage extends JPanel {
     JPanel northPanel;
     JPanel southPanel;
 
-    String path;
+    String backgroundImagePath;
     Image backgroundImage;
 
     JLabel categoryOption1;
@@ -23,8 +23,8 @@ public class ChooseCategoryPage extends JPanel {
         northPanel = new JPanel();
         southPanel = new JPanel();
 
-        path = "Backgrounds/blueBackground.png";
-        backgroundImage = new ImageIcon(path).getImage();
+        backgroundImagePath = "Backgrounds/blueBackground.png";
+        backgroundImage = new ImageIcon(backgroundImagePath).getImage();
 
         categoryOption1 = new JLabel();
         categoryOption2 = new JLabel();
