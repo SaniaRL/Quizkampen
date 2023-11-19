@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public class StartPage extends JPanel {
@@ -18,6 +19,7 @@ public class StartPage extends JPanel {
     Color colorTheme;
     Color buttonColor;
 
+    Border emptyBorder;
 
     public StartPage(){
         settings = new JLabel();
@@ -27,6 +29,8 @@ public class StartPage extends JPanel {
 
         colorTheme = new Color(190, 103, 208);
         buttonColor= new Color(93,246,246);
+
+        emptyBorder = BorderFactory.createEmptyBorder();
 
         addComponents();
     }
@@ -95,7 +99,6 @@ public class StartPage extends JPanel {
         settings.setIcon(new ImageIcon(new ImageIcon("Icons/Settings.png").getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH)));
         settings.setBackground(buttonColor);
         settings.setOpaque(true);
-        //        settings = createButton(settings, "Icons/Settings.png");
         northPanel.add(settings);
 
         for(int i = 0; i < 5; i++){
@@ -106,6 +109,7 @@ public class StartPage extends JPanel {
         }
 
         notifications = createButton(notifications, "Icons/message.png");
+        notifications.setBorder(emptyBorder);
         northPanel.add(notifications);
     }
 
@@ -120,6 +124,7 @@ public class StartPage extends JPanel {
 
 
         homeButton = createButton(homeButton, "Icons/house.png");
+        homeButton.setBorder(emptyBorder);
         southPanel.add(homeButton);
 
         for(int i = 0; i < 5; i++){
@@ -130,6 +135,7 @@ public class StartPage extends JPanel {
         }
 
         catButton = createButton(catButton, "Icons/cat.png");
+        catButton.setBorder(emptyBorder);
         southPanel.add(catButton);
     }
 
@@ -149,4 +155,19 @@ public class StartPage extends JPanel {
         add(panel, borderLayout);
     }
 
+    public JLabel getSettings() {
+        return settings;
+    }
+
+    public JButton getNotifications() {
+        return notifications;
+    }
+
+    public JButton getHomeButton() {
+        return homeButton;
+    }
+
+    public JButton getCatButton() {
+        return catButton;
+    }
 }
