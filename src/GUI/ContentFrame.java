@@ -45,6 +45,7 @@ public class ContentFrame extends JFrame {
     }
 
     public void addActionEvents(){
+        startPage.getStartNewGame().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ChooseCategoryPage"));
         startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ChooseCategoryPage"));
     }
 

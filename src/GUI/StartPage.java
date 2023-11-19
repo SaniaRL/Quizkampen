@@ -11,10 +11,13 @@ public class StartPage extends JPanel {
     JPanel southPanel;
 
     JButton startNewGame;
-    JLabel settings;
+    JButton settings;
     JButton notifications;
     JButton homeButton;
     JButton catButton;
+
+    String backgroundImagePath;
+    Image backgroundImage;
 
     Color colorTheme;
     Color buttonColor;
@@ -22,10 +25,13 @@ public class StartPage extends JPanel {
     Border emptyBorder;
 
     public StartPage(){
-        settings = new JLabel();
+        settings = new JButton();
         notifications = new JButton();
         homeButton = new JButton();
         catButton = new JButton();
+
+        backgroundImagePath = "Backgrounds/blueBackground.png";
+        backgroundImage = new ImageIcon(backgroundImagePath).getImage();
 
         colorTheme = new Color(190, 103, 208);
         buttonColor= new Color(93,246,246);
@@ -52,6 +58,14 @@ public class StartPage extends JPanel {
         setVisible(true);
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+        }
+    }
+
     public void generateCenterPanel(){
         centerPanel = new JPanel();
         centerPanel.setLayout(new GridLayout(3, 1));
@@ -59,10 +73,9 @@ public class StartPage extends JPanel {
         centerPanel.setSize(centerPanelSize);
         centerPanel.setMinimumSize(centerPanelSize);
         centerPanel.setMaximumSize(centerPanelSize);
-        centerPanel.setBackground(colorTheme);
+        centerPanel.setOpaque(false);
 
         JLabel emptyLabel1 = new JLabel();
-        emptyLabel1.setBackground(colorTheme);
         centerPanel.add(emptyLabel1);
 
         startNewGame = new JButton();
@@ -82,7 +95,7 @@ public class StartPage extends JPanel {
         generateEastWestPanels(BorderLayout.EAST);
 
         JLabel emptyLabel2 = new JLabel();
-        emptyLabel1.setBackground(colorTheme);
+        setOpaque(false);
         centerPanel.add(emptyLabel2);
     }
 
@@ -93,18 +106,15 @@ public class StartPage extends JPanel {
         northPanel.setSize(northPanelSize);
         northPanel.setMaximumSize(northPanelSize);
         northPanel.setMinimumSize(northPanelSize);
+        northPanel.setOpaque(false);
 
-        Color color = new Color(93,246,246);
-
-        settings.setIcon(new ImageIcon(new ImageIcon("Icons/Settings.png").getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH)));
-        settings.setBackground(buttonColor);
-        settings.setOpaque(true);
+        settings = createButton(settings, "Icons/Settings.png");
+        settings.setBorder(emptyBorder);
         northPanel.add(settings);
 
         for(int i = 0; i < 5; i++){
             JLabel label = new JLabel();
-            label.setBackground(color);
-            label.setOpaque(true);
+            label.setOpaque(false);
             northPanel.add(label);
         }
 
@@ -121,7 +131,7 @@ public class StartPage extends JPanel {
         southPanel.setSize(northPanelSize);
         southPanel.setMaximumSize(northPanelSize);
         southPanel.setMinimumSize(northPanelSize);
-
+        southPanel.setOpaque(false);
 
         homeButton = createButton(homeButton, "Icons/house.png");
         homeButton.setBorder(emptyBorder);
@@ -129,8 +139,7 @@ public class StartPage extends JPanel {
 
         for(int i = 0; i < 5; i++){
             JLabel label = new JLabel();
-            label.setBackground(buttonColor);
-            label.setOpaque(true);
+            label.setOpaque(false);
             southPanel.add(label);
         }
 
@@ -140,10 +149,11 @@ public class StartPage extends JPanel {
     }
 
     public JButton createButton(JButton button, String path){
-        button.setBackground(buttonColor);
 
         ImageIcon imageIcon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
         button.setIcon(imageIcon);
+        button.setOpaque(false);
+        button.setContentAreaFilled(false);
 
         return button;
     }
@@ -151,11 +161,11 @@ public class StartPage extends JPanel {
     public void generateEastWestPanels(String borderLayout){
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(100, 400));
-        panel.setBackground(colorTheme);
         add(panel, borderLayout);
+        panel.setOpaque(false);
     }
 
-    public JLabel getSettings() {
+    public JButton getSettings() {
         return settings;
     }
 
@@ -169,5 +179,9 @@ public class StartPage extends JPanel {
 
     public JButton getCatButton() {
         return catButton;
+    }
+
+    public JButton getStartNewGame() {
+        return startNewGame;
     }
 }
