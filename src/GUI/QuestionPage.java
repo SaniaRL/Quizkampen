@@ -158,6 +158,7 @@ public class QuestionPage extends JPanel {
     }
 
     public void nextThreeQuestions(String category){
+        indexCount = 0;
         testCategory = category;
         threeQuestions.clear();
         optionButtons.clear();
