@@ -1,6 +1,5 @@
 package GUI.ScoreBoard;
 
-import GUI.CategoryLabel;
 import Question.QuestionCollection;
 
 import javax.swing.*;
@@ -24,8 +23,6 @@ public class ScoreBoardPage extends JPanel {
     //Temporary list
     List<List<Boolean>> winList;
     List<ScoreCount> scoreCounts;
-
-    int count = 0;
 
     public ScoreBoardPage() throws IOException {
 
@@ -62,36 +59,23 @@ public class ScoreBoardPage extends JPanel {
         QuestionCollection questionCollection = new QuestionCollection();
         questionCollection.shuffleCategoryList();
 
+        generateScoreCounts();
 
+    }
 
+    public void generateScoreCounts() throws IOException {
+        QuestionCollection questionCollection = new QuestionCollection();
         for(int i = 0; i < 6; i++){
-            ScoreCount scoreCountLabel = new ScoreCount();
-
-        }
-    }
-
-    public void generateScoreCounts(){
-
-    }
-/*
-    public JPanel generateScorePanel(List<Boolean> winList){
-        JPanel panel = new JPanel();
-        panel.setPreferredSize(new Dimension(300, 80));
-        panel.setOpaque(false);
-        for(int i = 0; i < 3; i++){
-            ScoreLabel scoreLabel;
-            if(winList.size() == 3){
-                scoreLabel = new ScoreLabel(winList.get(i));
+            ScoreCount scoreCountLabel;
+            if(winList.size() > i){
+                scoreCountLabel = new ScoreCount(winList.get(i), questionCollection.getRandomCategory());
             }
             else{
-                scoreLabel = new ScoreLabel();
+                scoreCountLabel = new ScoreCount();
             }
-            panel.add(scoreLabel);
+            centerPanel.add(scoreCountLabel);
         }
-        return panel;
     }
-
- */
 
     public void generateNorthPanel(){
         northPanel.setPreferredSize(new Dimension(800, 150));

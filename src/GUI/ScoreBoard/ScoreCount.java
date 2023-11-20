@@ -1,7 +1,7 @@
 package GUI.ScoreBoard;
 
 import GUI.CategoryLabel;
-import Question.QuestionCollection;
+import Question.QuestionCategory;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import javax.swing.*;
 
 public class ScoreCount extends JPanel {
 
-    QuestionCollection questionCollection;
+    QuestionCategory questionCategory;
 
     List<Boolean> player1Score;
     List<Boolean> player2Score;
@@ -24,15 +24,16 @@ public class ScoreCount extends JPanel {
         player2Score = new ArrayList<>();
         player1Label = new JLabel();
         player2Label = new JLabel();
-        categoryLabel = new JLabel();
+        categoryLabel = new CategoryLabel();
         addComponents();
     }
-    public ScoreCount(List<Boolean> winList, QuestionCollection questionCollection){
-        this.questionCollection = questionCollection;
+    public ScoreCount(List<Boolean> winList, QuestionCategory category){
+        this.questionCategory = category;
         this.player1Score = winList;
+        player2Score = new ArrayList<>();
         player1Label = new JLabel();
         player2Label = new JLabel();
-        categoryLabel = new JLabel();
+        categoryLabel = new CategoryLabel(Color.ORANGE, questionCategory);
         addComponents();
     }
 
@@ -43,7 +44,6 @@ public class ScoreCount extends JPanel {
 
         generatePlayerLabel(player1Label, player1Score);
         add(player1Label);
-        CategoryLabel categoryLabel = new CategoryLabel(Color.ORANGE, questionCollection.getRandomCategory());
         add(categoryLabel);
         generatePlayerLabel(player2Label, player2Score);
         add(player2Label);
