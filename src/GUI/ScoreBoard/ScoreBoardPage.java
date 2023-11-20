@@ -1,5 +1,6 @@
-package GUI;
+package GUI.ScoreBoard;
 
+import GUI.CategoryLabel;
 import Question.QuestionCollection;
 
 import javax.swing.*;
@@ -21,7 +22,9 @@ public class ScoreBoardPage extends JPanel {
     Image backgroundImage;
 
     //Temporary list
-    List<Boolean> winList;
+    List<List<Boolean>> winList;
+    List<ScoreCount> scoreCounts;
+
     int count = 0;
 
     public ScoreBoardPage() throws IOException {
@@ -36,6 +39,7 @@ public class ScoreBoardPage extends JPanel {
 
         backgroundImagePath = "Backgrounds/blueBackground.png";
         backgroundImage = (new ImageIcon(backgroundImagePath)).getImage();
+        scoreCounts = new ArrayList<>();
         addComponents();
     }
 
@@ -58,27 +62,26 @@ public class ScoreBoardPage extends JPanel {
         QuestionCollection questionCollection = new QuestionCollection();
         questionCollection.shuffleCategoryList();
 
+
+
         for(int i = 0; i < 6; i++){
-            JPanel scorePanel = generateScorePanel(winList);
-            centerPanel.add(scorePanel);
+            ScoreCount scoreCountLabel = new ScoreCount();
 
-            CategoryLabel categoryLabel = new CategoryLabel(Color.ORANGE, questionCollection.getRandomCategory());
-            centerPanel.add(categoryLabel);
-
-            JPanel scorePanelOpponent1 = generateScorePanel(winList);
-            centerPanel.add(scorePanelOpponent1);
         }
     }
 
+    public void generateScoreCounts(){
+
+    }
+/*
     public JPanel generateScorePanel(List<Boolean> winList){
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(300, 80));
         panel.setOpaque(false);
         for(int i = 0; i < 3; i++){
             ScoreLabel scoreLabel;
-            if(winList.size() >= count + 1){
-                scoreLabel = new ScoreLabel(winList.get(count));
-                count++;
+            if(winList.size() == 3){
+                scoreLabel = new ScoreLabel(winList.get(i));
             }
             else{
                 scoreLabel = new ScoreLabel();
@@ -87,6 +90,8 @@ public class ScoreBoardPage extends JPanel {
         }
         return panel;
     }
+
+ */
 
     public void generateNorthPanel(){
         northPanel.setPreferredSize(new Dimension(800, 150));
@@ -141,7 +146,7 @@ public class ScoreBoardPage extends JPanel {
         }
     }
 
-    public void setWinList(List<Boolean> winList) {
+    public void setWinList(List<List<Boolean>> winList) {
         this.winList = winList;
     }
 

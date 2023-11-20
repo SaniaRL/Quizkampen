@@ -18,4 +18,6 @@ public class CategoryLabel extends JLabel {
 
         setVisible(true);
     }
+
+//    public CategoryLabel(Color color)
 }

@@ -1,5 +1,7 @@
 package GUI;
 
+import GUI.ScoreBoard.ScoreBoardPage;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +20,8 @@ public class ContentFrame extends JFrame {
     ScoreBoardPage scoreBoardPage;
 
     //Should be moved to game logic later:
-    List<Boolean> win = new ArrayList<>();
-    int countToThree = 0;
+    List<List<Boolean>> totalWins = new ArrayList<>();
+    List<Boolean> currentWin = new ArrayList<>();
     String category = "Film";
 
     public ContentFrame() throws IOException {
@@ -82,7 +84,8 @@ public class ContentFrame extends JFrame {
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
             questionPage.nextThreeQuestions("Musik");
-            cardLayout.show(contentPanel, "QuestionPage");
+            cardLayout.show(contentPanel, "ChooseCategoryPage");
+            addActionListenerToOptions();
         });
 
     }
@@ -90,21 +93,22 @@ public class ContentFrame extends JFrame {
     public void addActionListenerToOptions(){
         List<JButton> optionButtons = questionPage.getOptionButtons();
         for(JButton option : optionButtons){
-            option.addActionListener(ActiveEvent -> {
+            option.addActionListener(ActionEvent -> {
                 if(option.getText().equals(questionPage.getAnswer())){
-                    win.add(true);
+                    currentWin.add(true);
                 }
                 else{
-                    win.add(false);
+                    currentWin.add(false);
                 }
-                if(countToThree < 2){
-                    countToThree++;
+                if(currentWin.size() < 3){
                     questionPage.nextQuestion();
                     cardLayout.show(contentPanel, "QuestionPage");
                     addActionListenerToOptions();
                 }
                 else{
-                    scoreBoardPage.setWinList(win);
+                    totalWins.add(new ArrayList<>(currentWin));
+                    currentWin.clear();
+                    scoreBoardPage.setWinList(totalWins);
                     try {
                         scoreBoardPage.updateScoreBoard();
                     } catch (IOException e) {

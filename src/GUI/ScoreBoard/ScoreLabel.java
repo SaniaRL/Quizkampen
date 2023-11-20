@@ -1,4 +1,4 @@
-package GUI;
+package GUI.ScoreBoard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,10 +10,7 @@ public class ScoreLabel extends JLabel {
     Color defaultColor = Color.BLUE;
 
     public ScoreLabel(Boolean win){
-        setSize(new Dimension(100, 50));
-        setOpaque(false);
-        setText("⚫");
-        setFont(new Font("Montserrat", Font.PLAIN, 40));
+        addComponents();
         if(win){
             setForeground(winColor);
         }
@@ -23,10 +20,14 @@ public class ScoreLabel extends JLabel {
     }
 
     public ScoreLabel(){
+        addComponents();
+        setForeground(defaultColor);
+    }
+
+    public void addComponents(){
         setSize(new Dimension(50, 50));
         setOpaque(false);
         setText("⚫");
         setFont(new Font("Montserrat", Font.PLAIN, 40));
-        setForeground(defaultColor);
     }
 }

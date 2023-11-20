@@ -160,10 +160,11 @@ public class QuestionPage extends JPanel {
     public void nextThreeQuestions(String category){
         testCategory = category;
         threeQuestions.clear();
-        findThreeQuestion();
+        optionButtons.clear();
         centerPanel.removeAll();
         northPanel.removeAll();
         southPanel.removeAll();
+        findThreeQuestion();
         generateCenterPanel();
         generationNorthPanel();
         generateSouthPanel();
