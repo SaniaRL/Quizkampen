@@ -11,9 +11,9 @@ public class ChooseCategoryPage extends JPanel {
     String backgroundImagePath;
     Image backgroundImage;
 
-    JLabel categoryOption1;
-    JLabel categoryOption2;
-    JLabel categoryOption3;
+    CategoryButton categoryOption1;
+    CategoryButton categoryOption2;
+    CategoryButton categoryOption3;
 
     Color colorTheme;
     Color buttonColor;
@@ -26,13 +26,12 @@ public class ChooseCategoryPage extends JPanel {
         backgroundImagePath = "Backgrounds/blueBackground.png";
         backgroundImage = new ImageIcon(backgroundImagePath).getImage();
 
-        categoryOption1 = new JLabel();
-        categoryOption2 = new JLabel();
-        categoryOption3 = new JLabel();
+        categoryOption1 = new CategoryButton("Historia", "Backgrounds/sunYellow.png");
+        categoryOption2 = new CategoryButton("Musik", "Backgrounds/funGreen.png");
+        categoryOption3 = new CategoryButton("Rymden", "Backgrounds/happyPlum.png");
 
         colorTheme = new Color(190, 103, 208);
         buttonColor= new Color(93,246,246);
-
 
         addComponents();
     }
@@ -98,21 +97,24 @@ public class ChooseCategoryPage extends JPanel {
         generateCategoryLabels(categoryOption1, southPanel);
         generateCategoryLabels(categoryOption2, southPanel);
         generateCategoryLabels(categoryOption3, southPanel);
-
     }
-    public void generateCategoryLabels(JLabel label, JPanel panel){
-        //Just nu gör denna alla svart för att jag ska gitta i rätt kategori och inte har fixat
-        //ikonerna för alla olika kategorier, lagt dem i en lista och blandat
-        JPanel labelPanel = new JPanel();
-        label.setBackground(Color.BLACK);
-        label.setOpaque(true);
-        label.setVisible(true);
-        label.setPreferredSize(new Dimension(600, 100));
+    public void generateCategoryLabels(CategoryButton button, JPanel panel){
+        button.setOpaque(true);
+        button.setVisible(true);
+        button.setPreferredSize(new Dimension(600, 100));
 
-        labelPanel.setPreferredSize(new Dimension(800, 150));
-        labelPanel.setOpaque(false);
+        panel.add(button, SwingConstants.CENTER);
+    }
 
-        labelPanel.add(label, SwingConstants.CENTER);
-        panel.add(labelPanel);
+    public CategoryButton getCategoryOption1() {
+        return categoryOption1;
+    }
+
+    public CategoryButton getCategoryOption2() {
+        return categoryOption2;
+    }
+
+    public CategoryButton getCategoryOption3() {
+        return categoryOption3;
     }
 }

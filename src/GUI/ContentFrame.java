@@ -50,8 +50,16 @@ public class ContentFrame extends JFrame {
     }
 
     public void addActionEvents(){
+
+        //STARTPAGE
         startPage.getStartNewGame().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ChooseCategoryPage"));
         startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "QuestionPage"));
-    }
 
+        //CHOOSE CATEGORY PAGE
+        chooseCategoryPage.getCategoryOption1().addActionListener(ActiveEvent -> cardLayout.show(contentPanel, "QuestionPage"));
+        chooseCategoryPage.getCategoryOption2().addActionListener(ActiveEvent -> cardLayout.show(contentPanel, "QuestionPage"));
+        chooseCategoryPage.getCategoryOption3().addActionListener(ActiveEvent -> cardLayout.show(contentPanel, "QuestionPage"));
+
+        //QUESTION PAGE
+    }
 }
