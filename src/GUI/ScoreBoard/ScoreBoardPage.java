@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.awt.*;
 
 public class ScoreBoardPage extends JPanel {
+    String gameID;
 
     JPanel centerPanel;
     JPanel northPanel;
@@ -27,6 +28,7 @@ public class ScoreBoardPage extends JPanel {
     List<QuestionCategory> categoryList;
 
     public ScoreBoardPage() throws IOException {
+        this.gameID = gameID;
 
         centerPanel = new JPanel();
         northPanel = new JPanel();
@@ -152,11 +154,19 @@ public class ScoreBoardPage extends JPanel {
         return playGame;
     }
 
+
     public void addToCategoryList(QuestionCategory category){
         categoryList.add(category);
     }
 
     public void clearCategoryList(){
         categoryList.clear();
+
+    public String getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(String gameID) {
+        this.gameID = gameID;
     }
 }

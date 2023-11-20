@@ -32,10 +32,40 @@ public class ClientHandler extends Thread {
                 //TODO: Add logic for server
                 fromClient = readFromClient();
                 System.out.println(fromClient);
-                if(fromClient.equals("exit")) {
+                if (fromClient.equals("exit")) {
                     System.out.println("Client disconnected");
                     server.shutdown();
                     break;
+                }
+                String[] message = fromClient.split(";");
+                if (fromClient.equals("new game")) {
+                    System.out.println("in new game check");
+                    boolean gamefound = false;
+                    for (Game game : server.games) {
+                        if (game.getPlayer2() == null && game.getTurn().equals("player2")) {
+                            this.writeToClient("game found;" + game.getGameID());
+                            game.setPlayer2(this);
+                            gamefound = true;
+                        }
+                    }
+                    if (!gamefound) {
+                        Game game = new Game(this);
+                        server.games.add(game);
+                        this.writeToClient("game started;" + game.getGameID());
+                    }
+                }
+                if (message[0].equals("round finished")) {
+                    for (Game game : server.games) {
+                        if (game.gameID.equals(message[1])) {
+                            if (game.getTurn().equals("player1")) {
+                                game.setTurn("player2");
+                                game.getPlayer2().writeToClient("your turn;" + game.getGameID());
+                            } else {
+                                game.setTurn("player1");
+                                game.getPlayer1().writeToClient("your turn;" + game.getGameID());
+                            }
+                        }
+                    }
                 }
             }
 
