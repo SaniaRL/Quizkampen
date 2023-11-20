@@ -159,8 +159,9 @@ public class ScoreBoardPage extends JPanel {
         categoryList.add(category);
     }
 
-    public void clearCategoryList(){
+    public void clearCategoryList() {
         categoryList.clear();
+    }
 
     public String getGameID() {
         return gameID;

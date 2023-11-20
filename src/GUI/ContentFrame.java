@@ -113,21 +113,21 @@ public class ContentFrame extends JFrame {
             category = chooseCategoryPage.getCategoryOption1().getText();
             scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
             questionPage.nextThreeQuestions(category);
-            addActionListenerToOptions();
+            addActionListenerToOptions(scoreBoardPage.getGameID());
             cardLayout.show(contentPanel, "QuestionPage");
         });
         chooseCategoryPage.getCategoryOption2().addActionListener(ActiveEvent -> {
             category = chooseCategoryPage.getCategoryOption2().getText();
             scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
             questionPage.nextThreeQuestions(category);
-            addActionListenerToOptions();
+            addActionListenerToOptions(scoreBoardPage.getGameID());
             cardLayout.show(contentPanel, "QuestionPage");
         });
         chooseCategoryPage.getCategoryOption3().addActionListener(ActiveEvent -> {
             category = chooseCategoryPage.getCategoryOption3().getText();
             scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
             questionPage.nextThreeQuestions(category);
-            addActionListenerToOptions();
+            addActionListenerToOptions(scoreBoardPage.getGameID());
             cardLayout.show(contentPanel, "QuestionPage");
         });
 
