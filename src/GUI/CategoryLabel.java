@@ -6,7 +6,7 @@ import java.awt.*;
 public class CategoryLabel extends JLabel {
 
     public CategoryLabel(Color color, Question.QuestionCategory category){
-        setSize(new Dimension(200, 100));
+        setSize(new Dimension(200, 50));
         setBackground(color);
         setLayout(new FlowLayout());
 
