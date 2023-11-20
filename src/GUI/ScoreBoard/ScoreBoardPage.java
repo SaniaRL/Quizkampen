@@ -1,5 +1,6 @@
 package GUI.ScoreBoard;
 
+import Question.QuestionCategory;
 import Question.QuestionCollection;
 
 import javax.swing.*;
@@ -23,6 +24,7 @@ public class ScoreBoardPage extends JPanel {
     //Temporary list
     List<List<Boolean>> winList;
     List<ScoreCount> scoreCounts;
+    List<QuestionCategory> categoryList;
 
     public ScoreBoardPage() throws IOException {
 
@@ -33,6 +35,7 @@ public class ScoreBoardPage extends JPanel {
         playGame = new JButton("SPELA");
 
         winList = new ArrayList<>();
+        categoryList = new ArrayList<>();
 
         backgroundImagePath = "Backgrounds/blueBackground.png";
         backgroundImage = (new ImageIcon(backgroundImagePath)).getImage();
@@ -63,12 +66,13 @@ public class ScoreBoardPage extends JPanel {
 
     }
 
+    //TODO Set from frame
     public void generateScoreCounts() throws IOException {
         QuestionCollection questionCollection = new QuestionCollection();
         for(int i = 0; i < 6; i++){
             ScoreCount scoreCountLabel;
             if(winList.size() > i){
-                scoreCountLabel = new ScoreCount(winList.get(i), questionCollection.getRandomCategory());
+                scoreCountLabel = new ScoreCount(winList.get(i), categoryList.get(i));
             }
             else{
                 scoreCountLabel = new ScoreCount();
@@ -146,5 +150,13 @@ public class ScoreBoardPage extends JPanel {
 
     public JButton getPlayGame() {
         return playGame;
+    }
+
+    public void addToCategoryList(QuestionCategory category){
+        categoryList.add(category);
+    }
+
+    public void clearCategoryList(){
+        categoryList.clear();
     }
 }

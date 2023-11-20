@@ -2,6 +2,8 @@ package GUI;
 
 import GUI.CategoryGUI.ChooseCategoryPage;
 import GUI.ScoreBoard.ScoreBoardPage;
+import Question.QuestionCategory;
+import Question.QuestionCollection;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class ContentFrame extends JFrame {
     List<List<Boolean>> totalWins = new ArrayList<>();
     List<Boolean> currentWin = new ArrayList<>();
     String category = "Film";
+    QuestionCollection questionCollection = new QuestionCollection();
 
     public ContentFrame() throws IOException {
         contentPanel = new JPanel();
@@ -75,16 +78,34 @@ public class ContentFrame extends JFrame {
         waitingPage.getTextButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ChooseCategoryPage"));
 
         //CHOOSE CATEGORY PAGE
-        chooseCategoryPage.getCategoryOption1().addActionListener(ActiveEvent -> cardLayout.show(contentPanel, "QuestionPage"));
-        chooseCategoryPage.getCategoryOption2().addActionListener(ActiveEvent -> cardLayout.show(contentPanel, "QuestionPage"));
-        chooseCategoryPage.getCategoryOption3().addActionListener(ActiveEvent -> cardLayout.show(contentPanel, "QuestionPage"));
+        chooseCategoryPage.getCategoryOption1().addActionListener(ActiveEvent -> {
+            category = chooseCategoryPage.getCategoryOption1().getText();
+            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
+            questionPage.nextThreeQuestions(category);
+            addActionListenerToOptions();
+            cardLayout.show(contentPanel, "QuestionPage");
+        });
+        chooseCategoryPage.getCategoryOption2().addActionListener(ActiveEvent -> {
+            category = chooseCategoryPage.getCategoryOption2().getText();
+            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
+            questionPage.nextThreeQuestions(category);
+            addActionListenerToOptions();
+            cardLayout.show(contentPanel, "QuestionPage");
+        });
+        chooseCategoryPage.getCategoryOption3().addActionListener(ActiveEvent -> {
+            category = chooseCategoryPage.getCategoryOption3().getText();
+            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
+            questionPage.nextThreeQuestions(category);
+            addActionListenerToOptions();
+            cardLayout.show(contentPanel, "QuestionPage");
+        });
 
         //QUESTION PAGE
         addActionListenerToOptions();
 
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
-            questionPage.nextThreeQuestions("Musik");
+            questionPage.nextThreeQuestions(questionCollection.getRandomCategory().label);
             cardLayout.show(contentPanel, "ChooseCategoryPage");
             addActionListenerToOptions();
         });
@@ -115,6 +136,8 @@ public class ContentFrame extends JFrame {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
+
+
                     questionPage.setIndexCount(0);
                     cardLayout.show(contentPanel, "ScoreBoardPage");
                 }

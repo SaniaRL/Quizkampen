@@ -25,7 +25,7 @@ public class ChooseCategoryPage extends JPanel {
     Color buttonColor;
 
     QuestionCollection questionCollection;
-    List<QuestionCategory> randomCategory;
+    List<QuestionCategory> randomCategoryList;
 
 
     public ChooseCategoryPage() throws IOException {
@@ -38,9 +38,9 @@ public class ChooseCategoryPage extends JPanel {
 
         generateRandomCategoryList();
 
-        categoryOption1 = new CategoryButton(randomCategory.get(0));
-        categoryOption2 = new CategoryButton(randomCategory.get(1));
-        categoryOption3 = new CategoryButton(randomCategory.get(2));
+        categoryOption1 = new CategoryButton(randomCategoryList.get(0));
+        categoryOption2 = new CategoryButton(randomCategoryList.get(1));
+        categoryOption3 = new CategoryButton(randomCategoryList.get(2));
 
         colorTheme = new Color(190, 103, 208);
         buttonColor= new Color(93,246,246);
@@ -124,7 +124,7 @@ public class ChooseCategoryPage extends JPanel {
             QuestionCategory questionCategory = questionCollection.getRandomCategory();
             randomCategoryHashset.add(questionCategory);
         }
-        randomCategory = randomCategoryHashset.stream().toList();
+        randomCategoryList = randomCategoryHashset.stream().toList();
     }
 
     public CategoryButton getCategoryOption1() {
