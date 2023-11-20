@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.awt.*;
 
 public class ScoreBoardPage extends JPanel {
+    String gameID;
 
     JPanel centerPanel;
     JPanel northPanel;
@@ -25,6 +26,7 @@ public class ScoreBoardPage extends JPanel {
     List<ScoreCount> scoreCounts;
 
     public ScoreBoardPage() throws IOException {
+        this.gameID = gameID;
 
         centerPanel = new JPanel();
         northPanel = new JPanel();
@@ -146,5 +148,13 @@ public class ScoreBoardPage extends JPanel {
 
     public JButton getPlayGame() {
         return playGame;
+    }
+
+    public String getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(String gameID) {
+        this.gameID = gameID;
     }
 }
