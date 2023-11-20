@@ -35,7 +35,7 @@ public class QuestionPage extends JPanel {
         questionCollection = new QuestionCollection();
         questionList = questionCollection.getAllQuestions();
         threeQuestions = new ArrayList<>();
-        testCategory = "Musik";
+        testCategory = "Litteratur";
 
         questionLabel = new JLabel();
 

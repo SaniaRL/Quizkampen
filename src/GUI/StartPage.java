@@ -2,6 +2,7 @@ package GUI;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class StartPage extends JPanel {
@@ -89,6 +90,7 @@ public class StartPage extends JPanel {
         startNewGame.setLocation(200, 200);
         startNewGame.setText("New Game");
         startNewGame.setFont(new Font("Open Sans", Font.PLAIN, 45));
+        startNewGame.setBorder(new LineBorder(Color.BLUE, 5));
 
         generateEastWestPanels(BorderLayout.WEST);
         centerPanel.add(startNewGame);
@@ -109,7 +111,6 @@ public class StartPage extends JPanel {
         northPanel.setOpaque(false);
 
         settings = createButton(settings, "Icons/Settings.png");
-        settings.setBorder(emptyBorder);
         northPanel.add(settings);
 
         for(int i = 0; i < 5; i++){
@@ -119,7 +120,6 @@ public class StartPage extends JPanel {
         }
 
         notifications = createButton(notifications, "Icons/message.png");
-        notifications.setBorder(emptyBorder);
         northPanel.add(notifications);
     }
 
@@ -134,7 +134,6 @@ public class StartPage extends JPanel {
         southPanel.setOpaque(false);
 
         homeButton = createButton(homeButton, "Icons/house.png");
-        homeButton.setBorder(emptyBorder);
         southPanel.add(homeButton);
 
         for(int i = 0; i < 5; i++){
@@ -144,15 +143,16 @@ public class StartPage extends JPanel {
         }
 
         catButton = createButton(catButton, "Icons/cat.png");
-        catButton.setBorder(emptyBorder);
         southPanel.add(catButton);
     }
 
     public JButton createButton(JButton button, String path){
 
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
         button.setIcon(imageIcon);
+        button.setPreferredSize(new Dimension(80,80));
         button.setOpaque(false);
+        button.setBorder(emptyBorder);
         button.setContentAreaFilled(false);
 
         return button;

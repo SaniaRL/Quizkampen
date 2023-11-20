@@ -1,2 +1,4 @@
-package GUI;public class WaitingLabel {
+package GUI;
+
+public class WaitingLabel {
 }
