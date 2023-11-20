@@ -20,6 +20,7 @@ public class ContentFrame extends JFrame {
     //Should be moved to game logic later:
     List<Boolean> win = new ArrayList<>();
     int countToThree = 0;
+    String category = "Film";
 
     public ContentFrame() throws IOException {
         contentPanel = new JPanel();
@@ -28,7 +29,7 @@ public class ContentFrame extends JFrame {
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage();
+        questionPage = new QuestionPage(category);
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage();
 
@@ -77,6 +78,12 @@ public class ContentFrame extends JFrame {
 
         //QUESTION PAGE
         addActionListenerToOptions();
+
+        //SCORE BOARD PAGE
+        scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
+            questionPage.nextThreeQuestions("Musik");
+            cardLayout.show(contentPanel, "QuestionPage");
+        });
 
     }
 

@@ -91,7 +91,7 @@ public class QuestionCollection {
         Collections.shuffle(categoryList);
     }
     //Another temporary method I created just to check GUI
-    public QuestionCategory getRandomCategory(int i){
+    public QuestionCategory getRandomCategory(){
         categoryList.add(QuestionCategory.ANIMALS);
         categoryList.add(QuestionCategory.HISTORY);
         categoryList.add(QuestionCategory.LITERATURE);
@@ -101,6 +101,8 @@ public class QuestionCollection {
         categoryList.add(QuestionCategory.SPORT);
         categoryList.add(QuestionCategory.TECHNOLOGY);
 
-        return categoryList.get(i);
+        shuffleCategoryList();
+
+        return categoryList.get(0);
     }
 }

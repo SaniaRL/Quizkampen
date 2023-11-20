@@ -4,7 +4,7 @@ ANIMALS;Vilken stor katt är känd för dess svarta päls och är inhemsk till S
 ANIMALS;Vilket djur betraktas som det snabbaste landlevande djuret?;Gepard;Leopard;Jaguar;Mungo
 MOVIES;Vem är den bästa karaktären i julkalendern Mumindalen från 1975?;Förfadern;Ekorren med den vackra svansen;Mumintrollet;Lilla My
 MOVIES;Vad var namnet på protagonisten i "Shawshank Redemption"?;Andy Dufresne;Red Redding;Ellis Boyd "Red" Redding; Tommy Williams
-MOVIES;Vilken film vann en Academy Award för bästa film 1994?Forrest Gump;Pulp Fiction;Schindler's List;The Silence of the Lambs
+MOVIES;Vilken film vann en Academy Award för bästa film 1994?;Forrest Gump;Pulp Fiction;Schindler's List;The Silence of the Lambs
 MOVIES;Vem regisserade Jurassic Park?Steven Spielberg;Christopher Nolan;James Cameron;George Lucas
 SPORT;Vad av följande är inte en erkänd sport?;Tandborstning;Fotboll;Hockey;Konståkning
 SPORT;Vilket land vann VM 2018?Frankrike;Argentina;Tyskland;Brasilien

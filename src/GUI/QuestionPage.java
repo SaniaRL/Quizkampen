@@ -32,12 +32,12 @@ public class QuestionPage extends JPanel {
     String answer;
     List<JButton> optionButtons;
 
-    public QuestionPage() throws IOException {
+    public QuestionPage(String testCategory) throws IOException {
 
         questionCollection = new QuestionCollection();
         questionList = questionCollection.getAllQuestions();
         threeQuestions = new ArrayList<>();
-        testCategory = "Rymden";
+        this.testCategory = testCategory;
 
         questionLabel = new JLabel();
 
@@ -156,12 +156,17 @@ public class QuestionPage extends JPanel {
         repaint();
         revalidate();
     }
-    public int getIndexCount(){
-        return indexCount;
-    }
 
-    public void setIndexCount(int indexCount) {
-        this.indexCount = indexCount;
+    public void nextThreeQuestions(String category){
+        testCategory = category;
+        threeQuestions.clear();
+        findThreeQuestion();
+        centerPanel.removeAll();
+        northPanel.removeAll();
+        southPanel.removeAll();
+        generateCenterPanel();
+        generationNorthPanel();
+        generateSouthPanel();
     }
 
     public String getAnswer() {

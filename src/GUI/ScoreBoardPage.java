@@ -62,7 +62,7 @@ public class ScoreBoardPage extends JPanel {
             JPanel scorePanel = generateScorePanel(winList);
             centerPanel.add(scorePanel);
 
-            CategoryLabel categoryLabel = new CategoryLabel(Color.ORANGE, questionCollection.getRandomCategory(i));
+            CategoryLabel categoryLabel = new CategoryLabel(Color.ORANGE, questionCollection.getRandomCategory());
             centerPanel.add(categoryLabel);
 
             JPanel scorePanelOpponent1 = generateScorePanel(winList);
@@ -153,5 +153,9 @@ public class ScoreBoardPage extends JPanel {
         generateCenterPanel();
         generateNorthPanel();
         generateSouthPanel();
+    }
+
+    public JButton getPlayGame() {
+        return playGame;
     }
 }
