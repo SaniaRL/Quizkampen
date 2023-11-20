@@ -8,7 +8,7 @@ MOVIES;Vilken film vann en Academy Award för bästa film 1994?;Forrest Gump;Pul
 MOVIES;Vem regisserade Jurassic Park?Steven Spielberg;Christopher Nolan;James Cameron;George Lucas
 SPORT;Vad av följande är inte en erkänd sport?;Tandborstning;Fotboll;Hockey;Konståkning
 SPORT;Vilket land vann VM 2018?Frankrike;Argentina;Tyskland;Brasilien
-SPORT;I vilken sport används termerna "Eagle" och "Birdie"?;Golf;Bordstennis;Badminton;Simning;
+SPORT;I vilken sport används termerna "Eagle" och "Birdie"?;Golf;Bordstennis;Badminton;Simning
 SPORT;Vilken tennisspelare har vunnit flest Grand Slam singel-titlar?Novak Djokovic;Serena Williams;Rafael Nadal;Roger Federer
 HISTORY;Vem var Förenta Staternas första president?;George Washington;Thomas Jefferson;John Adams;Benjamin Franklin
 HISTORY;Vilken historisk civilisation byggde Machu Picchu?;Inkan;Aztekerna;Mayafolket;Egypterna

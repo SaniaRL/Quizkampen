@@ -20,4 +20,12 @@ public class CategoryButton extends JButton {
         setFont(new Font("Arial", Font.PLAIN, 40));
         setBorder(new LineBorder(Color.BLUE, 5));
     }
+
+    public void updateCategoryButton(QuestionCategory category){
+        this.category = category;
+        this.backgroundColor = CategoryColor.getColor(category.label);
+
+        setText(category.label);
+        setBackground(backgroundColor);
+    }
 }

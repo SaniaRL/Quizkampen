@@ -4,6 +4,7 @@ import Question.QuestionCategory;
 import Question.QuestionCollection;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.awt.*;
@@ -21,12 +22,8 @@ public class ChooseCategoryPage extends JPanel {
     CategoryButton categoryOption2;
     CategoryButton categoryOption3;
 
-    Color colorTheme;
-    Color buttonColor;
-
     QuestionCollection questionCollection;
     List<QuestionCategory> randomCategoryList;
-
 
     public ChooseCategoryPage() throws IOException {
         northPanel = new JPanel();
@@ -36,14 +33,10 @@ public class ChooseCategoryPage extends JPanel {
         backgroundImagePath = "Backgrounds/blueBackground.png";
         backgroundImage = new ImageIcon(backgroundImagePath).getImage();
 
+        randomCategoryList = new ArrayList<>();
+
         generateRandomCategoryList();
-
-        categoryOption1 = new CategoryButton(randomCategoryList.get(0));
-        categoryOption2 = new CategoryButton(randomCategoryList.get(1));
-        categoryOption3 = new CategoryButton(randomCategoryList.get(2));
-
-        colorTheme = new Color(190, 103, 208);
-        buttonColor= new Color(93,246,246);
+        generateCategoryButtons();
 
         addComponents();
     }
@@ -127,6 +120,12 @@ public class ChooseCategoryPage extends JPanel {
         randomCategoryList = randomCategoryHashset.stream().toList();
     }
 
+    public void generateCategoryButtons(){
+        categoryOption1 = new CategoryButton(randomCategoryList.get(0));
+        categoryOption2 = new CategoryButton(randomCategoryList.get(1));
+        categoryOption3 = new CategoryButton(randomCategoryList.get(2));
+    }
+
     public CategoryButton getCategoryOption1() {
         return categoryOption1;
     }
@@ -137,5 +136,22 @@ public class ChooseCategoryPage extends JPanel {
 
     public CategoryButton getCategoryOption3() {
         return categoryOption3;
+    }
+
+    public void updateQuestionCategories(){
+        generateRandomCategoryList();
+
+        categoryOption1.updateCategoryButton(randomCategoryList.get(0));
+        categoryOption2.updateCategoryButton(randomCategoryList.get(1));
+        categoryOption3.updateCategoryButton(randomCategoryList.get(2));
+
+//        generateCategoryLabels(categoryOption1, southPanel);
+//        generateCategoryLabels(categoryOption2, southPanel);
+//        generateCategoryLabels(categoryOption3, southPanel);
+
+        System.out.println("Update categories");
+
+        repaint();
+        revalidate();
     }
 }
