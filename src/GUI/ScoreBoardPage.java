@@ -5,7 +5,6 @@ import Question.QuestionCollection;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.*;
@@ -23,6 +22,7 @@ public class ScoreBoardPage extends JPanel {
 
     //Temporary list
     List<Boolean> winList;
+    int count = 0;
 
     public ScoreBoardPage() throws IOException {
 
@@ -33,9 +33,6 @@ public class ScoreBoardPage extends JPanel {
         playGame = new JButton("SPELA");
 
         winList = new ArrayList<>();
-        winList.add(true);
-        winList.add(true);
-        winList.add(false);
 
         backgroundImagePath = "Backgrounds/blueBackground.png";
         backgroundImage = (new ImageIcon(backgroundImagePath)).getImage();
@@ -78,8 +75,14 @@ public class ScoreBoardPage extends JPanel {
         panel.setPreferredSize(new Dimension(300, 80));
         panel.setOpaque(false);
         for(int i = 0; i < 3; i++){
-            Collections.shuffle(winList);
-            ScoreLabel scoreLabel = new ScoreLabel(winList.get(i));
+            ScoreLabel scoreLabel;
+            if(winList.size() >= count + 1){
+                scoreLabel = new ScoreLabel(winList.get(count));
+                count++;
+            }
+            else{
+                scoreLabel = new ScoreLabel();
+            }
             panel.add(scoreLabel);
         }
         return panel;
@@ -136,5 +139,19 @@ public class ScoreBoardPage extends JPanel {
         if (backgroundImage != null) {
             g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
         }
+    }
+
+    public void setWinList(List<Boolean> winList) {
+        this.winList = winList;
+    }
+
+    public void updateScoreBoard() throws IOException {
+        centerPanel.removeAll();
+        northPanel.removeAll();
+        southPanel.removeAll();
+
+        generateCenterPanel();
+        generateNorthPanel();
+        generateSouthPanel();
     }
 }

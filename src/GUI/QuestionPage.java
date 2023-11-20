@@ -89,10 +89,10 @@ public class QuestionPage extends JPanel {
 
 
         JLabel questionLabel = new JLabel((threeQuestions.get(indexCount)).getQuestion(), SwingConstants.CENTER);
-        questionLabel.setFont(new Font("Montserrat", Font.PLAIN, 22));
-        questionLabel.setPreferredSize(new Dimension(500, 200));
+        questionLabel.setFont(new Font("Montserrat", Font.PLAIN, 20));
+        questionLabel.setPreferredSize(new Dimension(600, 200));
         questionLabel.setBackground(Color.white);
-        questionLabel.setBorder(new LineBorder(Color.BLACK));
+        questionLabel.setBorder(new LineBorder(Color.BLUE, 5));
         questionLabel.setOpaque(true);
 
         centerPanel.add(questionLabel);

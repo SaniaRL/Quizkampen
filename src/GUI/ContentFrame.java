@@ -97,6 +97,12 @@ public class ContentFrame extends JFrame {
                     addActionListenerToOptions();
                 }
                 else{
+                    scoreBoardPage.setWinList(win);
+                    try {
+                        scoreBoardPage.updateScoreBoard();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     cardLayout.show(contentPanel, "ScoreBoardPage");
                 }
             });
