@@ -4,13 +4,19 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class QuestionCollection {
     String path;
     List<Question> allQuestions = new ArrayList<>();
 
-/*
+
+    //Temporary for GUI purposes
+    List<QuestionCategory> categoryList = new ArrayList<>();
+
+
+    /*
     public static void main(String[] args) throws IOException {
         QuestionCollection questionCollection = new QuestionCollection();
         for(Question question : questionCollection.allQuestions){
@@ -78,5 +84,23 @@ public class QuestionCollection {
 
     public List<Question> getAllQuestions() {
         return allQuestions;
+    }
+
+    //Another temporary method I created just to check GUI
+    public void shuffleCategoryList(){
+        Collections.shuffle(categoryList);
+    }
+    //Another temporary method I created just to check GUI
+    public QuestionCategory getRandomCategory(int i){
+        categoryList.add(QuestionCategory.ANIMALS);
+        categoryList.add(QuestionCategory.HISTORY);
+        categoryList.add(QuestionCategory.LITERATURE);
+        categoryList.add(QuestionCategory.MOVIES);
+        categoryList.add(QuestionCategory.MUSIC);
+        categoryList.add(QuestionCategory.SPACE);
+        categoryList.add(QuestionCategory.SPORT);
+        categoryList.add(QuestionCategory.TECHNOLOGY);
+
+        return categoryList.get(i);
     }
 }

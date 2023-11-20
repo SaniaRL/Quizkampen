@@ -1,8 +1,11 @@
 package GUI;
 
 import Question.QuestionCategory;
+import Question.QuestionCollection;
 
 import javax.swing.*;
+import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.*;
@@ -19,7 +22,7 @@ public class ScoreBoardPage extends JPanel {
     //Temporary list
     List<Boolean> winList;
 
-    public ScoreBoardPage(){
+    public ScoreBoardPage() throws IOException {
 
         centerPanel = new JPanel();
         northPanel = new JPanel();
@@ -35,7 +38,7 @@ public class ScoreBoardPage extends JPanel {
         addComponents();
     }
 
-    public void addComponents(){
+    public void addComponents() throws IOException {
         setLayout(new BorderLayout());
 
         generateCenterPanel();
@@ -44,19 +47,24 @@ public class ScoreBoardPage extends JPanel {
         add(northPanel, BorderLayout.NORTH);
     }
 
-    public void generateCenterPanel(){
+    public void generateCenterPanel() throws IOException {
         centerPanel.setPreferredSize(new Dimension(800, 700));
-        centerPanel.setLayout(new GridLayout(1, 3));
+        centerPanel.setLayout(new GridLayout(6, 3));
         centerPanel.setOpaque(false);
 
-        JPanel scorePanel = generateScorePanel(winList);
-        centerPanel.add(scorePanel);
+        QuestionCollection questionCollection = new QuestionCollection();
+        questionCollection.shuffleCategoryList();
 
-        CategoryLabel categoryLabel = new CategoryLabel(Color.ORANGE, QuestionCategory.HISTORY);
-        centerPanel.add(categoryLabel, SwingConstants.CENTER);
+        for(int i = 0; i < 6; i++){
+            JPanel scorePanel = generateScorePanel(winList);
+            centerPanel.add(scorePanel);
 
-        JPanel scorePanelOpponent1 = generateScorePanel(winList);
-        centerPanel.add(scorePanelOpponent1);
+            CategoryLabel categoryLabel = new CategoryLabel(Color.ORANGE, questionCollection.getRandomCategory(i));
+            centerPanel.add(categoryLabel);
+
+            JPanel scorePanelOpponent1 = generateScorePanel(winList);
+            centerPanel.add(scorePanelOpponent1);
+        }
     }
 
     public JPanel generateScorePanel(List<Boolean> winList){
@@ -64,6 +72,7 @@ public class ScoreBoardPage extends JPanel {
         panel.setPreferredSize(new Dimension(300, 100));
         panel.setOpaque(false);
         for(int i = 0; i < 3; i++){
+            Collections.shuffle(winList);
             ScoreLabel scoreLabel = new ScoreLabel(winList.get(i));
             panel.add(scoreLabel);
         }

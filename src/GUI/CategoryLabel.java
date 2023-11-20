@@ -8,7 +8,14 @@ public class CategoryLabel extends JLabel {
     public CategoryLabel(Color color, Question.QuestionCategory category){
         setSize(new Dimension(200, 100));
         setBackground(color);
-        setText(category.label);
-        setFont(new Font("Montserrat", Font.PLAIN, 40));
+        setLayout(new FlowLayout());
+
+        JLabel textLabel = new JLabel(category.label, SwingConstants.CENTER);
+        textLabel.setFont(new Font("Montserrat", Font.PLAIN, 40));
+        textLabel.setVisible(true);
+        textLabel.setForeground(Color.BLACK);
+        add(textLabel);
+
+        setVisible(true);
     }
 }
