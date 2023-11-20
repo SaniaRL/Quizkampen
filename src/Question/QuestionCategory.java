@@ -6,7 +6,7 @@ public enum QuestionCategory {
         HISTORY("Historia"),
         SPORT("Sport"),
         MUSIC("Musik"),
-        ANIMALS("Djur och Natur"),
+        ANIMALS("Djur"),
         LITERATURE("Litteratur"),
         TECHNOLOGY("Teknologi"),
         SPACE("Rymden");

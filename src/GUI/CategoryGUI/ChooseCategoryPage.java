@@ -1,7 +1,13 @@
-package GUI;
+package GUI.CategoryGUI;
+
+import Question.QuestionCategory;
+import Question.QuestionCollection;
 
 import javax.swing.*;
+import java.util.HashSet;
+import java.util.List;
 import java.awt.*;
+import java.io.IOException;
 
 public class ChooseCategoryPage extends JPanel {
 
@@ -18,17 +24,23 @@ public class ChooseCategoryPage extends JPanel {
     Color colorTheme;
     Color buttonColor;
 
+    QuestionCollection questionCollection;
+    List<QuestionCategory> randomCategory;
 
-    public ChooseCategoryPage(){
+
+    public ChooseCategoryPage() throws IOException {
         northPanel = new JPanel();
         southPanel = new JPanel();
+        questionCollection = new QuestionCollection();
 
         backgroundImagePath = "Backgrounds/blueBackground.png";
         backgroundImage = new ImageIcon(backgroundImagePath).getImage();
 
-        categoryOption1 = new CategoryButton("Historia", "Backgrounds/sunYellow.png");
-        categoryOption2 = new CategoryButton("Musik", "Backgrounds/funGreen.png");
-        categoryOption3 = new CategoryButton("Rymden", "Backgrounds/happyPlum.png");
+        generateRandomCategoryList();
+
+        categoryOption1 = new CategoryButton(randomCategory.get(0));
+        categoryOption2 = new CategoryButton(randomCategory.get(1));
+        categoryOption3 = new CategoryButton(randomCategory.get(2));
 
         colorTheme = new Color(190, 103, 208);
         buttonColor= new Color(93,246,246);
@@ -104,6 +116,15 @@ public class ChooseCategoryPage extends JPanel {
         button.setPreferredSize(new Dimension(600, 100));
 
         panel.add(button, SwingConstants.CENTER);
+    }
+
+    public void generateRandomCategoryList(){
+        HashSet<QuestionCategory> randomCategoryHashset = new HashSet<>();
+        while(randomCategoryHashset.size() < 3){
+            QuestionCategory questionCategory = questionCollection.getRandomCategory();
+            randomCategoryHashset.add(questionCategory);
+        }
+        randomCategory = randomCategoryHashset.stream().toList();
     }
 
     public CategoryButton getCategoryOption1() {

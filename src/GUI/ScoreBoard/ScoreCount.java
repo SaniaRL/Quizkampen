@@ -1,6 +1,6 @@
 package GUI.ScoreBoard;
 
-import GUI.CategoryLabel;
+import GUI.CategoryGUI.CategoryLabel;
 import Question.QuestionCategory;
 
 import java.awt.*;

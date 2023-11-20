@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.CategoryGUI.ChooseCategoryPage;
 import GUI.ScoreBoard.ScoreBoardPage;
 
 import javax.swing.*;
