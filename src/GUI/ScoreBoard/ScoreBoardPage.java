@@ -53,7 +53,7 @@ public class ScoreBoardPage extends JPanel {
 
     public void generateCenterPanel() throws IOException {
         centerPanel.setPreferredSize(new Dimension(800, 500));
-        centerPanel.setLayout(new GridLayout(6, 3));
+        centerPanel.setLayout(new GridLayout(6, 1));
         centerPanel.setOpaque(false);
 
         QuestionCollection questionCollection = new QuestionCollection();
