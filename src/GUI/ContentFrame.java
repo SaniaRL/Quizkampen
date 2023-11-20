@@ -1,6 +1,10 @@
 package GUI;
 
+import GUI.ScoreBoard.ScoreBoardPage;
+
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.*;
 import java.io.IOException;
 
@@ -15,6 +19,11 @@ public class ContentFrame extends JFrame {
     WaitingPage waitingPage;
     ScoreBoardPage scoreBoardPage;
 
+    //Should be moved to game logic later:
+    List<List<Boolean>> totalWins = new ArrayList<>();
+    List<Boolean> currentWin = new ArrayList<>();
+    String category = "Film";
+
     public ContentFrame() throws IOException {
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
@@ -22,7 +31,7 @@ public class ContentFrame extends JFrame {
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage();
+        questionPage = new QuestionPage(category);
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage();
 
@@ -70,5 +79,44 @@ public class ContentFrame extends JFrame {
         chooseCategoryPage.getCategoryOption3().addActionListener(ActiveEvent -> cardLayout.show(contentPanel, "QuestionPage"));
 
         //QUESTION PAGE
+        addActionListenerToOptions();
+
+        //SCORE BOARD PAGE
+        scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
+            questionPage.nextThreeQuestions("Musik");
+            cardLayout.show(contentPanel, "ChooseCategoryPage");
+            addActionListenerToOptions();
+        });
+
+    }
+
+    public void addActionListenerToOptions(){
+        List<JButton> optionButtons = questionPage.getOptionButtons();
+        for(JButton option : optionButtons){
+            option.addActionListener(ActionEvent -> {
+                if(option.getText().equals(questionPage.getAnswer())){
+                    currentWin.add(true);
+                }
+                else{
+                    currentWin.add(false);
+                }
+                if(currentWin.size() < 3){
+                    questionPage.nextQuestion();
+                    cardLayout.show(contentPanel, "QuestionPage");
+                    addActionListenerToOptions();
+                }
+                else{
+                    totalWins.add(new ArrayList<>(currentWin));
+                    currentWin.clear();
+                    scoreBoardPage.setWinList(totalWins);
+                    try {
+                        scoreBoardPage.updateScoreBoard();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    cardLayout.show(contentPanel, "ScoreBoardPage");
+                }
+            });
+        }
     }
 }

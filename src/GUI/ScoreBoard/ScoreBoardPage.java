@@ -1,11 +1,10 @@
-package GUI;
+package GUI.ScoreBoard;
 
 import Question.QuestionCollection;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.*;
@@ -22,7 +21,8 @@ public class ScoreBoardPage extends JPanel {
     Image backgroundImage;
 
     //Temporary list
-    List<Boolean> winList;
+    List<List<Boolean>> winList;
+    List<ScoreCount> scoreCounts;
 
     public ScoreBoardPage() throws IOException {
 
@@ -33,12 +33,10 @@ public class ScoreBoardPage extends JPanel {
         playGame = new JButton("SPELA");
 
         winList = new ArrayList<>();
-        winList.add(true);
-        winList.add(true);
-        winList.add(false);
 
         backgroundImagePath = "Backgrounds/blueBackground.png";
         backgroundImage = (new ImageIcon(backgroundImagePath)).getImage();
+        scoreCounts = new ArrayList<>();
         addComponents();
     }
 
@@ -61,28 +59,22 @@ public class ScoreBoardPage extends JPanel {
         QuestionCollection questionCollection = new QuestionCollection();
         questionCollection.shuffleCategoryList();
 
-        for(int i = 0; i < 6; i++){
-            JPanel scorePanel = generateScorePanel(winList);
-            centerPanel.add(scorePanel);
+        generateScoreCounts();
 
-            CategoryLabel categoryLabel = new CategoryLabel(Color.ORANGE, questionCollection.getRandomCategory(i));
-            centerPanel.add(categoryLabel);
-
-            JPanel scorePanelOpponent1 = generateScorePanel(winList);
-            centerPanel.add(scorePanelOpponent1);
-        }
     }
 
-    public JPanel generateScorePanel(List<Boolean> winList){
-        JPanel panel = new JPanel();
-        panel.setPreferredSize(new Dimension(300, 80));
-        panel.setOpaque(false);
-        for(int i = 0; i < 3; i++){
-            Collections.shuffle(winList);
-            ScoreLabel scoreLabel = new ScoreLabel(winList.get(i));
-            panel.add(scoreLabel);
+    public void generateScoreCounts() throws IOException {
+        QuestionCollection questionCollection = new QuestionCollection();
+        for(int i = 0; i < 6; i++){
+            ScoreCount scoreCountLabel;
+            if(winList.size() > i){
+                scoreCountLabel = new ScoreCount(winList.get(i), questionCollection.getRandomCategory());
+            }
+            else{
+                scoreCountLabel = new ScoreCount();
+            }
+            centerPanel.add(scoreCountLabel);
         }
-        return panel;
     }
 
     public void generateNorthPanel(){
@@ -136,5 +128,23 @@ public class ScoreBoardPage extends JPanel {
         if (backgroundImage != null) {
             g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
         }
+    }
+
+    public void setWinList(List<List<Boolean>> winList) {
+        this.winList = winList;
+    }
+
+    public void updateScoreBoard() throws IOException {
+        centerPanel.removeAll();
+        northPanel.removeAll();
+        southPanel.removeAll();
+
+        generateCenterPanel();
+        generateNorthPanel();
+        generateSouthPanel();
+    }
+
+    public JButton getPlayGame() {
+        return playGame;
     }
 }

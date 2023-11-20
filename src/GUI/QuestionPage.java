@@ -29,13 +29,15 @@ public class QuestionPage extends JPanel {
     Image backgroundImage;
 
     int indexCount;
+    String answer;
+    List<JButton> optionButtons;
 
-    public QuestionPage() throws IOException {
+    public QuestionPage(String testCategory) throws IOException {
 
         questionCollection = new QuestionCollection();
         questionList = questionCollection.getAllQuestions();
         threeQuestions = new ArrayList<>();
-        testCategory = "Rymden";
+        this.testCategory = testCategory;
 
         questionLabel = new JLabel();
 
@@ -47,6 +49,7 @@ public class QuestionPage extends JPanel {
         backgroundImage = new ImageIcon(backgroundImagePath).getImage();
 
         indexCount = 0;
+        optionButtons = new ArrayList<>();
 
         addComponents();
 
@@ -86,10 +89,10 @@ public class QuestionPage extends JPanel {
 
 
         JLabel questionLabel = new JLabel((threeQuestions.get(indexCount)).getQuestion(), SwingConstants.CENTER);
-        questionLabel.setFont(new Font("Montserrat", Font.PLAIN, 22));
-        questionLabel.setPreferredSize(new Dimension(500, 200));
+        questionLabel.setFont(new Font("Montserrat", Font.PLAIN, 20));
+        questionLabel.setPreferredSize(new Dimension(600, 200));
         questionLabel.setBackground(Color.white);
-        questionLabel.setBorder(new LineBorder(Color.BLACK));
+        questionLabel.setBorder(new LineBorder(Color.BLUE, 5));
         questionLabel.setOpaque(true);
 
         centerPanel.add(questionLabel);
@@ -119,17 +122,17 @@ public class QuestionPage extends JPanel {
         southPanel.setOpaque(false);
 
         List<String> optionsList = new ArrayList<>(Arrays.stream((threeQuestions.get(indexCount)).getQuestionOptions()).toList());
+        answer = optionsList.get(0);
         Collections.shuffle(optionsList);
         if(optionsList.size() == 4){
             for (String string : optionsList) {
                 JButton button = new JButton(string);
                 button.setPreferredSize(new Dimension(200, 100));
                 button.setBackground(Color.white);
-//                button.setOpaque(true);
                 southPanel.add(button, SwingConstants.CENTER);
+                optionButtons.add(button);
             }
         }
-
     }
 
     public void findThreeQuestion(){
@@ -140,5 +143,38 @@ public class QuestionPage extends JPanel {
                     }
                 }
             }
+    }
+
+    public void nextQuestion(){
+        indexCount++;
+        northPanel.removeAll();
+        centerPanel.removeAll();
+        southPanel.removeAll();
+        generationNorthPanel();
+        generateCenterPanel();
+        generateSouthPanel();
+        repaint();
+        revalidate();
+    }
+
+    public void nextThreeQuestions(String category){
+        testCategory = category;
+        threeQuestions.clear();
+        optionButtons.clear();
+        centerPanel.removeAll();
+        northPanel.removeAll();
+        southPanel.removeAll();
+        findThreeQuestion();
+        generateCenterPanel();
+        generationNorthPanel();
+        generateSouthPanel();
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public List<JButton> getOptionButtons() {
+        return optionButtons;
     }
 }
