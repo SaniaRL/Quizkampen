@@ -35,7 +35,7 @@ public class QuestionPage extends JPanel {
         questionCollection = new QuestionCollection();
         questionList = questionCollection.getAllQuestions();
         threeQuestions = new ArrayList<>();
-        testCategory = "Litteratur";
+        testCategory = "Rymden";
 
         questionLabel = new JLabel();
 
@@ -121,8 +121,8 @@ public class QuestionPage extends JPanel {
         List<String> optionsList = new ArrayList<>(Arrays.stream((threeQuestions.get(indexCount)).getQuestionOptions()).toList());
         Collections.shuffle(optionsList);
         if(optionsList.size() == 4){
-            for(int i = 0; i < optionsList.size(); i++){
-                JButton button = new JButton(optionsList.get(i));
+            for (String string : optionsList) {
+                JButton button = new JButton(string);
                 button.setPreferredSize(new Dimension(200, 100));
                 button.setBackground(Color.white);
 //                button.setOpaque(true);
@@ -140,13 +140,5 @@ public class QuestionPage extends JPanel {
                     }
                 }
             }
-    }
-
-    public void generateRoundedBorder(){
-
-    }
-
-    public void generateOptionLabels(){
-
     }
 }

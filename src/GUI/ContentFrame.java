@@ -13,6 +13,7 @@ public class ContentFrame extends JFrame {
     ChooseCategoryPage chooseCategoryPage;
     QuestionPage questionPage;
     WaitingPage waitingPage;
+    ScoreBoardPage scoreBoardPage;
 
     public ContentFrame() throws IOException {
         contentPanel = new JPanel();
@@ -23,6 +24,7 @@ public class ContentFrame extends JFrame {
         chooseCategoryPage = new ChooseCategoryPage();
         questionPage = new QuestionPage();
         waitingPage = new WaitingPage();
+        scoreBoardPage = new ScoreBoardPage();
 
         buildFrame();
     }
@@ -46,6 +48,7 @@ public class ContentFrame extends JFrame {
         contentPanel.add(chooseCategoryPage, "ChooseCategoryPage");
         contentPanel.add(questionPage, "QuestionPage");
         contentPanel.add(waitingPage, "WaitingPage");
+        contentPanel.add(scoreBoardPage, "ScoreBoardPage");
 
         add(contentPanel);
         addActionEvents();
@@ -56,7 +59,7 @@ public class ContentFrame extends JFrame {
 
         //START PAGE
         startPage.getStartNewGame().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "WaitingPage"));
-        startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "QuestionPage"));
+        startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ScoreBoardPage"));
 
         //WAITING PAGE
         waitingPage.getTextButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ChooseCategoryPage"));
