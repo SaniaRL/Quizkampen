@@ -40,7 +40,6 @@ public class ContentFrame extends JFrame {
 
     //TODO Remove main
     public static void main(String[] args) throws IOException {
-        @SuppressWarnings("unused")
         ContentFrame contentFrame = new ContentFrame();
     }
 
