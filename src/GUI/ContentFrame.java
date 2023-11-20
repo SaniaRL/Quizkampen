@@ -1,6 +1,8 @@
 package GUI;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.*;
 import java.io.IOException;
 
@@ -14,6 +16,10 @@ public class ContentFrame extends JFrame {
     QuestionPage questionPage;
     WaitingPage waitingPage;
     ScoreBoardPage scoreBoardPage;
+
+    //Should be moved to game logic later:
+    List<Boolean> win = new ArrayList<>();
+    int countToThree = 0;
 
     public ContentFrame() throws IOException {
         contentPanel = new JPanel();
@@ -70,5 +76,30 @@ public class ContentFrame extends JFrame {
         chooseCategoryPage.getCategoryOption3().addActionListener(ActiveEvent -> cardLayout.show(contentPanel, "QuestionPage"));
 
         //QUESTION PAGE
+        addActionListenerToOptions();
+
+    }
+
+    public void addActionListenerToOptions(){
+        List<JButton> optionButtons = questionPage.getOptionButtons();
+        for(JButton option : optionButtons){
+            option.addActionListener(ActiveEvent -> {
+                if(option.getText().equals(questionPage.getAnswer())){
+                    win.add(true);
+                }
+                else{
+                    win.add(false);
+                }
+                if(countToThree < 2){
+                    countToThree++;
+                    questionPage.nextQuestion();
+                    cardLayout.show(contentPanel, "QuestionPage");
+                    addActionListenerToOptions();
+                }
+                else{
+                    cardLayout.show(contentPanel, "ScoreBoardPage");
+                }
+            });
+        }
     }
 }

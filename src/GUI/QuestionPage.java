@@ -29,6 +29,8 @@ public class QuestionPage extends JPanel {
     Image backgroundImage;
 
     int indexCount;
+    String answer;
+    List<JButton> optionButtons;
 
     public QuestionPage() throws IOException {
 
@@ -47,6 +49,7 @@ public class QuestionPage extends JPanel {
         backgroundImage = new ImageIcon(backgroundImagePath).getImage();
 
         indexCount = 0;
+        optionButtons = new ArrayList<>();
 
         addComponents();
 
@@ -119,17 +122,17 @@ public class QuestionPage extends JPanel {
         southPanel.setOpaque(false);
 
         List<String> optionsList = new ArrayList<>(Arrays.stream((threeQuestions.get(indexCount)).getQuestionOptions()).toList());
+        answer = optionsList.get(0);
         Collections.shuffle(optionsList);
         if(optionsList.size() == 4){
             for (String string : optionsList) {
                 JButton button = new JButton(string);
                 button.setPreferredSize(new Dimension(200, 100));
                 button.setBackground(Color.white);
-//                button.setOpaque(true);
                 southPanel.add(button, SwingConstants.CENTER);
+                optionButtons.add(button);
             }
         }
-
     }
 
     public void findThreeQuestion(){
@@ -140,5 +143,32 @@ public class QuestionPage extends JPanel {
                     }
                 }
             }
+    }
+
+    public void nextQuestion(){
+        indexCount++;
+        northPanel.removeAll();
+        centerPanel.removeAll();
+        southPanel.removeAll();
+        generationNorthPanel();
+        generateCenterPanel();
+        generateSouthPanel();
+        repaint();
+        revalidate();
+    }
+    public int getIndexCount(){
+        return indexCount;
+    }
+
+    public void setIndexCount(int indexCount) {
+        this.indexCount = indexCount;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public List<JButton> getOptionButtons() {
+        return optionButtons;
     }
 }
