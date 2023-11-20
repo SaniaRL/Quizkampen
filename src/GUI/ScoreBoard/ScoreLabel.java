@@ -25,9 +25,9 @@ public class ScoreLabel extends JLabel {
     }
 
     public void addComponents(){
-        setSize(new Dimension(50, 50));
+        setSize(new Dimension(80, 50));
         setOpaque(false);
         setText("⚫");
-        setFont(new Font("Montserrat", Font.PLAIN, 40));
+        setFont(new Font("Montserrat", Font.PLAIN, 70));
     }
 }

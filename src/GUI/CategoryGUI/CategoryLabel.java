@@ -1,4 +1,4 @@
-package GUI;
+package GUI.CategoryGUI;
 
 import javax.swing.*;
 import java.awt.*;
