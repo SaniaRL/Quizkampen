@@ -145,12 +145,6 @@ public class ChooseCategoryPage extends JPanel {
         categoryOption2.updateCategoryButton(randomCategoryList.get(1));
         categoryOption3.updateCategoryButton(randomCategoryList.get(2));
 
-//        generateCategoryLabels(categoryOption1, southPanel);
-//        generateCategoryLabels(categoryOption2, southPanel);
-//        generateCategoryLabels(categoryOption3, southPanel);
-
-        System.out.println("Update categories");
-
         repaint();
         revalidate();
     }

@@ -105,10 +105,8 @@ public class ContentFrame extends JFrame {
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
             questionPage.nextThreeQuestions(questionCollection.getRandomCategory().label);
-            System.out.println("poop");
             SwingUtilities.invokeLater(() -> {
                 chooseCategoryPage.updateQuestionCategories();
-//                addActionListenerToOptions();
             });
             cardLayout.show(contentPanel, "ChooseCategoryPage");
         });
@@ -138,7 +136,6 @@ public class ContentFrame extends JFrame {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-
 
                     questionPage.setIndexCount(0);
                     cardLayout.show(contentPanel, "ScoreBoardPage");
