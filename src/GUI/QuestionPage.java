@@ -174,7 +174,7 @@ public class QuestionPage extends JPanel {
         return answer;
     }
 
-    public List<JButton> getOptionButtons() {
-        return optionButtons;
-    }
+    public List<JButton> getOptionButtons() {return optionButtons;}
+    public void setIndexCount(int indexCount) {this.indexCount = indexCount;}
+
 }

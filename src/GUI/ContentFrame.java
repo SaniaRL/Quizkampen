@@ -114,6 +114,7 @@ public class ContentFrame extends JFrame {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
+                    questionPage.setIndexCount(0);
                     cardLayout.show(contentPanel, "ScoreBoardPage");
                 }
             });
