@@ -31,8 +31,9 @@ public class ClientHandler extends Thread {
             while (true) {
                 //TODO: Add logic for server
                 fromClient = readFromClient();
+                String[] message = fromClient.split(";");
                 System.out.println(fromClient);
-                if (fromClient.equals("exit")) {
+                if (message[0].equals("exit")) {
                     System.out.println("Client disconnected");
                     server.shutdown();
                     break;
@@ -55,8 +56,8 @@ public class ClientHandler extends Thread {
                                 System.out.println(game.getPlayer2());
                             }
                         }
-                    }
-                    if (!gamefound) {
+                    } else {
+                        System.out.println("creating new game");
                         Game game = new Game(this);
                         server.games.add(game);
                         this.writeToClient("game started;" + game.getGameID());
