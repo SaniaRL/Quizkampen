@@ -37,15 +37,23 @@ public class ClientHandler extends Thread {
                     server.shutdown();
                     break;
                 }
-                String[] message = fromClient.split(";");
-                if (fromClient.equals("new game")) {
+
+                if (message[0].equals("new game")) {
                     System.out.println("in new game check");
-                    boolean gamefound = false;
-                    for (Game game : server.games) {
-                        if (game.getPlayer2() == null && game.getTurn().equals("player2")) {
-                            this.writeToClient("game found;" + game.getGameID());
-                            game.setPlayer2(this);
-                            gamefound = true;
+                    if (!server.games.isEmpty()) {
+                        for (Game game : server.games) {
+                            System.out.println("in for loop");
+                            if (game.getPlayer2() == null && game.getTurn().equals("player1")) {
+                                System.out.println(game.getGameID());
+                                this.writeToClient("game found wait;" + game.getGameID());
+                                game.setPlayer2(this);
+                                System.out.println(game.getPlayer2());
+                            } else if (game.getPlayer2() == null && game.getTurn().equals("player2")) {
+                                System.out.println(game.getGameID());
+                                this.writeToClient("game found start;" + game.getGameID());
+                                game.setPlayer2(this);
+                                System.out.println(game.getPlayer2());
+                            }
                         }
                     }
                     if (!gamefound) {

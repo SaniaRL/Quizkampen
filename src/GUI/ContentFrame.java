@@ -112,6 +112,11 @@ public class ContentFrame extends JFrame {
         addActionListenerToOptions(gameID);
     }
 
+    public void waitingForPlayer(String gameID) {
+        this.gameID = gameID;
+        cardLayout.show(contentPanel, "WaitingPage");
+    }
+
     public void addActionEvents() {
 
         //START PAGE

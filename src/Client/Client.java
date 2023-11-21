@@ -32,7 +32,13 @@ public class Client {
                     frame.getGames().add(message[1]);
                     frame.newGameStarted(message[1]);
                 }
-                if(message[0].equals("game found")){
+                if(message[0].equals("game found wait")){
+                    System.out.println("found game waiting");
+                    frame.getGames().add(message[1]);
+                    frame.waitingForPlayer(message[1]);
+                }
+                if(message[0].equals("game found start")){
+                    System.out.println("found game starting");
                     frame.getGames().add(message[1]);
                     frame.getQuestions(message[1]);
                 }
