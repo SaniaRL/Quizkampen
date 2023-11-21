@@ -23,6 +23,8 @@ public class ContentFrame extends JFrame {
     WaitingPage waitingPage;
     ScoreBoardPage scoreBoardPage;
 
+    String gameID = "4556";
+
     //Should be moved to game logic later:
     List<List<Boolean>> totalWins = new ArrayList<>();
     List<Boolean> currentWin = new ArrayList<>();
@@ -47,11 +49,25 @@ public class ContentFrame extends JFrame {
 
         buildFrame();
     }
+    public ContentFrame() throws IOException {
+        contentPanel = new JPanel();
+        cardLayout = new CardLayout();
+        contentPanel.setLayout(cardLayout);
+
+        startPage = new StartPage();
+        chooseCategoryPage = new ChooseCategoryPage();
+        questionPage = new QuestionPage(category);
+        waitingPage = new WaitingPage();
+        scoreBoardPage = new ScoreBoardPage();
+
+        buildFrame();
+    }
 
     //TODO Remove main
-//    public static void main(String[] args) throws IOException {
-//        ContentFrame contentFrame = new ContentFrame();
-//    }
+    public static void main(String[] args) throws IOException {
+        @SuppressWarnings("unused")
+        ContentFrame contentFrame = new ContentFrame();
+    }
 
     public void buildFrame() {
         setSize(800, 800);
@@ -79,7 +95,7 @@ public class ContentFrame extends JFrame {
             out.newLine();
             out.flush();
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(System.err);
         }
     }
 
@@ -99,11 +115,7 @@ public class ContentFrame extends JFrame {
     public void addActionEvents() {
 
         //START PAGE
-        startPage.getStartNewGame().addActionListener(ActionEvent -> {
-//            cardLayout.show(contentPanel, "WaitingPage");
-            writeToServer("new game");
-        });
-//        startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ScoreBoardPage"));
+        addActionListerToStartPage();
 
         //WAITING PAGE
         waitingPage.getTextButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ChooseCategoryPage"));
@@ -137,26 +149,34 @@ public class ContentFrame extends JFrame {
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
             questionPage.nextThreeQuestions(questionCollection.getRandomCategory().label);
-            SwingUtilities.invokeLater(() -> {
-                chooseCategoryPage.updateQuestionCategories();
-            });
+            SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
             cardLayout.show(contentPanel, "ChooseCategoryPage");
             addActionListenerToOptions(scoreBoardPage.getGameID());
 
         });
     }
 
-    public void addActionListenerToOptions(String gameID) {
+    public void addActionListerToStartPage(String newGame){
+        //START PAGE
+//        startPage.getStartNewGame().addActionListener(ActionEvent -> {
+        cardLayout.show(contentPanel, "WaitingPage");
+            writeToServer(newGame);
+//        });
+//        startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ScoreBoardPage"));
+    }
+    public void addActionListerToStartPage(){
+        //START PAGE
+        startPage.getStartNewGame().addActionListener(ActionEvent -> {
+        cardLayout.show(contentPanel, "WaitingPage");
+        });
+        startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ScoreBoardPage"));
+    }
+
+    public void addActionListenerToOptions() {
         List<JButton> optionButtons = questionPage.getOptionButtons();
         for (JButton option : optionButtons) {
             option.addActionListener(ActionEvent -> {
-                if (option.getText().equals(questionPage.getAnswer())) {
-                    System.out.println("right");
-                    currentWin.add(true);
-                } else {
-                    System.out.println("wrong");
-                    currentWin.add(false);
-                }
+                checkIfWin(option);
                 if (currentWin.size() < 3) {
                     questionPage.nextQuestion();
                     cardLayout.show(contentPanel, "QuestionPage");
@@ -187,7 +207,58 @@ public class ContentFrame extends JFrame {
         }
     }
 
+    public void checkIfWin(JButton option){
+        if (option.getText().equals(questionPage.getAnswer())) {
+            System.out.println("right");
+            currentWin.add(true);
+        } else {
+            System.out.println("wrong");
+            currentWin.add(false);
+        }
+    }
+
+    public void showScoreBoardPage(){
+        questionPage.setIndexCount(0);
+        cardLayout.show(contentPanel, "ScoreBoardPage");
+        chosenCategory = false;
+    }
+
+    //Needed for NetWork
+
     public List<String> getGames() {
         return games;
     }
+
+    public void addActionListenerToOptions(String gameID) {
+        List<JButton> optionButtons = questionPage.getOptionButtons();
+        for (JButton option : optionButtons) {
+            option.addActionListener(ActionEvent -> {
+                checkIfWin(option);
+                if (currentWin.size() < 3) {
+                    questionPage.nextQuestion();
+                    cardLayout.show(contentPanel, "QuestionPage");
+                    addActionListenerToOptions(gameID);
+                } else {
+                    totalWins.add(new ArrayList<>(currentWin));
+                    currentWin.clear();
+                    scoreBoardPage.setWinList(totalWins);
+                    if (chosenCategory) {
+                        cardLayout.show(contentPanel, "ScoreBoardPage");
+                        scoreBoardPage.setGameID(gameID);
+                        writeToServer("round finished;" + scoreBoardPage.getGameID());
+                    }
+                    else {
+                        newGameStarted(gameID);
+                    }
+                    try {
+                        scoreBoardPage.updateScoreBoard();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    showScoreBoardPage();
+                }
+            });
+        }
+    }
+
 }

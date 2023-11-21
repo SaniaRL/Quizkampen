@@ -27,9 +27,25 @@ public class ScoreBoardPage extends JPanel {
     List<ScoreCount> scoreCounts;
     List<QuestionCategory> categoryList;
 
-    public ScoreBoardPage() throws IOException {
+    public ScoreBoardPage(String gameID) throws IOException {
         this.gameID = gameID;
 
+        centerPanel = new JPanel();
+        northPanel = new JPanel();
+        southPanel = new JPanel();
+
+        playGame = new JButton("SPELA");
+
+        winList = new ArrayList<>();
+        categoryList = new ArrayList<>();
+
+        backgroundImagePath = "Backgrounds/blueBackground.png";
+        backgroundImage = (new ImageIcon(backgroundImagePath)).getImage();
+        scoreCounts = new ArrayList<>();
+        addComponents();
+    }
+
+    public ScoreBoardPage() throws IOException {
         centerPanel = new JPanel();
         northPanel = new JPanel();
         southPanel = new JPanel();
@@ -159,8 +175,9 @@ public class ScoreBoardPage extends JPanel {
         categoryList.add(category);
     }
 
-    public void clearCategoryList(){
+    public void clearCategoryList() {
         categoryList.clear();
+    }
 
     public String getGameID() {
         return gameID;
