@@ -23,7 +23,7 @@ public class ContentFrame extends JFrame {
     WaitingPage waitingPage;
     ScoreBoardPage scoreBoardPage;
 
-    String gameID = "4556";
+    String gameID;
 
     //Should be moved to game logic later:
     List<List<Boolean>> totalWins = new ArrayList<>();
@@ -45,7 +45,7 @@ public class ContentFrame extends JFrame {
         chooseCategoryPage = new ChooseCategoryPage();
         questionPage = new QuestionPage(category);
         waitingPage = new WaitingPage();
-        scoreBoardPage = new ScoreBoardPage();
+        scoreBoardPage = new ScoreBoardPage(gameID);
 
         buildFrame();
     }
@@ -58,7 +58,7 @@ public class ContentFrame extends JFrame {
         chooseCategoryPage = new ChooseCategoryPage();
         questionPage = new QuestionPage(category);
         waitingPage = new WaitingPage();
-        scoreBoardPage = new ScoreBoardPage();
+        scoreBoardPage = new ScoreBoardPage(gameID);
 
         buildFrame();
     }
@@ -100,16 +100,18 @@ public class ContentFrame extends JFrame {
     }
 
     public void newGameStarted(String gameID) {
+        this.gameID = gameID;
         System.out.println("choose category");
         cardLayout.show(contentPanel, "ChooseCategoryPage");
-        addActionListenerToOptions(gameID);
+        addActionListenerToOptions();
         chosenCategory = true;
     }
 
     public void getQuestions(String gameID) {
+        this.gameID = gameID;
         System.out.println("existing game found!");
         cardLayout.show(contentPanel, "QuestionPage");
-        addActionListenerToOptions(gameID);
+        addActionListenerToOptions();
     }
 
     public void waitingForPlayer(String gameID) {
@@ -156,26 +158,21 @@ public class ContentFrame extends JFrame {
             questionPage.nextThreeQuestions(questionCollection.getRandomCategory().label);
             SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
             cardLayout.show(contentPanel, "ChooseCategoryPage");
-            addActionListenerToOptions(scoreBoardPage.getGameID());
+            addActionListenerToOptions();
 
         });
     }
 
-    public void addActionListerToStartPage(String newGame){
-        //START PAGE
-//        startPage.getStartNewGame().addActionListener(ActionEvent -> {
-        cardLayout.show(contentPanel, "WaitingPage");
-            writeToServer(newGame);
-//        });
-//        startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ScoreBoardPage"));
-    }
     public void addActionListerToStartPage(){
+        startPage.getStartNewGame().addActionListener(ActionEvent -> writeToServer("new game"));
+    }
+/*    public void addActionListerToStartPage(){
         //START PAGE
         startPage.getStartNewGame().addActionListener(ActionEvent -> {
         cardLayout.show(contentPanel, "WaitingPage");
         });
         startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ScoreBoardPage"));
-    }
+    }*/
 
     public void addActionListenerToOptions() {
         List<JButton> optionButtons = questionPage.getOptionButtons();
@@ -185,7 +182,7 @@ public class ContentFrame extends JFrame {
                 if (currentWin.size() < 3) {
                     questionPage.nextQuestion();
                     cardLayout.show(contentPanel, "QuestionPage");
-                    addActionListenerToOptions(gameID);
+                    addActionListenerToOptions();
                 } else {
                     totalWins.add(new ArrayList<>(currentWin));
                     currentWin.clear();
@@ -234,7 +231,7 @@ public class ContentFrame extends JFrame {
         return games;
     }
 
-    public void addActionListenerToOptions(String gameID) {
+    /*public void addActionListenerToOptions() {
         List<JButton> optionButtons = questionPage.getOptionButtons();
         for (JButton option : optionButtons) {
             option.addActionListener(ActionEvent -> {
@@ -242,7 +239,7 @@ public class ContentFrame extends JFrame {
                 if (currentWin.size() < 3) {
                     questionPage.nextQuestion();
                     cardLayout.show(contentPanel, "QuestionPage");
-                    addActionListenerToOptions(gameID);
+                    addActionListenerToOptions();
                 } else {
                     totalWins.add(new ArrayList<>(currentWin));
                     currentWin.clear();
@@ -264,6 +261,6 @@ public class ContentFrame extends JFrame {
                 }
             });
         }
-    }
+    }*/
 
 }
