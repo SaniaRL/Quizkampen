@@ -67,10 +67,13 @@ public class ClientHandler extends Thread {
                         if (game.gameID.equals(message[1])) {
                             if (game.getTurn().equals("player1")) {
                                 game.setTurn("player2");
+                                game.getPlayer1().writeToClient("opponent turn;" + game.getGameID());
                                 game.getPlayer2().writeToClient("your turn;" + game.getGameID());
                             } else {
                                 game.setTurn("player1");
+                                game.getPlayer2().writeToClient("opponent turn;" + game.getGameID());
                                 game.getPlayer1().writeToClient("your turn;" + game.getGameID());
+
                             }
                         }
                     }
