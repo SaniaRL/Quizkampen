@@ -2,13 +2,9 @@ package Client;
 
 import GUI.ContentFrame;
 
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Client {
 
@@ -16,7 +12,7 @@ public class Client {
     private BufferedReader in;
 
 
-    public Client(InetAddress address, int port) throws IOException {
+    public Client(InetAddress address, int port) {
 
         try (Socket socket = new Socket(address, port)) {
             //The types of stream may change depending on what you want to send.
