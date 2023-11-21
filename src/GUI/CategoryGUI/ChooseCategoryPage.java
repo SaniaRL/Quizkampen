@@ -1,7 +1,14 @@
-package GUI;
+package GUI.CategoryGUI;
+
+import Question.QuestionCategory;
+import Question.QuestionCollection;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.awt.*;
+import java.io.IOException;
 
 public class ChooseCategoryPage extends JPanel {
 
@@ -15,23 +22,21 @@ public class ChooseCategoryPage extends JPanel {
     CategoryButton categoryOption2;
     CategoryButton categoryOption3;
 
-    Color colorTheme;
-    Color buttonColor;
+    QuestionCollection questionCollection;
+    List<QuestionCategory> randomCategoryList;
 
-
-    public ChooseCategoryPage(){
+    public ChooseCategoryPage() throws IOException {
         northPanel = new JPanel();
         southPanel = new JPanel();
+        questionCollection = new QuestionCollection();
 
         backgroundImagePath = "Backgrounds/blueBackground.png";
         backgroundImage = new ImageIcon(backgroundImagePath).getImage();
 
-        categoryOption1 = new CategoryButton("Historia", "Backgrounds/sunYellow.png");
-        categoryOption2 = new CategoryButton("Musik", "Backgrounds/funGreen.png");
-        categoryOption3 = new CategoryButton("Rymden", "Backgrounds/happyPlum.png");
+        randomCategoryList = new ArrayList<>();
 
-        colorTheme = new Color(190, 103, 208);
-        buttonColor= new Color(93,246,246);
+        generateRandomCategoryList();
+        generateCategoryButtons();
 
         addComponents();
     }
@@ -106,6 +111,21 @@ public class ChooseCategoryPage extends JPanel {
         panel.add(button, SwingConstants.CENTER);
     }
 
+    public void generateRandomCategoryList(){
+        HashSet<QuestionCategory> randomCategoryHashset = new HashSet<>();
+        while(randomCategoryHashset.size() < 3){
+            QuestionCategory questionCategory = questionCollection.getRandomCategory();
+            randomCategoryHashset.add(questionCategory);
+        }
+        randomCategoryList = randomCategoryHashset.stream().toList();
+    }
+
+    public void generateCategoryButtons(){
+        categoryOption1 = new CategoryButton(randomCategoryList.get(0));
+        categoryOption2 = new CategoryButton(randomCategoryList.get(1));
+        categoryOption3 = new CategoryButton(randomCategoryList.get(2));
+    }
+
     public CategoryButton getCategoryOption1() {
         return categoryOption1;
     }
@@ -116,5 +136,16 @@ public class ChooseCategoryPage extends JPanel {
 
     public CategoryButton getCategoryOption3() {
         return categoryOption3;
+    }
+
+    public void updateQuestionCategories(){
+        generateRandomCategoryList();
+
+        categoryOption1.updateCategoryButton(randomCategoryList.get(0));
+        categoryOption2.updateCategoryButton(randomCategoryList.get(1));
+        categoryOption3.updateCategoryButton(randomCategoryList.get(2));
+
+        repaint();
+        revalidate();
     }
 }
