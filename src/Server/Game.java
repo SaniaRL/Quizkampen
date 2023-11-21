@@ -7,10 +7,10 @@ public class Game {
     int player1Score;
     int player2Score;
 
-    String turn = "";
+    String turn;
 
     public Game(ClientHandler player1) {
-        gameID = String.valueOf(Math.random()*100000);
+        gameID = String.valueOf((int) Math.floor(Math.random()*100000));
         this.player1 = player1;
         turn = "player1";
     }
