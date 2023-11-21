@@ -45,6 +45,9 @@ public class Client {
                 if(message[0].equals("your turn")){
                     frame.getQuestions(message[1]);
                 }
+                if(message[0].equals("opponent turn")){
+                    frame.waitingForPlayer(message[1]);
+                }
                 //TODO: Add logic for client
             }
         } catch (IOException e) {
