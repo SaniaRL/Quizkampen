@@ -5,15 +5,15 @@ ANIMALS;Vilket djur betraktas som det snabbaste landlevande djuret?;Gepard;Leopa
 MOVIES;Vem är den bästa karaktären i julkalendern Mumindalen från 1975?;Förfadern;Ekorren med den vackra svansen;Mumintrollet;Lilla My
 MOVIES;Vad var namnet på protagonisten i "Shawshank Redemption"?;Andy Dufresne;Red Redding;Ellis Boyd "Red" Redding; Tommy Williams
 MOVIES;Vilken film vann en Academy Award för bästa film 1994?;Forrest Gump;Pulp Fiction;Schindler's List;The Silence of the Lambs
-MOVIES;Vem regisserade Jurassic Park?Steven Spielberg;Christopher Nolan;James Cameron;George Lucas
+MOVIES;Vem regisserade Jurassic Park?;Steven Spielberg;Christopher Nolan;James Cameron;George Lucas
 SPORT;Vad av följande är inte en erkänd sport?;Tandborstning;Fotboll;Hockey;Konståkning
 SPORT;Vilket land vann VM 2018?Frankrike;Argentina;Tyskland;Brasilien
 SPORT;I vilken sport används termerna "Eagle" och "Birdie"?;Golf;Bordstennis;Badminton;Simning
-SPORT;Vilken tennisspelare har vunnit flest Grand Slam singel-titlar?Novak Djokovic;Serena Williams;Rafael Nadal;Roger Federer
+SPORT;Vilken tennisspelare har vunnit flest Grand Slam singel-titlar?;Novak Djokovic;Serena Williams;Rafael Nadal;Roger Federer
 HISTORY;Vem var Förenta Staternas första president?;George Washington;Thomas Jefferson;John Adams;Benjamin Franklin
 HISTORY;Vilken historisk civilisation byggde Machu Picchu?;Inkan;Aztekerna;Mayafolket;Egypterna
 HISTORY;När föll Berlinmuren?;1989;1991;1985;1990
-HISTORY;Vilken händelse anses ofta vara starten av första världskriget?Lönnmordet av Franz Ferdinand;Versaillesfreden;Bombandet av Pearl Harbor;Belägringen av Leningrad
+HISTORY;Vilken händelse anses ofta vara starten av första världskriget?;Lönnmordet av Franz Ferdinand;Versaillesfreden;Bombandet av Pearl Harbor;Belägringen av Leningrad
 MUSIC;Vem anses var "Kungen av Pop"?;Michael Jackson;Prince;Elvis Presley;Madonna
 MUSIC;Vem sammansatte det kända stycket Für Elise?;Beethoven;Mozart;Bach;Schubert
 MUSIC;Vilket band släppte albumet "The dark side of the moon"?;Pink Floyd;The Beatles;Led Zeppelin;Queen
