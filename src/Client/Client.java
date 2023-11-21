@@ -25,8 +25,8 @@ public class Client {
             System.out.println(fromServer);
 
             ContentFrame frame = new ContentFrame(out);
-            while ((fromServer = readFromServer()) != null) {
-                String[] message = fromServer.split(";");
+            while (true) {
+                String[] message = readFromServer().split(";");
                 if (message[0].equals("game started")) {
                     System.out.println("new game started : " + message[0] + " " + message[1]);
                     frame.getGames().add(message[1]);
