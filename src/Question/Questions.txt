@@ -132,3 +132,20 @@ SPACE;Vilken är den största planeten i vårat solsystem?;Jupiter;Saturnus;Venu
 SPACE;Vilken himlakropp är känd som jordens naturliga satellit?;Månen;Saturnus;Solen;Mars
 SPACE;Vad är namnet på galaxen vi befinner oss i?;Vintergatan;Andromeda;Orion;Triangulum
 SPACE;Vad är termen för en stjärna som exploderar och blir extremt ljus innan den gradvis bleknar?;Supernova;Svart hål;Nova;Kvasar
+SPACE;Vilken planet är känd som den röda planeten?;Mars;Venus;Jupiter;Saturnus
+SPACE;Vilken himlakropp kretsar kring solen mellan Mars och Jupiter och är ofta kallad en "dvärgplanet"?;Ceres;Pluto;Eris;Haumea
+SPACE;Vad är namnet på det största kända svarta hålet i mitten av Vintergatan?;Sagittarius A*;Cygnus X-1;Messier 87;V404 Cygni
+SPACE;Vilken planet har ringar som kallas "ringar av is"?;Saturnus;Uranus;Neptunus;Jupiter
+SPACE;Vad kallas den punkt i rymden där gravitationen är så stark att inget, inte ens ljus, kan undkomma?;Svart hål;Vit dvärg;Neutronstjärna;Supernova
+SPACE;Vilken måne i vårt solsystem har en atmosfär och flytande hav av metan?;Titan;Europa;Ganymedes;Enceladus
+SPACE;Vilken planet är känd för sina karakteristiska ringar och en stor storm känd som den stora röda fläcken?;Jupiter;Mars;Saturnus;Neptunus
+SPACE;Vilken galax är närmast Vintergatan?;Andromeda;Triangulum;Orion;Messier 87
+SPACE;Vad är den ljusaste stjärnan på natthimlen sett från jorden?;Sirius;Vega;Betelgeuse;Rigel
+SPACE;Vad är den kemiska sammansättningen av solen?;Framför allt väte och helium;Syre och kol;Kväve och syre;Järn och nickel
+SPACE;Vilken måne kring Jupiter är känd för sina vulkaner som sprutar ut is?;Io;Europa;Ganymedes;Callisto
+SPACE;Vilken planet har en dag som varar längre än dess år?;Venus;Mars;Jupiter;Saturnus
+SPACE;Vad är det latinska namnet för månen?;Luna;Stella;Astra;Solis
+SPACE;Vilken stjärnbild är hemvist för Polstjärnan?;Lilla björnen (Ursa Minor);Stora björnen (Ursa Major);Cassiopeia;Orion
+SPACE;Vad är det latinska namnet för Vintergatan?;Via Lactea;Stellaria Via;Galaxia Stellarum;Celestialis Circulus
+SPACE;Vad kallas den punkt i rymden där gravitationen är minimal och rymdfarkoster kan använda den för att justera sina banor?;Lagrangepunkt;Nullpunkt;Tyngdpunkt;Barycentrum
+SPACE;Vad kallas det fenomen där en himlakropp passerar framför en annan, sett från ett annat perspektiv?;Transit;Eclipse;Occultation;Conjunction
