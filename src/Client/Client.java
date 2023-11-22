@@ -8,67 +8,74 @@ import java.net.Socket;
 
 public class Client {
 
-    private BufferedWriter out;
-    private BufferedReader in;
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
 
 
     public Client(InetAddress address, int port) {
 
         try (Socket socket = new Socket(address, port)) {
             //The types of stream may change depending on what you want to send.
-            out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
             //end of stream types
 
             writeToServer("Client connected");
-            String fromServer = readFromServer();
-            System.out.println(fromServer);
+            Object fromServer = readFromServer();
+            System.out.println(fromServer.toString());
 
             ContentFrame frame = new ContentFrame(out);
             while (true) {
-                String[] message = readFromServer().split(";");
-                if (message[0].equals("game started")) {
-                    System.out.println("new game started : " + message[0] + " " + message[1]);
-                    frame.getGames().add(message[1]);
-                    frame.newGameStarted(message[1]);
-                }
-                if(message[0].equals("game found wait")){
-                    System.out.println("found game waiting");
-                    frame.getGames().add(message[1]);
-                    frame.waitingForPlayer(message[1]);
-                }
-                if(message[0].equals("game found start")){
-                    System.out.println("found game starting");
-                    frame.getGames().add(message[1]);
-                    frame.getQuestions(message[1]);
-                }
-                if(message[0].equals("your turn")){
-                    frame.getQuestions(message[1]);
-                }
-                if(message[0].equals("opponent turn")){
-                    frame.waitingForPlayer(message[1]);
-                }
-                //TODO: Add logic for client
+                fromServer = readFromServer();
+                if (fromServer instanceof String) {
+                    String[] message = fromServer.toString().split(";");
+
+                    if (message[0].equals("game started")) {
+                        System.out.println("new game started : " + message[0] + " " + message[1]);
+                        frame.getGames().add(message[1]);
+                        frame.newGameStarted(message[1]);
+                    }
+                    if (message[0].equals("game found wait")) {
+                        System.out.println("found game waiting");
+                        frame.getGames().add(message[1]);
+                        frame.waitingForPlayer(message[1]);
+                    }
+                    if (message[0].equals("game found start")) {
+                        System.out.println("found game starting");
+                        frame.getGames().add(message[1]);
+                        frame.getQuestions(message[1]);
+                    }
+                    if (message[0].equals("your turn")) {
+                        frame.getQuestions(message[1]);
+                    }
+                    if (message[0].equals("opponent turn")) {
+                        frame.waitingForPlayer(message[1]);
+                    }
+                    //TODO: Add logic for client
+                } /*else if (fromServer instanceof otherObject) {
+                    //TODO: Add logic for other object
+                }*/
             }
         } catch (IOException e) {
             System.out.println("Client error: " + e.getMessage());
+        } catch(ClassNotFoundException e) {
+            System.out.println("Class not found: " + e.getMessage());
         } finally {
-            try {
-                closeStreams();
-            } catch (IOException e) {
-                System.out.println("Error closing streams: " + e.getMessage());
+                try {
+                    closeStreams();
+                } catch (IOException e) {
+                    System.out.println("Error closing streams: " + e.getMessage());
+                }
             }
         }
-    }
 
     public void writeToServer(String message) throws IOException {
-        out.write(message);
-        out.newLine();
+        out.writeObject(message);
         out.flush();
     }
 
-    public String readFromServer() throws IOException {
-        return in.readLine();
+    public Object readFromServer() throws IOException, ClassNotFoundException {
+        return in.readObject();
     }
 
     public void closeStreams() throws IOException {

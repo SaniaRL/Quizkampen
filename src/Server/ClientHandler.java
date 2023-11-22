@@ -3,10 +3,10 @@ package Server;
 import java.io.*;
 import java.net.Socket;
 
-public class ClientHandler extends Thread {
+public class ClientHandler extends Thread implements Serializable {
     protected final Socket socket;
-    private BufferedReader in;
-    private BufferedWriter out;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
 
     Server server;
 
@@ -20,84 +20,92 @@ public class ClientHandler extends Thread {
 
         try {
             //The types of stream may change depending on what you want to send.
-            out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
             //end of stream types
 
             writeToClient("Connection established to server");
-            String fromClient = readFromClient();
+
+
+            Object fromClient = readFromClient();
             System.out.println("Thread no." + Thread.currentThread().threadId() + ": " + fromClient);
 
             while (true) {
                 //TODO: Add logic for server
                 fromClient = readFromClient();
-                String[] message = fromClient.split(";");
-                System.out.println(fromClient);
+                if (fromClient instanceof String) {
+                    String[] message = fromClient.toString().split(";");
+                    System.out.println(fromClient);
 
-                if (message[0].equals("exit")) {
-                    System.out.println("Client disconnected");
-                    server.shutdown();
-                    break;
-                }
+                    if (message[0].equals("exit")) {
+                        System.out.println("Client disconnected");
+                        server.shutdown();
+                        break;
+                    }
 
-                if (message[0].equals("new game")) {
-                    System.out.println("in new game check");
-                    if (!server.games.isEmpty()) {
+                    if (message[0].equals("new game")) {
+                        System.out.println("in new game check");
+                        if (!server.games.isEmpty()) {
+                            for (Game game : server.games) {
+                                System.out.println("in for loop");
+                                if (game.getPlayer2() == null) {
+                                    game.setPlayer2(this);
+                                    game.gameState = GameState.STARTED;
+                                    synchronized (game) {
+                                        if (game.gameState == GameState.STARTED) {
+                                            game.notify();
+                                        }
+                                    }
+                                    if (game.getTurn().equals("player1")) {
+                                        this.writeToClient("game found wait;" + game.getGameID());
+                                    } else if (game.getTurn().equals("player2")) {
+                                        this.writeToClient("game found start;" + game.getGameID());
+                                    }
+                                }
+                            }
+                        } else {
+                            System.out.println("creating new game");
+                            Game game = new Game(this);
+                            server.games.add(game);
+                            this.writeToClient("game started;" + game.getGameID());
+                        }
+                    }
+                    if (message[0].equals("round finished")) {
                         for (Game game : server.games) {
-                            System.out.println("in for loop");
-                            if (game.getPlayer2() == null) {
-                                game.setPlayer2(this);
-                                game.gameState = GameState.STARTED;
-                                synchronized (game) {
-                                    if(game.gameState == GameState.STARTED) {
-                                        game.notify();
-                                    }
-                                }
+                            if (game.gameID.equals(message[1])) {
                                 if (game.getTurn().equals("player1")) {
-                                    this.writeToClient("game found wait;" + game.getGameID());
-                                } else if (game.getTurn().equals("player2")) {
-                                    this.writeToClient("game found start;" + game.getGameID());
+                                    game.setTurn("player2");
+                                } else {
+                                    game.setTurn("player1");
                                 }
-                            }
-                        }
-                    } else {
-                        System.out.println("creating new game");
-                        Game game = new Game(this);
-                        server.games.add(game);
-                        this.writeToClient("game started;" + game.getGameID());
-                    }
-                }
-                if (message[0].equals("round finished")) {
-                    for (Game game : server.games) {
-                        if (game.gameID.equals(message[1])) {
-                            if (game.getTurn().equals("player1")) {
-                                game.setTurn("player2");
-                            } else {
-                                game.setTurn("player1");
-                            }
-                            synchronized (game) {
-                                while (game.gameState == GameState.WAITING) {
-                                    try {
-                                        game.wait();
-                                    } catch (InterruptedException e) {
-                                        //ignore
+                                synchronized (game) {
+                                    while (game.gameState == GameState.WAITING) {
+                                        try {
+                                            game.wait();
+                                        } catch (InterruptedException e) {
+                                            //ignore
+                                        }
+                                    }
+                                    if (game.getTurn().equals("player2")) {
+                                        game.getPlayer1().writeToClient("opponent turn;" + game.getGameID());
+                                        game.getPlayer2().writeToClient("your turn;" + game.getGameID());
+                                    } else {
+                                        game.getPlayer2().writeToClient("opponent turn;" + game.getGameID());
+                                        game.getPlayer1().writeToClient("your turn;" + game.getGameID());
                                     }
                                 }
-                                if (game.getTurn().equals("player2")) {
-                                    game.getPlayer1().writeToClient("opponent turn;" + game.getGameID());
-                                    game.getPlayer2().writeToClient("your turn;" + game.getGameID());
-                                } else {
-                                    game.getPlayer2().writeToClient("opponent turn;" + game.getGameID());
-                                    game.getPlayer1().writeToClient("your turn;" + game.getGameID());
-                                }
                             }
                         }
                     }
                 }
-            }
+            } /*else if (fromClient instanceof otherType) {
+                //TODO: Add logic for other types of objects
+            }*/
 
         } catch (IOException e) {
             System.out.println("IO Exception from ServerListener: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class not found exception from ServerListener: " + e.getMessage());
         } finally {
             try {
                 closeConnection();
@@ -109,13 +117,12 @@ public class ClientHandler extends Thread {
     }
 
     public void writeToClient(String message) throws IOException {
-        out.write(message);
-        out.newLine();
+        out.writeObject(message);
         out.flush();
     }
 
-    public String readFromClient() throws IOException {
-        return in.readLine();
+    public Object readFromClient() throws IOException, ClassNotFoundException {
+        return in.readObject();
     }
 
     public void closeConnection() throws IOException {

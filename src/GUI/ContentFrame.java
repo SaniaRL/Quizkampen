@@ -7,6 +7,7 @@ import Question.QuestionCollection;
 
 import javax.swing.*;
 import java.io.BufferedWriter;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
@@ -31,11 +32,11 @@ public class ContentFrame extends JFrame {
     String category = "Film";
 
     QuestionCollection questionCollection = new QuestionCollection();
-    BufferedWriter out;
+    ObjectOutputStream out;
     private final List<String> games = new ArrayList<>();
     boolean chosenCategory = false;
 
-    public ContentFrame(BufferedWriter out) throws IOException {
+    public ContentFrame(ObjectOutputStream out) throws IOException {
         this.out = out;
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
@@ -91,10 +92,9 @@ public class ContentFrame extends JFrame {
 
     public void writeToServer(String message) {
         try {
-            out.write(message);
-            out.newLine();
+            out.writeObject(message);
             out.flush();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace(System.err);
         }
     }
