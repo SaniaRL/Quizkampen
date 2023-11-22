@@ -186,38 +186,47 @@ public class ContentFrame extends JFrame {
 
     public void addActionListenerToOptions() {
         List<JButton> optionButtons = questionPage.getOptionButtons();
+
         for (JButton option : optionButtons) {
             option.addActionListener(ActionEvent -> {
                 checkIfWin(option);
-                if (currentWin.size() < 3) {
-                    questionPage.nextQuestion();
-                    cardLayout.show(contentPanel, "QuestionPage");
-                    addActionListenerToOptions(gameID);
-                } else {
-                    totalWins.add(new ArrayList<>(currentWin));
-                    currentWin.clear();
-                    scoreBoardPage.setWinList(totalWins);
-                    if (chosenCategory) {
-                        cardLayout.show(contentPanel, "ScoreBoardPage");
-                        scoreBoardPage.setGameID(gameID);
-                        writeToServer("round finished;" + scoreBoardPage.getGameID());
-                    }
-                    else {
-                        newGameStarted(gameID);
-                    }
-                    try {
-                        scoreBoardPage.updateScoreBoard();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
 
-                    questionPage.setIndexCount(0);
-                    cardLayout.show(contentPanel, "ScoreBoardPage");
-                    chosenCategory = false;
-                }
+                Timer timer = new Timer(2000, e -> {
+                    if (currentWin.size() < 3) {
+                        questionPage.nextQuestion();
+                        cardLayout.show(contentPanel, "QuestionPage");
+                        addActionListenerToOptions(gameID);
+                    } else {
+                        totalWins.add(new ArrayList<>(currentWin));
+                        currentWin.clear();
+                        scoreBoardPage.setWinList(totalWins);
+
+                        if (chosenCategory) {
+                            cardLayout.show(contentPanel, "ScoreBoardPage");
+                            scoreBoardPage.setGameID(gameID);
+                            writeToServer("round finished;" + scoreBoardPage.getGameID());
+                        } else {
+                            newGameStarted(gameID);
+                        }
+
+                        try {
+                            scoreBoardPage.updateScoreBoard();
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+
+                        questionPage.setIndexCount(0);
+                        cardLayout.show(contentPanel, "ScoreBoardPage");
+                        chosenCategory = false;
+                    }
+                });
+
+                timer.setRepeats(false);
+                timer.start();
             });
         }
     }
+
 
     public void checkIfWin(JButton option){
         if (option.getText().equals(questionPage.getAnswer())) {
@@ -229,7 +238,10 @@ public class ContentFrame extends JFrame {
             System.out.println("wrong");
             currentWin.add(false);
         }
+        option.repaint();
+        option.revalidate();
     }
+
 
     public void showScoreBoardPage(){
         questionPage.setIndexCount(0);
