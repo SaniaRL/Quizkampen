@@ -4,6 +4,8 @@ import Question.QuestionCollection;
 import Question.Question;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.ArrayList;
@@ -88,11 +90,15 @@ public class QuestionPage extends JPanel {
         centerPanel.setOpaque(false);
 
 
-        JLabel questionLabel = new JLabel("<html>" + (threeQuestions.get(indexCount)).getQuestion(), SwingConstants.CENTER);
+        JLabel questionLabel = new JLabel("<html><div style='text-align: center;'>"  + (threeQuestions.get(indexCount)).getQuestion(), SwingConstants.CENTER);
         questionLabel.setFont(new Font("Montserrat", Font.PLAIN, 20));
+//        questionLabel.setAlignmentX(CENTER_ALIGNMENT);
+        Border emptyBorder = BorderFactory.createEmptyBorder(10,10,10,10);
+        Border border = new LineBorder(Color.BLUE, 10);
+        Border compoundBorder = new CompoundBorder(border, emptyBorder);
         questionLabel.setPreferredSize(new Dimension(600, 200));
         questionLabel.setBackground(Color.white);
-        questionLabel.setBorder(new LineBorder(Color.BLUE, 5));
+        questionLabel.setBorder(compoundBorder);
         questionLabel.setOpaque(true);
 
         centerPanel.add(questionLabel);
