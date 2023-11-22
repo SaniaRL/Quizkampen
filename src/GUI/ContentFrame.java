@@ -2,6 +2,7 @@ package GUI;
 
 import GUI.CategoryGUI.ChooseCategoryPage;
 import GUI.ScoreBoard.ScoreBoardPage;
+import GUI.StartPage.StartPage;
 import Question.QuestionCategory;
 import Question.QuestionCollection;
 
