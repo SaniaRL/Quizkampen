@@ -48,7 +48,6 @@ public class QuestionCollection {
                             tempArray[3],
                             tempArray[4],
                             tempArray[5],
-
                     };
                     allQuestions.add(new Question(tempArray[1], options, findCategory(tempArray[0])));
                 }
