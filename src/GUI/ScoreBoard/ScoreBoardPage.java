@@ -115,6 +115,7 @@ public class ScoreBoardPage extends JPanel {
         JPanel middlePanel = new JPanel();
         JLabel turnLabel = new JLabel("DIN TUR", SwingConstants.CENTER);
         scoreLabel = new JLabel(player1Score + " - " + player2Score, SwingConstants.CENTER);
+        scoreLabel.setFont(new Font("Cabin", Font.PLAIN, 22));
 
         middlePanel.setLayout(new GridLayout(2, 1));
         middlePanel.add(turnLabel);
@@ -200,7 +201,12 @@ public class ScoreBoardPage extends JPanel {
         revalidate();
     }
 
-    public void setPlayer2Score(int player2Score) {
-        this.player2Score = player2Score;
+    public void setPlayerScores(int player1, int player2) {
+        this.player1Score = player1;
+        this.player2Score = player2;
+        scoreLabel.removeAll();
+        scoreLabel.setText(player1Score + " - " + player2Score);
+        repaint();
+        revalidate();
     }
 }
