@@ -19,7 +19,7 @@ public class QuestionPage extends JPanel {
     QuestionCollection questionCollection;
     List<Question> questionList;
     List<Question> threeQuestions;
-    String category;
+    String category = "";
 
     JLabel questionLabel;
 
@@ -92,7 +92,6 @@ public class QuestionPage extends JPanel {
 
         JLabel questionLabel = new JLabel("<html><div style='text-align: center;'>"  + (threeQuestions.get(indexCount)).getQuestion(), SwingConstants.CENTER);
         questionLabel.setFont(new Font("Montserrat", Font.PLAIN, 20));
-//        questionLabel.setAlignmentX(CENTER_ALIGNMENT);
         Border emptyBorder = BorderFactory.createEmptyBorder(10,10,10,10);
         Border border = new LineBorder(Color.BLUE, 10);
         Border compoundBorder = new CompoundBorder(border, emptyBorder);
@@ -110,7 +109,10 @@ public class QuestionPage extends JPanel {
         northPanel.setOpaque(false);
 
         JLabel yourPlayer = new JLabel("YOU", SwingConstants.CENTER);
-        JLabel category = new JLabel("CATEGORY", SwingConstants.CENTER);
+
+        JLabel category = new JLabel(this.category, SwingConstants.CENTER);
+        category.setFont(new Font("Cabin", Font.BOLD, 22));
+
         JLabel opponent = new JLabel("OPPONENT", SwingConstants.CENTER);
 
         yourPlayer.setOpaque(false);
@@ -132,8 +134,13 @@ public class QuestionPage extends JPanel {
         Collections.shuffle(optionsList);
         if(optionsList.size() == 4){
             for (String string : optionsList) {
-                JButton button = new JButton(string);
+                JButton button = new JButton("<html><div style='text-align: center;'>" + string);
+                Border emptyBorder = BorderFactory.createEmptyBorder(10,10,10,10);
+                Border border = new LineBorder(Color.BLUE, 2);
+                Border compoundBorder = new CompoundBorder(border, emptyBorder);
+                button.setBorder(compoundBorder);
                 button.setPreferredSize(new Dimension(200, 100));
+                button.setFont(new Font("Cabin", Font.PLAIN, 20));
                 button.setBackground(Color.white);
                 southPanel.add(button, SwingConstants.CENTER);
                 optionButtons.add(button);

@@ -31,6 +31,23 @@ MOVIES;Vilken film handlar om en grupp astronauter som försöker rädda mänskl
 SPORT;Vad av följande är inte en erkänd sport?;Tandborstning;Fotboll;Hockey;Konståkning
 SPORT;Vilket land vann VM 2018?;Frankrike;Argentina;Tyskland;Brasilien
 SPORT;Vilken tennisspelare har vunnit flest Grand Slam singel-titlar?;Novak Djokovic;Serena Williams;Rafael Nadal;Roger Federer
+SPORT;Vilken sport använder man ett gevär för att träffa mål?;Skidskytte;Konståkning;Handboll;Friidrott
+SPORT;Vilket land är hemlandet för karates?;Japan;Kina;Sydkorea;Thailand
+SPORT;Vem anses vara den bästa kvinnliga golfspelaren genom tiderna?;Annika Sörenstam;Tiger Woods;Michelle Wie;Serena Williams
+SPORT;Vilket år introducerades damfotboll i OS?;1996;2000;1992;2004
+SPORT;Vem är känd som "The King" inom motorsport?;Richard Petty;Ayrton Senna;Michael Schumacher;Lewis Hamilton
+SPORT;Vilket land är hemlandet för sumobrottning?;Japan;Kina;Mongoliet;Sydkorea
+SPORT;Vad är världsrekordet i maraton för herrar?;2:01:39;2:02:57;2:03:23;2:05:01
+SPORT;Vem anses vara den främsta basketspelaren genom tiderna?;Michael Jordan;LeBron James;Kobe Bryant;Magic Johnson
+SPORT;Vilket land är känt för sitt dominans inom cykelsporten?;Belgien;Frankrike;Italien;Spanien
+SPORT;Vem är den mest framstående kvinnliga tennisspelaren genom tiderna?;Serena Williams;Steffi Graf;Martina Navratilova;Chris Evert
+SPORT;Vilket lag vann den första upplagan av Super Bowl?;Green Bay Packers;Kansas City Chiefs;New England Patriots;Dallas Cowboys
+SPORT;Vem är den enda fotbollsspelaren som har vunnit Ballon d'Or sex gånger?;Lionel Messi;Cristiano Ronaldo;Michel Platini;Johan Cruyff
+SPORT;Vilken typ av skidsport tävlar man i vid backhoppning?;Nordisk kombination;Alpin skidåkning;Längdskidåkning;Freestyle
+SPORT;Vilken sport används en kättingkula i?;Krocket;Boule;Baseboll;Golf
+SPORT;Vilket land arrangerade de första moderna olympiska sommarspelen?;Grekland;Frankrike;Storbritannien;Tyskland
+SPORT;Vem anses vara den bästa manliga simmaren genom tiderna?;Michael Phelps;Ian Thorpe;Mark Spitz;Ryan Lochte
+SPORT;Vilken idrott används en "puck"?;Ishockey;Lacrosse;Bandy;Handboll
 HISTORY;Vem var Förenta Staternas första president?;George Washington;Thomas Jefferson;John Adams;Benjamin Franklin
 HISTORY;Vilken historisk civilisation byggde Machu Picchu?;Inkan;Aztekerna;Mayafolket;Egypterna
 HISTORY;När föll Berlinmuren?;1989;1991;1985;1990
