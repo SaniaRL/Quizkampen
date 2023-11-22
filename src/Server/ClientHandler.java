@@ -33,6 +33,7 @@ public class ClientHandler extends Thread {
                 fromClient = readFromClient();
                 String[] message = fromClient.split(";");
                 System.out.println(fromClient);
+
                 if (message[0].equals("exit")) {
                     System.out.println("Client disconnected");
                     server.shutdown();
@@ -44,16 +45,19 @@ public class ClientHandler extends Thread {
                     if (!server.games.isEmpty()) {
                         for (Game game : server.games) {
                             System.out.println("in for loop");
-                            if (game.getPlayer2() == null && game.getTurn().equals("player1")) {
-                                System.out.println(game.getGameID());
-                                this.writeToClient("game found wait;" + game.getGameID());
+                            if (game.getPlayer2() == null) {
                                 game.setPlayer2(this);
-                                System.out.println(game.getPlayer2());
-                            } else if (game.getPlayer2() == null && game.getTurn().equals("player2")) {
-                                System.out.println(game.getGameID());
-                                this.writeToClient("game found start;" + game.getGameID());
-                                game.setPlayer2(this);
-                                System.out.println(game.getPlayer2());
+                                game.gameState = GameState.STARTED;
+                                synchronized (game) {
+                                    if(game.gameState == GameState.STARTED) {
+                                        game.notify();
+                                    }
+                                }
+                                if (game.getTurn().equals("player1")) {
+                                    this.writeToClient("game found wait;" + game.getGameID());
+                                } else if (game.getTurn().equals("player2")) {
+                                    this.writeToClient("game found start;" + game.getGameID());
+                                }
                             }
                         }
                     } else {
@@ -68,13 +72,24 @@ public class ClientHandler extends Thread {
                         if (game.gameID.equals(message[1])) {
                             if (game.getTurn().equals("player1")) {
                                 game.setTurn("player2");
-                                game.getPlayer1().writeToClient("opponent turn;" + game.getGameID());
-                                game.getPlayer2().writeToClient("your turn;" + game.getGameID());
                             } else {
                                 game.setTurn("player1");
-                                game.getPlayer2().writeToClient("opponent turn;" + game.getGameID());
-                                game.getPlayer1().writeToClient("your turn;" + game.getGameID());
-
+                            }
+                            synchronized (game) {
+                                while (game.gameState == GameState.WAITING) {
+                                    try {
+                                        game.wait();
+                                    } catch (InterruptedException e) {
+                                        //ignore
+                                    }
+                                }
+                                if (game.getTurn().equals("player2")) {
+                                    game.getPlayer1().writeToClient("opponent turn;" + game.getGameID());
+                                    game.getPlayer2().writeToClient("your turn;" + game.getGameID());
+                                } else {
+                                    game.getPlayer2().writeToClient("opponent turn;" + game.getGameID());
+                                    game.getPlayer1().writeToClient("your turn;" + game.getGameID());
+                                }
                             }
                         }
                     }
