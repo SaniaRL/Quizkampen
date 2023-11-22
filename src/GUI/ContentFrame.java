@@ -24,7 +24,7 @@ public class ContentFrame extends JFrame {
     QuestionPage questionPage;
     WaitingPage waitingPage;
     ScoreBoardPage scoreBoardPage;
-    SettingsPage settingsPage; //Simon lagt till
+    SettingsPage settingsPage;
     String gameID = "4556";
     //Should be moved to game logic later:
     List<List<Boolean>> totalWins = new ArrayList<>();
@@ -46,7 +46,7 @@ public class ContentFrame extends JFrame {
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage();
 
-        settingsPage = new SettingsPage(); //Simon lagt till
+        settingsPage = new SettingsPage();
 
         buildFrame();
     }
@@ -62,7 +62,7 @@ public class ContentFrame extends JFrame {
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage();
 
-        settingsPage = new SettingsPage(); //Simon lagt till
+        settingsPage = new SettingsPage();
 
         buildFrame();
     }
@@ -88,7 +88,7 @@ public class ContentFrame extends JFrame {
         contentPanel.add(waitingPage, "WaitingPage");
         contentPanel.add(scoreBoardPage, "ScoreBoardPage");
 
-        contentPanel.add(settingsPage, "SettingsPage"); //Simon lagt till settingsPage i CardLayout
+        contentPanel.add(settingsPage, "SettingsPage");
 
         add(contentPanel);
         addActionEvents();
@@ -187,7 +187,7 @@ public class ContentFrame extends JFrame {
         List<JButton> optionButtons = questionPage.getOptionButtons();
 
         for (JButton option : optionButtons) {
-            // Remove ActionListeners, to get the delay to work
+            // Remove ActionListeners, to get the delay to work on every question
             ActionListener[] actionListeners = option.getActionListeners();
             for (ActionListener listener : actionListeners) {
                 option.removeActionListener(listener);
@@ -196,7 +196,8 @@ public class ContentFrame extends JFrame {
             option.addActionListener(e -> {
                 checkIfWin(option);
 
-                Timer timer = new Timer(2000, evt -> {
+                // 3 sec delay
+                Timer timer = new Timer(3000, evt -> {
                     if (currentWin.size() < 3) {
                         questionPage.nextQuestion();
                         cardLayout.show(contentPanel, "QuestionPage");
