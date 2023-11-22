@@ -2,6 +2,7 @@ package GUI;
 
 import GUI.CategoryGUI.ChooseCategoryPage;
 import GUI.ScoreBoard.ScoreBoardPage;
+import GUI.StartPage.StartPage;
 import Question.QuestionCategory;
 import Question.QuestionCollection;
 
@@ -23,6 +24,7 @@ public class ContentFrame extends JFrame {
     QuestionPage questionPage;
     WaitingPage waitingPage;
     ScoreBoardPage scoreBoardPage;
+    SettingsPage settingsPage; //Simon lagt till
 
     String gameID;
 
@@ -30,6 +32,7 @@ public class ContentFrame extends JFrame {
     List<List<Boolean>> totalWins = new ArrayList<>();
     List<Boolean> currentWin = new ArrayList<>();
     String category = "Film";
+    int totalScore = 0;
 
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
@@ -48,6 +51,8 @@ public class ContentFrame extends JFrame {
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID);
 
+        settingsPage = new SettingsPage(); //Simon lagt till
+
         buildFrame();
     }
     public ContentFrame() throws IOException {
@@ -60,6 +65,8 @@ public class ContentFrame extends JFrame {
         questionPage = new QuestionPage(category);
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID);
+
+        settingsPage = new SettingsPage(); //Simon lagt till
 
         buildFrame();
     }
@@ -84,6 +91,8 @@ public class ContentFrame extends JFrame {
         contentPanel.add(questionPage, "QuestionPage");
         contentPanel.add(waitingPage, "WaitingPage");
         contentPanel.add(scoreBoardPage, "ScoreBoardPage");
+
+        contentPanel.add(settingsPage, "SettingsPage"); //Simon lagt till settingsPage i CardLayout
 
         add(contentPanel);
         addActionEvents();
@@ -151,7 +160,11 @@ public class ContentFrame extends JFrame {
         });
 
         //QUESTION PAGE
-//        addActionListenerToOptions();
+        //Simon Ändring. ActionListener till inställningsknapp
+        startPage.getSettings().addActionListener(e -> {
+            System.out.println("Settings Button Clicked!");
+            cardLayout.show(contentPanel, "SettingsPage");
+        });
 
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
@@ -201,7 +214,7 @@ public class ContentFrame extends JFrame {
                         throw new RuntimeException(e);
                     }
 
-                    questionPage.setIndexCount(0);
+                    scoreBoardPage.setPlayer1Score(44);
                     cardLayout.show(contentPanel, "ScoreBoardPage");
                     chosenCategory = false;
                 }
@@ -213,6 +226,7 @@ public class ContentFrame extends JFrame {
         if (option.getText().equals(questionPage.getAnswer())) {
             System.out.println("right");
             currentWin.add(true);
+            totalScore++;
         } else {
             System.out.println("wrong");
             currentWin.add(false);
@@ -221,6 +235,7 @@ public class ContentFrame extends JFrame {
 
     public void showScoreBoardPage(){
         questionPage.setIndexCount(0);
+        scoreBoardPage.setPlayerScores(totalScore, 0);
         cardLayout.show(contentPanel, "ScoreBoardPage");
         chosenCategory = false;
     }
