@@ -221,9 +221,11 @@ public class ContentFrame extends JFrame {
 
     public void checkIfWin(JButton option){
         if (option.getText().equals(questionPage.getAnswer())) {
+            option.setBackground(Color.green);
             System.out.println("right");
             currentWin.add(true);
         } else {
+            option.setBackground(Color.red);
             System.out.println("wrong");
             currentWin.add(false);
         }
