@@ -221,7 +221,7 @@ public class ContentFrame extends JFrame {
     }
 
     public void checkIfWin(JButton option){
-        if (option.getText().equals(questionPage.getAnswer())) {
+        if (option.getText().equals("<html><div style='text-align: center;'>" + questionPage.getAnswer())) {
             System.out.println("right");
             currentWin.add(true);
             totalScore++;

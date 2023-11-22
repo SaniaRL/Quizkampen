@@ -90,10 +90,44 @@ LITERATURE;Vem skrev novellen "Ondskan"?;Jan Guillou;Astrid Lindgren;Vilhelm Mob
 LITERATURE;I "Lord of the Rings" vem ärver "the One Ring"?;Frodo Baggins;Samwise Gamgee;Bilbo Baggins;Pippin Took
 LITERATURE;Vem skrev "Hamlet"?;William Shakespeare;Oscar Wilde; Tennessee Williams;George Bernard Shaw
 LITERATURE;Vilken författare skapade detektiven Sherlock Holmes?;Arthur Conan Doyle;Agatha Christie;Edgar Allan Poe;Raymond Chandler
+LITERATURE;Vad kallas den första boken i "Sagan om ringen"-trilogin?;Ringens brödraskap;Första ringen;Ringens återkomst;Hobbiten
+LITERATURE;Vem är författaren till "Stolthet och fördom"?;Jane Austen;Charlotte Brontë;Emily Brontë;Charles Dickens
+LITERATURE;Vilken dystopisk roman skrevs av George Orwell?;1984;Fahrenheit 451;Brave New World;The Handmaid's Tale
+LITERATURE;Vem är författaren till "Mio, min Mio"?;Astrid Lindgren;Tove Jansson;Roald Dahl;Michael Ende
+LITERATURE;Vad är namnet på den andra boken i "Harry Potter"-serien?;Harry Potter och Hemligheternas kammare;Harry Potter och De Vises Sten;Harry Potter och Fången från Azkaban;Harry Potter och den flammande bägaren
+LITERATURE;Vem är författaren till "Hundraåringen som klev ut genom fönstret och försvann"?;Jonas Jonasson;Henning Mankell;Stieg Larsson;Karin Boye
+LITERATURE;Vad är huvudkaraktärens namn i "Förlorade Horizon"?;Robert Conway;Jack Shangri-La;George Mallory;David Collins
+LITERATURE;Vilken roman av Victor Hugo handlar om en före detta straffånge som söker rättvisa?;Les Misérables;The Hunchback of Notre-Dame;Toilers of the Sea;The Man Who Laughs
+LITERATURE;Vilken Shakespeare-komedi innehåller karaktärerna Oberon och Puck?;En midsommarnattsdröm;Mycket väsen för ingenting;Trettondagsafton;Sommarnattens leende
+LITERATURE;Vem är författaren till "Jane Eyre"?;Charlotte Brontë;Emily Brontë;Jane Austen;Charles Dickens
+LITERATURE;Vilken roman av Jules Verne handlar om en resa runt jorden?;Jorden runt på 80 dagar;En världsomsegling under havet;En resa till jordens medelpunkt;Robur erövraren
+LITERATURE;Vilken roman av Mary Shelley handlar om skapandet av en konstgjord människa?;Frankenstein;Dracula;The Strange Case of Dr Jekyll and Mr Hyde;The Picture of Dorian Gray
+LITERATURE;Vilken roman av H.G. Wells handlar om en vetenskapsman som blir osynlig?;The Invisible Man;The Time Machine;The War of the Worlds;The Island of Doctor Moreau
+LITERATURE;Vad är namnet på huvudpersonen i "Oliver Twist" av Charles Dickens?;Oliver Twist;David Copperfield;Ebenezer Scrooge;Pip
+LITERATURE;Vilken roman av Margaret Atwood handlar om en dystopisk framtid där kvinnor används för att reproducera?;The Handmaid's Tale;Oryx and Crake;Cat's Eye;Alias Grace
+LITERATURE;Vilken genre är "Catcher in the Rye" av J.D. Salinger?;Coming-of-age;Science fiction;Mysterium;Historisk fiktion
 TECHNOLOGY;Vad står C för i CPU?;Central;Computer;Control;Core
 TECHNOLOGY;Vilket företag utvecklade operativsystemet Windows?;Microsoft;Apple;IBM;Google
 TECHNOLOGY;Vilket programmeringsspråk används främst för att utveckla iOS-appar?;Swift;Kotlin;Java;C#
 TECHNOLOGY;Vad står VPN för inom nätverk?;Virtual Private Network;Visual Proxy Network;Voice Protocol Network;Virtual Protocol Node
+TECHNOLOGY;Vad är en GPU?;Graphics Processing Unit;General Processing Unit;Gaming Processing Unit;Graphical Performance Unit
+TECHNOLOGY;Vilken typ av lagring används oftast i SSD-enheter?;Flash;Magnetisk;Optisk;Elektrisk
+TECHNOLOGY;Vilken enhet mäter luftfuktighet?;Hygrometer;Barometer;Anemometer;Thermometer
+TECHNOLOGY;Vad står HTML för i webbutveckling?;Hypertext Markup Language;Hyperlink and Text Markup Language;High-Level Text Management Language;Hypertext Modern Language
+TECHNOLOGY;Vilken typ av minne är volatilt och snabbt men förlorar data vid strömavbrott?;RAM;ROM;Cache;Hard disk
+TECHNOLOGY;Vad är en URL?;Uniform Resource Locator;Universal Record Locator;Uniform Retrieval Locator;Unified Resource Link
+TECHNOLOGY;Vilken typ av skärmteknik används i de flesta moderna TV-apparater?;OLED;LCD;Plasma;CRT
+TECHNOLOGY;Vilken företeelse inträffar när för många enheter är anslutna till samma trådlösa nätverk och det blir överbelastat?;Congestion;Interference;Latency;Packet loss
+TECHNOLOGY;Vilket operativsystem utvecklades av Linus Torvalds?;Linux;Unix;Windows;Mac OS
+TECHNOLOGY;Vad är syftet med en brandvägg i nätverkssäkerhet?;Att blockera oönskat trafik;Att accelerera internetanslutningen;Att kryptera data;Att optimera bandbredden
+TECHNOLOGY;Vilken typ av port används för trådbunden nätverksanslutning?;Ethernet port;USB port;HDMI port;Thunderbolt port
+TECHNOLOGY;Vilken typ av kontakt används för att ansluta en extern hårddisk till en dator?;USB;HDMI;Thunderbolt;Ethernet
+TECHNOLOGY;Vad är syftet med en DNS (Domain Name System)?;Att översätta domännamn till IP-adresser;Att kryptera internettrafik;Att blockera skadlig programvara;Att optimera nätverksprestanda
+TECHNOLOGY;Vilken typ av skrivare använder vanligtvis bläckpatroner?;Inkjet;Laser;Dot matrix;Thermal
+TECHNOLOGY;Vad står HTTP för i webbadresser?;Hypertext Transfer Protocol;High-Level Text Processing;Hyperlink and Text Protocol;Hypertext Transmission Process
+TECHNOLOGY;Vilken enhet används för att mäta elektrisk ström?;Amperemeter;Voltmeter;Ohmmeter;Wattmeter
+TECHNOLOGY;Vad är syftet med en CPU-kylare?;Att hålla processorn sval;Att öka processorns prestanda;Att skydda mot virus;Att förbättra bildskärmskvaliteten
+TECHNOLOGY;Vilken typ av kamera använder en spegel för att reflektera ljuset till en optisk sökare?;DSLR;Mirrorless;Compact;Action camera
 SPACE;Vilken är den största planeten i vårat solsystem?;Jupiter;Saturnus;Venus;Mars
 SPACE;Vilken himlakropp är känd som jordens naturliga satellit?;Månen;Saturnus;Solen;Mars
 SPACE;Vad är namnet på galaxen vi befinner oss i?;Vintergatan;Andromeda;Orion;Triangulum
