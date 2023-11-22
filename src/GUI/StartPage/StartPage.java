@@ -1,4 +1,4 @@
-package GUI;
+package GUI.StartPage;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -12,10 +12,10 @@ public class StartPage extends JPanel {
     JPanel southPanel;
 
     JButton startNewGame;
-    JButton settings;
-    JButton notifications;
-    JButton homeButton;
-    JButton catButton;
+    StartButton settings;
+    StartButton notifications;
+    StartButton homeButton;
+    StartButton catButton;
 
     String backgroundImagePath;
     Image backgroundImage;
@@ -26,10 +26,10 @@ public class StartPage extends JPanel {
     Border emptyBorder;
 
     public StartPage(){
-        settings = new JButton();
-        notifications = new JButton();
-        homeButton = new JButton();
-        catButton = new JButton();
+        settings = new StartButton("\uD83D\uDD27", new Dimension(150,150), 50, Color.BLACK);
+        notifications = new StartButton("\uD83D\uDCAC", new Dimension(150,150), 50, Color.BLACK);
+        catButton = new StartButton("o", new Dimension(150,150), 50, Color.BLACK);
+        homeButton = new StartButton("Q", new Dimension(180,180), 130, Color.CYAN);
 
         backgroundImagePath = "Backgrounds/blueBackground.png";
         backgroundImage = new ImageIcon(backgroundImagePath).getImage();
@@ -90,7 +90,7 @@ public class StartPage extends JPanel {
         startNewGame.setLocation(200, 200);
         startNewGame.setText("New Game");
         startNewGame.setFont(new Font("Open Sans", Font.PLAIN, 45));
-        startNewGame.setBorder(new LineBorder(Color.BLUE, 5));
+        startNewGame.setBorder(new LineBorder(Color.BLUE, 10));
 
         generateEastWestPanels(BorderLayout.WEST);
         centerPanel.add(startNewGame);
@@ -110,7 +110,6 @@ public class StartPage extends JPanel {
         northPanel.setMinimumSize(northPanelSize);
         northPanel.setOpaque(false);
 
-        settings = createButton(settings, "Icons/Settings.png");
         northPanel.add(settings);
 
         for(int i = 0; i < 5; i++){
@@ -119,44 +118,43 @@ public class StartPage extends JPanel {
             northPanel.add(label);
         }
 
-        notifications = createButton(notifications, "Icons/message.png");
         northPanel.add(notifications);
     }
 
     public void generateSouthPanel(){
         southPanel = new JPanel();
 
-        southPanel.setLayout(new GridLayout(1,5));
+        southPanel.setLayout(new GridLayout(1,4));
         Dimension northPanelSize = new Dimension(800,200);
         southPanel.setSize(northPanelSize);
         southPanel.setMaximumSize(northPanelSize);
         southPanel.setMinimumSize(northPanelSize);
         southPanel.setOpaque(false);
 
-        homeButton = createButton(homeButton, "Icons/house.png");
         southPanel.add(homeButton);
 
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 2; i++){
             JLabel label = new JLabel();
             label.setOpaque(false);
             southPanel.add(label);
         }
 
-        catButton = createButton(catButton, "Icons/cat.png");
         southPanel.add(catButton);
     }
 
-    public JButton createButton(JButton button, String path){
+  /*  public JButton createButton(JButton button, String path, Dimension dimension, int size){
 
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(size, size, Image.SCALE_REPLICATE));
         button.setIcon(imageIcon);
-        button.setPreferredSize(new Dimension(80,80));
+        button.setPreferredSize(dimension);
         button.setOpaque(false);
         button.setBorder(emptyBorder);
         button.setContentAreaFilled(false);
 
         return button;
     }
+
+   */
 
     public void generateEastWestPanels(String borderLayout){
         JPanel panel = new JPanel();
