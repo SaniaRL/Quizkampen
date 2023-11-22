@@ -41,6 +41,7 @@ public class QuestionCollection {
             String[] tempArray;
 
             while((temp = bufferedReader.readLine()) != null){
+                System.out.println("not null");
                 tempArray = temp.split(";");
                 if(tempArray.length == 6){
                     String[] options = {
@@ -74,8 +75,10 @@ public class QuestionCollection {
     public List<Question> getCategoryList(String category){
         List<Question> categorizedList = new ArrayList<>();
         for(Question question : allQuestions){
-            if(question.getCategory().equals(QuestionCategory.valueOf(category))){
-                categorizedList.add(question);
+            if(question != null){
+                if(question.getCategory().equals(QuestionCategory.valueOf(category))){
+                    categorizedList.add(question);
+                }
             }
         }
         return categorizedList;

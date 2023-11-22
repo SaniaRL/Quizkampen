@@ -232,7 +232,7 @@ public class ContentFrame extends JFrame {
     }
 
     public void showScoreBoardPage(){
-        questionPage.setIndexCount(0);
+//        questionPage.setIndexCount(0);
         scoreBoardPage.setPlayerScores(totalScore, 0);
         cardLayout.show(contentPanel, "ScoreBoardPage");
         chosenCategory = false;

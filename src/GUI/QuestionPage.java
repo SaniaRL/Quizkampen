@@ -17,7 +17,7 @@ public class QuestionPage extends JPanel {
     QuestionCollection questionCollection;
     List<Question> questionList;
     List<Question> threeQuestions;
-    String testCategory;
+    String category;
 
     JLabel questionLabel;
 
@@ -32,12 +32,12 @@ public class QuestionPage extends JPanel {
     String answer;
     List<JButton> optionButtons;
 
-    public QuestionPage(String testCategory) throws IOException {
+    public QuestionPage(String category) throws IOException {
 
         questionCollection = new QuestionCollection();
         questionList = questionCollection.getAllQuestions();
         threeQuestions = new ArrayList<>();
-        this.testCategory = testCategory;
+        this.category = category;
 
         questionLabel = new JLabel();
 
@@ -88,7 +88,7 @@ public class QuestionPage extends JPanel {
         centerPanel.setOpaque(false);
 
 
-        JLabel questionLabel = new JLabel((threeQuestions.get(indexCount)).getQuestion(), SwingConstants.CENTER);
+        JLabel questionLabel = new JLabel("<html>" + (threeQuestions.get(indexCount)).getQuestion(), SwingConstants.CENTER);
         questionLabel.setFont(new Font("Montserrat", Font.PLAIN, 20));
         questionLabel.setPreferredSize(new Dimension(600, 200));
         questionLabel.setBackground(Color.white);
@@ -136,9 +136,10 @@ public class QuestionPage extends JPanel {
     }
 
     public void findThreeQuestion(){
+        Collections.shuffle(questionList);
             for(Question question : questionList){
                 if(threeQuestions.size() < 3){
-                    if(question.getCategory().label.equals(testCategory)){
+                    if(question.getCategory().label.equals(category)){
                         threeQuestions.add(question);
                     }
                 }
@@ -159,7 +160,7 @@ public class QuestionPage extends JPanel {
 
     public void nextThreeQuestions(String category){
         indexCount = 0;
-        testCategory = category;
+        this.category = category;
         threeQuestions.clear();
         optionButtons.clear();
         centerPanel.removeAll();

@@ -1,7 +1,12 @@
-ANIMALS;Hur många ben har en katt?;Fyra ben;Fem ben;Två armar;En stövel
 ANIMALS;Vilket är det största däggdjuret?;Blåval;Späckhuggare;Elefant;Giraffe
 ANIMALS;Vilken stor katt är känd för dess svarta päls och är inhemsk till Sydostasiens skogar?;Svart Panter;Jaguar;Tiger;Leopard
 ANIMALS;Vilket djur betraktas som det snabbaste landlevande djuret?;Gepard;Leopard;Jaguar;Mungo
+ANIMALS;Vilken art av björnar finns bara på Antarktis och omgivande öar?;Isbjörn;Brunbjörn;Panda;Koala
+ANIMALS;Vilken giftig groda är känd för sina färgglada mönster och lever i regnskogar i Central- och Sydamerika?;Pilgiftsgroda;Gullgrodan;Trädgrodan;Klättergrodan
+ANIMALS;Vilken art av haj är känd för sina långa, smala tandrad och sitt hotfulla utseende?;Havsvithaj;Hammarhaj;Tigrishaj;Vithaj
+ANIMALS;Vilket djur har den längsta livslängden av alla däggdjur och är känt för sin långsamma rörelse?;Sköldpadda;Elefant;Valross;Fågel
+ANIMALS;Vilken rovdjursart är känd för sina stora manar och lever främst i afrikanska savanner?;Lejon;Tiger;Panter;Gepard
+ANIMALS;Vilket djur har en förlängd snabel och är känt för sin intelligens och minnesförmåga?;Elefant;Tapir;Myrslok;Giraff
 MOVIES;Vem är den bästa karaktären i julkalendern Mumindalen från 1975?;Förfadern;Ekorren med den vackra svansen;Mumintrollet;Lilla My
 MOVIES;Vad var namnet på protagonisten i "Shawshank Redemption"?;Andy Dufresne;Red Redding;Ellis Boyd "Red" Redding; Tommy Williams
 MOVIES;Vilken film vann en Academy Award för bästa film 1994?;Forrest Gump;Pulp Fiction;Schindler's List;The Silence of the Lambs
@@ -12,11 +17,41 @@ SPORT;Vilken tennisspelare har vunnit flest Grand Slam singel-titlar?;Novak Djok
 HISTORY;Vem var Förenta Staternas första president?;George Washington;Thomas Jefferson;John Adams;Benjamin Franklin
 HISTORY;Vilken historisk civilisation byggde Machu Picchu?;Inkan;Aztekerna;Mayafolket;Egypterna
 HISTORY;När föll Berlinmuren?;1989;1991;1985;1990
-HISTORY;Vilken händelse anses ofta vara starten av första världskriget?Lönnmordet av Franz Ferdinand;Versaillesfreden;Bombandet av Pearl Harbor;Belägringen av Leningrad
+HISTORY;Vilken händelse anses ofta vara starten av första världskriget?;Lönnmordet av Franz Ferdinand;Versaillesfreden;Bombandet av Pearl Harbor;Belägringen av Leningrad
+HISTORY;Vem ledde den franska revolutionen?;Robespierre;Napoleon Bonaparte;Marie Antoinette;Louis XVI
+HISTORY;Vilket år grundades Rom?;753 f.Kr.;500 f.Kr.;200 e.Kr.;100 e.Kr.
+HISTORY;Vilken europeisk stad var hem för den berömda Medicifamiljen?;Florens;Rom;Paris;Madrid
+HISTORY;Vilket år bröt andra världskriget ut?;1939;1941;1943;1945
+HISTORY;Vilken romersk kejsare föll offer för en sammansvärjning vid Ides of March?;Julius Caesar;Augustus;Nero;Caligula
+HISTORY;Vem var den första kvinnan som flög över Atlanten solo?;Amelia Earhart;Beryl Markham;Jacqueline Cochran;Harriet Quimby
+HISTORY;Vilket år skrevs den amerikanska konstitutionen?;1787;1776;1792;1801
+HISTORY;Vilken europeisk stad var hem för den berömda konstnären Michelangelo?;Rom;Florens;Madrid;Paris
+HISTORY;Vilken kejsare styrde under den kinesiska Ming-dynastin?;Hongwu;Kangxi;Qianlong;Xuanzong
+HISTORY;Vilket år invaderade William the Conqueror England och blev kung?;1066;1101;1085;1073
+HISTORY;Vem var ledaren för Sovjetunionen under stora delar av det kalla kriget?;Josef Stalin;Vladimir Lenin;Mikhail Gorbachev;Nikita Khrushchev
+HISTORY;Vilken antik civilisation byggde de berömda pyramiderna i Giza?;Forntida Egypten;Mesopotamien;Romarriket;Grekland
+HISTORY;Vem var USA:s president under det amerikanska inbördeskriget?;Abraham Lincoln;Andrew Johnson;Ulysses S. Grant;James Buchanan
+HISTORY;Vilken europeisk stad var värd för de första moderna olympiska spelen?;Athen;Rom;Paris;Berlin
+HISTORY;Vilken brittisk monark styrde under det elisabetanska dramat?;Elizabeth I;Henry VIII;Edward VI;Mary I
+HISTORY;Vem var den första kvinnan som valdes till premiärminister i Storbritannien?;Margaret Thatcher;Indira Gandhi;Angela Merkel;Theresa May
 MUSIC;Vem anses var "Kungen av Pop"?;Michael Jackson;Prince;Elvis Presley;Madonna
 MUSIC;Vem sammansatte det kända stycket Für Elise?;Beethoven;Mozart;Bach;Schubert
 MUSIC;Vilket band släppte albumet "The dark side of the moon"?;Pink Floyd;The Beatles;Led Zeppelin;Queen
 MUSIC;Vilken är den högsta kvinnliga sångrösten?;Soprano;Alto;Tenor;Baritone
+MUSIC;Vem är känd för låten "Waterloo"?;ABBA;The Rolling Stones;The Beatles;Queen
+MUSIC;Vem är känd som "Rocket Man"?;Elton John;David Bowie;Freddie Mercury;Stevie
+MUSIC;Vilken artist är känd för låten "Someone Like You"?;Adele;Ed Sheeran;Taylor Swift;Justin Bieber
+MUSIC;Vem är känd för låten "Livin' on a Prayer"?;Bon Jovi;Guns N' Roses;Metallica;Aerosmith
+MUSIC;Vilken artist är känd som "The Boss"?;Bruce Springsteen;Bob Dylan;Mick Jagger;John Lennon
+MUSIC;Vem är känd för låten "Like a Virgin"?;Madonna;Celine Dion;Cher;Kylie Minogue
+MUSIC;Vilket band släppte albumet "Back in Black"?;AC/DC;Led Zeppelin;Deep Purple;Guns N' Roses
+MUSIC;Vem är känd för låten "Imagine"?;John Lennon;Paul McCartney;George Harrison;Ringo Starr
+MUSIC;Vem är känd som "The King of Rock and Roll"?;Elvis Presley;Chuck Berry;Buddy Holly;Little Richard
+MUSIC;Vilket svenskt band är känt för låten "Dancing Queen"?;ABBA;Roxette;Ace of Base;Europe
+MUSIC;Vem är frontfiguren för bandet "Kent"?;Joakim Berg;Per Gessle;Marie Fredriksson;Magnus Uggla
+MUSIC;Vilket svenskt band släppte albumet "Joyride"?;Roxette;Ace of Base;Europe;ABBA
+MUSIC;Vilken klassisk kompositör var döv under stora delar av sitt liv?;Ludwig van Beethoven;Wolfgang Amadeus Mozart;Johann Sebastian Bach;Pyotr Ilyich Tchaikovsky
+MUSIC;Vilken tonart har inga förtecken eller b eller #?;C-dur;D-moll;F-dur;G-moll
 LITERATURE;Vem skrev novellen "Ondskan"?;Jan Guillou;Astrid Lindgren;Vilhelm Moberg;Selma Lagerlöf
 LITERATURE;I "Lord of the Rings" vem ärver "the One Ring"?;Frodo Baggins;Samwise Gamgee;Bilbo Baggins;Pippin Took
 LITERATURE;Vem skrev "Hamlet"?;William Shakespeare;Oscar Wilde; Tennessee Williams;George Bernard Shaw
