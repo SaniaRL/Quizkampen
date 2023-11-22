@@ -31,6 +31,7 @@ public class ContentFrame extends JFrame {
     List<List<Boolean>> totalWins = new ArrayList<>();
     List<Boolean> currentWin = new ArrayList<>();
     String category = "Film";
+    int totalScore = 0;
 
     QuestionCollection questionCollection = new QuestionCollection();
     BufferedWriter out;
@@ -211,7 +212,7 @@ public class ContentFrame extends JFrame {
                         throw new RuntimeException(e);
                     }
 
-                    questionPage.setIndexCount(0);
+                    scoreBoardPage.setPlayer1Score(44);
                     cardLayout.show(contentPanel, "ScoreBoardPage");
                     chosenCategory = false;
                 }
@@ -223,6 +224,7 @@ public class ContentFrame extends JFrame {
         if (option.getText().equals(questionPage.getAnswer())) {
             System.out.println("right");
             currentWin.add(true);
+            totalScore++;
         } else {
             System.out.println("wrong");
             currentWin.add(false);
@@ -231,6 +233,7 @@ public class ContentFrame extends JFrame {
 
     public void showScoreBoardPage(){
         questionPage.setIndexCount(0);
+        scoreBoardPage.setPlayerScores(totalScore, 0);
         cardLayout.show(contentPanel, "ScoreBoardPage");
         chosenCategory = false;
     }
