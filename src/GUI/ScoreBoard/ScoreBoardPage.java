@@ -17,6 +17,8 @@ public class ScoreBoardPage extends JPanel {
     JPanel northPanel;
     JPanel southPanel;
 
+    JLabel scoreLabel;
+
     JButton playGame;
 
     String backgroundImagePath;
@@ -26,6 +28,9 @@ public class ScoreBoardPage extends JPanel {
     List<List<Boolean>> winList;
     List<ScoreCount> scoreCounts;
     List<QuestionCategory> categoryList;
+
+    int player1Score = 0;
+    int player2Score = 0;
 
     public ScoreBoardPage(String gameID) throws IOException {
         this.gameID = gameID;
@@ -109,7 +114,7 @@ public class ScoreBoardPage extends JPanel {
 
         JPanel middlePanel = new JPanel();
         JLabel turnLabel = new JLabel("DIN TUR", SwingConstants.CENTER);
-        JLabel scoreLabel = new JLabel("3 - 3", SwingConstants.CENTER);
+        scoreLabel = new JLabel(player1Score + " - " + player2Score, SwingConstants.CENTER);
 
         middlePanel.setLayout(new GridLayout(2, 1));
         middlePanel.add(turnLabel);
@@ -185,5 +190,17 @@ public class ScoreBoardPage extends JPanel {
 
     public void setGameID(String gameID) {
         this.gameID = gameID;
+    }
+
+    public void setPlayer1Score(int totalScore) {
+        this.player1Score = totalScore;
+        scoreLabel.removeAll();
+        scoreLabel.setText(player1Score + " - " + player2Score);
+        repaint();
+        revalidate();
+    }
+
+    public void setPlayer2Score(int player2Score) {
+        this.player2Score = player2Score;
     }
 }
