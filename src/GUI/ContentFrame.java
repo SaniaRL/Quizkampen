@@ -22,6 +22,7 @@ public class ContentFrame extends JFrame {
     QuestionPage questionPage;
     WaitingPage waitingPage;
     ScoreBoardPage scoreBoardPage;
+    SettingsPage settingsPage; //Simon lagt till
 
     String gameID = "4556";
 
@@ -47,6 +48,8 @@ public class ContentFrame extends JFrame {
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage();
 
+        settingsPage = new SettingsPage(); //Simon lagt till
+
         buildFrame();
     }
     public ContentFrame() throws IOException {
@@ -59,6 +62,8 @@ public class ContentFrame extends JFrame {
         questionPage = new QuestionPage(category);
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage();
+
+        settingsPage = new SettingsPage(); //Simon lagt till
 
         buildFrame();
     }
@@ -83,6 +88,8 @@ public class ContentFrame extends JFrame {
         contentPanel.add(questionPage, "QuestionPage");
         contentPanel.add(waitingPage, "WaitingPage");
         contentPanel.add(scoreBoardPage, "ScoreBoardPage");
+
+        contentPanel.add(settingsPage, "SettingsPage"); //Simon lagt till settingsPage i CardLayout
 
         add(contentPanel);
         addActionEvents();
@@ -144,7 +151,11 @@ public class ContentFrame extends JFrame {
         });
 
         //QUESTION PAGE
-//        addActionListenerToOptions();
+        //Simon Ändring. ActionListener till inställningsknapp
+        startPage.getSettings().addActionListener(e -> {
+            System.out.println("Settings Button Clicked!");
+            cardLayout.show(contentPanel, "SettingsPage");
+        });
 
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
