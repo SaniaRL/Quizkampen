@@ -19,6 +19,7 @@ public class ContentFrame extends JFrame {
     private final List<String> games = new ArrayList<>();
     JPanel contentPanel;
     CardLayout cardLayout;
+
     StartPage startPage;
     ChooseCategoryPage chooseCategoryPage;
     QuestionPage questionPage;
@@ -26,10 +27,13 @@ public class ContentFrame extends JFrame {
     ScoreBoardPage scoreBoardPage;
     SettingsPage settingsPage;
     String gameID = "4556";
+
     //Should be moved to game logic later:
     List<List<Boolean>> totalWins = new ArrayList<>();
     List<Boolean> currentWin = new ArrayList<>();
     String category = "Film";
+    int totalScore = 0;
+
     QuestionCollection questionCollection = new QuestionCollection();
     BufferedWriter out;
     boolean chosenCategory = false;
@@ -50,7 +54,6 @@ public class ContentFrame extends JFrame {
 
         buildFrame();
     }
-
     public ContentFrame() throws IOException {
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
@@ -234,11 +237,12 @@ public class ContentFrame extends JFrame {
     }
 
 
-    public void checkIfWin(JButton option) {
-        if (option.getText().equals(questionPage.getAnswer())) {
+    public void checkIfWin(JButton option){
+        if (option.getText().equals("<html><div style='text-align: center;'>" + questionPage.getAnswer())) {
             option.setBackground(Color.green);
             System.out.println("right");
             currentWin.add(true);
+            totalScore++;
         } else {
             option.setBackground(Color.red);
             System.out.println("wrong");
@@ -249,8 +253,8 @@ public class ContentFrame extends JFrame {
     }
 
 
-    public void showScoreBoardPage() {
-        questionPage.setIndexCount(0);
+    public void showScoreBoardPage(){
+        scoreBoardPage.setPlayerScores(totalScore, 0);
         cardLayout.show(contentPanel, "ScoreBoardPage");
         chosenCategory = false;
     }
