@@ -28,15 +28,15 @@ public class ContentFrame extends JFrame {
     String gameID = "4556";
 
     //Should be moved to game logic later:
-    List<List<Boolean>> totalWins = new ArrayList<>();
+    List<List<Boolean>> player1Wins = new ArrayList<>();
+    List<List<Boolean>> player2Wins = new ArrayList<>();
     List<Boolean> currentWin = new ArrayList<>();
     String category = "Film";
-    int totalScore = 0;
 
     QuestionCollection questionCollection = new QuestionCollection();
     BufferedWriter out;
     private final List<String> games = new ArrayList<>();
-    boolean chosenCategory = false;
+    boolean chosenCategory = true;
 
     public ContentFrame(BufferedWriter out) throws IOException {
         this.out = out;
@@ -179,9 +179,7 @@ public class ContentFrame extends JFrame {
     }
     public void addActionListerToStartPage(){
         //START PAGE
-        startPage.getStartNewGame().addActionListener(ActionEvent -> {
-        cardLayout.show(contentPanel, "WaitingPage");
-        });
+        startPage.getStartNewGame().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "WaitingPage"));
         startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ScoreBoardPage"));
     }
 
@@ -195,9 +193,11 @@ public class ContentFrame extends JFrame {
                     cardLayout.show(contentPanel, "QuestionPage");
                     addActionListenerToOptions(gameID);
                 } else {
-                    totalWins.add(new ArrayList<>(currentWin));
+                    player1Wins.add(new ArrayList<>(currentWin));
+                    player2Wins.add(new ArrayList<>(generateRandomPlayer2List()));
                     currentWin.clear();
-                    scoreBoardPage.setWinList(totalWins);
+                    scoreBoardPage.setWinList(player1Wins, player2Wins);
+
                     if (chosenCategory) {
                         cardLayout.show(contentPanel, "ScoreBoardPage");
                         scoreBoardPage.setGameID(gameID);
@@ -207,14 +207,13 @@ public class ContentFrame extends JFrame {
                         newGameStarted(gameID);
                     }
                     try {
+                        scoreBoardPage.setWinList(player1Wins, player2Wins);
                         scoreBoardPage.updateScoreBoard();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
 
-                    scoreBoardPage.setPlayer1Score(44);
                     cardLayout.show(contentPanel, "ScoreBoardPage");
-                    chosenCategory = false;
                 }
             });
         }
@@ -224,7 +223,6 @@ public class ContentFrame extends JFrame {
         if (option.getText().equals("<html><div style='text-align: center;'>" + questionPage.getAnswer())) {
             System.out.println("right");
             currentWin.add(true);
-            totalScore++;
         } else {
             System.out.println("wrong");
             currentWin.add(false);
@@ -232,8 +230,6 @@ public class ContentFrame extends JFrame {
     }
 
     public void showScoreBoardPage(){
-//        questionPage.setIndexCount(0);
-        scoreBoardPage.setPlayerScores(totalScore, 0);
         cardLayout.show(contentPanel, "ScoreBoardPage");
         chosenCategory = false;
     }
@@ -254,9 +250,10 @@ public class ContentFrame extends JFrame {
                     cardLayout.show(contentPanel, "QuestionPage");
                     addActionListenerToOptions(gameID);
                 } else {
-                    totalWins.add(new ArrayList<>(currentWin));
+                    player1Wins.add(new ArrayList<>(currentWin));
+                    player2Wins.add(new ArrayList<>(generateRandomPlayer2List()));
                     currentWin.clear();
-                    scoreBoardPage.setWinList(totalWins);
+                    scoreBoardPage.setWinList(player1Wins, player2Wins);
                     if (chosenCategory) {
                         cardLayout.show(contentPanel, "ScoreBoardPage");
                         scoreBoardPage.setGameID(gameID);
@@ -274,6 +271,16 @@ public class ContentFrame extends JFrame {
                 }
             });
         }
+    }
+
+    public List<Boolean> generateRandomPlayer2List(){
+        List<Boolean> booleanList = new ArrayList<>();
+        booleanList.add(true);
+        booleanList.add(false);
+        booleanList.add(false);
+        player2Wins.add(booleanList);
+
+        return booleanList;
     }
 
 }

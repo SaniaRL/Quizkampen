@@ -27,10 +27,10 @@ public class ScoreCount extends JPanel {
         categoryLabel = new CategoryLabel();
         addComponents();
     }
-    public ScoreCount(List<Boolean> winList, QuestionCategory category){
+    public ScoreCount(List<Boolean> player1Score, List<Boolean> player2Score, QuestionCategory category){
         this.questionCategory = category;
-        this.player1Score = winList;
-        player2Score = new ArrayList<>();
+        this.player1Score = player1Score;
+        this.player2Score = player2Score;
         player1Label = new JPanel();
         player2Label = new JPanel();
         categoryLabel = new CategoryLabel(Color.ORANGE, questionCategory);
@@ -59,12 +59,14 @@ public class ScoreCount extends JPanel {
         if(list.size() >= 3){
             for(int i = 0; i < 3; i++){
                 panel.add(new ScoreLabel(list.get(i)));
+                System.out.println("new label");
             }
         }
         else{
             for(int i = 0; i < 3; i++){
                 ScoreLabel scoreLabel = new ScoreLabel();
                 panel.add(scoreLabel);
+                System.out.println("blue label");
             }
         }
     }

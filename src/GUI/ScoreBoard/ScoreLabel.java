@@ -13,9 +13,11 @@ public class ScoreLabel extends JLabel {
         addComponents();
         if(win){
             setForeground(winColor);
+            System.out.println("GREEN");
         }
         else{
             setForeground(loseColor);
+            System.out.println("RED");
         }
     }
 
