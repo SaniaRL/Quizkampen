@@ -205,6 +205,9 @@ public class ContentFrame extends JFrame {
     }*/
 
     public void addActionListenerToOptions() {
+        QuestionPage qp = new QuestionPage(); //Simon ändring
+        int questionsToFind = qp.getQuestionsToFind();
+        System.out.println(questionsToFind + " Öl");
         List<JButton> optionButtons = questionPage.getOptionButtons();
 
         for (JButton option : optionButtons) {
@@ -218,7 +221,7 @@ public class ContentFrame extends JFrame {
                 checkIfWin(option);
 
                 Timer timer = new Timer(3000, evt -> {
-                    if (player1Round.size() < 3) {
+                    if (player1Round.size() < questionsToFind) { //Simon ändring. 3 earlier.
                         questionPage.nextQuestion();
                         cardLayout.show(contentPanel, "QuestionPage");
                         addActionListenerToOptions();

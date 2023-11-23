@@ -17,7 +17,7 @@ public class QuestionPage extends JPanel {
 
     QuestionCollection questionCollection;
     List<Question> questionList;
-    List<Question> threeQuestions;
+    List<Question> numberOfQuestions; //threeQuestions. Simon refactor
     String category = "";
 
     JLabel questionLabel;
@@ -34,11 +34,15 @@ public class QuestionPage extends JPanel {
     String answer;
     List<JButton> optionButtons;
 
+    public QuestionPage() {
+        loadProperties();
+    } //Temp constructor. Simon
+
     public QuestionPage(String category) throws IOException {
 
         questionCollection = new QuestionCollection();
         questionList = questionCollection.getAllQuestions();
-        threeQuestions = new ArrayList<>();
+        numberOfQuestions = new ArrayList<>();
         this.category = category;
 
         questionLabel = new JLabel();
@@ -92,7 +96,7 @@ public class QuestionPage extends JPanel {
         centerPanel.setOpaque(false);
 
 
-        JLabel questionLabel = new JLabel("<html><div style='text-align: center;'>"  + (threeQuestions.get(indexCount)).getQuestion(), SwingConstants.CENTER);
+        JLabel questionLabel = new JLabel("<html><div style='text-align: center;'>"  + (numberOfQuestions.get(indexCount)).getQuestion(), SwingConstants.CENTER);
         questionLabel.setFont(new Font("Montserrat", Font.PLAIN, 20));
         Border emptyBorder = BorderFactory.createEmptyBorder(10,10,10,10);
         Border border = new LineBorder(Color.BLUE, 10);
@@ -131,7 +135,7 @@ public class QuestionPage extends JPanel {
         southPanel.setPreferredSize(new Dimension(800, 300));
         southPanel.setOpaque(false);
 
-        List<String> optionsList = new ArrayList<>(Arrays.stream((threeQuestions.get(indexCount)).getQuestionOptions()).toList());
+        List<String> optionsList = new ArrayList<>(Arrays.stream((numberOfQuestions.get(indexCount)).getQuestionOptions()).toList());
         answer = optionsList.get(0);
         Collections.shuffle(optionsList);
         if(optionsList.size() == 4){
@@ -153,9 +157,9 @@ public class QuestionPage extends JPanel {
     public void findQuestions() {
         Collections.shuffle(questionList);
         for (Question question : questionList) {
-            if (threeQuestions.size() < questionsToFind) {
+            if (numberOfQuestions.size() < questionsToFind) {
                 if (question.getCategory().label.equals(category)) {
-                    threeQuestions.add(question);
+                    numberOfQuestions.add(question);
                 }
             }
         }
@@ -165,7 +169,7 @@ public class QuestionPage extends JPanel {
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("GUI/NumberOfQuestions.properties")) {
             if (input != null) {
                 prop.load(input);
-                questionsToFind = Integer.parseInt(prop.getProperty("questionsToFind", "3"));
+                questionsToFind = Integer.parseInt(prop.getProperty("questionsToFind", "3")); //Returns 3 if not found i properties. Simon
             } else {
                 System.out.println("Could not find properties");
             }
@@ -173,13 +177,13 @@ public class QuestionPage extends JPanel {
             ex.printStackTrace();
         }
     }
-    //Not removing the method below yet. But looks like propertiesFile works as intended.
+    //Not removing the method below yet. But looks like propertiesFile works as intended. Simon
     public void findThreeQuestion(){
         Collections.shuffle(questionList);
             for(Question question : questionList){
-                if(threeQuestions.size() < 3){
+                if(numberOfQuestions.size() < 3){
                     if(question.getCategory().label.equals(category)){
-                        threeQuestions.add(question);
+                        numberOfQuestions.add(question);
                     }
                 }
             }
@@ -200,7 +204,7 @@ public class QuestionPage extends JPanel {
     public void nextThreeQuestions(String category){
         indexCount = 0;
         this.category = category;
-        threeQuestions.clear();
+        numberOfQuestions.clear();
         optionButtons.clear();
         centerPanel.removeAll();
         northPanel.removeAll();
@@ -209,6 +213,10 @@ public class QuestionPage extends JPanel {
         generateCenterPanel();
         generationNorthPanel();
         generateSouthPanel();
+    }
+
+    public int getQuestionsToFind () {
+        return questionsToFind;
     }
 
     public String getAnswer() {
