@@ -1,31 +1,151 @@
-ANIMALS;Hur många ben har en katt?;Fyra ben;Fem ben;Två armar;En stövel
 ANIMALS;Vilket är det största däggdjuret?;Blåval;Späckhuggare;Elefant;Giraffe
 ANIMALS;Vilken stor katt är känd för dess svarta päls och är inhemsk till Sydostasiens skogar?;Svart Panter;Jaguar;Tiger;Leopard
 ANIMALS;Vilket djur betraktas som det snabbaste landlevande djuret?;Gepard;Leopard;Jaguar;Mungo
-MOVIES;Vem är den bästa karaktären i julkalendern Mumindalen från 1975?;Förfadern;Ekorren med den vackra svansen;Mumintrollet;Lilla My
+ANIMALS;Vilken art av björnar finns bara på Antarktis och omgivande öar?;Isbjörn;Brunbjörn;Panda;Koala
+ANIMALS;Vilken giftig groda är känd för sina färgglada mönster och lever i regnskogar i Central- och Sydamerika?;Pilgiftsgroda;Gullgrodan;Trädgrodan;Klättergrodan
+ANIMALS;Vilken art av haj är känd för sina långa, smala tandrad och sitt hotfulla utseende?;Havsvithaj;Hammarhaj;Tigrishaj;Vithaj
+ANIMALS;Vilket djur har den längsta livslängden av alla däggdjur och är känt för sin långsamma rörelse?;Sköldpadda;Elefant;Valross;Fågel
+ANIMALS;Vilken rovdjursart är känd för sina stora manar och lever främst i afrikanska savanner?;Lejon;Tiger;Panter;Gepard
+ANIMALS;Vilket djur har en förlängd snabel och är känt för sin intelligens och minnesförmåga?;Elefant;Tapir;Myrslok;Giraff
+ANIMALS;Vilket havsdjur är känt för sina långa armar och sugkoppar?;Bläckfisk;Squid;Manet;Haj
+ANIMALS;Vilket djur är känt för sina svarta och vita ränder?;Zebra;Kamel;Varg;Flodhäst
+ANIMALS;Vilket rovdjur är känt för att vara en utmärkt simmare och har päls som är vattentät?;Utter;Bisonoxe;Lemur;Fjällräv
+ANIMALS;Vilket däggdjur lever högst upp på världens berg och är anpassat till kalla, höga miljöer?;Snöleopard;Yeti;Huggorm;Tiger
+ANIMALS;Vilket däggdjur är känt för sin förmåga att rulla upp sig till en boll som försvarsmekanism?;Igelkott;Gris;Hare;Noshörning
+ANIMALS;Vilken flygande insekt är känd för sina vackra vingar och sitt beteende att pollinera blommor?;Fjäril;Potatis;Mygga;Blomfluga
 MOVIES;Vad var namnet på protagonisten i "Shawshank Redemption"?;Andy Dufresne;Red Redding;Ellis Boyd "Red" Redding; Tommy Williams
 MOVIES;Vilken film vann en Academy Award för bästa film 1994?;Forrest Gump;Pulp Fiction;Schindler's List;The Silence of the Lambs
 MOVIES;Vem regisserade Jurassic Park?Steven Spielberg;Christopher Nolan;James Cameron;George Lucas
+MOVIES;Vem spelade huvudrollen som Neo i filmen "The Matrix"?;Keanu Reeves;Tom Cruise;Will Smith;Brad Pitt
+MOVIES;Vad är namnet på den magiska skola som Harry Potter går på?;Hogwarts;Durmstrang;Beauxbatons;Ilvermorny
+MOVIES;Vilken stad är känd som bakgrund för filmen "Lost in Translation"?;Tokyo;Seoul;Beijing;Hong Kong
+MOVIES;Vad är huvudtemat i filmen "Eternal Sunshine of the Spotless Mind"?;Minne;Poesi;Poker;Rymden
+MOVIES;Vilken skådespelare porträtterade Jack Dawson i filmen "Titanic"?;Leonardo DiCaprio;Brad Pitt;Johnny Depp;Matthew McConaughey
+MOVIES;Vad är namnet på den fiktiva värld där "The Lord of the Rings" utspelar sig?;Midgård;Narnia;Westeros;Hogwarts
+MOVIES;Vem regisserade filmen "Inception"?;Christopher Nolan;Quentin Tarantino;Steven Spielberg;Martin Scorsese
+MOVIES;Vilken skådespelerska vann en Oscar för sin roll i filmen "La La Land"?;Emma Stone;Meryl Streep;Jennifer Lawrence;Cate Blanchett
+MOVIES;I vilket årtionde utspelar sig handlingen i filmen "Grease"?;1950-talet;1960-talet;1970-talet;1980-talet
+MOVIES;I vilken film möter vi karaktären Hannibal Lecter för första gången?;The Silence of the Lambs;Red Dragon;Hannibal;Manhunter
+MOVIES;Vilken typ av varelse är E.T. i filmen "E.T. the Extra-Terrestrial"?;Alien;Robot;Monster;Spöke
+MOVIES;Vilken film handlar om en grupp astronauter som försöker rädda mänskligheten genom att resa genom ett svart hål?;Interstellar;Gravity;The Martian;Apollo 13
 SPORT;Vad av följande är inte en erkänd sport?;Tandborstning;Fotboll;Hockey;Konståkning
 SPORT;Vilket land vann VM 2018?;Frankrike;Argentina;Tyskland;Brasilien
 SPORT;Vilken tennisspelare har vunnit flest Grand Slam singel-titlar?;Novak Djokovic;Serena Williams;Rafael Nadal;Roger Federer
+SPORT;Vilken sport använder man ett gevär för att träffa mål?;Skidskytte;Konståkning;Handboll;Friidrott
+SPORT;Vilket land är hemlandet för karates?;Japan;Kina;Sydkorea;Thailand
+SPORT;Vem anses vara den bästa kvinnliga golfspelaren genom tiderna?;Annika Sörenstam;Tiger Woods;Michelle Wie;Serena Williams
+SPORT;Vilket år introducerades damfotboll i OS?;1996;2000;1992;2004
+SPORT;Vem är känd som "The King" inom motorsport?;Richard Petty;Ayrton Senna;Michael Schumacher;Lewis Hamilton
+SPORT;Vilket land är hemlandet för sumobrottning?;Japan;Kina;Mongoliet;Sydkorea
+SPORT;Vad är världsrekordet i maraton för herrar?;2:01:39;2:02:57;2:03:23;2:05:01
+SPORT;Vem anses vara den främsta basketspelaren genom tiderna?;Michael Jordan;LeBron James;Kobe Bryant;Magic Johnson
+SPORT;Vilket land är känt för sitt dominans inom cykelsporten?;Belgien;Frankrike;Italien;Spanien
+SPORT;Vem är den mest framstående kvinnliga tennisspelaren genom tiderna?;Serena Williams;Steffi Graf;Martina Navratilova;Chris Evert
+SPORT;Vilket lag vann den första upplagan av Super Bowl?;Green Bay Packers;Kansas City Chiefs;New England Patriots;Dallas Cowboys
+SPORT;Vem är den enda fotbollsspelaren som har vunnit Ballon d'Or sex gånger?;Lionel Messi;Cristiano Ronaldo;Michel Platini;Johan Cruyff
+SPORT;Vilken typ av skidsport tävlar man i vid backhoppning?;Nordisk kombination;Alpin skidåkning;Längdskidåkning;Freestyle
+SPORT;Vilken sport används en kättingkula i?;Krocket;Boule;Baseboll;Golf
+SPORT;Vilket land arrangerade de första moderna olympiska sommarspelen?;Grekland;Frankrike;Storbritannien;Tyskland
+SPORT;Vem anses vara den bästa manliga simmaren genom tiderna?;Michael Phelps;Ian Thorpe;Mark Spitz;Ryan Lochte
+SPORT;Vilken idrott används en "puck"?;Ishockey;Lacrosse;Bandy;Handboll
 HISTORY;Vem var Förenta Staternas första president?;George Washington;Thomas Jefferson;John Adams;Benjamin Franklin
 HISTORY;Vilken historisk civilisation byggde Machu Picchu?;Inkan;Aztekerna;Mayafolket;Egypterna
 HISTORY;När föll Berlinmuren?;1989;1991;1985;1990
-HISTORY;Vilken händelse anses ofta vara starten av första världskriget?Lönnmordet av Franz Ferdinand;Versaillesfreden;Bombandet av Pearl Harbor;Belägringen av Leningrad
+HISTORY;Vilken händelse anses ofta vara starten av första världskriget?;Lönnmordet av Franz Ferdinand;Versaillesfreden;Bombandet av Pearl Harbor;Belägringen av Leningrad
+HISTORY;Vem ledde den franska revolutionen?;Robespierre;Napoleon Bonaparte;Marie Antoinette;Louis XVI
+HISTORY;Vilket år grundades Rom?;753 f.Kr.;500 f.Kr.;200 e.Kr.;100 e.Kr.
+HISTORY;Vilken europeisk stad var hem för den berömda Medicifamiljen?;Florens;Rom;Paris;Madrid
+HISTORY;Vilket år bröt andra världskriget ut?;1939;1941;1943;1945
+HISTORY;Vilken romersk kejsare föll offer för en sammansvärjning vid Ides of March?;Julius Caesar;Augustus;Nero;Caligula
+HISTORY;Vem var den första kvinnan som flög över Atlanten solo?;Amelia Earhart;Beryl Markham;Jacqueline Cochran;Harriet Quimby
+HISTORY;Vilket år skrevs den amerikanska konstitutionen?;1787;1776;1792;1801
+HISTORY;Vilken europeisk stad var hem för den berömda konstnären Michelangelo?;Rom;Florens;Madrid;Paris
+HISTORY;Vilken kejsare styrde under den kinesiska Ming-dynastin?;Hongwu;Kangxi;Qianlong;Xuanzong
+HISTORY;Vilket år invaderade William the Conqueror England och blev kung?;1066;1101;1085;1073
+HISTORY;Vem var ledaren för Sovjetunionen under stora delar av det kalla kriget?;Josef Stalin;Vladimir Lenin;Mikhail Gorbachev;Nikita Khrushchev
+HISTORY;Vilken antik civilisation byggde de berömda pyramiderna i Giza?;Forntida Egypten;Mesopotamien;Romarriket;Grekland
+HISTORY;Vem var USA:s president under det amerikanska inbördeskriget?;Abraham Lincoln;Andrew Johnson;Ulysses S. Grant;James Buchanan
+HISTORY;Vilken europeisk stad var värd för de första moderna olympiska spelen?;Athen;Rom;Paris;Berlin
+HISTORY;Vilken brittisk monark styrde under det elisabetanska dramat?;Elizabeth I;Henry VIII;Edward VI;Mary I
+HISTORY;Vem var den första kvinnan som valdes till premiärminister i Storbritannien?;Margaret Thatcher;Indira Gandhi;Angela Merkel;Theresa May
 MUSIC;Vem anses var "Kungen av Pop"?;Michael Jackson;Prince;Elvis Presley;Madonna
 MUSIC;Vem sammansatte det kända stycket Für Elise?;Beethoven;Mozart;Bach;Schubert
 MUSIC;Vilket band släppte albumet "The dark side of the moon"?;Pink Floyd;The Beatles;Led Zeppelin;Queen
 MUSIC;Vilken är den högsta kvinnliga sångrösten?;Soprano;Alto;Tenor;Baritone
+MUSIC;Vem är känd för låten "Waterloo"?;ABBA;The Rolling Stones;The Beatles;Queen
+MUSIC;Vem är känd som "Rocket Man"?;Elton John;David Bowie;Freddie Mercury;Stevie
+MUSIC;Vilken artist är känd för låten "Someone Like You"?;Adele;Ed Sheeran;Taylor Swift;Justin Bieber
+MUSIC;Vem är känd för låten "Livin' on a Prayer"?;Bon Jovi;Guns N' Roses;Metallica;Aerosmith
+MUSIC;Vilken artist är känd som "The Boss"?;Bruce Springsteen;Bob Dylan;Mick Jagger;John Lennon
+MUSIC;Vem är känd för låten "Like a Virgin"?;Madonna;Celine Dion;Cher;Kylie Minogue
+MUSIC;Vilket band släppte albumet "Back in Black"?;AC/DC;Led Zeppelin;Deep Purple;Guns N' Roses
+MUSIC;Vem är känd för låten "Imagine"?;John Lennon;Paul McCartney;George Harrison;Ringo Starr
+MUSIC;Vem är känd som "The King of Rock and Roll"?;Elvis Presley;Chuck Berry;Buddy Holly;Little Richard
+MUSIC;Vilket svenskt band är känt för låten "Dancing Queen"?;ABBA;Roxette;Ace of Base;Europe
+MUSIC;Vem är frontfiguren för bandet "Kent"?;Joakim Berg;Per Gessle;Marie Fredriksson;Magnus Uggla
+MUSIC;Vilket svenskt band släppte albumet "Joyride"?;Roxette;Ace of Base;Europe;ABBA
+MUSIC;Vilken klassisk kompositör var döv under stora delar av sitt liv?;Ludwig van Beethoven;Wolfgang Amadeus Mozart;Johann Sebastian Bach;Pyotr Ilyich Tchaikovsky
+MUSIC;Vilken tonart har inga förtecken eller b eller #?;C-dur;D-moll;F-dur;G-moll
 LITERATURE;Vem skrev novellen "Ondskan"?;Jan Guillou;Astrid Lindgren;Vilhelm Moberg;Selma Lagerlöf
 LITERATURE;I "Lord of the Rings" vem ärver "the One Ring"?;Frodo Baggins;Samwise Gamgee;Bilbo Baggins;Pippin Took
 LITERATURE;Vem skrev "Hamlet"?;William Shakespeare;Oscar Wilde; Tennessee Williams;George Bernard Shaw
 LITERATURE;Vilken författare skapade detektiven Sherlock Holmes?;Arthur Conan Doyle;Agatha Christie;Edgar Allan Poe;Raymond Chandler
+LITERATURE;Vad kallas den första boken i "Sagan om ringen"-trilogin?;Ringens brödraskap;Första ringen;Ringens återkomst;Hobbiten
+LITERATURE;Vem är författaren till "Stolthet och fördom"?;Jane Austen;Charlotte Brontë;Emily Brontë;Charles Dickens
+LITERATURE;Vilken dystopisk roman skrevs av George Orwell?;1984;Fahrenheit 451;Brave New World;The Handmaid's Tale
+LITERATURE;Vem är författaren till "Mio, min Mio"?;Astrid Lindgren;Tove Jansson;Roald Dahl;Michael Ende
+LITERATURE;Vad är namnet på den andra boken i "Harry Potter"-serien?;Harry Potter och Hemligheternas kammare;Harry Potter och De Vises Sten;Harry Potter och Fången från Azkaban;Harry Potter och den flammande bägaren
+LITERATURE;Vem är författaren till "Hundraåringen som klev ut genom fönstret och försvann"?;Jonas Jonasson;Henning Mankell;Stieg Larsson;Karin Boye
+LITERATURE;Vad är huvudkaraktärens namn i "Förlorade Horizon"?;Robert Conway;Jack Shangri-La;George Mallory;David Collins
+LITERATURE;Vilken roman av Victor Hugo handlar om en före detta straffånge som söker rättvisa?;Les Misérables;The Hunchback of Notre-Dame;Toilers of the Sea;The Man Who Laughs
+LITERATURE;Vilken Shakespeare-komedi innehåller karaktärerna Oberon och Puck?;En midsommarnattsdröm;Mycket väsen för ingenting;Trettondagsafton;Sommarnattens leende
+LITERATURE;Vem är författaren till "Jane Eyre"?;Charlotte Brontë;Emily Brontë;Jane Austen;Charles Dickens
+LITERATURE;Vilken roman av Jules Verne handlar om en resa runt jorden?;Jorden runt på 80 dagar;En världsomsegling under havet;En resa till jordens medelpunkt;Robur erövraren
+LITERATURE;Vilken roman av Mary Shelley handlar om skapandet av en konstgjord människa?;Frankenstein;Dracula;The Strange Case of Dr Jekyll and Mr Hyde;The Picture of Dorian Gray
+LITERATURE;Vilken roman av H.G. Wells handlar om en vetenskapsman som blir osynlig?;The Invisible Man;The Time Machine;The War of the Worlds;The Island of Doctor Moreau
+LITERATURE;Vad är namnet på huvudpersonen i "Oliver Twist" av Charles Dickens?;Oliver Twist;David Copperfield;Ebenezer Scrooge;Pip
+LITERATURE;Vilken roman av Margaret Atwood handlar om en dystopisk framtid där kvinnor används för att reproducera?;The Handmaid's Tale;Oryx and Crake;Cat's Eye;Alias Grace
+LITERATURE;Vilken genre är "Catcher in the Rye" av J.D. Salinger?;Coming-of-age;Science fiction;Mysterium;Historisk fiktion
 TECHNOLOGY;Vad står C för i CPU?;Central;Computer;Control;Core
 TECHNOLOGY;Vilket företag utvecklade operativsystemet Windows?;Microsoft;Apple;IBM;Google
 TECHNOLOGY;Vilket programmeringsspråk används främst för att utveckla iOS-appar?;Swift;Kotlin;Java;C#
 TECHNOLOGY;Vad står VPN för inom nätverk?;Virtual Private Network;Visual Proxy Network;Voice Protocol Network;Virtual Protocol Node
+TECHNOLOGY;Vad är en GPU?;Graphics Processing Unit;General Processing Unit;Gaming Processing Unit;Graphical Performance Unit
+TECHNOLOGY;Vilken typ av lagring används oftast i SSD-enheter?;Flash;Magnetisk;Optisk;Elektrisk
+TECHNOLOGY;Vilken enhet mäter luftfuktighet?;Hygrometer;Barometer;Anemometer;Thermometer
+TECHNOLOGY;Vad står HTML för i webbutveckling?;Hypertext Markup Language;Hyperlink and Text Markup Language;High-Level Text Management Language;Hypertext Modern Language
+TECHNOLOGY;Vilken typ av minne är volatilt och snabbt men förlorar data vid strömavbrott?;RAM;ROM;Cache;Hard disk
+TECHNOLOGY;Vad är en URL?;Uniform Resource Locator;Universal Record Locator;Uniform Retrieval Locator;Unified Resource Link
+TECHNOLOGY;Vilken typ av skärmteknik används i de flesta moderna TV-apparater?;OLED;LCD;Plasma;CRT
+TECHNOLOGY;Vilken företeelse inträffar när för många enheter är anslutna till samma trådlösa nätverk och det blir överbelastat?;Congestion;Interference;Latency;Packet loss
+TECHNOLOGY;Vilket operativsystem utvecklades av Linus Torvalds?;Linux;Unix;Windows;Mac OS
+TECHNOLOGY;Vad är syftet med en brandvägg i nätverkssäkerhet?;Att blockera oönskat trafik;Att accelerera internetanslutningen;Att kryptera data;Att optimera bandbredden
+TECHNOLOGY;Vilken typ av port används för trådbunden nätverksanslutning?;Ethernet port;USB port;HDMI port;Thunderbolt port
+TECHNOLOGY;Vilken typ av kontakt används för att ansluta en extern hårddisk till en dator?;USB;HDMI;Thunderbolt;Ethernet
+TECHNOLOGY;Vad är syftet med en DNS (Domain Name System)?;Att översätta domännamn till IP-adresser;Att kryptera internettrafik;Att blockera skadlig programvara;Att optimera nätverksprestanda
+TECHNOLOGY;Vilken typ av skrivare använder vanligtvis bläckpatroner?;Inkjet;Laser;Dot matrix;Thermal
+TECHNOLOGY;Vad står HTTP för i webbadresser?;Hypertext Transfer Protocol;High-Level Text Processing;Hyperlink and Text Protocol;Hypertext Transmission Process
+TECHNOLOGY;Vilken enhet används för att mäta elektrisk ström?;Amperemeter;Voltmeter;Ohmmeter;Wattmeter
+TECHNOLOGY;Vad är syftet med en CPU-kylare?;Att hålla processorn sval;Att öka processorns prestanda;Att skydda mot virus;Att förbättra bildskärmskvaliteten
+TECHNOLOGY;Vilken typ av kamera använder en spegel för att reflektera ljuset till en optisk sökare?;DSLR;Mirrorless;Compact;Action camera
 SPACE;Vilken är den största planeten i vårat solsystem?;Jupiter;Saturnus;Venus;Mars
 SPACE;Vilken himlakropp är känd som jordens naturliga satellit?;Månen;Saturnus;Solen;Mars
 SPACE;Vad är namnet på galaxen vi befinner oss i?;Vintergatan;Andromeda;Orion;Triangulum
 SPACE;Vad är termen för en stjärna som exploderar och blir extremt ljus innan den gradvis bleknar?;Supernova;Svart hål;Nova;Kvasar
+SPACE;Vilken planet är känd som den röda planeten?;Mars;Venus;Jupiter;Saturnus
+SPACE;Vilken himlakropp kretsar kring solen mellan Mars och Jupiter och är ofta kallad en "dvärgplanet"?;Ceres;Pluto;Eris;Haumea
+SPACE;Vad är namnet på det största kända svarta hålet i mitten av Vintergatan?;Sagittarius A*;Cygnus X-1;Messier 87;V404 Cygni
+SPACE;Vilken planet har ringar som kallas "ringar av is"?;Saturnus;Uranus;Neptunus;Jupiter
+SPACE;Vad kallas den punkt i rymden där gravitationen är så stark att inget, inte ens ljus, kan undkomma?;Svart hål;Vit dvärg;Neutronstjärna;Supernova
+SPACE;Vilken måne i vårt solsystem har en atmosfär och flytande hav av metan?;Titan;Europa;Ganymedes;Enceladus
+SPACE;Vilken planet är känd för sina karakteristiska ringar och en stor storm känd som den stora röda fläcken?;Jupiter;Mars;Saturnus;Neptunus
+SPACE;Vilken galax är närmast Vintergatan?;Andromeda;Triangulum;Orion;Messier 87
+SPACE;Vad är den ljusaste stjärnan på natthimlen sett från jorden?;Sirius;Vega;Betelgeuse;Rigel
+SPACE;Vad är den kemiska sammansättningen av solen?;Framför allt väte och helium;Syre och kol;Kväve och syre;Järn och nickel
+SPACE;Vilken måne kring Jupiter är känd för sina vulkaner som sprutar ut is?;Io;Europa;Ganymedes;Callisto
+SPACE;Vilken planet har en dag som varar längre än dess år?;Venus;Mars;Jupiter;Saturnus
+SPACE;Vad är det latinska namnet för månen?;Luna;Stella;Astra;Solis
+SPACE;Vilken stjärnbild är hemvist för Polstjärnan?;Lilla björnen (Ursa Minor);Stora björnen (Ursa Major);Cassiopeia;Orion
+SPACE;Vad är det latinska namnet för Vintergatan?;Via Lactea;Stellaria Via;Galaxia Stellarum;Celestialis Circulus
+SPACE;Vad kallas den punkt i rymden där gravitationen är minimal och rymdfarkoster kan använda den för att justera sina banor?;Lagrangepunkt;Nullpunkt;Tyngdpunkt;Barycentrum
+SPACE;Vad kallas det fenomen där en himlakropp passerar framför en annan, sett från ett annat perspektiv?;Transit;Eclipse;Occultation;Conjunction
