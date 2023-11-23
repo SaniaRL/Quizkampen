@@ -18,19 +18,22 @@ public class ScoreBoardPage extends JPanel {
     JPanel southPanel;
 
     JLabel scoreLabel;
+    JLabel turnLabel;
 
     JButton playGame;
 
     String backgroundImagePath;
     Image backgroundImage;
 
+    int player1 = 0;
+    int player2 = 0;
+
     //Temporary list
-    List<List<Boolean>> winList;
     List<ScoreCount> scoreCounts;
     List<QuestionCategory> categoryList;
 
-    int player1Score = 0;
-    int player2Score = 0;
+    List<List<Boolean>> player1ScoreList;
+    List<List<Boolean>> player2ScoreList;
 
     public ScoreBoardPage(String gameID) throws IOException {
         this.gameID = gameID;
@@ -40,9 +43,12 @@ public class ScoreBoardPage extends JPanel {
         southPanel = new JPanel();
 
         playGame = new JButton("SPELA");
+        turnLabel = new JLabel();
+        setTurnLabel(true);
 
-        winList = new ArrayList<>();
         categoryList = new ArrayList<>();
+        player1ScoreList = new ArrayList<>();
+        player2ScoreList = new ArrayList<>();
 
         backgroundImagePath = "Backgrounds/blueBackground.png";
         backgroundImage = (new ImageIcon(backgroundImagePath)).getImage();
@@ -56,9 +62,12 @@ public class ScoreBoardPage extends JPanel {
         southPanel = new JPanel();
 
         playGame = new JButton("SPELA");
+        turnLabel = new JLabel();
+        setTurnLabel(true);
 
-        winList = new ArrayList<>();
         categoryList = new ArrayList<>();
+        player1ScoreList = new ArrayList<>();
+        player2ScoreList = new ArrayList<>();
 
         backgroundImagePath = "Backgrounds/blueBackground.png";
         backgroundImage = (new ImageIcon(backgroundImagePath)).getImage();
@@ -90,12 +99,11 @@ public class ScoreBoardPage extends JPanel {
     }
 
     //TODO Set from frame
-    public void generateScoreCounts() throws IOException {
-        QuestionCollection questionCollection = new QuestionCollection();
+    public void generateScoreCounts() {
         for(int i = 0; i < 6; i++){
             ScoreCount scoreCountLabel;
-            if(winList.size() > i){
-                scoreCountLabel = new ScoreCount(winList.get(i), categoryList.get(i));
+            if(player1ScoreList.size() > i && player2ScoreList.size() > i){
+                scoreCountLabel = new ScoreCount(player1ScoreList.get(i), player2ScoreList.get(i), categoryList.get(i));
             }
             else{
                 scoreCountLabel = new ScoreCount();
@@ -113,9 +121,10 @@ public class ScoreBoardPage extends JPanel {
         JLabel opponentLabel = new JLabel("OPPONENT", SwingConstants.CENTER);
 
         JPanel middlePanel = new JPanel();
-        JLabel turnLabel = new JLabel("DIN TUR", SwingConstants.CENTER);
-        scoreLabel = new JLabel(player1Score + " - " + player2Score, SwingConstants.CENTER);
-        scoreLabel.setFont(new Font("Cabin", Font.PLAIN, 22));
+        turnLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Din tur", SwingConstants.CENTER);
+        scoreLabel = new JLabel("<html><div style='text-align: center; vertical-align: top;'>" + player1 + "-" + player2 + "</div></html>", SwingConstants.CENTER);
+        scoreLabel.setFont(new Font("Vina Sans", Font.BOLD, 30));
+        setScores();
 
         middlePanel.setLayout(new GridLayout(2, 1));
         middlePanel.add(turnLabel);
@@ -125,7 +134,6 @@ public class ScoreBoardPage extends JPanel {
         setFont(yourLabel);
         setFont(opponentLabel);
         setFont(turnLabel);
-        setFont(scoreLabel);
 
         northPanel.add(yourLabel);
         northPanel.add(middlePanel);
@@ -133,7 +141,7 @@ public class ScoreBoardPage extends JPanel {
     }
 
     public void setFont (JLabel label){
-        label.setFont(new Font("Montserrat", Font.PLAIN, 22));
+        label.setFont(new Font("Vina Sans", Font.PLAIN, 30));
         setOpaque(false);
     }
 
@@ -158,8 +166,9 @@ public class ScoreBoardPage extends JPanel {
         }
     }
 
-    public void setWinList(List<List<Boolean>> winList) {
-        this.winList = winList;
+    public void setWinList(List<List<Boolean>> player1ScoreList, List<List<Boolean>> player2ScoreList) {
+        this.player1ScoreList = player1ScoreList;
+        this.player2ScoreList = player2ScoreList;
     }
 
     public void updateScoreBoard() throws IOException {
@@ -175,7 +184,6 @@ public class ScoreBoardPage extends JPanel {
     public JButton getPlayGame() {
         return playGame;
     }
-
 
     public void addToCategoryList(QuestionCategory category){
         categoryList.add(category);
@@ -193,20 +201,32 @@ public class ScoreBoardPage extends JPanel {
         this.gameID = gameID;
     }
 
-    public void setPlayer1Score(int totalScore) {
-        this.player1Score = totalScore;
-        scoreLabel.removeAll();
-        scoreLabel.setText(player1Score + " - " + player2Score);
-        repaint();
-        revalidate();
+    private int calculateScore(List<List<Boolean>> scoreList) {
+        int score = 0;
+        for (List<Boolean> results : scoreList) {
+            for (Boolean result : results) {
+                if (result) {
+                    score++;
+                }
+            }
+        }
+        return score;
     }
 
-    public void setPlayerScores(int player1, int player2) {
-        this.player1Score = player1;
-        this.player2Score = player2;
-        scoreLabel.removeAll();
-        scoreLabel.setText(player1Score + " - " + player2Score);
-        repaint();
-        revalidate();
+    public void setScores(){
+        player1 = calculateScore(player1ScoreList);
+        player2 = calculateScore(player2ScoreList);
+        System.out.println(player2ScoreList);
+        scoreLabel.setText(player1 + " - " + player2);
+    }
+
+    public void setTurnLabel(Boolean yourTurn){
+        if(yourTurn){
+            turnLabel.setText("<html><div style='text-align: center; vertical-align: bottom;'>Din tur");
+        }
+        else{
+            turnLabel.setText("<html><div style='text-align: center; vertical-align: bottom;'>Deras tur");
+        }
+
     }
 }
