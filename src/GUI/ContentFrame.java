@@ -143,6 +143,7 @@ public class ContentFrame extends JFrame {
         //CHOOSE CATEGORY PAGE
         chooseCategoryPage.getCategoryOption1().addActionListener(ActiveEvent -> {
             category = chooseCategoryPage.getCategoryOption1().getText();
+            System.out.println(category);
             scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
             questionPage.nextThreeQuestions(category);
             addActionListenerToOptions();
@@ -150,6 +151,7 @@ public class ContentFrame extends JFrame {
         });
         chooseCategoryPage.getCategoryOption2().addActionListener(ActiveEvent -> {
             category = chooseCategoryPage.getCategoryOption2().getText();
+            System.out.println(category);
             scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
             questionPage.nextThreeQuestions(category);
             addActionListenerToOptions();
@@ -157,6 +159,7 @@ public class ContentFrame extends JFrame {
         });
         chooseCategoryPage.getCategoryOption3().addActionListener(ActiveEvent -> {
             category = chooseCategoryPage.getCategoryOption3().getText();
+            System.out.println(category);
             scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
             questionPage.nextThreeQuestions(category);
             addActionListenerToOptions();
@@ -217,7 +220,7 @@ public class ContentFrame extends JFrame {
             option.addActionListener(e -> {
                 checkIfWin(option);
 
-                Timer timer = new Timer(3000, evt -> {
+                Timer timer = new Timer(1000, evt -> {
                     if (player1Round.size() < 3) {
                         questionPage.nextQuestion();
                         cardLayout.show(contentPanel, "QuestionPage");
@@ -238,7 +241,6 @@ public class ContentFrame extends JFrame {
                             newGameStarted(gameID);
                         }
                         try {
-                            scoreBoardPage.setWinList(player1Wins, player2Wins);
                             scoreBoardPage.updateScoreBoard();
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);

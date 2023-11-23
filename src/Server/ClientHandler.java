@@ -1,5 +1,8 @@
 package Server;
 
+import Server.Game.Game;
+import Server.Game.GameState;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -16,7 +19,7 @@ public class ClientHandler extends Thread implements Serializable {
     }
 
     @Override
-    public void run() {
+    public synchronized void run() {
 
         try {
             //The types of stream may change depending on what you want to send.
@@ -50,11 +53,9 @@ public class ClientHandler extends Thread implements Serializable {
                                 System.out.println("in for loop");
                                 if (game.getPlayer2() == null) {
                                     game.setPlayer2(this);
-                                    game.gameState = GameState.STARTED;
-                                    synchronized (game) {
-                                        if (game.gameState == GameState.STARTED) {
-                                            game.notify();
-                                        }
+                                    game.setGameState(GameState.STARTED);
+                                    if (game.getGameState() == GameState.STARTED) {
+                                        game.notify();
                                     }
                                     if (game.getTurn().equals("player1")) {
                                         this.writeToClient("game found wait;" + game.getGameID());
@@ -72,19 +73,17 @@ public class ClientHandler extends Thread implements Serializable {
                     }
                     if (message[0].equals("round finished")) {
                         for (Game game : server.games) {
-                            if (game.gameID.equals(message[1])) {
+                            if (game.getGameID().equals(message[1])) {
                                 if (game.getTurn().equals("player1")) {
                                     game.setTurn("player2");
                                 } else {
                                     game.setTurn("player1");
                                 }
-                                synchronized (game) {
-                                    while (game.gameState == GameState.WAITING) {
-                                        try {
-                                            game.wait();
-                                        } catch (InterruptedException e) {
-                                            //ignore
-                                        }
+                                while (game.getGameState() == GameState.WAITING) {
+                                    try {
+                                        game.wait();
+                                    } catch (InterruptedException e) {
+                                        //ignore
                                     }
                                     if (game.getTurn().equals("player2")) {
                                         game.getPlayer1().writeToClient("opponent turn;" + game.getGameID());
