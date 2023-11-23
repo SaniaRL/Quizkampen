@@ -212,6 +212,7 @@ public class ScoreBoardPage extends JPanel {
     public void setScores(){
         player1 = calculateScore(player1ScoreList);
         player2 = calculateScore(player2ScoreList);
+        System.out.println(player2ScoreList);
         scoreLabel.setText(player1 + " - " + player2);
     }
 }

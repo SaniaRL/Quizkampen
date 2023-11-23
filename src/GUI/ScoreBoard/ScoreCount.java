@@ -59,14 +59,12 @@ public class ScoreCount extends JPanel {
         if(list.size() >= 3){
             for(int i = 0; i < 3; i++){
                 panel.add(new ScoreLabel(list.get(i)));
-                System.out.println("new label");
             }
         }
         else{
             for(int i = 0; i < 3; i++){
                 ScoreLabel scoreLabel = new ScoreLabel();
                 panel.add(scoreLabel);
-                System.out.println("blue label");
             }
         }
     }

@@ -9,6 +9,7 @@ import Question.QuestionCollection;
 import javax.swing.*;
 import java.io.BufferedWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.awt.*;
 import java.io.IOException;
@@ -25,13 +26,13 @@ public class ContentFrame extends JFrame {
     ScoreBoardPage scoreBoardPage;
     SettingsPage settingsPage; //Simon lagt till
 
-    String gameID = "4556";
-
     //Should be moved to game logic later:
     List<List<Boolean>> player1Wins = new ArrayList<>();
     List<List<Boolean>> player2Wins = new ArrayList<>();
-    List<Boolean> currentWin = new ArrayList<>();
+    List<Boolean> player1Round = new ArrayList<>();
+    List<Boolean> player2Round = new ArrayList<>();
     String category = "Film";
+    String gameID = "4556";
 
     QuestionCollection questionCollection = new QuestionCollection();
     BufferedWriter out;
@@ -188,14 +189,16 @@ public class ContentFrame extends JFrame {
         for (JButton option : optionButtons) {
             option.addActionListener(ActionEvent -> {
                 checkIfWin(option);
-                if (currentWin.size() < 3) {
+                if (player1Round.size() < 3) {
                     questionPage.nextQuestion();
                     cardLayout.show(contentPanel, "QuestionPage");
                     addActionListenerToOptions(gameID);
                 } else {
-                    player1Wins.add(new ArrayList<>(currentWin));
-                    player2Wins.add(new ArrayList<>(generateRandomPlayer2List()));
-                    currentWin.clear();
+                    generateRandomPlayer2List();
+                    player1Wins.add(new ArrayList<>(player1Round));
+                    player2Wins.add(new ArrayList<>(player2Round));
+                    player1Round.clear();
+                    player2Round.clear();
                     scoreBoardPage.setWinList(player1Wins, player2Wins);
 
                     if (chosenCategory) {
@@ -222,10 +225,10 @@ public class ContentFrame extends JFrame {
     public void checkIfWin(JButton option){
         if (option.getText().equals("<html><div style='text-align: center;'>" + questionPage.getAnswer())) {
             System.out.println("right");
-            currentWin.add(true);
+            player1Round.add(true);
         } else {
             System.out.println("wrong");
-            currentWin.add(false);
+            player1Round.add(false);
         }
     }
 
@@ -245,14 +248,16 @@ public class ContentFrame extends JFrame {
         for (JButton option : optionButtons) {
             option.addActionListener(ActionEvent -> {
                 checkIfWin(option);
-                if (currentWin.size() < 3) {
+                if (player1Round.size() < 3) {
                     questionPage.nextQuestion();
                     cardLayout.show(contentPanel, "QuestionPage");
                     addActionListenerToOptions(gameID);
                 } else {
-                    player1Wins.add(new ArrayList<>(currentWin));
-                    player2Wins.add(new ArrayList<>(generateRandomPlayer2List()));
-                    currentWin.clear();
+                    generateRandomPlayer2List();
+                    player1Wins.add(new ArrayList<>(player1Round));
+                    player2Wins.add(new ArrayList<>(player2Round));
+                    player1Round.clear();
+                    player2Round.clear();
                     scoreBoardPage.setWinList(player1Wins, player2Wins);
                     if (chosenCategory) {
                         cardLayout.show(contentPanel, "ScoreBoardPage");
@@ -273,14 +278,13 @@ public class ContentFrame extends JFrame {
         }
     }
 
-    public List<Boolean> generateRandomPlayer2List(){
-        List<Boolean> booleanList = new ArrayList<>();
-        booleanList.add(true);
-        booleanList.add(false);
-        booleanList.add(false);
-        player2Wins.add(booleanList);
+    public void generateRandomPlayer2List(){
+        player2Round.add(true);
+        player2Round.add(false);
+        player2Round.add(false);
+        Collections.shuffle(player2Round);
+        player2Wins.add(new ArrayList<>(player2Round));
+        System.out.println(player2Round.size());
 
-        return booleanList;
     }
-
 }
