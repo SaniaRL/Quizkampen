@@ -7,15 +7,18 @@ import Question.QuestionCategory;
 import Question.QuestionCollection;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.awt.*;
 import java.io.IOException;
 
 public class ContentFrame extends JFrame {
 
+    private final List<String> games = new ArrayList<>();
     JPanel contentPanel;
     CardLayout cardLayout;
 
@@ -24,20 +27,22 @@ public class ContentFrame extends JFrame {
     QuestionPage questionPage;
     WaitingPage waitingPage;
     ScoreBoardPage scoreBoardPage;
-    SettingsPage settingsPage; //Simon lagt till
 
-    String gameID;
+    SettingsPage settingsPage;
 
     //Should be moved to game logic later:
-    List<List<Boolean>> totalWins = new ArrayList<>();
-    List<Boolean> currentWin = new ArrayList<>();
+    List<List<Boolean>> player1Wins = new ArrayList<>();
+    List<List<Boolean>> player2Wins = new ArrayList<>();
+    List<Boolean> player1Round = new ArrayList<>();
+    List<Boolean> player2Round = new ArrayList<>();
     String category = "Film";
-    int totalScore = 0;
+    String gameID = "4556";
 
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
+
     private final List<String> games = new ArrayList<>();
-    boolean chosenCategory = false;
+    boolean chosenCategory = true;
 
     public ContentFrame(ObjectOutputStream out) throws IOException {
         this.out = out;
@@ -51,7 +56,7 @@ public class ContentFrame extends JFrame {
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID);
 
-        settingsPage = new SettingsPage(); //Simon lagt till
+        settingsPage = new SettingsPage();
 
         buildFrame();
     }
@@ -66,7 +71,7 @@ public class ContentFrame extends JFrame {
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID);
 
-        settingsPage = new SettingsPage(); //Simon lagt till
+        settingsPage = new SettingsPage();
 
         buildFrame();
     }
@@ -92,7 +97,7 @@ public class ContentFrame extends JFrame {
         contentPanel.add(waitingPage, "WaitingPage");
         contentPanel.add(scoreBoardPage, "ScoreBoardPage");
 
-        contentPanel.add(settingsPage, "SettingsPage"); //Simon lagt till settingsPage i CardLayout
+        contentPanel.add(settingsPage, "SettingsPage");
 
         add(contentPanel);
         addActionEvents();
@@ -176,30 +181,56 @@ public class ContentFrame extends JFrame {
         });
     }
 
+
     public void addActionListerToStartPage(){
         startPage.getStartNewGame().addActionListener(ActionEvent -> writeToServer("new game"));
     }
 /*    public void addActionListerToStartPage(){
+
+    public void addActionListerToStartPage(String newGame) {
         //START PAGE
-        startPage.getStartNewGame().addActionListener(ActionEvent -> {
+//        startPage.getStartNewGame().addActionListener(ActionEvent -> {
         cardLayout.show(contentPanel, "WaitingPage");
-        });
+        writeToServer(newGame);
+//        });
+//        startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ScoreBoardPage"));
+    }
+
+    public void addActionListerToStartPage() {
+
+        //START PAGE
+
+        startPage.getStartNewGame().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "WaitingPage"));
+
         startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ScoreBoardPage"));
     }*/
 
     public void addActionListenerToOptions() {
         List<JButton> optionButtons = questionPage.getOptionButtons();
+
         for (JButton option : optionButtons) {
-            option.addActionListener(ActionEvent -> {
+            // Remove ActionListeners, to get the delay to work on every question
+            ActionListener[] actionListeners = option.getActionListeners();
+            for (ActionListener listener : actionListeners) {
+                option.removeActionListener(listener);
+            }
+
+            option.addActionListener(e -> {
                 checkIfWin(option);
-                if (currentWin.size() < 3) {
+
+            Timer timer = new Timer(3000, evt -> {
+                if (player1Round.size() < 3) {
                     questionPage.nextQuestion();
                     cardLayout.show(contentPanel, "QuestionPage");
                     addActionListenerToOptions();
                 } else {
-                    totalWins.add(new ArrayList<>(currentWin));
-                    currentWin.clear();
-                    scoreBoardPage.setWinList(totalWins);
+                    generateRandomPlayer2List();
+                    player1Wins.add(new ArrayList<>(player1Round));
+                    player2Wins.add(new ArrayList<>(player2Round));
+                    player1Round.clear();
+                    player2Round.clear();
+                    scoreBoardPage.setWinList(player1Wins, player2Wins);
+
                     if (chosenCategory) {
                         cardLayout.show(contentPanel, "ScoreBoardPage");
                         scoreBoardPage.setGameID(gameID);
@@ -209,33 +240,35 @@ public class ContentFrame extends JFrame {
                         newGameStarted(gameID);
                     }
                     try {
+                        scoreBoardPage.setWinList(player1Wins, player2Wins);
                         scoreBoardPage.updateScoreBoard();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-
-                    scoreBoardPage.setPlayer1Score(44);
-                    cardLayout.show(contentPanel, "ScoreBoardPage");
-                    chosenCategory = false;
-                }
-            });
+                  cardLayout.show(contentPanel, "ScoreBoardPage");
+                  timer.setRepeats(false);
+                  timer.start();
+                });
         }
     }
+
 
     public void checkIfWin(JButton option){
-        if (option.getText().equals(questionPage.getAnswer())) {
+        if (option.getText().equals("<html><div style='text-align: center;'>" + questionPage.getAnswer())) {
+            option.setBackground(Color.green);
             System.out.println("right");
-            currentWin.add(true);
-            totalScore++;
+            player1Round.add(true);
         } else {
+            option.setBackground(Color.red);
             System.out.println("wrong");
-            currentWin.add(false);
+            player1Round.add(false);
         }
+        option.repaint();
+        option.revalidate();
     }
 
+
     public void showScoreBoardPage(){
-        questionPage.setIndexCount(0);
-        scoreBoardPage.setPlayerScores(totalScore, 0);
         cardLayout.show(contentPanel, "ScoreBoardPage");
         chosenCategory = false;
     }
@@ -251,20 +284,22 @@ public class ContentFrame extends JFrame {
         for (JButton option : optionButtons) {
             option.addActionListener(ActionEvent -> {
                 checkIfWin(option);
-                if (currentWin.size() < 3) {
+                if (player1Round.size() < 3) {
                     questionPage.nextQuestion();
                     cardLayout.show(contentPanel, "QuestionPage");
                     addActionListenerToOptions();
                 } else {
-                    totalWins.add(new ArrayList<>(currentWin));
-                    currentWin.clear();
-                    scoreBoardPage.setWinList(totalWins);
+                    generateRandomPlayer2List();
+                    player1Wins.add(new ArrayList<>(player1Round));
+                    player2Wins.add(new ArrayList<>(player2Round));
+                    player1Round.clear();
+                    player2Round.clear();
+                    scoreBoardPage.setWinList(player1Wins, player2Wins);
                     if (chosenCategory) {
                         cardLayout.show(contentPanel, "ScoreBoardPage");
                         scoreBoardPage.setGameID(gameID);
                         writeToServer("round finished;" + scoreBoardPage.getGameID());
-                    }
-                    else {
+                    } else {
                         newGameStarted(gameID);
                     }
                     try {
@@ -278,4 +313,13 @@ public class ContentFrame extends JFrame {
         }
     }*/
 
+    public void generateRandomPlayer2List(){
+        player2Round.add(true);
+        player2Round.add(false);
+        player2Round.add(false);
+        Collections.shuffle(player2Round);
+        player2Wins.add(new ArrayList<>(player2Round));
+        System.out.println(player2Round.size());
+
+    }
 }

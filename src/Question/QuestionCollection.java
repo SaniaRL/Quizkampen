@@ -74,8 +74,10 @@ public class QuestionCollection {
     public List<Question> getCategoryList(String category){
         List<Question> categorizedList = new ArrayList<>();
         for(Question question : allQuestions){
-            if(question.getCategory().equals(QuestionCategory.valueOf(category))){
-                categorizedList.add(question);
+            if(question != null){
+                if(question.getCategory().equals(QuestionCategory.valueOf(category))){
+                    categorizedList.add(question);
+                }
             }
         }
         return categorizedList;

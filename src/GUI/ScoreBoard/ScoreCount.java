@@ -1,11 +1,13 @@
 package GUI.ScoreBoard;
 
+import GUI.CategoryGUI.CategoryColor;
 import GUI.CategoryGUI.CategoryLabel;
 import Question.QuestionCategory;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.*;
 
 public class ScoreCount extends JPanel {
@@ -27,10 +29,10 @@ public class ScoreCount extends JPanel {
         categoryLabel = new CategoryLabel();
         addComponents();
     }
-    public ScoreCount(List<Boolean> winList, QuestionCategory category){
+    public ScoreCount(List<Boolean> player1Score, List<Boolean> player2Score, QuestionCategory category){
         this.questionCategory = category;
-        this.player1Score = winList;
-        player2Score = new ArrayList<>();
+        this.player1Score = player1Score;
+        this.player2Score = player2Score;
         player1Label = new JPanel();
         player2Label = new JPanel();
         categoryLabel = new CategoryLabel(Color.ORANGE, questionCategory);
@@ -68,4 +70,5 @@ public class ScoreCount extends JPanel {
             }
         }
     }
+
 }

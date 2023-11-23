@@ -4,6 +4,8 @@ import Question.QuestionCollection;
 import Question.Question;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public class QuestionPage extends JPanel {
     QuestionCollection questionCollection;
     List<Question> questionList;
     List<Question> threeQuestions;
-    String testCategory;
+    String category = "";
 
     JLabel questionLabel;
 
@@ -32,12 +34,12 @@ public class QuestionPage extends JPanel {
     String answer;
     List<JButton> optionButtons;
 
-    public QuestionPage(String testCategory) throws IOException {
+    public QuestionPage(String category) throws IOException {
 
         questionCollection = new QuestionCollection();
         questionList = questionCollection.getAllQuestions();
         threeQuestions = new ArrayList<>();
-        this.testCategory = testCategory;
+        this.category = category;
 
         questionLabel = new JLabel();
 
@@ -88,11 +90,14 @@ public class QuestionPage extends JPanel {
         centerPanel.setOpaque(false);
 
 
-        JLabel questionLabel = new JLabel((threeQuestions.get(indexCount)).getQuestion(), SwingConstants.CENTER);
+        JLabel questionLabel = new JLabel("<html><div style='text-align: center;'>"  + (threeQuestions.get(indexCount)).getQuestion(), SwingConstants.CENTER);
         questionLabel.setFont(new Font("Montserrat", Font.PLAIN, 20));
+        Border emptyBorder = BorderFactory.createEmptyBorder(10,10,10,10);
+        Border border = new LineBorder(Color.BLUE, 10);
+        Border compoundBorder = new CompoundBorder(border, emptyBorder);
         questionLabel.setPreferredSize(new Dimension(600, 200));
         questionLabel.setBackground(Color.white);
-        questionLabel.setBorder(new LineBorder(Color.BLUE, 5));
+        questionLabel.setBorder(compoundBorder);
         questionLabel.setOpaque(true);
 
         centerPanel.add(questionLabel);
@@ -104,7 +109,10 @@ public class QuestionPage extends JPanel {
         northPanel.setOpaque(false);
 
         JLabel yourPlayer = new JLabel("YOU", SwingConstants.CENTER);
-        JLabel category = new JLabel("CATEGORY", SwingConstants.CENTER);
+
+        JLabel category = new JLabel(this.category, SwingConstants.CENTER);
+        category.setFont(new Font("Cabin", Font.BOLD, 22));
+
         JLabel opponent = new JLabel("OPPONENT", SwingConstants.CENTER);
 
         yourPlayer.setOpaque(false);
@@ -126,8 +134,13 @@ public class QuestionPage extends JPanel {
         Collections.shuffle(optionsList);
         if(optionsList.size() == 4){
             for (String string : optionsList) {
-                JButton button = new JButton(string);
+                JButton button = new JButton("<html><div style='text-align: center;'>" + string);
+                Border emptyBorder = BorderFactory.createEmptyBorder(10,10,10,10);
+                Border border = new LineBorder(Color.BLUE, 2);
+                Border compoundBorder = new CompoundBorder(border, emptyBorder);
+                button.setBorder(compoundBorder);
                 button.setPreferredSize(new Dimension(200, 100));
+                button.setFont(new Font("Cabin", Font.PLAIN, 20));
                 button.setBackground(Color.white);
                 southPanel.add(button, SwingConstants.CENTER);
                 optionButtons.add(button);
@@ -136,9 +149,10 @@ public class QuestionPage extends JPanel {
     }
 
     public void findThreeQuestion(){
+        Collections.shuffle(questionList);
             for(Question question : questionList){
                 if(threeQuestions.size() < 3){
-                    if(question.getCategory().label.equals(testCategory)){
+                    if(question.getCategory().label.equals(category)){
                         threeQuestions.add(question);
                     }
                 }
@@ -159,7 +173,7 @@ public class QuestionPage extends JPanel {
 
     public void nextThreeQuestions(String category){
         indexCount = 0;
-        testCategory = category;
+        this.category = category;
         threeQuestions.clear();
         optionButtons.clear();
         centerPanel.removeAll();
