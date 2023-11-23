@@ -8,11 +8,10 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.io.InputStream;
+import java.util.*;
 import java.io.IOException;
+import java.util.List;
 
 public class QuestionPage extends JPanel {
 
@@ -31,6 +30,7 @@ public class QuestionPage extends JPanel {
     Image backgroundImage;
 
     int indexCount;
+    int questionsToFind; //Simon lagt til
     String answer;
     List<JButton> optionButtons;
 
@@ -53,6 +53,8 @@ public class QuestionPage extends JPanel {
         indexCount = 0;
         optionButtons = new ArrayList<>();
 
+        loadProperties(); //Simon lagt till
+
         addComponents();
 
     }
@@ -62,7 +64,7 @@ public class QuestionPage extends JPanel {
         setLayout(new BorderLayout());
         setOpaque(true);
 
-        findThreeQuestion();
+        findQuestions();
 
         generationNorthPanel();
         add(northPanel, BorderLayout.NORTH);
@@ -148,6 +150,30 @@ public class QuestionPage extends JPanel {
         }
     }
 
+    public void findQuestions() {
+        Collections.shuffle(questionList);
+        for (Question question : questionList) {
+            if (threeQuestions.size() < questionsToFind) {
+                if (question.getCategory().label.equals(category)) {
+                    threeQuestions.add(question);
+                }
+            }
+        }
+    }
+    private void loadProperties() {
+        Properties prop = new Properties();
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("GUI/NumberOfQuestions.properties")) {
+            if (input != null) {
+                prop.load(input);
+                questionsToFind = Integer.parseInt(prop.getProperty("questionsToFind", "3"));
+            } else {
+                System.out.println("Could not find properties");
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    //Not removing the method below yet. But looks like propertiesFile works as intended.
     public void findThreeQuestion(){
         Collections.shuffle(questionList);
             for(Question question : questionList){
@@ -179,7 +205,7 @@ public class QuestionPage extends JPanel {
         centerPanel.removeAll();
         northPanel.removeAll();
         southPanel.removeAll();
-        findThreeQuestion();
+        findQuestions();
         generateCenterPanel();
         generationNorthPanel();
         generateSouthPanel();
