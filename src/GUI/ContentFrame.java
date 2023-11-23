@@ -18,7 +18,6 @@ import java.io.IOException;
 
 public class ContentFrame extends JFrame {
 
-    private final List<String> games = new ArrayList<>();
     JPanel contentPanel;
     CardLayout cardLayout;
 
@@ -218,40 +217,40 @@ public class ContentFrame extends JFrame {
             option.addActionListener(e -> {
                 checkIfWin(option);
 
-            Timer timer = new Timer(3000, evt -> {
-                if (player1Round.size() < 3) {
-                    questionPage.nextQuestion();
-                    cardLayout.show(contentPanel, "QuestionPage");
-                    addActionListenerToOptions();
-                } else {
-                    generateRandomPlayer2List();
-                    player1Wins.add(new ArrayList<>(player1Round));
-                    player2Wins.add(new ArrayList<>(player2Round));
-                    player1Round.clear();
-                    player2Round.clear();
-                    scoreBoardPage.setWinList(player1Wins, player2Wins);
-
-                    if (chosenCategory) {
-                        cardLayout.show(contentPanel, "ScoreBoardPage");
-                        scoreBoardPage.setGameID(gameID);
-                        writeToServer("round finished;" + scoreBoardPage.getGameID());
-                    }
-                    else {
-                        newGameStarted(gameID);
-                    }
-                    try {
+                Timer timer = new Timer(3000, evt -> {
+                    if (player1Round.size() < 3) {
+                        questionPage.nextQuestion();
+                        cardLayout.show(contentPanel, "QuestionPage");
+                        addActionListenerToOptions();
+                    } else {
+                        generateRandomPlayer2List();
+                        player1Wins.add(new ArrayList<>(player1Round));
+                        player2Wins.add(new ArrayList<>(player2Round));
+                        player1Round.clear();
+                        player2Round.clear();
                         scoreBoardPage.setWinList(player1Wins, player2Wins);
-                        scoreBoardPage.updateScoreBoard();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+
+                        if (chosenCategory) {
+                            cardLayout.show(contentPanel, "ScoreBoardPage");
+                            scoreBoardPage.setGameID(gameID);
+                            writeToServer("round finished;" + scoreBoardPage.getGameID());
+                        } else {
+                            newGameStarted(gameID);
+                        }
+                        try {
+                            scoreBoardPage.setWinList(player1Wins, player2Wins);
+                            scoreBoardPage.updateScoreBoard();
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        cardLayout.show(contentPanel, "ScoreBoardPage");
                     }
-                  cardLayout.show(contentPanel, "ScoreBoardPage");
-                  timer.setRepeats(false);
-                  timer.start();
                 });
+                timer.setRepeats(false);
+                timer.start();
+            });
         }
     }
-
 
     public void checkIfWin(JButton option){
         if (option.getText().equals("<html><div style='text-align: center;'>" + questionPage.getAnswer())) {
