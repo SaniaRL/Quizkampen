@@ -41,7 +41,6 @@ public class QuestionCollection {
             String[] tempArray;
 
             while((temp = bufferedReader.readLine()) != null){
-                System.out.println("not null");
                 tempArray = temp.split(";");
                 if(tempArray.length == 6){
                     String[] options = {
