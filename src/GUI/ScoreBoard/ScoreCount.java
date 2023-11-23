@@ -1,11 +1,13 @@
 package GUI.ScoreBoard;
 
+import GUI.CategoryGUI.CategoryColor;
 import GUI.CategoryGUI.CategoryLabel;
 import Question.QuestionCategory;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.*;
 
 public class ScoreCount extends JPanel {
@@ -68,4 +70,5 @@ public class ScoreCount extends JPanel {
             }
         }
     }
+
 }

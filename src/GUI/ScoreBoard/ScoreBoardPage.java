@@ -18,6 +18,7 @@ public class ScoreBoardPage extends JPanel {
     JPanel southPanel;
 
     JLabel scoreLabel;
+    JLabel turnLabel;
 
     JButton playGame;
 
@@ -42,6 +43,8 @@ public class ScoreBoardPage extends JPanel {
         southPanel = new JPanel();
 
         playGame = new JButton("SPELA");
+        turnLabel = new JLabel();
+        setTurnLabel(true);
 
         categoryList = new ArrayList<>();
         player1ScoreList = new ArrayList<>();
@@ -59,6 +62,8 @@ public class ScoreBoardPage extends JPanel {
         southPanel = new JPanel();
 
         playGame = new JButton("SPELA");
+        turnLabel = new JLabel();
+        setTurnLabel(true);
 
         categoryList = new ArrayList<>();
         player1ScoreList = new ArrayList<>();
@@ -116,10 +121,10 @@ public class ScoreBoardPage extends JPanel {
         JLabel opponentLabel = new JLabel("OPPONENT", SwingConstants.CENTER);
 
         JPanel middlePanel = new JPanel();
-        JLabel turnLabel = new JLabel("DIN TUR", SwingConstants.CENTER);
-        scoreLabel = new JLabel("0 - 1", SwingConstants.CENTER);
+        turnLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Din tur", SwingConstants.CENTER);
+        scoreLabel = new JLabel("<html><div style='text-align: center; vertical-align: top;'>" + player1 + "-" + player2 + "</div></html>", SwingConstants.CENTER);
+        scoreLabel.setFont(new Font("Vina Sans", Font.BOLD, 30));
         setScores();
-        scoreLabel.setFont(new Font("Cabin", Font.PLAIN, 22));
 
         middlePanel.setLayout(new GridLayout(2, 1));
         middlePanel.add(turnLabel);
@@ -129,7 +134,6 @@ public class ScoreBoardPage extends JPanel {
         setFont(yourLabel);
         setFont(opponentLabel);
         setFont(turnLabel);
-        setFont(scoreLabel);
 
         northPanel.add(yourLabel);
         northPanel.add(middlePanel);
@@ -137,7 +141,7 @@ public class ScoreBoardPage extends JPanel {
     }
 
     public void setFont (JLabel label){
-        label.setFont(new Font("Montserrat", Font.PLAIN, 22));
+        label.setFont(new Font("Vina Sans", Font.PLAIN, 30));
         setOpaque(false);
     }
 
@@ -214,5 +218,15 @@ public class ScoreBoardPage extends JPanel {
         player2 = calculateScore(player2ScoreList);
         System.out.println(player2ScoreList);
         scoreLabel.setText(player1 + " - " + player2);
+    }
+
+    public void setTurnLabel(Boolean yourTurn){
+        if(yourTurn){
+            turnLabel.setText("<html><div style='text-align: center; vertical-align: bottom;'>Din tur");
+        }
+        else{
+            turnLabel.setText("<html><div style='text-align: center; vertical-align: bottom;'>Deras tur");
+        }
+
     }
 }
