@@ -5,6 +5,8 @@ import GUI.ContentFrame;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Client {
 
@@ -73,6 +75,15 @@ public class Client {
         out.writeObject(message);
         out.flush();
     }
+
+    //TODO: possible method to send new game data from user to server, needs more from GUI. Possibly a Game class for client.
+//    public void sendGameToServer(ClientGame game){
+//        out.writeObject(game);
+//
+//        List<Object> gameData = new ArrayList<>();
+//        gameData.add(game.id);
+//        gameData.add(game.rounds);
+//    }
 
     public Object readFromServer() throws IOException, ClassNotFoundException {
         return in.readObject();

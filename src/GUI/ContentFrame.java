@@ -220,7 +220,7 @@ public class ContentFrame extends JFrame {
             option.addActionListener(e -> {
                 checkIfWin(option);
 
-                Timer timer = new Timer(1000, evt -> {
+                Timer timer = new Timer(500, evt -> {
                     if (player1Round.size() < 3) {
                         questionPage.nextQuestion();
                         cardLayout.show(contentPanel, "QuestionPage");
