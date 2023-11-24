@@ -261,6 +261,13 @@ public class ContentFrame extends JFrame {
             System.out.println("right");
             player1Round.add(true);
         } else {
+            List<JButton> optionButtons = questionPage.getOptionButtons(); //Simon ändring
+            for (JButton correctOption : optionButtons) {
+                if (correctOption.getText().equals("<html><div style='text-align: center;'>" + questionPage.getAnswer())) {
+                    correctOption.setBackground(Color.green);
+                    break;
+                }
+            }
             option.setBackground(Color.red);
             System.out.println("wrong");
             player1Round.add(false);
