@@ -11,7 +11,6 @@ import java.util.List;
 
 public class Server {
     List<ClientHandler> connectedClients = Collections.synchronizedList(new ArrayList<>());
-    List<ClientHandler> waiting = Collections.synchronizedList(new ArrayList<>());
     List<Game> games = Collections.synchronizedList(new ArrayList<>());
     ServerSocket socket;
     private boolean running = true;

@@ -1,11 +1,7 @@
 package Server;
 
-import Server.Game.Game;
-import Server.Game.GameState;
-
 import java.io.*;
 import java.net.Socket;
-import java.util.UUID;
 
 public class ClientHandler extends Thread implements Serializable {
     protected final Socket socket;
