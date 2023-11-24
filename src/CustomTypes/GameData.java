@@ -1,7 +1,6 @@
 package CustomTypes;
 
 import Enums.Turn;
-
 import java.io.Serializable;
 import java.util.List;
 

@@ -42,7 +42,7 @@ public class ContentFrame extends JFrame {
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
 
-    private GameData game;
+    private GameData game; //to store game data
     boolean chosenCategory = true;
 
     public ContentFrame(ObjectOutputStream out) throws IOException {

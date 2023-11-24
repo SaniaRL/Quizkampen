@@ -20,9 +20,6 @@ public class Protocol {
                     continue;
                 game.setPlayer2(client);
                 game.setGameState(GameState.STARTED);
-//                if (game.getGameState() == GameState.STARTED) {
-//                    game.notify();
-//                }
                 if (game.getGameData().getTurn() == Turn.Player1) {
                     client.writeToClient("game found wait", game.getGameData());
                 } else {
@@ -45,11 +42,11 @@ public class Protocol {
                 continue;
             game.setGameData(gameData);
             while (game.getGameState() == GameState.WAITING) {
-                try {
-                    client.wait();
-                } catch (InterruptedException e) {
-                    //ignore
-                }
+//                try {
+//                    client.wait();
+//                } catch (InterruptedException e) {
+//                    //ignore
+//                }
                 if (game.getGameData().getTurn() == Turn.Player2) {
                     game.getPlayer1().writeToClient("opponent turn", null);
                     game.getPlayer2().writeToClient("your turn", game.getGameData());
