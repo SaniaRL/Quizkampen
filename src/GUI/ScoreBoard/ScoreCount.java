@@ -2,6 +2,7 @@ package GUI.ScoreBoard;
 
 import GUI.CategoryGUI.CategoryColor;
 import GUI.CategoryGUI.CategoryLabel;
+import GUI.QuestionPage;
 import Question.QuestionCategory;
 
 import java.awt.*;
@@ -20,6 +21,8 @@ public class ScoreCount extends JPanel {
     JPanel player1Label;
     JPanel player2Label;
     JLabel categoryLabel;
+    QuestionPage qp = new QuestionPage(); //Simon ändring
+    int questionsToFind; //Simon ändring
 
     public ScoreCount(){
         player1Score = new ArrayList<>();
@@ -40,8 +43,9 @@ public class ScoreCount extends JPanel {
     }
 
     public void addComponents(){
+        questionsToFind = qp.getQuestionsToFind(); //Simon ändring
         setSize(new Dimension(800,80));
-        setLayout(new GridLayout(1, 3));
+        setLayout(new GridLayout(1, questionsToFind)); //3
         setOpaque(false);
 
         player1Label.setLayout(new FlowLayout());
@@ -55,16 +59,17 @@ public class ScoreCount extends JPanel {
     }
 
     public void generatePlayerLabel(JPanel panel, List<Boolean> list){
+        questionsToFind = qp.getQuestionsToFind(); //Simon ändring
         panel.setSize(new Dimension(300, 80));
         panel.setLayout(new FlowLayout(FlowLayout.CENTER));
         panel.setOpaque(false);
-        if(list.size() >= 3){
-            for(int i = 0; i < 3; i++){
+        if(list.size() >= questionsToFind){ //3
+            for(int i = 0; i < questionsToFind; i++){ //3
                 panel.add(new ScoreLabel(list.get(i)));
             }
         }
         else{
-            for(int i = 0; i < 3; i++){
+            for(int i = 0; i < questionsToFind; i++){ //3
                 ScoreLabel scoreLabel = new ScoreLabel();
                 panel.add(scoreLabel);
             }

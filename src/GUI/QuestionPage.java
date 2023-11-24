@@ -215,7 +215,7 @@ public class QuestionPage extends JPanel {
         generateSouthPanel();
     }
 
-    public int getQuestionsToFind () {
+    public int getQuestionsToFind () { //Simon lagt till
         return questionsToFind;
     }
 
