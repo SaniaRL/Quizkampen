@@ -1,5 +1,6 @@
 package Server;
 
+import CustomTypes.GameData;
 import Server.Game.Game;
 import Server.Game.GameState;
 
@@ -21,30 +22,30 @@ public class Protocol {
 //                if (game.getGameState() == GameState.STARTED) {
 //                    game.notify();
 //                }
-                if (game.getTurn().equals("player1")) {
-                    client.writeToClient("game found wait;" + game.getGameID());
+                if (game.getGameData().getTurn().equals("player1")) {
+                    client.writeToClient("game found wait;" + game.getGameData().getGameID());
                 } else {
-                    client.writeToClient("game found start;" + game.getGameID());
+                    client.writeToClient("game found start;" + game.getGameData().getGameID());
                 }
             }
         } else {
             System.out.println("creating new game");
             Game game = new Game(client);
             server.games.add(game);
-            client.writeToClient("game started;" + game.getGameID());
+            client.writeToClient("game started;" + game.getGameData().getGameID());
         }
     }
 
-    public void roundFinished(String message, String gameID, Server server, ClientHandler client) throws IOException {
+    public void roundFinished(String message, GameData gameData, Server server, ClientHandler client) throws IOException {
         if (!message.equals("round finished"))
             return;
         for (Game game : server.games) {
-            if (!game.getGameID().equals(gameID))
+            if (!game.getGameData().getGameID().equals(gameData.getGameID()))
                 continue;
-            if (game.getTurn().equals("player1")) {
-                game.setTurn("player2");
+            if (game.getGameData().getTurn().equals("player1")) {
+                game.getGameData().setTurn("player2");
             } else {
-                game.setTurn("player1");
+                game.getGameData().setTurn("player1");
             }
             while (game.getGameState() == GameState.WAITING) {
                 try {
@@ -52,12 +53,12 @@ public class Protocol {
                 } catch (InterruptedException e) {
                     //ignore
                 }
-                if (game.getTurn().equals("player2")) {
-                    game.getPlayer1().writeToClient("opponent turn;" + game.getGameID());
-                    game.getPlayer2().writeToClient("your turn;" + game.getGameID());
+                if (game.getGameData().getTurn().equals("player2")) {
+                    game.getPlayer1().writeToClient("opponent turn;" + game.getGameData().getGameID());
+                    game.getPlayer2().writeToClient("your turn;" + game.getGameData().getGameID());
                 } else {
-                    game.getPlayer2().writeToClient("opponent turn;" + game.getGameID());
-                    game.getPlayer1().writeToClient("your turn;" + game.getGameID());
+                    game.getPlayer2().writeToClient("opponent turn;" + game.getGameData().getGameID());
+                    game.getPlayer1().writeToClient("your turn;" + game.getGameData().getGameID());
                 }
             }
 

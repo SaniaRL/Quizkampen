@@ -1,27 +1,29 @@
 package Server.Game;
 
+import CustomTypes.RoundData;
 import Server.ClientHandler;
-
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import CustomTypes.GameData;
 
 public class Game {
-    private String gameID;
     private ClientHandler player1;
     private ClientHandler player2;
-    List<Round> rounds = new ArrayList<>();
     private GameState gameState;
-    private String turn;
-
+    private GameData gameData;
     public Game(ClientHandler player1) {
-        gameID = String.valueOf(UUID.randomUUID());
+        super();
         this.player1 = player1;
-        turn = "player1";
+        gameData = new GameData(String.valueOf(UUID.randomUUID()), new ArrayList<RoundData>(), "player1");
         gameState = GameState.WAITING;
     }
-
+    public GameData getGameData() {
+        return gameData;
+    }
+    public void setGameData(GameData gameData) {
+        this.gameData = gameData;
+    }
     public void setPlayer2(ClientHandler player2) {
         this.player2 = player2;
     }
@@ -34,36 +36,10 @@ public class Game {
         return player2;
     }
 
-    public List<Round> getRounds() {
-        return rounds;
-    }
-
-    public void setRounds(List<Round> rounds) {
-        this.rounds = rounds;
-    }
-    public void addToRounds(Round round) {
-        rounds.add(round);
-    }
-
-    public String getTurn() {
-        return turn;
-    }
-
-    public void setTurn(String turn) {
-        this.turn = turn;
-    }
-
-    public String getGameID() {
-        return gameID;
-    }
-
-    public void setGameID(String gameID) {
-        this.gameID = gameID;
-    }
-
     public void setPlayer1(ClientHandler player1) {
         this.player1 = player1;
     }
+
 
     public GameState getGameState() {
         return gameState;

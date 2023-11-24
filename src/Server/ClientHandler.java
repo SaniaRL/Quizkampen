@@ -1,5 +1,6 @@
 package Server;
 
+import CustomTypes.GameData;
 import Server.Game.Game;
 import Server.Game.GameState;
 
@@ -37,7 +38,7 @@ public class ClientHandler extends Thread implements Serializable {
                 //TODO: Add logic for server
                 fromClient = readFromClient();
                 if (fromClient instanceof String) {
-                    String[] message = fromClient.toString().split(";");
+                    Object[] message = fromClient.toString().split(";");
                     System.out.println(fromClient);
 
                     if (message[0].equals("exit")) {
@@ -46,9 +47,9 @@ public class ClientHandler extends Thread implements Serializable {
                         break;
                     }
                     synchronized (this) {
-                        protocol.checkIfNewGame(message[0], server, this);
+                        protocol.checkIfNewGame((String) message[0], server, this);
                         if (message.length > 1)
-                            protocol.roundFinished(message[0], message[1], server, this);
+                            protocol.roundFinished((String) message[0], (GameData) message[1], server, this);
                     }
                 }
             } /*else if (fromClient instanceof otherType) {

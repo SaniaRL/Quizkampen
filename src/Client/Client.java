@@ -1,5 +1,6 @@
 package Client;
 
+import CustomTypes.GameData;
 import GUI.ContentFrame;
 
 import java.io.*;
@@ -77,13 +78,9 @@ public class Client {
     }
 
     //TODO: possible method to send new game data from user to server, needs more from GUI. Possibly a Game class for client.
-//    public void sendGameToServer(ClientGame game){
-//        out.writeObject(game);
-//
-//        List<Object> gameData = new ArrayList<>();
-//        gameData.add(game.id);
-//        gameData.add(game.rounds);
-//    }
+    public void sendGameToServer(GameData gameData) throws IOException {
+        out.writeObject(gameData);
+    }
 
     public Object readFromServer() throws IOException, ClassNotFoundException {
         return in.readObject();
