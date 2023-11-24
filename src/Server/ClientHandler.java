@@ -1,12 +1,10 @@
 package Server;
 
 import CustomTypes.GameData;
-import Server.Game.Game;
-import Server.Game.GameState;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.UUID;
+import java.util.Arrays;
 
 public class ClientHandler extends Thread implements Serializable {
     protected final Socket socket;
@@ -28,7 +26,7 @@ public class ClientHandler extends Thread implements Serializable {
             in = new ObjectInputStream(socket.getInputStream());
             //end of stream types
 
-            writeToClient("Connection established to server");
+            writeToClient("Connection established to server", null);
 
 
             Object fromClient = readFromClient();
@@ -36,20 +34,24 @@ public class ClientHandler extends Thread implements Serializable {
 
             while (true) {
                 //TODO: Add logic for server
-                fromClient = readFromClient();
-                if (fromClient instanceof String) {
-                    Object[] message = fromClient.toString().split(";");
-                    System.out.println(fromClient);
-
-                    if (message[0].equals("exit")) {
-                        System.out.println("Client disconnected");
-                        server.shutdown();
-                        break;
+                synchronized (this) {
+                    fromClient = readFromClient();
+                    if (fromClient instanceof String) {
+                        System.out.println(fromClient);
+                        if (fromClient.equals("exit")) {
+                            System.out.println("Client disconnected");
+                            server.shutdown();
+                            break;
+                        }
+                        if (fromClient.equals("new game")) {
+                            protocol.checkIfNewGame((String) fromClient, server, this);
+                        }
                     }
-                    synchronized (this) {
-                        protocol.checkIfNewGame((String) message[0], server, this);
-                        if (message.length > 1)
+                    if (fromClient instanceof Object[] message) {
+                        if (message[1] instanceof GameData) {
+                            System.out.println(Arrays.toString(message));
                             protocol.roundFinished((String) message[0], (GameData) message[1], server, this);
+                        }
                     }
                 }
             } /*else if (fromClient instanceof otherType) {
@@ -70,8 +72,12 @@ public class ClientHandler extends Thread implements Serializable {
         }
     }
 
-    public synchronized void writeToClient(String message) throws IOException {
-        out.writeObject(message);
+    public synchronized <T> void writeToClient(String message, T item) throws IOException {
+        if (item != null) {
+            out.writeObject(new Object[]{message, item});
+        } else {
+            out.writeObject(message);
+        }
         out.flush();
     }
 

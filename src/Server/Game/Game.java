@@ -1,9 +1,9 @@
 package Server.Game;
 
-import CustomTypes.RoundData;
+import CustomTypes.Round;
+import Enums.GameState;
 import Server.ClientHandler;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import CustomTypes.GameData;
 
@@ -15,7 +15,7 @@ public class Game {
     public Game(ClientHandler player1) {
         super();
         this.player1 = player1;
-        gameData = new GameData(String.valueOf(UUID.randomUUID()), new ArrayList<RoundData>(), "player1");
+        gameData = new GameData(String.valueOf(UUID.randomUUID()), new ArrayList<Round>(), "player1");
         gameState = GameState.WAITING;
     }
     public GameData getGameData() {

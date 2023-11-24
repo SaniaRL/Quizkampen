@@ -23,36 +23,36 @@ public class Client {
             in = new ObjectInputStream(socket.getInputStream());
             //end of stream types
 
-            writeToServer("Client connected");
+            writeToServer("Client connected", null);
             Object fromServer = readFromServer();
             System.out.println(fromServer.toString());
 
             ContentFrame frame = new ContentFrame(out);
             while (true) {
                 fromServer = readFromServer();
-                if (fromServer instanceof String) {
-                    String[] message = fromServer.toString().split(";");
-
-                    if (message[0].equals("game started")) {
-                        System.out.println("new game started : " + message[0] + " " + message[1]);
-                        frame.getGames().add(message[1]);
-                        frame.newGameStarted(message[1]);
-                    }
-                    if (message[0].equals("game found wait")) {
-                        System.out.println("found game waiting");
-                        frame.getGames().add(message[1]);
-                        frame.waitingForPlayer(message[1]);
-                    }
-                    if (message[0].equals("game found start")) {
-                        System.out.println("found game starting");
-                        frame.getGames().add(message[1]);
-                        frame.getQuestions(message[1]);
-                    }
-                    if (message[0].equals("your turn")) {
-                        frame.getQuestions(message[1]);
-                    }
-                    if (message[0].equals("opponent turn")) {
-                        frame.waitingForPlayer(message[1]);
+                if (fromServer instanceof Object[] message) {
+                    if(message[1] instanceof GameData gameData){
+                        if (message[0].equals("game started")) {
+                            frame.setGame(gameData);
+                            frame.newGameStarted();
+                        }
+                        if (message[0].equals("game found wait")) {
+                            System.out.println("found game waiting");
+                            frame.setGame(gameData);
+                            frame.waitingForPlayer();
+                        }
+                        if (message[0].equals("game found start")) {
+                            System.out.println("found game starting");
+                            frame.setGame(gameData);
+                            frame.getQuestions();
+                        }
+                        if (message[0].equals("your turn")) {
+                            frame.setGame(gameData);
+                            frame.getQuestions();
+                        }
+                        if (message[0].equals("opponent turn")) {
+                            frame.waitingForPlayer();
+                        }
                     }
                     //TODO: Add logic for client
                 } /*else if (fromServer instanceof otherObject) {
@@ -72,14 +72,13 @@ public class Client {
             }
         }
 
-    public void writeToServer(String message) throws IOException {
-        out.writeObject(message);
+    public <T> void writeToServer(String message, T item) throws IOException {
+        if(item != null){
+            out.writeObject(new Object[]{message, item});
+        } else {
+            out.writeObject(message);
+        }
         out.flush();
-    }
-
-    //TODO: possible method to send new game data from user to server, needs more from GUI. Possibly a Game class for client.
-    public void sendGameToServer(GameData gameData) throws IOException {
-        out.writeObject(gameData);
     }
 
     public Object readFromServer() throws IOException, ClassNotFoundException {

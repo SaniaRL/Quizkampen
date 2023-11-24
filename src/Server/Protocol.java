@@ -1,8 +1,9 @@
 package Server;
 
 import CustomTypes.GameData;
+import Enums.Turn;
 import Server.Game.Game;
-import Server.Game.GameState;
+import Enums.GameState;
 
 import java.io.IOException;
 
@@ -22,17 +23,17 @@ public class Protocol {
 //                if (game.getGameState() == GameState.STARTED) {
 //                    game.notify();
 //                }
-                if (game.getGameData().getTurn().equals("player1")) {
-                    client.writeToClient("game found wait;" + game.getGameData().getGameID());
+                if (game.getGameData().getTurn() == Turn.Player1) {
+                    client.writeToClient("game found wait", game.getGameData());
                 } else {
-                    client.writeToClient("game found start;" + game.getGameData().getGameID());
+                    client.writeToClient("game found start", game.getGameData());
                 }
             }
         } else {
             System.out.println("creating new game");
             Game game = new Game(client);
             server.games.add(game);
-            client.writeToClient("game started;" + game.getGameData().getGameID());
+            client.writeToClient("game started", game.getGameData());
         }
     }
 
@@ -42,23 +43,19 @@ public class Protocol {
         for (Game game : server.games) {
             if (!game.getGameData().getGameID().equals(gameData.getGameID()))
                 continue;
-            if (game.getGameData().getTurn().equals("player1")) {
-                game.getGameData().setTurn("player2");
-            } else {
-                game.getGameData().setTurn("player1");
-            }
+            game.setGameData(gameData);
             while (game.getGameState() == GameState.WAITING) {
                 try {
                     client.wait();
                 } catch (InterruptedException e) {
                     //ignore
                 }
-                if (game.getGameData().getTurn().equals("player2")) {
-                    game.getPlayer1().writeToClient("opponent turn;" + game.getGameData().getGameID());
-                    game.getPlayer2().writeToClient("your turn;" + game.getGameData().getGameID());
+                if (game.getGameData().getTurn() == Turn.Player2) {
+                    game.getPlayer1().writeToClient("opponent turn", null);
+                    game.getPlayer2().writeToClient("your turn", game.getGameData());
                 } else {
-                    game.getPlayer2().writeToClient("opponent turn;" + game.getGameData().getGameID());
-                    game.getPlayer1().writeToClient("your turn;" + game.getGameData().getGameID());
+                    game.getPlayer2().writeToClient("opponent turn", null);
+                    game.getPlayer1().writeToClient("your turn", game.getGameData());
                 }
             }
 

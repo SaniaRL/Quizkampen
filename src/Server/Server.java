@@ -39,7 +39,7 @@ public class Server {
 
         try {
             for (ClientHandler client : connectedClients) {
-                client.writeToClient("Server is shutting down");
+                client.writeToClient("Server is shutting down", null);
                 client.closeConnection();
             }
 

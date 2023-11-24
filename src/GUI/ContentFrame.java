@@ -1,5 +1,7 @@
 package GUI;
 
+import CustomTypes.GameData;
+import Enums.Turn;
 import GUI.CategoryGUI.ChooseCategoryPage;
 import GUI.ScoreBoard.ScoreBoardPage;
 import GUI.StartPage.StartPage;
@@ -40,7 +42,7 @@ public class ContentFrame extends JFrame {
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
 
-    private final List<String> games = new ArrayList<>();
+    private GameData game;
     boolean chosenCategory = true;
 
     public ContentFrame(ObjectOutputStream out) throws IOException {
@@ -103,32 +105,32 @@ public class ContentFrame extends JFrame {
         setVisible(true);
     }
 
-    public void writeToServer(String message) {
+    public <T> void writeToServer(String message, T item) {
         try {
-            out.writeObject(message);
+            if(item != null)
+                out.writeObject(new Object[]{message, item});
+            else
+                out.writeObject(message);
             out.flush();
         } catch (IOException e) {
             e.printStackTrace(System.err);
         }
     }
 
-    public void newGameStarted(String gameID) {
-        this.gameID = gameID;
+    public void newGameStarted() {
         System.out.println("choose category");
         cardLayout.show(contentPanel, "ChooseCategoryPage");
         addActionListenerToOptions();
         chosenCategory = true;
     }
 
-    public void getQuestions(String gameID) {
-        this.gameID = gameID;
+    public void getQuestions() {
         System.out.println("existing game found!");
         cardLayout.show(contentPanel, "QuestionPage");
         addActionListenerToOptions();
     }
 
-    public void waitingForPlayer(String gameID) {
-        this.gameID = gameID;
+    public void waitingForPlayer() {
         cardLayout.show(contentPanel, "WaitingPage");
     }
 
@@ -143,7 +145,6 @@ public class ContentFrame extends JFrame {
         //CHOOSE CATEGORY PAGE
         chooseCategoryPage.getCategoryOption1().addActionListener(ActiveEvent -> {
             category = chooseCategoryPage.getCategoryOption1().getText();
-            System.out.println(category);
             scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
             questionPage.nextThreeQuestions(category);
             addActionListenerToOptions();
@@ -151,7 +152,6 @@ public class ContentFrame extends JFrame {
         });
         chooseCategoryPage.getCategoryOption2().addActionListener(ActiveEvent -> {
             category = chooseCategoryPage.getCategoryOption2().getText();
-            System.out.println(category);
             scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
             questionPage.nextThreeQuestions(category);
             addActionListenerToOptions();
@@ -159,7 +159,6 @@ public class ContentFrame extends JFrame {
         });
         chooseCategoryPage.getCategoryOption3().addActionListener(ActiveEvent -> {
             category = chooseCategoryPage.getCategoryOption3().getText();
-            System.out.println(category);
             scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
             questionPage.nextThreeQuestions(category);
             addActionListenerToOptions();
@@ -185,7 +184,7 @@ public class ContentFrame extends JFrame {
 
 
     public void addActionListerToStartPage(){
-        startPage.getStartNewGame().addActionListener(ActionEvent -> writeToServer("new game"));
+        startPage.getStartNewGame().addActionListener(ActionEvent -> writeToServer("new game",null));
     }
 /*    public void addActionListerToStartPage(){
 
@@ -236,9 +235,10 @@ public class ContentFrame extends JFrame {
                         if (chosenCategory) {
                             cardLayout.show(contentPanel, "ScoreBoardPage");
                             scoreBoardPage.setGameID(gameID);
-                            writeToServer("round finished;" + scoreBoardPage.getGameID());
+                            game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
+                            writeToServer("round finished", game);
                         } else {
-                            newGameStarted(gameID);
+                            newGameStarted();
                         }
                         try {
                             scoreBoardPage.updateScoreBoard();
@@ -276,8 +276,12 @@ public class ContentFrame extends JFrame {
 
     //Needed for NetWork
 
-    public List<String> getGames() {
-        return games;
+    public GameData getGame() {
+        return game;
+    }
+
+    public void setGame(GameData game) {
+        this.game = game;
     }
 
     /*public void addActionListenerToOptions() {

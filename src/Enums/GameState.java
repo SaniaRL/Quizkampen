@@ -1,4 +1,4 @@
-package Server.Game;
+package Enums;
 
 public enum GameState {
     WAITING,

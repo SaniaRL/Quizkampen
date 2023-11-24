@@ -2,12 +2,13 @@ package CustomTypes;
 
 import java.util.List;
 
-public class RoundData {
+public class Round {
     private String category;
     private List<Boolean> player1Score;
     private List<Boolean> player2Score;
 
-    public RoundData(String category, List<Boolean> player1Score, List<Boolean> player2Score) {
+    public Round(){}
+    public Round(String category, List<Boolean> player1Score, List<Boolean> player2Score) {
         this.category = category;
         this.player1Score = player1Score;
         this.player2Score = player2Score;
