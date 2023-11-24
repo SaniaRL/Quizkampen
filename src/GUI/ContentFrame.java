@@ -1,16 +1,15 @@
 package GUI;
 
 import CustomTypes.GameData;
-import Enums.Turn;
 import GUI.CategoryGUI.ChooseCategoryPage;
 import GUI.ScoreBoard.ScoreBoardPage;
 import GUI.StartPage.StartPage;
 import Question.QuestionCategory;
 import Question.QuestionCollection;
+import Enum.Turn;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,6 +37,7 @@ public class ContentFrame extends JFrame {
     List<Boolean> player2Round = new ArrayList<>();
     String category = "Film";
     String gameID = "4556";
+    DesignOptions designOptions = new DesignOptions();
 
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
