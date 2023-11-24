@@ -1,5 +1,7 @@
 package Server;
 
+import Server.Game.Game;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -37,7 +39,7 @@ public class Server {
 
         try {
             for (ClientHandler client : connectedClients) {
-                client.writeToClient("Server is shutting down");
+                client.writeToClient("Server is shutting down", null);
                 client.closeConnection();
             }
 
