@@ -181,6 +181,14 @@ public class ScoreBoardPage extends JPanel {
         generateSouthPanel();
     }
 
+    public void hidePlayButton(){
+        playGame.setVisible(false);
+    }
+
+    public void showPlayButton(){
+        playGame.setVisible(true);
+    }
+
     public JButton getPlayGame() {
         return playGame;
     }
