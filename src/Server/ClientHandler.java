@@ -1,14 +1,17 @@
 package Server;
 
+import CustomTypes.GameData;
+
 import java.io.*;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class ClientHandler extends Thread implements Serializable {
     protected final Socket socket;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-
     Server server;
+    Protocol protocol = new Protocol();
 
     public ClientHandler(Socket socket, Server server) {
         this.socket = socket;
@@ -17,14 +20,13 @@ public class ClientHandler extends Thread implements Serializable {
 
     @Override
     public void run() {
-
         try {
             //The types of stream may change depending on what you want to send.
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
             //end of stream types
 
-            writeToClient("Connection established to server");
+            writeToClient("Connection established to server", null);
 
 
             Object fromClient = readFromClient();
@@ -32,69 +34,23 @@ public class ClientHandler extends Thread implements Serializable {
 
             while (true) {
                 //TODO: Add logic for server
-                fromClient = readFromClient();
-                if (fromClient instanceof String) {
-                    String[] message = fromClient.toString().split(";");
-                    System.out.println(fromClient);
-
-                    if (message[0].equals("exit")) {
-                        System.out.println("Client disconnected");
-                        server.shutdown();
-                        break;
-                    }
-
-                    if (message[0].equals("new game")) {
-                        System.out.println("in new game check");
-                        if (!server.games.isEmpty()) {
-                            for (Game game : server.games) {
-                                System.out.println("in for loop");
-                                if (game.getPlayer2() == null) {
-                                    game.setPlayer2(this);
-                                    game.gameState = GameState.STARTED;
-                                    synchronized (game) {
-                                        if (game.gameState == GameState.STARTED) {
-                                            game.notify();
-                                        }
-                                    }
-                                    if (game.getTurn().equals("player1")) {
-                                        this.writeToClient("game found wait;" + game.getGameID());
-                                    } else if (game.getTurn().equals("player2")) {
-                                        this.writeToClient("game found start;" + game.getGameID());
-                                    }
-                                }
-                            }
-                        } else {
-                            System.out.println("creating new game");
-                            Game game = new Game(this);
-                            server.games.add(game);
-                            this.writeToClient("game started;" + game.getGameID());
+                synchronized (this) {
+                    fromClient = readFromClient();
+                    if (fromClient instanceof String) {
+                        System.out.println(fromClient);
+                        if (fromClient.equals("exit")) {
+                            System.out.println("Client disconnected");
+                            server.shutdown();
+                            break;
+                        }
+                        if (fromClient.equals("new game")) {
+                            protocol.checkIfNewGame((String) fromClient, server, this);
                         }
                     }
-                    if (message[0].equals("round finished")) {
-                        for (Game game : server.games) {
-                            if (game.gameID.equals(message[1])) {
-                                if (game.getTurn().equals("player1")) {
-                                    game.setTurn("player2");
-                                } else {
-                                    game.setTurn("player1");
-                                }
-                                synchronized (game) {
-                                    while (game.gameState == GameState.WAITING) {
-                                        try {
-                                            game.wait();
-                                        } catch (InterruptedException e) {
-                                            //ignore
-                                        }
-                                    }
-                                    if (game.getTurn().equals("player2")) {
-                                        game.getPlayer1().writeToClient("opponent turn;" + game.getGameID());
-                                        game.getPlayer2().writeToClient("your turn;" + game.getGameID());
-                                    } else {
-                                        game.getPlayer2().writeToClient("opponent turn;" + game.getGameID());
-                                        game.getPlayer1().writeToClient("your turn;" + game.getGameID());
-                                    }
-                                }
-                            }
+                    if (fromClient instanceof Object[] message) {
+                        if (message[1] instanceof GameData) {
+                            System.out.println(Arrays.toString(message));
+                            protocol.roundFinished((String) message[0], (GameData) message[1], server, this);
                         }
                     }
                 }
@@ -116,12 +72,16 @@ public class ClientHandler extends Thread implements Serializable {
         }
     }
 
-    public void writeToClient(String message) throws IOException {
-        out.writeObject(message);
+    public synchronized <T> void writeToClient(String message, T item) throws IOException {
+        if (item != null) {
+            out.writeObject(new Object[]{message, item});
+        } else {
+            out.writeObject(message);
+        }
         out.flush();
     }
 
-    public Object readFromClient() throws IOException, ClassNotFoundException {
+    public synchronized Object readFromClient() throws IOException, ClassNotFoundException {
         return in.readObject();
     }
 

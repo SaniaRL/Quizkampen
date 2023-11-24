@@ -103,6 +103,7 @@ public class ScoreBoardPage extends JPanel {
         for(int i = 0; i < 6; i++){
             ScoreCount scoreCountLabel;
             if(player1ScoreList.size() > i && player2ScoreList.size() > i){
+                System.out.println(player1ScoreList + " : " + player2ScoreList + " : " + categoryList);
                 scoreCountLabel = new ScoreCount(player1ScoreList.get(i), player2ScoreList.get(i), categoryList.get(i));
             }
             else{
@@ -210,13 +211,13 @@ public class ScoreBoardPage extends JPanel {
                 }
             }
         }
+        System.out.println("score: " + score);
         return score;
     }
 
     public void setScores(){
         player1 = calculateScore(player1ScoreList);
         player2 = calculateScore(player2ScoreList);
-        System.out.println(player2ScoreList);
         scoreLabel.setText(player1 + " - " + player2);
     }
 
