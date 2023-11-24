@@ -1,5 +1,7 @@
 package GUI;
 
+import CustomTypes.GameData;
+import Enums.Turn;
 import GUI.CategoryGUI.ChooseCategoryPage;
 import GUI.ScoreBoard.ScoreBoardPage;
 import GUI.StartPage.StartPage;
@@ -42,7 +44,7 @@ public class ContentFrame extends JFrame {
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
 
-    private final List<String> games = new ArrayList<>();
+    private GameData game; //to store game data
     boolean chosenCategory = true;
 
     public ContentFrame(ObjectOutputStream out) throws IOException {
@@ -105,25 +107,26 @@ public class ContentFrame extends JFrame {
         setVisible(true);
     }
 
-    public void writeToServer(String message) {
+    public <T> void writeToServer(String message, T item) {
         try {
-            out.writeObject(message);
+            if(item != null)
+                out.writeObject(new Object[]{message, item});
+            else
+                out.writeObject(message);
             out.flush();
         } catch (IOException e) {
             e.printStackTrace(System.err);
         }
     }
 
-    public void newGameStarted(String gameID) {
-        this.gameID = gameID;
+    public void newGameStarted() {
         System.out.println("choose category");
         cardLayout.show(contentPanel, "ChooseCategoryPage");
         addActionListenerToOptions();
         chosenCategory = true;
     }
 
-    public void getQuestions(String gameID) {
-        this.gameID = gameID;
+    public void getQuestions() {
         System.out.println("existing game found!");
         scoreBoardPage.showPlayButton();
         cardLayout.show(contentPanel, "ScoreBoardPage");
@@ -191,7 +194,7 @@ public class ContentFrame extends JFrame {
 
 
     public void addActionListerToStartPage(){
-        startPage.getStartNewGame().addActionListener(ActionEvent -> writeToServer("new game"));
+        startPage.getStartNewGame().addActionListener(ActionEvent -> writeToServer("new game",null));
     }
 /*    public void addActionListerToStartPage(){
 
@@ -226,7 +229,7 @@ public class ContentFrame extends JFrame {
             option.addActionListener(e -> {
                 checkIfWin(option);
 
-                Timer timer = new Timer(3000, evt -> {
+                Timer timer = new Timer(500, evt -> {
                     if (player1Round.size() < 3) {
                         questionPage.nextQuestion();
                         cardLayout.show(contentPanel, "QuestionPage");
@@ -234,8 +237,7 @@ public class ContentFrame extends JFrame {
                     } else {
                         generateRandomPlayer2List();
                         player1Wins.add(new ArrayList<>(player1Round));
-                        //generateRandomPlayer2List() already adds a list to player2Wins. Keep this commented out for now.
-                        //player2Wins.add(new ArrayList<>(player2Round));
+                        player2Wins.add(new ArrayList<>(player2Round));
                         player1Round.clear();
                         player2Round.clear();
                         scoreBoardPage.setWinList(player1Wins, player2Wins);
@@ -243,12 +245,12 @@ public class ContentFrame extends JFrame {
                         if (chosenCategory) {
                             cardLayout.show(contentPanel, "ScoreBoardPage");
                             scoreBoardPage.setGameID(gameID);
-                            writeToServer("round finished;" + scoreBoardPage.getGameID());
+                            game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
+                            writeToServer("round finished", game);
                         } else {
-                            newGameStarted(gameID);
+                            newGameStarted();
                         }
                         try {
-                            scoreBoardPage.setWinList(player1Wins, player2Wins);
                             scoreBoardPage.updateScoreBoard();
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
@@ -285,8 +287,12 @@ public class ContentFrame extends JFrame {
 
     //Needed for NetWork
 
-    public List<String> getGames() {
-        return games;
+    public GameData getGame() {
+        return game;
+    }
+
+    public void setGame(GameData game) {
+        this.game = game;
     }
 
     /*public void addActionListenerToOptions() {
