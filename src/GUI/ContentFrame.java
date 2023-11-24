@@ -37,6 +37,8 @@ public class ContentFrame extends JFrame {
     String category = "Film";
     String gameID = "4556";
 
+    int playGamePressCounter = 0;
+
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
 
@@ -123,13 +125,15 @@ public class ContentFrame extends JFrame {
     public void getQuestions(String gameID) {
         this.gameID = gameID;
         System.out.println("existing game found!");
-        cardLayout.show(contentPanel, "QuestionPage");
+        scoreBoardPage.showPlayButton();
+        cardLayout.show(contentPanel, "ScoreBoardPage");
         addActionListenerToOptions();
     }
 
     public void waitingForPlayer(String gameID) {
         this.gameID = gameID;
-        cardLayout.show(contentPanel, "WaitingPage");
+        scoreBoardPage.hidePlayButton();
+        cardLayout.show(contentPanel, "ScoreBoardPage");
     }
 
     public void addActionEvents() {
@@ -172,9 +176,14 @@ public class ContentFrame extends JFrame {
 
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
+            playGamePressCounter++;
             questionPage.nextThreeQuestions(questionCollection.getRandomCategory().label);
-            SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
-            cardLayout.show(contentPanel, "ChooseCategoryPage");
+
+            if (playGamePressCounter % 2 == 0) {
+                cardLayout.show(contentPanel, "ChooseCategoryPage");
+            } else {
+                cardLayout.show(contentPanel, "QuestionPage");
+            }
             addActionListenerToOptions();
 
         });
@@ -225,7 +234,8 @@ public class ContentFrame extends JFrame {
                     } else {
                         generateRandomPlayer2List();
                         player1Wins.add(new ArrayList<>(player1Round));
-                        player2Wins.add(new ArrayList<>(player2Round));
+                        //generateRandomPlayer2List() already adds a list to player2Wins. Keep this commented out for now.
+                        //player2Wins.add(new ArrayList<>(player2Round));
                         player1Round.clear();
                         player2Round.clear();
                         scoreBoardPage.setWinList(player1Wins, player2Wins);
@@ -243,6 +253,7 @@ public class ContentFrame extends JFrame {
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
+                        scoreBoardPage.hidePlayButton();
                         cardLayout.show(contentPanel, "ScoreBoardPage");
                     }
                 });
