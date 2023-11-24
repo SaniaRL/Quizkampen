@@ -43,7 +43,7 @@ public class ContentFrame extends JFrame {
     ObjectOutputStream out;
 
     private GameData game; //to store game data
-    boolean chosenCategory = true;
+    boolean chosenCategory = false;
 
     public ContentFrame(ObjectOutputStream out) throws IOException {
         this.out = out;
@@ -174,11 +174,22 @@ public class ContentFrame extends JFrame {
 
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
-            questionPage.nextThreeQuestions(questionCollection.getRandomCategory().label);
-            SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
-            cardLayout.show(contentPanel, "ChooseCategoryPage");
-            addActionListenerToOptions();
-
+            if(chosenCategory) {
+                questionPage.nextThreeQuestions(QuestionCategory.MUSIC.label);
+                category = QuestionCategory.MUSIC.label;
+                scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
+                questionPage.nextThreeQuestions(category);
+                addActionListenerToOptions();
+                cardLayout.show(contentPanel, "QuestionPage");
+                chosenCategory = false;
+            }
+            else{
+                questionPage.nextThreeQuestions(questionCollection.getRandomCategory().label);
+                SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
+                addActionListenerToOptions();
+                cardLayout.show(contentPanel, "ChooseCategoryPage");
+                chosenCategory = true;
+            }
         });
     }
 
@@ -186,25 +197,6 @@ public class ContentFrame extends JFrame {
     public void addActionListerToStartPage(){
         startPage.getStartNewGame().addActionListener(ActionEvent -> writeToServer("new game",null));
     }
-/*    public void addActionListerToStartPage(){
-
-    public void addActionListerToStartPage(String newGame) {
-        //START PAGE
-//        startPage.getStartNewGame().addActionListener(ActionEvent -> {
-        cardLayout.show(contentPanel, "WaitingPage");
-        writeToServer(newGame);
-//        });
-//        startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ScoreBoardPage"));
-    }
-
-    public void addActionListerToStartPage() {
-
-        //START PAGE
-
-        startPage.getStartNewGame().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "WaitingPage"));
-
-        startPage.getCatButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ScoreBoardPage"));
-    }*/
 
     public void addActionListenerToOptions() {
         List<JButton> optionButtons = questionPage.getOptionButtons();
