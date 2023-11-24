@@ -41,8 +41,8 @@ public class ContentFrame extends JFrame {
 
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
-
     private GameData game; //to store game data
+    private Turn playerSide;
     boolean chosenCategory = false;
 
     public ContentFrame(ObjectOutputStream out) throws IOException {
@@ -280,6 +280,14 @@ public class ContentFrame extends JFrame {
 
     public void setGame(GameData game) {
         this.game = game;
+    }
+
+    public Turn getPlayerSide() {
+        return playerSide;
+    }
+
+    public void setPlayerSide(Turn playerSide) {
+        this.playerSide = playerSide;
     }
 
     public void generateRandomPlayer2List(){

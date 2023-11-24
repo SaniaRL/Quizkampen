@@ -4,6 +4,7 @@ import CustomTypes.Round;
 import Enums.GameState;
 import Server.ClientHandler;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.UUID;
 import CustomTypes.GameData;
 
@@ -12,8 +13,8 @@ public class Game {
     private ClientHandler player2;
     private GameState gameState;
     private GameData gameData;
+    Properties properties = new Properties();
     public Game(ClientHandler player1) {
-        super();
         this.player1 = player1;
         gameData = new GameData(String.valueOf(UUID.randomUUID()), new ArrayList<Round>(), "player1");
         gameState = GameState.WAITING;
