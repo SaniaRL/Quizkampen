@@ -123,7 +123,7 @@ public class ScoreBoardPage extends JPanel {
         JPanel middlePanel = new JPanel();
         turnLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Din tur", SwingConstants.CENTER);
         scoreLabel = new JLabel("<html><div style='text-align: center; vertical-align: top;'>" + player1 + "-" + player2 + "</div></html>", SwingConstants.CENTER);
-        scoreLabel.setFont(new Font("Vina Sans", Font.BOLD, 30));
+        scoreLabel.setFont(new Font("Black Ops One", Font.BOLD, 30));
         setScores();
 
         middlePanel.setLayout(new GridLayout(2, 1));

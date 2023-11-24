@@ -50,6 +50,7 @@ public class QuestionCollection {
                             tempArray[5],
                     };
                     allQuestions.add(new Question(tempArray[1], options, findCategory(tempArray[0])));
+                    System.out.println("not null");
                 }
             }
         } catch (IOException e) {
