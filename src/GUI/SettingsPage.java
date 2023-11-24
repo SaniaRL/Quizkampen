@@ -3,6 +3,7 @@ package GUI;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class SettingsPage extends JPanel {
 
@@ -10,10 +11,10 @@ public class SettingsPage extends JPanel {
     JPanel centerPanel;
 
     JButton backButton = new JButton("Home");
-    JButton test1 = new JButton("test1");
-    JButton test2 = new JButton("test2");
+    JButton test1 = new JButton("Change avatar");
+    JButton test2 = new JButton("Change Background");
     JButton test3 = new JButton("test3");
-    JButton test4 = new JButton("test4");
+    JButton exitGame = new JButton("Exit game");
     JLabel headerLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Quizkampen", SwingConstants.CENTER);
 
     String backgroundImagePath;
@@ -72,7 +73,7 @@ public class SettingsPage extends JPanel {
         addButtons(test1);
         addButtons(test2);
         addButtons(test3);
-        addButtons(test4);
+        addButtons(exitGame);
 
     }
 
@@ -86,6 +87,8 @@ public class SettingsPage extends JPanel {
 
     private void actionListenerHandler() {
         backButton.addActionListener(e -> ((CardLayout) getParent().getLayout()).show(getParent(), "StartPage"));
+        exitGame.addActionListener(ActionEvent -> System.exit(0));
+
     }
 
     private void componentStyling() {
