@@ -228,9 +228,13 @@ public class ContentFrame extends JFrame {
                     } else {
                         generateRandomPlayer2List();
                         player1Wins.add(new ArrayList<>(player1Round));
-                        player2Wins.add(new ArrayList<>(player2Round));
+                         /*generateRandomPlayer2List() addar redan player2round till player2wins,
+                        därför behövs inte denna rad så länge vi mockar player2 data
+
+                        player2Wins.add(new ArrayList<>(player2Round));*/
                         player1Round.clear();
                         player2Round.clear();
+                        System.out.println(player2Wins);
                         scoreBoardPage.setWinList(player1Wins, player2Wins);
 
                         if (chosenCategory) {
