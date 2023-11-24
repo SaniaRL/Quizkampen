@@ -1,20 +1,20 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class SettingsPage extends JPanel {
 
-    JPanel centerPanel;
     JPanel northPanel;
-    JPanel southPanel;
+    JPanel centerPanel;
 
     JButton backButton = new JButton("Home");
-    JButton test1 = new JButton("Home1");
-    JButton test2 = new JButton("Home2");
-    JButton test3 = new JButton("Home3");
-    JButton test4 = new JButton("Home4");
-    JLabel headerLabel = new JLabel("Quizkampen");
+    JButton test1 = new JButton("test1");
+    JButton test2 = new JButton("test2");
+    JButton test3 = new JButton("test3");
+    JButton test4 = new JButton("test4");
+    JLabel headerLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Quizkampen", SwingConstants.CENTER);
 
     String backgroundImagePath;
     Image backgroundImage;
@@ -23,7 +23,6 @@ public class SettingsPage extends JPanel {
 
         northPanel = new JPanel();
         centerPanel = new JPanel();
-        southPanel = new JPanel();
 
         backgroundImagePath = "Backgrounds/blueBackground.png";
         backgroundImage = (new ImageIcon(backgroundImagePath)).getImage();
@@ -44,9 +43,6 @@ public class SettingsPage extends JPanel {
         generateCenterPanel();
         add(centerPanel, BorderLayout.CENTER);
 
-        generateSouthPanel();
-        add(southPanel, BorderLayout.SOUTH);
-
         setVisible(true);
     }
 
@@ -58,32 +54,33 @@ public class SettingsPage extends JPanel {
         }
     }
 
-    private void generateSouthPanel() {
-        southPanel.setLayout(new GridLayout(1,3));
-        southPanel.setPreferredSize(new Dimension(800, 300));
-        southPanel.setOpaque(false);
-
-        southPanel.add(backButton);
-     //   southPanel.add(test4);
-     //   southPanel.add(test3);
-
-    }
-
     private void generationNorthPanel() {
         northPanel.setLayout(new FlowLayout());
         northPanel.setPreferredSize(new Dimension(800, 200));
         northPanel.setOpaque(false);
 
-        northPanel.add(headerLabel);
+        northPanel.add(headerLabel, SwingConstants.CENTER);
     }
 
     private void generateCenterPanel() {
-        centerPanel.setLayout(new GridLayout(1,2));
-        centerPanel.setPreferredSize(new Dimension(800, 300));
+        centerPanel.setLayout(new GridLayout(5,1));
+        centerPanel.setPreferredSize(new Dimension(800, 600));
         centerPanel.setOpaque(false);
 
-      //  centerPanel.add(test1);
-      //  centerPanel.add(test2);
+
+        addButtons(backButton);
+        addButtons(test1);
+        addButtons(test2);
+        addButtons(test3);
+        addButtons(test4);
+
+    }
+
+    public void addButtons(JButton button){
+        button.setBackground(Color.WHITE);
+        button.setBorder(new LineBorder(Color.BLUE, 5));
+        button.setFont(new Font("Cabin", Font.BOLD, 22));
+        centerPanel.add(button);
 
     }
 
@@ -92,9 +89,9 @@ public class SettingsPage extends JPanel {
     }
 
     private void componentStyling() {
-        Font fontL = new Font("Serif", Font.BOLD, 18);
+        Font fontL = new Font("Serif", Font.BOLD, 50);
         headerLabel.setFont(fontL);
-        //headerLabel.setBackground(Color.WHITE);
+        headerLabel.setForeground(Color.WHITE);
 
     }
 }
