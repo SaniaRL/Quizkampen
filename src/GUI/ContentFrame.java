@@ -41,8 +41,8 @@ public class ContentFrame extends JFrame {
 
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
-
     private GameData game; //to store game data
+    private Turn playerSide;
     boolean chosenCategory = true;
 
     public ContentFrame(ObjectOutputStream out) throws IOException {
@@ -284,7 +284,15 @@ public class ContentFrame extends JFrame {
         this.game = game;
     }
 
-    /*public void addActionListenerToOptions() {
+    public Turn getPlayerSide() {
+        return playerSide;
+    }
+
+    public void setPlayerSide(Turn playerSide) {
+        this.playerSide = playerSide;
+    }
+
+   /*public void addActionListenerToOptions() {
         List<JButton> optionButtons = questionPage.getOptionButtons();
         for (JButton option : optionButtons) {
             option.addActionListener(ActionEvent -> {
