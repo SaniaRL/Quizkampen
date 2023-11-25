@@ -31,9 +31,9 @@ public class ClientHandler extends Thread implements Serializable {
 
             Object fromClient = readFromClient();
             System.out.println("Thread no." + Thread.currentThread().threadId() + ": " + fromClient);
-
-            while (true) {
-                //TODO: Add logic for server
+            synchronized (this) {
+                while (true) {
+                    //TODO: Add logic for server
 
                     fromClient = readFromClient();
                     if (fromClient instanceof String) {
@@ -54,9 +54,10 @@ public class ClientHandler extends Thread implements Serializable {
                         }
                     }
 
-            } /*else if (fromClient instanceof otherType) {
+                } /*else if (fromClient instanceof otherType) {
                 //TODO: Add logic for other types of objects
-            }*/
+                }*/
+            }
 
         } catch (IOException e) {
             System.out.println("IO Exception from ServerListener: " + e.getMessage());
@@ -74,7 +75,7 @@ public class ClientHandler extends Thread implements Serializable {
         }
     }
 
-    public synchronized <T> void writeToClient(String message, T item) {
+    public <T> void writeToClient(String message, T item) {
         try {
             if (item != null) {
                 out.writeObject(new Object[]{message, item});
@@ -87,7 +88,7 @@ public class ClientHandler extends Thread implements Serializable {
         }
     }
 
-    public synchronized Object readFromClient() throws IOException, ClassNotFoundException {
+    public Object readFromClient() throws IOException, ClassNotFoundException {
         return in.readObject();
     }
 

@@ -53,21 +53,20 @@ public class Protocol {
             System.out.println("waiting for opponent");
 
 
-            synchronized (game) {
-                while (game.getPlayer2() == null) {
-                    System.out.println(game.getPlayer2());
+            if(game.getPlayer2() == null) {
+                synchronized (game) {
                     game.wait();
                 }
-                System.out.println("exited wait");
             }
+            System.out.println("Before if statement");
             if (game.getGameData().getTurn() == Turn.Player2) {
-                game.getPlayer1().writeToClient("your turn", null);
-                game.getPlayer2().writeToClient("opponent turn", game.getGameData());
-                System.out.println("player 1 turn");
-            } else {
-                game.getPlayer2().writeToClient("your turn", null);
-                game.getPlayer1().writeToClient("opponent turn", game.getGameData());
+                game.getPlayer1().writeToClient("opponent turn", null);
+                game.getPlayer2().writeToClient("your turn", game.getGameData());
                 System.out.println("player 2 turn");
+            } else {
+                game.getPlayer2().writeToClient("opponent turn", null);
+                game.getPlayer1().writeToClient("your turn", game.getGameData());
+                System.out.println("player 1 turn");
             }
         }
     }
