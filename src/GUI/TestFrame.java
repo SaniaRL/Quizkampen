@@ -41,8 +41,12 @@ public class TestFrame extends JFrame {
     private final List<String> games = new ArrayList<>();
     boolean chosenCategory = true;
 
+    DesignOptions designOptions;
+
 
     public TestFrame() throws IOException {
+        designOptions = new DesignOptions();
+        designOptions.setColor("violet");
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
         contentPanel.setLayout(cardLayout);
@@ -54,6 +58,7 @@ public class TestFrame extends JFrame {
         scoreBoardPage = new ScoreBoardPage(gameID);
 
         settingsPage = new SettingsPage();
+        settingsPage.setDesignOptions(this.designOptions);
 
         buildFrame();
     }

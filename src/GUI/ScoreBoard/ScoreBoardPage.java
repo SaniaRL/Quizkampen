@@ -1,5 +1,6 @@
 package GUI.ScoreBoard;
 
+import GUI.DesignOptions;
 import Question.QuestionCategory;
 import Question.QuestionCollection;
 
@@ -22,8 +23,7 @@ public class ScoreBoardPage extends JPanel {
 
     JButton playGame;
 
-    String backgroundImagePath;
-    Image backgroundImage;
+    DesignOptions designOptions;
 
     int player1 = 0;
     int player2 = 0;
@@ -38,6 +38,9 @@ public class ScoreBoardPage extends JPanel {
     public ScoreBoardPage(String gameID) throws IOException {
         this.gameID = gameID;
 
+        designOptions = new DesignOptions();
+        designOptions.setColor("violet");
+
         centerPanel = new JPanel();
         northPanel = new JPanel();
         southPanel = new JPanel();
@@ -51,13 +54,14 @@ public class ScoreBoardPage extends JPanel {
         player1ScoreList = new ArrayList<>();
         player2ScoreList = new ArrayList<>();
 
-        backgroundImagePath = "Backgrounds/blueBackground.png";
-        backgroundImage = (new ImageIcon(backgroundImagePath)).getImage();
         scoreCounts = new ArrayList<>();
         addComponents();
     }
 
     public ScoreBoardPage() throws IOException {
+        designOptions = new DesignOptions();
+        designOptions.setColor("violet");
+
         centerPanel = new JPanel();
         northPanel = new JPanel();
         southPanel = new JPanel();
@@ -70,8 +74,6 @@ public class ScoreBoardPage extends JPanel {
         player1ScoreList = new ArrayList<>();
         player2ScoreList = new ArrayList<>();
 
-        backgroundImagePath = "Backgrounds/blueBackground.png";
-        backgroundImage = (new ImageIcon(backgroundImagePath)).getImage();
         scoreCounts = new ArrayList<>();
         addComponents();
     }
@@ -125,7 +127,7 @@ public class ScoreBoardPage extends JPanel {
         JPanel middlePanel = new JPanel();
         turnLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Din tur", SwingConstants.CENTER);
         scoreLabel = new JLabel("<html><div style='text-align: center; vertical-align: top;'>" + player1 + "-" + player2 + "</div></html>", SwingConstants.CENTER);
-        scoreLabel.setFont(new Font("Vina Sans", Font.BOLD, 30));
+        scoreLabel.setFont(designOptions.getSmallText());
         setScores();
 
         middlePanel.setLayout(new GridLayout(2, 1));
@@ -143,7 +145,7 @@ public class ScoreBoardPage extends JPanel {
     }
 
     public void setFont (JLabel label){
-        label.setFont(new Font("Vina Sans", Font.PLAIN, 30));
+        label.setFont(designOptions.getSmallText());
         setOpaque(false);
     }
 
@@ -154,8 +156,8 @@ public class ScoreBoardPage extends JPanel {
 
         playGame.setBackground(Color.GREEN);
         playGame.setPreferredSize(new Dimension(200, 70));
-        playGame.setFont(new Font("Montserrat", Font.PLAIN, 22));
-        playGame.setBorder(new LineBorder(Color.BLUE, 5));
+        playGame.setFont(designOptions.getSmallText());
+        playGame.setBorder(designOptions.getBorder());
 
         southPanel.add(playGame);
     }
@@ -163,8 +165,8 @@ public class ScoreBoardPage extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+        if (designOptions.getBackgroundImage() != null) {
+            g.drawImage(designOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
 

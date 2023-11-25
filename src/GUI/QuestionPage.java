@@ -27,14 +27,15 @@ public class QuestionPage extends JPanel {
     JPanel northPanel;
     JPanel southPanel;
 
-    String backgroundImagePath;
-    Image backgroundImage;
-
     int indexCount;
     String answer;
     List<JButton> optionButtons;
 
+    DesignOptions designOptions;
+
     public QuestionPage(String category) throws IOException {
+        designOptions = new DesignOptions();
+        designOptions.setColor("violet");
 
         questionCollection = new QuestionCollection();
         questionList = questionCollection.getAllQuestions();
@@ -46,9 +47,6 @@ public class QuestionPage extends JPanel {
         centerPanel = new JPanel();
         northPanel = new JPanel();
         southPanel = new JPanel();
-
-        backgroundImagePath = "Backgrounds/blueBackground.png";
-        backgroundImage = new ImageIcon(backgroundImagePath).getImage();
 
         indexCount = 0;
         optionButtons = new ArrayList<>();
@@ -79,8 +77,8 @@ public class QuestionPage extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+        if (designOptions.getBackgroundImage() != null) {
+            g.drawImage(designOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
 
@@ -91,9 +89,9 @@ public class QuestionPage extends JPanel {
 
 
         JLabel questionLabel = new JLabel("<html><div style='text-align: center;'>"  + (threeQuestions.get(indexCount)).getQuestion(), SwingConstants.CENTER);
-        questionLabel.setFont(new Font("Montserrat", Font.PLAIN, 20));
+        questionLabel.setFont(designOptions.getSmallText());
         Border emptyBorder = BorderFactory.createEmptyBorder(10,10,10,10);
-        Border border = new LineBorder(Color.BLUE, 10);
+        Border border = new LineBorder(designOptions.getColor(), 10);
         Border compoundBorder = new CompoundBorder(border, emptyBorder);
         questionLabel.setPreferredSize(new Dimension(600, 200));
         questionLabel.setBackground(Color.white);
@@ -111,7 +109,7 @@ public class QuestionPage extends JPanel {
         JLabel yourPlayer = new JLabel("YOU", SwingConstants.CENTER);
 
         JLabel category = new JLabel(this.category, SwingConstants.CENTER);
-        category.setFont(new Font("Cabin", Font.BOLD, 22));
+        category.setFont(designOptions.getSmallText());
 
         JLabel opponent = new JLabel("OPPONENT", SwingConstants.CENTER);
 
@@ -136,11 +134,11 @@ public class QuestionPage extends JPanel {
             for (String string : optionsList) {
                 JButton button = new JButton("<html><div style='text-align: center;'>" + string);
                 Border emptyBorder = BorderFactory.createEmptyBorder(10,10,10,10);
-                Border border = new LineBorder(Color.BLUE, 2);
+                Border border = new LineBorder(designOptions.getColor(), 2);
                 Border compoundBorder = new CompoundBorder(border, emptyBorder);
                 button.setBorder(compoundBorder);
                 button.setPreferredSize(new Dimension(200, 100));
-                button.setFont(new Font("Cabin", Font.PLAIN, 20));
+                button.setFont(designOptions.getSmallText());
                 button.setBackground(Color.white);
                 southPanel.add(button, SwingConstants.CENTER);
                 optionButtons.add(button);

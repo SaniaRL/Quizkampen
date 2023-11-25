@@ -33,9 +33,9 @@ public class DesignOptions {
         backgroundImagePath = "Backgrounds/blueBackground.png";
         backgroundImage = new ImageIcon(backgroundImagePath).getImage();
         border = new LineBorder(color, 5);
-        titleFont = new Font("Cabin", Font.BOLD, 50);
-        bigText = new Font("Cabin", Font.BOLD, 34);
-        smallText = new Font("Cabin", Font.BOLD, 22);
+        titleFont = new Font("Serif", Font.PLAIN, 50);
+        bigText = new Font("Serif", Font.PLAIN, 40);
+        smallText = new Font("Serif", Font.PLAIN, 22);
     }
 
     public void addIcons(){

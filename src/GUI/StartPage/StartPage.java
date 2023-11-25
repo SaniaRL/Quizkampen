@@ -19,12 +19,6 @@ public class StartPage extends JPanel {
     StartButton homeButton;
     StartButton catButton;
 
-//    String backgroundImagePath;
-//    Image backgroundImage;
-
-//    Color colorTheme;
-//    Color buttonColor;
-
     Border emptyBorder;
 
     DesignOptions designOptions;
@@ -35,11 +29,8 @@ public class StartPage extends JPanel {
 
         settings = new StartButton("\uD83D\uDD27", new Dimension(150,150), 50, Color.BLACK);
         notifications = new StartButton("\uD83D\uDCAC", new Dimension(150,150), 50, Color.BLACK);
-        catButton = new StartButton("o", new Dimension(150,150), 50, Color.BLACK);
+        catButton = new StartButton("", new Dimension(150,150), 50, Color.BLACK);
         homeButton = new StartButton("Q", new Dimension(180,180), 130, designOptions.getDetailColor());
-
-//        backgroundImagePath = "Backgrounds/blueBackground.png";
-//        backgroundImage = new ImageIcon(backgroundImagePath).getImage();
 
         emptyBorder = BorderFactory.createEmptyBorder();
         addComponents();

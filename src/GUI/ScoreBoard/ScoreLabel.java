@@ -1,15 +1,25 @@
 package GUI.ScoreBoard;
 
+import GUI.DesignOptions;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class ScoreLabel extends JLabel {
 
-    Color winColor = Color.GREEN;
-    Color loseColor = Color.RED;
-    Color defaultColor = Color.BLUE;
+    DesignOptions designOptions;
+
+    Color winColor;
+    Color loseColor;
+    Color defaultColor;
 
     public ScoreLabel(Boolean win){
+        designOptions = new DesignOptions();
+        winColor = Color.GREEN;
+        loseColor = Color.RED;
+        defaultColor = designOptions.getColor();
+        designOptions.setColor("violet");
+
         addComponents();
         if(win){
             setForeground(winColor);
