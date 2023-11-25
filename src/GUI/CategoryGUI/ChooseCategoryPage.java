@@ -1,5 +1,6 @@
 package GUI.CategoryGUI;
 
+import GUI.DesignOptions;
 import Question.QuestionCategory;
 import Question.QuestionCollection;
 
@@ -15,9 +16,6 @@ public class ChooseCategoryPage extends JPanel {
     JPanel northPanel;
     JPanel southPanel;
 
-    String backgroundImagePath;
-    Image backgroundImage;
-
     CategoryButton categoryOption1;
     CategoryButton categoryOption2;
     CategoryButton categoryOption3;
@@ -25,13 +23,15 @@ public class ChooseCategoryPage extends JPanel {
     QuestionCollection questionCollection;
     List<QuestionCategory> randomCategoryList;
 
+    DesignOptions designOptions;
+
     public ChooseCategoryPage() throws IOException {
+        designOptions = new DesignOptions();
+        designOptions.setColor("violet");
+
         northPanel = new JPanel();
         southPanel = new JPanel();
         questionCollection = new QuestionCollection();
-
-        backgroundImagePath = "Backgrounds/blueBackground.png";
-        backgroundImage = new ImageIcon(backgroundImagePath).getImage();
 
         randomCategoryList = new ArrayList<>();
 
@@ -58,8 +58,8 @@ public class ChooseCategoryPage extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+        if (designOptions.getBackgroundImage() != null) {
+            g.drawImage(designOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
 
@@ -80,7 +80,7 @@ public class ChooseCategoryPage extends JPanel {
 
 
         JLabel text = new JLabel("Välj en kategori", SwingConstants.CENTER);
-        text.setFont(new Font("Open Sans", Font.PLAIN, 54));
+        text.setFont(designOptions.getTitleFont());
         text.setPreferredSize(new Dimension(800, 100));
         text.setOpaque(false);
 
@@ -124,6 +124,10 @@ public class ChooseCategoryPage extends JPanel {
         categoryOption1 = new CategoryButton(randomCategoryList.get(0));
         categoryOption2 = new CategoryButton(randomCategoryList.get(1));
         categoryOption3 = new CategoryButton(randomCategoryList.get(2));
+
+        categoryOption1.setDesignOptions(this.designOptions);
+        categoryOption2.setDesignOptions(this.designOptions);
+        categoryOption3.setDesignOptions(this.designOptions);
     }
 
     public CategoryButton getCategoryOption1() {

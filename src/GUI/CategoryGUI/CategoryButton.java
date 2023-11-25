@@ -1,4 +1,5 @@
 package GUI.CategoryGUI;
+import GUI.DesignOptions;
 import Question.QuestionCategory;
 
 import javax.swing.*;
@@ -9,16 +10,18 @@ public class CategoryButton extends JButton {
 
     QuestionCategory category;
     Color backgroundColor;
+    DesignOptions designOptions;
 
     public CategoryButton(QuestionCategory category) {
+        designOptions = new DesignOptions();
         this.category = category;
         this.backgroundColor = CategoryColor.getColor(category.label);
 
         setText(category.label);
         setBackground(backgroundColor);
         setPreferredSize(new Dimension(600, 200));
-        setFont(new Font("Arial", Font.PLAIN, 40));
-        setBorder(new LineBorder(Color.BLUE, 5));
+        setFont(designOptions.getBigText());
+        setBorder(designOptions.getBorder());
     }
 
     public void updateCategoryButton(QuestionCategory category){
@@ -27,5 +30,10 @@ public class CategoryButton extends JButton {
 
         setText(category.label);
         setBackground(backgroundColor);
+    }
+
+    public void setDesignOptions(DesignOptions designOptions) {
+        this.designOptions = designOptions;
+        setBorder(designOptions.getBorder());
     }
 }
