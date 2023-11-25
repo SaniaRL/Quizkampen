@@ -6,7 +6,7 @@ import GUI.ScoreBoard.ScoreBoardPage;
 import GUI.StartPage.StartPage;
 import Question.QuestionCategory;
 import Question.QuestionCollection;
-import Enum.Turn;
+import Enums.Turn;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -253,19 +253,32 @@ public class ContentFrame extends JFrame {
     }
 
     public void checkIfWin(JButton option){
-        if (option.getText().equals("<html><div style='text-align: center;'>" + questionPage.getAnswer())) {
-            option.setBackground(Color.green);
-            System.out.println("right");
-            player1Round.add(true);
-        } else {
+        JButton rightAnswer = checkRightAnswer();
+        if (!option.equals(rightAnswer)) {
             option.setBackground(Color.red);
             System.out.println("wrong");
             player1Round.add(false);
+        } else {
+            System.out.println("right");
+            player1Round.add(true);
         }
+        rightAnswer.setBackground(Color.green);
         option.repaint();
         option.revalidate();
+        rightAnswer.repaint();
+        rightAnswer.revalidate();
     }
 
+    public JButton checkRightAnswer(){
+        List<JButton> optionButtons = questionPage.getOptionButtons();
+        JButton rightAnswer = new JButton();
+        for(JButton option : optionButtons){
+            if (option.getText().equals("<html><div style='text-align: center;'>" + questionPage.getAnswer())){
+                rightAnswer = option;
+            }
+        }
+        return rightAnswer;
+    }
 
     public void showScoreBoardPage(){
         cardLayout.show(contentPanel, "ScoreBoardPage");
