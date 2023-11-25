@@ -47,6 +47,7 @@ public class ScoreBoardPage extends JPanel {
         setTurnLabel(true);
 
         categoryList = new ArrayList<>();
+        categoryList.add(QuestionCategory.HISTORY);
         player1ScoreList = new ArrayList<>();
         player2ScoreList = new ArrayList<>();
 
@@ -180,6 +181,14 @@ public class ScoreBoardPage extends JPanel {
         generateCenterPanel();
         generateNorthPanel();
         generateSouthPanel();
+    }
+
+    public void hidePlayButton(){
+        playGame.setVisible(false);
+    }
+
+    public void showPlayButton(){
+        playGame.setVisible(true);
     }
 
     public JButton getPlayGame() {

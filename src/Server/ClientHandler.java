@@ -31,10 +31,10 @@ public class ClientHandler extends Thread implements Serializable {
 
             Object fromClient = readFromClient();
             System.out.println("Thread no." + Thread.currentThread().threadId() + ": " + fromClient);
+            synchronized (this) {
+                while (true) {
+                    //TODO: Add logic for server
 
-            while (true) {
-                //TODO: Add logic for server
-                synchronized (this) {
                     fromClient = readFromClient();
                     if (fromClient instanceof String) {
                         System.out.println(fromClient);
@@ -53,15 +53,18 @@ public class ClientHandler extends Thread implements Serializable {
                             protocol.roundFinished((String) message[0], (GameData) message[1], server, this);
                         }
                     }
-                }
-            } /*else if (fromClient instanceof otherType) {
+
+                } /*else if (fromClient instanceof otherType) {
                 //TODO: Add logic for other types of objects
-            }*/
+                }*/
+            }
 
         } catch (IOException e) {
             System.out.println("IO Exception from ServerListener: " + e.getMessage());
         } catch (ClassNotFoundException e) {
             System.out.println("Class not found exception from ServerListener: " + e.getMessage());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 closeConnection();
@@ -72,16 +75,20 @@ public class ClientHandler extends Thread implements Serializable {
         }
     }
 
-    public synchronized <T> void writeToClient(String message, T item) throws IOException {
-        if (item != null) {
-            out.writeObject(new Object[]{message, item});
-        } else {
-            out.writeObject(message);
+    public <T> void writeToClient(String message, T item) {
+        try {
+            if (item != null) {
+                out.writeObject(new Object[]{message, item});
+            } else {
+                out.writeObject(message);
+            }
+            out.flush();
+        } catch (IOException e) {
+            System.out.println("Error writing to client: " + e.getMessage());
         }
-        out.flush();
     }
 
-    public synchronized Object readFromClient() throws IOException, ClassNotFoundException {
+    public Object readFromClient() throws IOException, ClassNotFoundException {
         return in.readObject();
     }
 

@@ -6,7 +6,7 @@ import GUI.ScoreBoard.ScoreBoardPage;
 import GUI.StartPage.StartPage;
 import Question.QuestionCategory;
 import Question.QuestionCollection;
-import Enum.Turn;
+import Enums.Turn;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -107,7 +107,7 @@ public class ContentFrame extends JFrame {
 
     public <T> void writeToServer(String message, T item) {
         try {
-            if(item != null)
+            if (item != null)
                 out.writeObject(new Object[]{message, item});
             else
                 out.writeObject(message);
@@ -126,12 +126,16 @@ public class ContentFrame extends JFrame {
 
     public void getQuestions() {
         System.out.println("existing game found!");
-        cardLayout.show(contentPanel, "QuestionPage");
+        chosenCategory = true;
+        scoreBoardPage.showPlayButton();
+        cardLayout.show(contentPanel, "ScoreBoardPage");
         addActionListenerToOptions();
     }
 
     public void waitingForPlayer() {
-        cardLayout.show(contentPanel, "WaitingPage");
+        System.out.println("waiting for player method");
+        scoreBoardPage.hidePlayButton();
+        cardLayout.show(contentPanel, "ScoreBoardPage");
     }
 
     public void addActionEvents() {
@@ -194,8 +198,8 @@ public class ContentFrame extends JFrame {
     }
 
 
-    public void addActionListerToStartPage(){
-        startPage.getStartNewGame().addActionListener(ActionEvent -> writeToServer("new game",null));
+    public void addActionListerToStartPage() {
+        startPage.getStartNewGame().addActionListener(ActionEvent -> writeToServer("new game", null));
     }
 
     public void addActionListenerToOptions() {
@@ -219,7 +223,7 @@ public class ContentFrame extends JFrame {
                     } else {
                         generateRandomPlayer2List();
                         player1Wins.add(new ArrayList<>(player1Round));
-                        player2Wins.add(new ArrayList<>(player2Round));
+                        //player2Wins.add(new ArrayList<>(player2Round));
                         player1Round.clear();
                         player2Round.clear();
                         scoreBoardPage.setWinList(player1Wins, player2Wins);
@@ -227,6 +231,9 @@ public class ContentFrame extends JFrame {
                         if(!chosenCategory) {
                             cardLayout.show(contentPanel, "ScoreBoardPage");
                             scoreBoardPage.setGameID(gameID);
+                            System.out.println(game.getTurn());
+                            game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
+                            System.out.println(game.getTurn());
                             writeToServer("round finished", game);
                         }
                         else {
@@ -236,6 +243,9 @@ public class ContentFrame extends JFrame {
                             addActionListenerToOptions();
                             cardLayout.show(contentPanel, "QuestionPage");
                             newGameStarted();
+                            System.out.println(game.getTurn());
+                            game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
+                            System.out.println(game.getTurn());
                             writeToServer("round finished", game);
                         }
                         try {
@@ -243,6 +253,7 @@ public class ContentFrame extends JFrame {
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
+                        scoreBoardPage.hidePlayButton();
                         cardLayout.show(contentPanel, "ScoreBoardPage");
                     }
                 });
@@ -267,7 +278,7 @@ public class ContentFrame extends JFrame {
     }
 
 
-    public void showScoreBoardPage(){
+    public void showScoreBoardPage() {
         cardLayout.show(contentPanel, "ScoreBoardPage");
         chosenCategory = false;
     }
@@ -290,7 +301,7 @@ public class ContentFrame extends JFrame {
         this.playerSide = playerSide;
     }
 
-    public void generateRandomPlayer2List(){
+    public void generateRandomPlayer2List() {
         player2Round.add(true);
         player2Round.add(false);
         player2Round.add(false);
