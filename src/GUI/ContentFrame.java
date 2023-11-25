@@ -53,7 +53,7 @@ public class ContentFrame extends JFrame {
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage(category);
+        questionPage = new QuestionPage();
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID);
 
@@ -68,7 +68,7 @@ public class ContentFrame extends JFrame {
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage(category);
+        questionPage = new QuestionPage();
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID);
 
@@ -119,6 +119,7 @@ public class ContentFrame extends JFrame {
 
     public void newGameStarted() {
         System.out.println("choose category");
+
         cardLayout.show(contentPanel, "ChooseCategoryPage");
         addActionListenerToOptions();
         chosenCategory = true;
@@ -146,21 +147,21 @@ public class ContentFrame extends JFrame {
         chooseCategoryPage.getCategoryOption1().addActionListener(ActiveEvent -> {
             category = chooseCategoryPage.getCategoryOption1().getText();
             scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-            questionPage.nextThreeQuestions(category);
+            questionPage.newQuestions(category);
             addActionListenerToOptions();
             cardLayout.show(contentPanel, "QuestionPage");
         });
         chooseCategoryPage.getCategoryOption2().addActionListener(ActiveEvent -> {
             category = chooseCategoryPage.getCategoryOption2().getText();
             scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-            questionPage.nextThreeQuestions(category);
+            questionPage.newQuestions(category);
             addActionListenerToOptions();
             cardLayout.show(contentPanel, "QuestionPage");
         });
         chooseCategoryPage.getCategoryOption3().addActionListener(ActiveEvent -> {
             category = chooseCategoryPage.getCategoryOption3().getText();
             scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-            questionPage.nextThreeQuestions(category);
+            questionPage.newQuestions(category);
             addActionListenerToOptions();
             cardLayout.show(contentPanel, "QuestionPage");
         });
@@ -174,7 +175,7 @@ public class ContentFrame extends JFrame {
 
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
-            questionPage.nextThreeQuestions(questionCollection.getRandomCategory().label);
+            questionPage.newQuestions(questionCollection.getRandomCategory().label);
             SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
             cardLayout.show(contentPanel, "ChooseCategoryPage");
             addActionListenerToOptions();
@@ -220,7 +221,7 @@ public class ContentFrame extends JFrame {
                 checkIfWin(option);
 
                 Timer timer = new Timer(500, evt -> {
-                    if (player1Round.size() < 3) {
+                    if (player1Round.size() < game.getRounds().get(0).getQuestions().size()) {
                         questionPage.nextQuestion();
                         cardLayout.show(contentPanel, "QuestionPage");
                         addActionListenerToOptions();

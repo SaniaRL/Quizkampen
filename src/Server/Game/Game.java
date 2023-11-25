@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.UUID;
 import CustomTypes.GameData;
+import Server.Server;
 
 public class Game {
     private ClientHandler player1;
