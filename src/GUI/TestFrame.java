@@ -1,24 +1,21 @@
 package GUI;
 
-import CustomTypes.GameData;
 import GUI.CategoryGUI.ChooseCategoryPage;
 import GUI.ScoreBoard.ScoreBoardPage;
 import GUI.StartPage.StartPage;
 import Question.QuestionCategory;
 import Question.QuestionCollection;
-import Enums.Turn;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.awt.*;
-import java.io.IOException;
 
-public class ContentFrame extends JFrame {
-
+public class TestFrame extends JFrame {
     JPanel contentPanel;
     CardLayout cardLayout;
 
@@ -31,44 +28,28 @@ public class ContentFrame extends JFrame {
     SettingsPage settingsPage;
 
     //Should be moved to game logic later:
-    List<List<Boolean>> player1Wins = new ArrayList<>();
-    List<List<Boolean>> player2Wins = new ArrayList<>();
-    List<Boolean> player1Round = new ArrayList<>();
-    List<Boolean> player2Round = new ArrayList<>();
+    java.util.List<java.util.List<Boolean>> player1Wins = new ArrayList<>();
+    java.util.List<java.util.List<Boolean>> player2Wins = new ArrayList<>();
+    java.util.List<Boolean> player1Round = new ArrayList<>();
+    java.util.List<Boolean> player2Round = new ArrayList<>();
     String category = "Film";
     String gameID = "4556";
-    DesignOptions designOptions = new DesignOptions();
 
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
-    private GameData game; //to store game data
-    private Turn playerSide;
-    boolean chosenCategory = false;
 
-    public ContentFrame(ObjectOutputStream out) throws IOException {
-        this.out = out;
+    private final List<String> games = new ArrayList<>();
+    boolean chosenCategory = true;
+
+
+    public TestFrame() throws IOException {
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
         contentPanel.setLayout(cardLayout);
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage();
-        waitingPage = new WaitingPage();
-        scoreBoardPage = new ScoreBoardPage(gameID);
-
-        settingsPage = new SettingsPage();
-
-        buildFrame();
-    }
-    public ContentFrame() throws IOException {
-        contentPanel = new JPanel();
-        cardLayout = new CardLayout();
-        contentPanel.setLayout(cardLayout);
-
-        startPage = new StartPage();
-        chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage();
+        questionPage = new QuestionPage(category);
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID);
 
@@ -77,10 +58,9 @@ public class ContentFrame extends JFrame {
         buildFrame();
     }
 
-    //TODO Remove main
     public static void main(String[] args) throws IOException {
         @SuppressWarnings("unused")
-        ContentFrame contentFrame = new ContentFrame();
+        TestFrame testFrame = new TestFrame();
     }
 
     public void buildFrame() {
@@ -105,36 +85,6 @@ public class ContentFrame extends JFrame {
         setVisible(true);
     }
 
-    public <T> void writeToServer(String message, T item) {
-        try {
-            if(item != null)
-                out.writeObject(new Object[]{message, item});
-            else
-                out.writeObject(message);
-            out.flush();
-        } catch (IOException e) {
-            e.printStackTrace(System.err);
-        }
-    }
-
-    public void newGameStarted() {
-        System.out.println("choose category");
-
-        cardLayout.show(contentPanel, "ChooseCategoryPage");
-        addActionListenerToOptions();
-        chosenCategory = true;
-    }
-
-    public void getQuestions() {
-        System.out.println("existing game found!");
-        cardLayout.show(contentPanel, "QuestionPage");
-        addActionListenerToOptions();
-    }
-
-    public void waitingForPlayer() {
-        cardLayout.show(contentPanel, "WaitingPage");
-    }
-
     public void addActionEvents() {
 
         //START PAGE
@@ -147,21 +97,21 @@ public class ContentFrame extends JFrame {
         chooseCategoryPage.getCategoryOption1().addActionListener(ActiveEvent -> {
             category = chooseCategoryPage.getCategoryOption1().getText();
             scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-            questionPage.newQuestions(category);
+            questionPage.nextThreeQuestions(category);
             addActionListenerToOptions();
             cardLayout.show(contentPanel, "QuestionPage");
         });
         chooseCategoryPage.getCategoryOption2().addActionListener(ActiveEvent -> {
             category = chooseCategoryPage.getCategoryOption2().getText();
             scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-            questionPage.newQuestions(category);
+            questionPage.nextThreeQuestions(category);
             addActionListenerToOptions();
             cardLayout.show(contentPanel, "QuestionPage");
         });
         chooseCategoryPage.getCategoryOption3().addActionListener(ActiveEvent -> {
             category = chooseCategoryPage.getCategoryOption3().getText();
             scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-            questionPage.newQuestions(category);
+            questionPage.nextThreeQuestions(category);
             addActionListenerToOptions();
             cardLayout.show(contentPanel, "QuestionPage");
         });
@@ -176,27 +126,29 @@ public class ContentFrame extends JFrame {
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
             if(chosenCategory) {
-                questionPage.newQuestions(QuestionCategory.MUSIC.label);
+                questionPage.nextThreeQuestions(QuestionCategory.MUSIC.label);
                 category = QuestionCategory.MUSIC.label;
                 scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-                questionPage.newQuestions(category);
+                questionPage.nextThreeQuestions(category);
                 addActionListenerToOptions();
                 cardLayout.show(contentPanel, "QuestionPage");
                 chosenCategory = false;
+
             }
             else{
-                questionPage.newQuestions(questionCollection.getRandomCategory().label);
+                questionPage.nextThreeQuestions(questionCollection.getRandomCategory().label);
                 SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
                 addActionListenerToOptions();
                 cardLayout.show(contentPanel, "ChooseCategoryPage");
                 chosenCategory = true;
             }
+
         });
     }
 
 
     public void addActionListerToStartPage(){
-        startPage.getStartNewGame().addActionListener(ActionEvent -> writeToServer("new game",null));
+        startPage.getStartNewGame().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ChooseCategoryPage"));
     }
 
     public void addActionListenerToOptions() {
@@ -212,8 +164,8 @@ public class ContentFrame extends JFrame {
             option.addActionListener(e -> {
                 checkIfWin(option);
 
-                Timer timer = new Timer(500, evt -> {
-                    if (player1Round.size() < game.getRounds().get(0).getQuestions().size()) {
+                Timer timer = new Timer(3000, evt -> {
+                    if (player1Round.size() < 3) {
                         questionPage.nextQuestion();
                         cardLayout.show(contentPanel, "QuestionPage");
                         addActionListenerToOptions();
@@ -225,21 +177,20 @@ public class ContentFrame extends JFrame {
                         player2Round.clear();
                         scoreBoardPage.setWinList(player1Wins, player2Wins);
 
-                        if(!chosenCategory) {
+                        if(chosenCategory) {
                             cardLayout.show(contentPanel, "ScoreBoardPage");
                             scoreBoardPage.setGameID(gameID);
-                            writeToServer("round finished", game);
                         }
                         else {
                             //TODO
                             category = QuestionCategory.MUSIC.label;
-                            questionPage.newQuestions(category);
+                            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
+                            questionPage.nextThreeQuestions(category);
                             addActionListenerToOptions();
                             cardLayout.show(contentPanel, "QuestionPage");
-                            newGameStarted();
-                            writeToServer("round finished", game);
                         }
                         try {
+                            scoreBoardPage.setWinList(player1Wins, player2Wins);
                             scoreBoardPage.updateScoreBoard();
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
@@ -275,29 +226,22 @@ public class ContentFrame extends JFrame {
 
     //Needed for NetWork
 
-    public GameData getGame() {
-        return game;
-    }
-
-    public void setGame(GameData game) {
-        this.game = game;
-    }
-
-    public Turn getPlayerSide() {
-        return playerSide;
-    }
-
-    public void setPlayerSide(Turn playerSide) {
-        this.playerSide = playerSide;
+    public List<String> getGames() {
+        return games;
     }
 
     public void generateRandomPlayer2List(){
         player2Round.add(true);
         player2Round.add(false);
         player2Round.add(false);
+        System.out.println(player2Round);
         Collections.shuffle(player2Round);
+        System.out.println(player2Round);
         player2Wins.add(new ArrayList<>(player2Round));
         System.out.println(player2Round.size());
+    }
 
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
