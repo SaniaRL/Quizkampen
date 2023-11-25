@@ -47,6 +47,7 @@ public class ScoreBoardPage extends JPanel {
         setTurnLabel(true);
 
         categoryList = new ArrayList<>();
+        categoryList.add(QuestionCategory.HISTORY);
         player1ScoreList = new ArrayList<>();
         player2ScoreList = new ArrayList<>();
 

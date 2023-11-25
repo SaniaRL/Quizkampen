@@ -10,7 +10,6 @@ import Question.QuestionCollection;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,8 +38,6 @@ public class ContentFrame extends JFrame {
     String category = "Film";
     String gameID = "4556";
 
-    int playGamePressCounter = 0;
-
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
 
@@ -49,6 +46,7 @@ public class ContentFrame extends JFrame {
 
     public ContentFrame(ObjectOutputStream out) throws IOException {
         this.out = out;
+
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
         contentPanel.setLayout(cardLayout);
@@ -63,6 +61,7 @@ public class ContentFrame extends JFrame {
 
         buildFrame();
     }
+
     public ContentFrame() throws IOException {
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
@@ -109,7 +108,7 @@ public class ContentFrame extends JFrame {
 
     public <T> void writeToServer(String message, T item) {
         try {
-            if(item != null)
+            if (item != null)
                 out.writeObject(new Object[]{message, item});
             else
                 out.writeObject(message);
@@ -133,8 +132,8 @@ public class ContentFrame extends JFrame {
         addActionListenerToOptions();
     }
 
-    public void waitingForPlayer(String gameID) {
-        this.gameID = gameID;
+    public void waitingForPlayer() {
+        System.out.println("waiting for player method");
         scoreBoardPage.hidePlayButton();
         cardLayout.show(contentPanel, "ScoreBoardPage");
     }
@@ -179,22 +178,18 @@ public class ContentFrame extends JFrame {
 
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
-            playGamePressCounter++;
             questionPage.nextThreeQuestions(questionCollection.getRandomCategory().label);
 
-            if (playGamePressCounter % 2 == 0) {
-                cardLayout.show(contentPanel, "ChooseCategoryPage");
-            } else {
-                cardLayout.show(contentPanel, "QuestionPage");
-            }
-            addActionListenerToOptions();
 
+            cardLayout.show(contentPanel, "QuestionPage");
+
+            addActionListenerToOptions();
         });
     }
 
 
-    public void addActionListerToStartPage(){
-        startPage.getStartNewGame().addActionListener(ActionEvent -> writeToServer("new game",null));
+    public void addActionListerToStartPage() {
+        startPage.getStartNewGame().addActionListener(ActionEvent -> writeToServer("new game", null));
     }
 /*    public void addActionListerToStartPage(){
 
@@ -237,13 +232,13 @@ public class ContentFrame extends JFrame {
                     } else {
                         generateRandomPlayer2List();
                         player1Wins.add(new ArrayList<>(player1Round));
-                        player2Wins.add(new ArrayList<>(player2Round));
+                        //player2Wins.add(new ArrayList<>(player2Round));
                         player1Round.clear();
                         player2Round.clear();
                         scoreBoardPage.setWinList(player1Wins, player2Wins);
 
                         if (chosenCategory) {
-                            cardLayout.show(contentPanel, "ScoreBoardPage");
+                            showScoreBoardPage();
                             scoreBoardPage.setGameID(gameID);
                             game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
                             writeToServer("round finished", game);
@@ -252,11 +247,11 @@ public class ContentFrame extends JFrame {
                         }
                         try {
                             scoreBoardPage.updateScoreBoard();
+
+                            cardLayout.show(contentPanel, "ScoreBoardPage");
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
-                        scoreBoardPage.hidePlayButton();
-                        cardLayout.show(contentPanel, "ScoreBoardPage");
                     }
                 });
                 timer.setRepeats(false);
@@ -265,7 +260,7 @@ public class ContentFrame extends JFrame {
         }
     }
 
-    public void checkIfWin(JButton option){
+    public void checkIfWin(JButton option) {
         if (option.getText().equals("<html><div style='text-align: center;'>" + questionPage.getAnswer())) {
             option.setBackground(Color.green);
             System.out.println("right");
@@ -280,7 +275,7 @@ public class ContentFrame extends JFrame {
     }
 
 
-    public void showScoreBoardPage(){
+    public void showScoreBoardPage() {
         cardLayout.show(contentPanel, "ScoreBoardPage");
         chosenCategory = false;
     }
@@ -329,7 +324,7 @@ public class ContentFrame extends JFrame {
         }
     }*/
 
-    public void generateRandomPlayer2List(){
+    public void generateRandomPlayer2List() {
         player2Round.add(true);
         player2Round.add(false);
         player2Round.add(false);

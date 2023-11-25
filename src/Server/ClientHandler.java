@@ -62,6 +62,8 @@ public class ClientHandler extends Thread implements Serializable {
             System.out.println("IO Exception from ServerListener: " + e.getMessage());
         } catch (ClassNotFoundException e) {
             System.out.println("Class not found exception from ServerListener: " + e.getMessage());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 closeConnection();
@@ -72,13 +74,17 @@ public class ClientHandler extends Thread implements Serializable {
         }
     }
 
-    public synchronized <T> void writeToClient(String message, T item) throws IOException {
-        if (item != null) {
-            out.writeObject(new Object[]{message, item});
-        } else {
-            out.writeObject(message);
+    public synchronized <T> void writeToClient(String message, T item) {
+        try {
+            if (item != null) {
+                out.writeObject(new Object[]{message, item});
+            } else {
+                out.writeObject(message);
+            }
+            out.flush();
+        } catch (IOException e) {
+            System.out.println("Error writing to client: " + e.getMessage());
         }
-        out.flush();
     }
 
     public synchronized Object readFromClient() throws IOException, ClassNotFoundException {
