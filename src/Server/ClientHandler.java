@@ -34,7 +34,7 @@ public class ClientHandler extends Thread implements Serializable {
 
             while (true) {
                 //TODO: Add logic for server
-                synchronized (this) {
+
                     fromClient = readFromClient();
                     if (fromClient instanceof String) {
                         System.out.println(fromClient);
@@ -53,7 +53,7 @@ public class ClientHandler extends Thread implements Serializable {
                             protocol.roundFinished((String) message[0], (GameData) message[1], server, this);
                         }
                     }
-                }
+
             } /*else if (fromClient instanceof otherType) {
                 //TODO: Add logic for other types of objects
             }*/

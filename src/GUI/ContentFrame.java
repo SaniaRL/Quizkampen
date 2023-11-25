@@ -6,7 +6,7 @@ import GUI.ScoreBoard.ScoreBoardPage;
 import GUI.StartPage.StartPage;
 import Question.QuestionCategory;
 import Question.QuestionCollection;
-import Enum.Turn;
+import Enums.Turn;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -126,6 +126,7 @@ public class ContentFrame extends JFrame {
 
     public void getQuestions() {
         System.out.println("existing game found!");
+        chosenCategory = true;
         scoreBoardPage.showPlayButton();
         cardLayout.show(contentPanel, "ScoreBoardPage");
         addActionListenerToOptions();
@@ -222,7 +223,7 @@ public class ContentFrame extends JFrame {
                     } else {
                         generateRandomPlayer2List();
                         player1Wins.add(new ArrayList<>(player1Round));
-                        player2Wins.add(new ArrayList<>(player2Round));
+                        //player2Wins.add(new ArrayList<>(player2Round));
                         player1Round.clear();
                         player2Round.clear();
                         scoreBoardPage.setWinList(player1Wins, player2Wins);
@@ -230,6 +231,9 @@ public class ContentFrame extends JFrame {
                         if(!chosenCategory) {
                             cardLayout.show(contentPanel, "ScoreBoardPage");
                             scoreBoardPage.setGameID(gameID);
+                            System.out.println(game.getTurn());
+                            game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
+                            System.out.println(game.getTurn());
                             writeToServer("round finished", game);
                         }
                         else {
@@ -239,6 +243,9 @@ public class ContentFrame extends JFrame {
                             addActionListenerToOptions();
                             cardLayout.show(contentPanel, "QuestionPage");
                             newGameStarted();
+                            System.out.println(game.getTurn());
+                            game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
+                            System.out.println(game.getTurn());
                             writeToServer("round finished", game);
                         }
                         try {
@@ -246,6 +253,7 @@ public class ContentFrame extends JFrame {
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
+                        scoreBoardPage.hidePlayButton();
                         cardLayout.show(contentPanel, "ScoreBoardPage");
                     }
                 });
