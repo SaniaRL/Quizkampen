@@ -45,6 +45,12 @@ public class ContentFrame extends JFrame {
     private Turn playerSide;
     boolean chosenCategory = false;
 
+    public void setDesignOptions(){
+
+
+
+    }
+
     public ContentFrame(ObjectOutputStream out) throws IOException {
         this.out = out;
         contentPanel = new JPanel();
@@ -321,6 +327,7 @@ public class ContentFrame extends JFrame {
         Collections.shuffle(player2Round);
         player2Wins.add(new ArrayList<>(player2Round));
         System.out.println(player2Round.size());
-
     }
+
+
 }

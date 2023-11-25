@@ -41,19 +41,32 @@ public class TestFrame extends JFrame {
     private final List<String> games = new ArrayList<>();
     boolean chosenCategory = true;
 
+    DesignOptions designOptions;
+
 
     public TestFrame() throws IOException {
+        designOptions = new DesignOptions();
+        designOptions.setColor("violet");
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
         contentPanel.setLayout(cardLayout);
 
         startPage = new StartPage();
+        startPage.setDesignOptions(this.designOptions);
+
         chooseCategoryPage = new ChooseCategoryPage();
+        chooseCategoryPage.setDesignOptions(this.designOptions);
+
         questionPage = new QuestionPage(category);
+        questionPage.setDesignOptions(this.designOptions);
+
         waitingPage = new WaitingPage();
+
         scoreBoardPage = new ScoreBoardPage(gameID);
+        scoreBoardPage.setDesignOptions(this.designOptions);
 
         settingsPage = new SettingsPage();
+        settingsPage.setDesignOptions(this.designOptions);
 
         buildFrame();
     }
