@@ -30,20 +30,18 @@ public class StartPage extends JPanel {
     DesignOptions designOptions;
 
     public StartPage(){
+        designOptions = new DesignOptions();
+        designOptions.setColor("violet");
+
         settings = new StartButton("\uD83D\uDD27", new Dimension(150,150), 50, Color.BLACK);
         notifications = new StartButton("\uD83D\uDCAC", new Dimension(150,150), 50, Color.BLACK);
         catButton = new StartButton("o", new Dimension(150,150), 50, Color.BLACK);
-        homeButton = new StartButton("Q", new Dimension(180,180), 130, Color.CYAN);
+        homeButton = new StartButton("Q", new Dimension(180,180), 130, designOptions.getDetailColor());
 
 //        backgroundImagePath = "Backgrounds/blueBackground.png";
 //        backgroundImage = new ImageIcon(backgroundImagePath).getImage();
 
-//        colorTheme = new Color(190, 103, 208);
-//        buttonColor= new Color(93,246,246);
-
         emptyBorder = BorderFactory.createEmptyBorder();
-
-        designOptions = new DesignOptions();
         addComponents();
     }
 
@@ -91,7 +89,7 @@ public class StartPage extends JPanel {
         startNewGame.setPreferredSize(buttonSize);
         startNewGame.setMinimumSize(buttonSize);
         startNewGame.setMaximumSize(buttonSize);
-        startNewGame.setBackground(new Color(93,246,246));
+        startNewGame.setBackground(designOptions.getDetailColor());
         startNewGame.setLocation(200, 200);
         startNewGame.setText("New Game");
         startNewGame.setFont(designOptions.getTitleFont());

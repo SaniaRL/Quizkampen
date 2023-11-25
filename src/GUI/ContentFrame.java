@@ -48,6 +48,7 @@ public class ContentFrame extends JFrame {
     public void setDesignOptions(){
 
 
+
     }
 
     public ContentFrame(ObjectOutputStream out) throws IOException {

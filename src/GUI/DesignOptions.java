@@ -10,6 +10,7 @@ import java.util.List;
 public class DesignOptions {
     ImageIcon icon;
     Color color;
+    Color detailColor;
     String backgroundImagePath;
     Image backgroundImage;
     LineBorder border;
@@ -28,9 +29,10 @@ public class DesignOptions {
         addIcons();
         icon = imageIcons.get(0);
         color = Color.BLUE;
+        detailColor = Color.CYAN;
         backgroundImagePath = "Backgrounds/blueBackground.png";
         backgroundImage = new ImageIcon(backgroundImagePath).getImage();
-        border = new LineBorder(Color.BLUE, 5);
+        border = new LineBorder(color, 5);
         titleFont = new Font("Cabin", Font.BOLD, 50);
         bigText = new Font("Cabin", Font.BOLD, 34);
         smallText = new Font("Cabin", Font.BOLD, 22);
@@ -66,6 +68,30 @@ public class DesignOptions {
 
     public LineBorder getBorder() {
         return border;
+    }
+
+    public void setColor(String color) {
+        switch (color.toLowerCase()){
+            case "blue" -> {
+                this.color = Color.BLUE;
+                this.detailColor = Color.CYAN;
+                this.backgroundImagePath = "Backgrounds/blueBackground.png";
+                border = new LineBorder(this.color, 5);
+                backgroundImage = new ImageIcon(backgroundImagePath).getImage();
+
+            }
+            case "violet" -> {
+                this.color = new Color(112, 31, 69);
+                this.detailColor = new Color(191, 112, 151);
+                this.backgroundImagePath = "Backgrounds/violetBackground.png";
+                border = new LineBorder(this.color, 5);
+                backgroundImage = new ImageIcon(backgroundImagePath).getImage();
+            }
+        }
+    }
+
+    public Color getDetailColor() {
+        return detailColor;
     }
 
     public Color getColor() {
