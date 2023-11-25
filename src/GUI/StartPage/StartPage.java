@@ -25,7 +25,6 @@ public class StartPage extends JPanel {
 
     public StartPage(){
         designOptions = new DesignOptions();
-        designOptions.setColor("violet");
 
         settings = new StartButton("\uD83D\uDD27", new Dimension(150,150), 50, Color.BLACK);
         notifications = new StartButton("\uD83D\uDCAC", new Dimension(150,150), 50, Color.BLACK);
@@ -171,6 +170,13 @@ public class StartPage extends JPanel {
 
     public JButton getCatButton() {
         return catButton;
+    }
+
+    public void setDesignOptions(DesignOptions designOptions) {
+        this.designOptions = designOptions;
+        startNewGame.setBorder(new LineBorder(designOptions.getColor(), 10));
+        startNewGame.setBackground(designOptions.getDetailColor());
+        homeButton.setForeground(designOptions.getDetailColor());
     }
 
     public JButton getStartNewGame() {

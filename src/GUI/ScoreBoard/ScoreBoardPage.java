@@ -39,7 +39,6 @@ public class ScoreBoardPage extends JPanel {
         this.gameID = gameID;
 
         designOptions = new DesignOptions();
-        designOptions.setColor("violet");
 
         centerPanel = new JPanel();
         northPanel = new JPanel();
@@ -51,26 +50,6 @@ public class ScoreBoardPage extends JPanel {
 
         categoryList = new ArrayList<>();
         categoryList.add(QuestionCategory.HISTORY);
-        player1ScoreList = new ArrayList<>();
-        player2ScoreList = new ArrayList<>();
-
-        scoreCounts = new ArrayList<>();
-        addComponents();
-    }
-
-    public ScoreBoardPage() throws IOException {
-        designOptions = new DesignOptions();
-        designOptions.setColor("violet");
-
-        centerPanel = new JPanel();
-        northPanel = new JPanel();
-        southPanel = new JPanel();
-
-        playGame = new JButton("SPELA");
-        turnLabel = new JLabel();
-        setTurnLabel(true);
-
-        categoryList = new ArrayList<>();
         player1ScoreList = new ArrayList<>();
         player2ScoreList = new ArrayList<>();
 
@@ -122,7 +101,9 @@ public class ScoreBoardPage extends JPanel {
         northPanel.setOpaque(false);
 
         JLabel yourLabel = new JLabel("YOU", SwingConstants.CENTER);
+        yourLabel.setFont(designOptions.getSmallText());
         JLabel opponentLabel = new JLabel("OPPONENT", SwingConstants.CENTER);
+        opponentLabel.setFont(designOptions.getSmallText());
 
         JPanel middlePanel = new JPanel();
         turnLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Din tur", SwingConstants.CENTER);
@@ -230,6 +211,10 @@ public class ScoreBoardPage extends JPanel {
         player1 = calculateScore(player1ScoreList);
         player2 = calculateScore(player2ScoreList);
         scoreLabel.setText(player1 + " - " + player2);
+    }
+
+    public void setDesignOptions(DesignOptions designOptions) {
+        this.designOptions = designOptions;
     }
 
     public void setTurnLabel(Boolean yourTurn){

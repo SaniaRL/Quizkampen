@@ -35,7 +35,6 @@ public class QuestionPage extends JPanel {
 
     public QuestionPage(String category) throws IOException {
         designOptions = new DesignOptions();
-        designOptions.setColor("violet");
 
         questionCollection = new QuestionCollection();
         questionList = questionCollection.getAllQuestions();
@@ -107,11 +106,13 @@ public class QuestionPage extends JPanel {
         northPanel.setOpaque(false);
 
         JLabel yourPlayer = new JLabel("YOU", SwingConstants.CENTER);
+        yourPlayer.setFont(designOptions.getSmallText());
 
         JLabel category = new JLabel(this.category, SwingConstants.CENTER);
         category.setFont(designOptions.getSmallText());
 
         JLabel opponent = new JLabel("OPPONENT", SwingConstants.CENTER);
+        opponent.setFont(designOptions.getSmallText());
 
         yourPlayer.setOpaque(false);
         category.setOpaque(false);
@@ -185,6 +186,10 @@ public class QuestionPage extends JPanel {
 
     public String getAnswer() {
         return answer;
+    }
+
+    public void setDesignOptions(DesignOptions designOptions) {
+        this.designOptions = designOptions;
     }
 
     public List<JButton> getOptionButtons() {return optionButtons;}

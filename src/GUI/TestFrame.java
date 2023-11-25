@@ -52,10 +52,18 @@ public class TestFrame extends JFrame {
         contentPanel.setLayout(cardLayout);
 
         startPage = new StartPage();
+        startPage.setDesignOptions(this.designOptions);
+
         chooseCategoryPage = new ChooseCategoryPage();
+        chooseCategoryPage.setDesignOptions(this.designOptions);
+
         questionPage = new QuestionPage(category);
+        questionPage.setDesignOptions(this.designOptions);
+
         waitingPage = new WaitingPage();
+
         scoreBoardPage = new ScoreBoardPage(gameID);
+        scoreBoardPage.setDesignOptions(this.designOptions);
 
         settingsPage = new SettingsPage();
         settingsPage.setDesignOptions(this.designOptions);

@@ -27,7 +27,6 @@ public class ChooseCategoryPage extends JPanel {
 
     public ChooseCategoryPage() throws IOException {
         designOptions = new DesignOptions();
-        designOptions.setColor("violet");
 
         northPanel = new JPanel();
         southPanel = new JPanel();
@@ -151,5 +150,12 @@ public class ChooseCategoryPage extends JPanel {
 
         repaint();
         revalidate();
+    }
+
+    public void setDesignOptions(DesignOptions designOptions) {
+        this.designOptions = designOptions;
+        categoryOption1.setBorder(designOptions.getBorder());
+        categoryOption2.setBorder(designOptions.getBorder());
+        categoryOption3.setBorder(designOptions.getBorder());
     }
 }
