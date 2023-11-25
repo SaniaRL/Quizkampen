@@ -119,7 +119,7 @@ public class ContentFrame extends JFrame {
 
     public void newGameStarted() {
         System.out.println("choose category");
-        questionPage.setQuestionAmount(game.);
+        questionPage.setQuestionAmount(game.getQuestionsAmount());
         cardLayout.show(contentPanel, "ChooseCategoryPage");
         addActionListenerToOptions();
         chosenCategory = true;
