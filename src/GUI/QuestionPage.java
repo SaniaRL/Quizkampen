@@ -81,11 +81,7 @@ public class QuestionPage extends JPanel {
             g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
-
-
-//
-
-
+    
     public void generateCenterPanel() {
         centerPanel.setLayout(new FlowLayout());
         centerPanel.setPreferredSize(new Dimension(800, 300));

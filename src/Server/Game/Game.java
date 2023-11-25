@@ -14,10 +14,9 @@ public class Game {
     private ClientHandler player2;
     private GameState gameState;
     private GameData gameData;
-    Properties properties = new Properties();
     public Game(ClientHandler player1) {
         this.player1 = player1;
-        gameData = new GameData(String.valueOf(UUID.randomUUID()), new ArrayList<Round>(), "player1");
+        gameData = new GameData(String.valueOf(UUID.randomUUID()), "player1", 4, 4);
         gameState = GameState.WAITING;
     }
     public GameData getGameData() {

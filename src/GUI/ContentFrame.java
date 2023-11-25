@@ -119,7 +119,7 @@ public class ContentFrame extends JFrame {
 
     public void newGameStarted() {
         System.out.println("choose category");
-
+        questionPage.setQuestionAmount(game.);
         cardLayout.show(contentPanel, "ChooseCategoryPage");
         addActionListenerToOptions();
         chosenCategory = true;
@@ -213,7 +213,7 @@ public class ContentFrame extends JFrame {
                 checkIfWin(option);
 
                 Timer timer = new Timer(500, evt -> {
-                    if (player1Round.size() < game.getRounds().get(0).getQuestions().size()) {
+                    if (player1Round.size() < game.getQuestionsAmount()) {
                         questionPage.nextQuestion();
                         cardLayout.show(contentPanel, "QuestionPage");
                         addActionListenerToOptions();

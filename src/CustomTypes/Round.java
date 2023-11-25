@@ -10,14 +10,16 @@ public class Round {
     private String category;
     private List<Boolean> player1Score;
     private List<Boolean> player2Score;
-    private List<Question> questions;
+    private Question[] questions;
 
     public Round(){}
     public Round(String category, List<Question> questions, List<Boolean> player1Score, List<Boolean> player2Score) {
         this.category = category;
-        this.questions = questions;
         this.player1Score = player1Score;
         this.player2Score = player2Score;
+    }
+    public void setQuestionsAmount(int questionAmount) {
+        questions = new Question[questionAmount];
     }
 
     public String getCategory() {
@@ -28,11 +30,11 @@ public class Round {
         this.category = category;
     }
 
-    public List<Question> getQuestions() {
+    public Question[] getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<Question> questions) {
+    public void setQuestions(Question[] questions) {
         this.questions = questions;
     }
 
