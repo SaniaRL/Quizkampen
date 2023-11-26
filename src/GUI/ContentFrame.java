@@ -215,9 +215,6 @@ public class ContentFrame extends JFrame {
 
     public void addActionListenerToOptions() {
         List<JButton> optionButtons = questionPage.getOptionButtons();
-        for (JButton optionButton : optionButtons) {
-            System.out.println(optionButton.getText() + " hello");
-        }
         for (JButton option : optionButtons) {
             // Remove ActionListeners, to get the delay to work on every question
             ActionListener[] actionListeners = option.getActionListeners();
