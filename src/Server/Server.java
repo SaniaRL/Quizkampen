@@ -53,7 +53,10 @@ public class Server {
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("Server/PropertiesFile.properties")) {
             if (input != null) {
                 prop.load(input);
-                questionsToFind = String.valueOf(Integer.parseInt(prop.getProperty("questionsToFind", "3"))); // Om mikakel justera sen
+                questionsToFind = String.valueOf(Integer.parseInt(prop.getProperty("questionsToFind", "0"))); // Om mikakel justera sen
+                String categoriesToFind = String.valueOf(Integer.parseInt(prop.getProperty("categoriesToFind", "0")));
+                questionsToFind = questionsToFind + ";" + categoriesToFind;
+                System.out.println(questionsToFind);
             } else {
                 System.out.println("Could not find properties");
             }

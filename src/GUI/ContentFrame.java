@@ -41,14 +41,20 @@ public class ContentFrame extends JFrame {
 
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
-    private int propAntalFrågor; //Här har vi sparat ifrån client yo XDDDD Detta 5:A
+    private int amountOfQuestions; //value of prop.file
+    private int amountOfRounds; //value of prop.file
 
     private GameData game; //to store game data
     boolean chosenCategory = false;
 
-    public ContentFrame(ObjectOutputStream out, int antalFrågor) throws IOException {
-        this.propAntalFrågor = antalFrågor;
-        System.out.println(propAntalFrågor + " Dax för Ciggarr");
+    public ContentFrame(ObjectOutputStream out, int amountOfQuestions, int amountOfRounds) throws IOException {
+
+        this.amountOfQuestions = amountOfQuestions; //antal frågor i properties file(Questions)
+        this.amountOfRounds = amountOfRounds; //antal questions i properties file(Questions)
+        System.out.println(amountOfQuestions + " Dax för Ciggarr för frågor");
+        System.out.println(amountOfRounds + " Dax för Ciggarr för rundor");
+
+
         this.out = out;
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
@@ -56,7 +62,7 @@ public class ContentFrame extends JFrame {
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage(category);
+        questionPage = new QuestionPage(category, amountOfQuestions);
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID);
 
@@ -64,6 +70,11 @@ public class ContentFrame extends JFrame {
 
         buildFrame();
     }
+
+    public int getAmountOfQuestions() {
+        return amountOfQuestions;
+    }
+
     public ContentFrame() throws IOException {
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
@@ -71,7 +82,7 @@ public class ContentFrame extends JFrame {
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage(category);
+        questionPage = new QuestionPage(category, amountOfQuestions);
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID);
 
@@ -202,9 +213,9 @@ public class ContentFrame extends JFrame {
     }
 
     public void addActionListenerToOptions() {
-        QuestionPage qp = new QuestionPage(); //Simon ändring
-        int questionsToFind = qp.getQuestionsToFind();
-        System.out.println(questionsToFind + " Öl");
+     //   QuestionPage qp = new QuestionPage(); //Simon ändring
+     //   int questionsToFind = qp.getQuestionsToFind();
+        System.out.println(amountOfQuestions + " Öl"); //byt ut här
         List<JButton> optionButtons = questionPage.getOptionButtons();
 
         for (JButton option : optionButtons) {
@@ -218,7 +229,7 @@ public class ContentFrame extends JFrame {
                 checkIfWin(option);
 
                 Timer timer = new Timer(2000, evt -> {
-                    if (player1Round.size() < questionsToFind) { //Simon ändring. 3 earlier.
+                    if (player1Round.size() < amountOfQuestions) { //Simon ändring. 3 earlier.
                         questionPage.nextQuestion();
                         cardLayout.show(contentPanel, "QuestionPage");
                         addActionListenerToOptions();

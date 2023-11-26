@@ -31,6 +31,7 @@ public class QuestionPage extends JPanel {
 
     int indexCount;
     int questionsToFind; //Simon lagt til
+    int amountOfQuestions; //
     String answer;
     List<JButton> optionButtons;
 
@@ -38,8 +39,9 @@ public class QuestionPage extends JPanel {
         loadProperties();
     } //Temp constructor. Simon
 
-    public QuestionPage(String category) throws IOException {
-
+    public QuestionPage(String category, int amountOfQuestions) throws IOException {
+        this.amountOfQuestions = amountOfQuestions;
+        System.out.println(amountOfQuestions + "Det här är amountOfQuestions i QP");
         questionCollection = new QuestionCollection();
         questionList = questionCollection.getAllQuestions();
         numberOfQuestions = new ArrayList<>();
@@ -155,9 +157,10 @@ public class QuestionPage extends JPanel {
     }
 
     public void findQuestions() {
+        System.out.println(amountOfQuestions + "Det här är amountOfQuestions i QP");
         Collections.shuffle(questionList);
         for (Question question : questionList) {
-            if (numberOfQuestions.size() < questionsToFind) {
+            if (numberOfQuestions.size() < 4) {
                 if (question.getCategory().label.equals(category)) {
                     numberOfQuestions.add(question);
                 }
@@ -168,7 +171,7 @@ public class QuestionPage extends JPanel {
         Properties prop = new Properties();
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("GUI/NumberOfQuestions.properties")) {
             if (input != null) {
-             questionsToFind = Integer.parseInt(prop.getProperty("questionsToFind", "3")); //Returns 3 if not found i properties. Simon
+                questionsToFind = Integer.parseInt(prop.getProperty("amountOfQuestions", "3")); //Returns 3 if not found i properties. Simon
             } else {
                 System.out.println("Could not find properties");
             }

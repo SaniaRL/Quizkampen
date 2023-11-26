@@ -31,14 +31,11 @@ public class ClientHandler extends Thread implements Serializable {
            //writeToClient("Tara är soviet", null);
            //writeToClient("Connection established to server", null);
 
+            String propertyNumbers = server.getQuestionsToFind(); //Här ligger min 5:A
+            Object propertyObject = propertyNumbers; // Här gör jag ett objekt av min 5:a
 
-
-
-            String nissesNr = server.getQuestionsToFind(); //Här ligger min 5:A
-            Object nisseObjekto = nissesNr; // Här gör jag ett objekt av min 5:a
-
-            System.out.println(nisseObjekto.toString() + "Femman är på G"); //Här testar vi skriva ut min 5:a som objekt.
-            writeToClient("Här", nisseObjekto); //VI SKICAKR 5:AN HÄR SOM OPBJEKT! BARA ATT TA EMOT.
+            System.out.println(propertyObject.toString() + "Femman är på G"); //Här testar vi skriva ut min 5:a som objekt.
+            writeToClient("Här", propertyObject); //VI SKICAKR 5:AN HÄR SOM OPBJEKT! BARA ATT TA EMOT.
 
             Object fromClient = readFromClient();
             System.out.println("Thread no." + Thread.currentThread().threadId() + ": " + fromClient);
