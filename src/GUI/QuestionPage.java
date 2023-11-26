@@ -124,9 +124,15 @@ public class QuestionPage extends JPanel {
     }
 
     public void generateSouthPanel(){
-        southPanel.setLayout(new GridLayout(2,2));
+        southPanel.setLayout(new BorderLayout());
         southPanel.setPreferredSize(new Dimension(800, 300));
         southPanel.setOpaque(false);
+        JPanel optionsPanel = new JPanel(new GridLayout(2,2));
+        JButton nextQuestion = new JButton("Nästa fråga");
+        nextQuestion.setPreferredSize(new Dimension(80,80));
+        nextQuestion.setBackground(Color.green);
+        southPanel.add(optionsPanel, BorderLayout.CENTER);
+        southPanel.add(nextQuestion, BorderLayout.SOUTH);
 
         List<String> optionsList = new ArrayList<>(Arrays.stream((threeQuestions.get(indexCount)).getQuestionOptions()).toList());
         answer = optionsList.get(0);
@@ -141,7 +147,7 @@ public class QuestionPage extends JPanel {
                 button.setPreferredSize(new Dimension(200, 100));
                 button.setFont(designOptions.getSmallText());
                 button.setBackground(Color.white);
-                southPanel.add(button, SwingConstants.CENTER);
+                optionsPanel.add(button, SwingConstants.CENTER);
                 optionButtons.add(button);
             }
         }
