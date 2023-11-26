@@ -122,7 +122,7 @@ public class QuestionPage extends JPanel {
         JPanel opponentPanel = new JPanel();
         createIconPanel(opponentImageIcon, "Random", opponentPanel);
 
-        Border emptyBorder = BorderFactory.createEmptyBorder(50,10,50,10);
+        Border emptyBorder = BorderFactory.createEmptyBorder(20,10,20,10);
 
 //        categoryLabel.setOpaque(false);
 
@@ -134,7 +134,7 @@ public class QuestionPage extends JPanel {
 
     public void createIconPanel(ImageIcon imageIcon, String text, JPanel panel){
         JLabel iconLabel = new JLabel(imageIcon, SwingConstants.CENTER);
-        iconLabel.setPreferredSize(new Dimension(200, 100));
+        iconLabel.setPreferredSize(new Dimension(200, 120));
 
         JLabel textLabel = new JLabel(text, SwingConstants.CENTER);
         textLabel.setPreferredSize(new Dimension(200,30));
