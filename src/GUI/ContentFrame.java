@@ -69,7 +69,7 @@ public class ContentFrame extends JFrame {
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage(amountOfQuestions)       
+        questionPage = new QuestionPage(amountOfQuestions);
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
         settingsPage = new SettingsPage();
