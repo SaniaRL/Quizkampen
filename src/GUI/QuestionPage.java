@@ -106,44 +106,41 @@ public class QuestionPage extends JPanel {
         northPanel.setOpaque(false);
 
         ImageIcon yourImageIcon = new ImageIcon(designOptions.getIcon().getImage().getScaledInstance(60,60, Image.SCALE_SMOOTH));
-        JLabel yourIconLabel = new JLabel(yourImageIcon, SwingConstants.CENTER);
-        yourIconLabel.setPreferredSize(new Dimension(200, 200));
-
-        JLabel yourPlayer = new JLabel("YOU", SwingConstants.CENTER);
-        yourPlayer.setFont(designOptions.getSmallText());
-
         JPanel yourPanel = new JPanel();
-        yourPanel.setLayout(new GridLayout(2, 1));
-        yourPanel.setPreferredSize(new Dimension(200,200));
-        yourPanel.setOpaque(false);
-        yourPanel.add(yourIconLabel);
-        yourPanel.add(yourPlayer);
+        createIconPanel(yourImageIcon, "YOU", yourPanel);
 
         categoryLabel = new JLabel("", SwingConstants.CENTER);
         categoryLabel.setFont(designOptions.getSmallText());
-        categoryLabel.setPreferredSize(new Dimension(300, 200));
+        categoryLabel.setPreferredSize(new Dimension(300, 150));
 
         ImageIcon opponentImageIcon = new ImageIcon(designOptions.getIcon().getImage().getScaledInstance(60,60, Image.SCALE_SMOOTH));
-        JLabel opponentIcon = new JLabel(opponentImageIcon, SwingConstants.CENTER);
-
-        JLabel opponent = new JLabel("OPPONENT", SwingConstants.CENTER);
-        opponent.setFont(designOptions.getSmallText());
-
         JPanel opponentPanel = new JPanel();
-        opponentPanel.setLayout(new GridLayout(2, 1));
-        opponentPanel.setPreferredSize(new Dimension(200,200));
-        opponentPanel.setOpaque(false);
-        opponentPanel.add(opponentIcon, SwingConstants.CENTER);
-        opponentPanel.add(opponent);
+        createIconPanel(opponentImageIcon, "Random", opponentPanel);
 
+        Border emptyBorder = BorderFactory.createEmptyBorder(50,10,50,10);
 
-        yourPlayer.setOpaque(false);
         categoryLabel.setOpaque(false);
-        opponent.setOpaque(false);
 
-        northPanel.add(yourPanel, SwingConstants.CENTER);
-        northPanel.add(categoryLabel, SwingConstants.CENTER);
-        northPanel.add(opponentPanel, SwingConstants.CENTER);
+        northPanel.setBorder(emptyBorder);
+        northPanel.add(yourPanel);
+        northPanel.add(categoryLabel);
+        northPanel.add(opponentPanel);
+    }
+
+    public void createIconPanel(ImageIcon imageIcon, String text, JPanel panel){
+        JLabel iconLabel = new JLabel(imageIcon, SwingConstants.CENTER);
+        iconLabel.setPreferredSize(new Dimension(200, 100));
+
+        JLabel textLabel = new JLabel(text, SwingConstants.CENTER);
+        textLabel.setPreferredSize(new Dimension(200,30));
+        textLabel.setFont(designOptions.getSmallText());
+
+        panel.setLayout(new GridLayout(2, 1));
+        panel.setPreferredSize(new Dimension(200,150));
+        panel.setOpaque(false);
+        panel.add(iconLabel);
+        panel.add(textLabel);
+
     }
 
     //Arrays.stream((threeQuestions.get(indexCount)).getQuestionOptions()).toList()
