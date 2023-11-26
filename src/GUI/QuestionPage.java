@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.ScoreBoard.ScoreBoardPage;
 import Question.QuestionCollection;
 import Question.Question;
 import Question.QuestionCategory;
@@ -82,7 +83,7 @@ public class QuestionPage extends JPanel {
 
     public void generateCenterPanel() {
         centerPanel.setLayout(new FlowLayout());
-        centerPanel.setPreferredSize(new Dimension(800, 300));
+        centerPanel.setPreferredSize(new Dimension(800, 200));
         centerPanel.setOpaque(false);
 
 
@@ -100,33 +101,66 @@ public class QuestionPage extends JPanel {
         centerPanel.add(questionLabel);
     }
 
-    public void generationNorthPanel() {
-        northPanel.setLayout(new GridLayout(1, 3));
-        northPanel.setPreferredSize(new Dimension(800, 200));
+
+    public void generationNorthPanel(){
+        northPanel.setLayout(new GridLayout(1,3));
+        northPanel.setPreferredSize(new Dimension(800, 150));
         northPanel.setOpaque(false);
 
-        JLabel yourPlayer = new JLabel("YOU", SwingConstants.CENTER);
-        yourPlayer.setFont(designOptions.getSmallText());
+        ImageIcon yourImageIcon = new ImageIcon(designOptions.getIcon().getImage().getScaledInstance(60,60, Image.SCALE_SMOOTH));
+        JPanel yourPanel = new JPanel();
+        createIconPanel(yourImageIcon, "YOU", yourPanel);
 
         categoryLabel = new JLabel("", SwingConstants.CENTER);
         categoryLabel.setFont(designOptions.getSmallText());
+        categoryLabel.setPreferredSize(new Dimension(300, 150));
 
-        JLabel opponent = new JLabel("OPPONENT", SwingConstants.CENTER);
-        opponent.setFont(designOptions.getSmallText());
+        ImageIcon opponentImageIcon = new ImageIcon(designOptions.getIcon().getImage().getScaledInstance(60,60, Image.SCALE_SMOOTH));
+        JPanel opponentPanel = new JPanel();
+        createIconPanel(opponentImageIcon, "Random", opponentPanel);
 
-        yourPlayer.setOpaque(false);
-        categoryLabel.setOpaque(false);
-        opponent.setOpaque(false);
+        Border emptyBorder = BorderFactory.createEmptyBorder(50,10,50,10);
 
-        northPanel.add(yourPlayer, SwingConstants.CENTER);
-        northPanel.add(categoryLabel, SwingConstants.CENTER);
-        northPanel.add(opponent, SwingConstants.CENTER);
+//        categoryLabel.setOpaque(false);
+
+        northPanel.setBorder(emptyBorder);
+        northPanel.add(yourPanel);
+        northPanel.add(categoryLabel);
+        northPanel.add(opponentPanel);
     }
 
-    public void generateSouthPanel() {
-        southPanel.setLayout(new GridLayout(2, 2));
-        southPanel.setPreferredSize(new Dimension(800, 300));
+    public void createIconPanel(ImageIcon imageIcon, String text, JPanel panel){
+        JLabel iconLabel = new JLabel(imageIcon, SwingConstants.CENTER);
+        iconLabel.setPreferredSize(new Dimension(200, 100));
+
+        JLabel textLabel = new JLabel(text, SwingConstants.CENTER);
+        textLabel.setPreferredSize(new Dimension(200,30));
+        textLabel.setFont(designOptions.getSmallText());
+
+        panel.setLayout(new GridLayout(2, 1));
+        panel.setPreferredSize(new Dimension(200,150));
+        panel.setOpaque(false);
+        panel.add(iconLabel);
+        panel.add(textLabel);
+    }
+
+    public void generateSouthPanel(){
+        southPanel.setLayout(new BorderLayout());
+        southPanel.setPreferredSize(new Dimension(800, 350));
         southPanel.setOpaque(false);
+        JPanel optionsPanel = new JPanel(new GridLayout(2,2));
+        JPanel nextQuestionPanel = new JPanel();
+        nextQuestionPanel.setLayout(new FlowLayout());
+        JButton nextQuestion = new JButton("Nästa fråga");
+        nextQuestion.setPreferredSize(new Dimension(200,80));
+        nextQuestion.setBorder(designOptions.getBorder());
+        nextQuestion.setBackground(Color.green);
+        nextQuestionPanel.add(nextQuestion, SwingConstants.CENTER);
+        nextQuestionPanel.setOpaque(false);
+        nextQuestionPanel.setPreferredSize(new Dimension(800, 100));
+        southPanel.add(optionsPanel, BorderLayout.CENTER);
+        southPanel.add(nextQuestionPanel, BorderLayout.SOUTH);
+
 
         for (int i = 0; i < 4; i++) {
             JButton button = new JButton();
@@ -206,5 +240,12 @@ public class QuestionPage extends JPanel {
     }
     public void setDesignOptions(DesignOptions designOptions) {
         this.designOptions = designOptions;
+        questionLabel.setBorder(new LineBorder(designOptions.getColor(), 10));
+        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        Border border = new LineBorder(designOptions.getColor(), 2);
+        Border compoundBorder = new CompoundBorder(border, emptyBorder);
+        for(JButton option : optionButtons){
+            option.setBorder(compoundBorder);
+        }
     }
 }

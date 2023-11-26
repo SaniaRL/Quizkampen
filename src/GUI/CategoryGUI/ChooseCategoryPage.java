@@ -156,8 +156,8 @@ public class ChooseCategoryPage extends JPanel {
 
     public void setDesignOptions(DesignOptions designOptions) {
         this.designOptions = designOptions;
-        categoryOption1.setBorder(designOptions.getBorder());
-        categoryOption2.setBorder(designOptions.getBorder());
-        categoryOption3.setBorder(designOptions.getBorder());
+        for (CategoryButton categoryButton : categoryOptionsList) {
+            categoryButton.setBorder(designOptions.getBorder());
+        }
     }
 }
