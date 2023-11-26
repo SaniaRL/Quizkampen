@@ -21,10 +21,11 @@ public class ScoreCount extends JPanel {
     JPanel player1Label;
     JPanel player2Label;
     JLabel categoryLabel;
-    QuestionPage qp = new QuestionPage(); //Simon ändring
-    int questionsToFind; //Simon ändring
+    int amountOfQuestions; //Simon ändring
 
-    public ScoreCount(){
+    public ScoreCount(int amountOfQuestions){
+        this.amountOfQuestions = amountOfQuestions;
+        System.out.println("Det här är antal frågor i ScoreCount: "+amountOfQuestions);
         player1Score = new ArrayList<>();
         player2Score = new ArrayList<>();
         player1Label = new JPanel();
@@ -32,7 +33,9 @@ public class ScoreCount extends JPanel {
         categoryLabel = new CategoryLabel();
         addComponents();
     }
-    public ScoreCount(List<Boolean> player1Score, List<Boolean> player2Score, QuestionCategory category){
+    public ScoreCount(List<Boolean> player1Score, List<Boolean> player2Score, QuestionCategory category, int amountOfQuestions){
+        this.amountOfQuestions = amountOfQuestions;
+        System.out.println("Det här är antal frågor i ScoreCount: "+amountOfQuestions);
         this.questionCategory = category;
         this.player1Score = player1Score;
         this.player2Score = player2Score;
@@ -43,9 +46,8 @@ public class ScoreCount extends JPanel {
     }
 
     public void addComponents(){
-        questionsToFind = qp.getQuestionsToFind(); //Simon ändring
         setSize(new Dimension(800,80));
-        setLayout(new GridLayout(1, questionsToFind)); //3
+        setLayout(new GridLayout(1, amountOfQuestions)); //3
         setOpaque(false);
 
         player1Label.setLayout(new FlowLayout());
@@ -59,18 +61,17 @@ public class ScoreCount extends JPanel {
     }
 
     public void generatePlayerLabel(JPanel panel, List<Boolean> list){
-        questionsToFind = qp.getQuestionsToFind(); //Simon ändring
         panel.setSize(new Dimension(300, 80));
         panel.setLayout(new FlowLayout(FlowLayout.CENTER));
         panel.setOpaque(false);
-        if(list.size() >= questionsToFind){ //3
-            for(int i = 0; i < questionsToFind; i++){ //3
-                panel.add(new ScoreLabel(list.get(i)));
+        if(list.size() >= amountOfQuestions){ //3
+            for(int i = 0; i < amountOfQuestions; i++){ //3
+                panel.add(new ScoreLabel(list.get(i), amountOfQuestions));
             }
         }
         else{
-            for(int i = 0; i < questionsToFind; i++){ //3
-                ScoreLabel scoreLabel = new ScoreLabel();
+            for(int i = 0; i < amountOfQuestions; i++){ //3
+                ScoreLabel scoreLabel = new ScoreLabel(amountOfQuestions);
                 panel.add(scoreLabel);
             }
         }

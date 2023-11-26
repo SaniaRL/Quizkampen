@@ -10,8 +10,11 @@ public class ScoreLabel extends JLabel {
     Color winColor = Color.GREEN;
     Color loseColor = Color.RED;
     Color defaultColor = Color.BLUE;
+    int amountOfQuestions;
 
-    public ScoreLabel(Boolean win){
+    public ScoreLabel(Boolean win, int amountOfQuestions){
+        this.amountOfQuestions = amountOfQuestions;
+        System.out.println(amountOfQuestions+" frågor i ScoreLabel");
         addComponents();
         if(win){
             setForeground(winColor);
@@ -21,24 +24,24 @@ public class ScoreLabel extends JLabel {
         }
     }
 
-    public ScoreLabel(){
+    public ScoreLabel(int amountOfQuestions){
+        this.amountOfQuestions = amountOfQuestions;
+        System.out.println(amountOfQuestions+" frågor i ScoreLabel");
         addComponents();
         setForeground(defaultColor);
     }
 
     public void addComponents(){ //Simon
-        QuestionPage qp = new QuestionPage();
-        int questionsToFind = qp.getQuestionsToFind();
 
-        if (questionsToFind <= 3) { //Adjusting button size to fit circles on the same row.
+        if (amountOfQuestions <= 3) { //Adjusting button size to fit circles on the same row.
             setPreferredSize(new Dimension(80, 50));
             setFont(new Font("Montserrat", Font.PLAIN, 70));
         }
-        else if (questionsToFind == 4) {
+        else if (amountOfQuestions == 4) {
             setPreferredSize(new Dimension(50, 30));
             setFont(new Font("Montserrat", Font.PLAIN, 45));
         }
-        else if (questionsToFind == 5) {
+        else if (amountOfQuestions == 5) {
             setPreferredSize(new Dimension(40, 25));
             setFont(new Font("Montserrat", Font.PLAIN, 40));
         }

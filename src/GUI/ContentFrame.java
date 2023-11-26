@@ -64,8 +64,7 @@ public class ContentFrame extends JFrame {
         chooseCategoryPage = new ChooseCategoryPage();
         questionPage = new QuestionPage(category, amountOfQuestions);
         waitingPage = new WaitingPage();
-        scoreBoardPage = new ScoreBoardPage(gameID);
-
+        scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
         settingsPage = new SettingsPage();
 
         buildFrame();
@@ -84,7 +83,7 @@ public class ContentFrame extends JFrame {
         chooseCategoryPage = new ChooseCategoryPage();
         questionPage = new QuestionPage(category, amountOfQuestions);
         waitingPage = new WaitingPage();
-        scoreBoardPage = new ScoreBoardPage(gameID);
+        scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
 
         settingsPage = new SettingsPage();
 
@@ -213,8 +212,6 @@ public class ContentFrame extends JFrame {
     }
 
     public void addActionListenerToOptions() {
-     //   QuestionPage qp = new QuestionPage(); //Simon ändring
-     //   int questionsToFind = qp.getQuestionsToFind();
         System.out.println(amountOfQuestions + " Öl"); //byt ut här
         List<JButton> optionButtons = questionPage.getOptionButtons();
 

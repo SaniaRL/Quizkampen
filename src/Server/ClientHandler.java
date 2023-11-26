@@ -26,14 +26,10 @@ public class ClientHandler extends Thread implements Serializable {
             in = new ObjectInputStream(socket.getInputStream());
             //end of stream types
 
-
-
-           //writeToClient("Tara är soviet", null);
            //writeToClient("Connection established to server", null);
 
             String propertyNumbers = server.getQuestionsToFind(); //Här ligger min 5:A
             Object propertyObject = propertyNumbers; // Här gör jag ett objekt av min 5:a
-
             System.out.println(propertyObject.toString() + "Femman är på G"); //Här testar vi skriva ut min 5:a som objekt.
             writeToClient("Här", propertyObject); //VI SKICAKR 5:AN HÄR SOM OPBJEKT! BARA ATT TA EMOT.
 

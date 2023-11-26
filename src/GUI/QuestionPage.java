@@ -30,14 +30,9 @@ public class QuestionPage extends JPanel {
     Image backgroundImage;
 
     int indexCount;
-    int questionsToFind; //Simon lagt til
     int amountOfQuestions; //
     String answer;
     List<JButton> optionButtons;
-
-    public QuestionPage() {
-        loadProperties();
-    } //Temp constructor. Simon
 
     public QuestionPage(String category, int amountOfQuestions) throws IOException {
         this.amountOfQuestions = amountOfQuestions;
@@ -59,7 +54,6 @@ public class QuestionPage extends JPanel {
         indexCount = 0;
         optionButtons = new ArrayList<>();
 
-        loadProperties(); //Simon lagt till
 
         addComponents();
 
@@ -167,18 +161,6 @@ public class QuestionPage extends JPanel {
             }
         }
     }
-    private void loadProperties() {
-        Properties prop = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("GUI/NumberOfQuestions.properties")) {
-            if (input != null) {
-                questionsToFind = Integer.parseInt(prop.getProperty("amountOfQuestions", "3")); //Returns 3 if not found i properties. Simon
-            } else {
-                System.out.println("Could not find properties");
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
     //Not removing the method below yet. But looks like propertiesFile works as intended. Simon
     public void findThreeQuestion(){
         Collections.shuffle(questionList);
@@ -215,10 +197,6 @@ public class QuestionPage extends JPanel {
         generateCenterPanel();
         generationNorthPanel();
         generateSouthPanel();
-    }
-
-    public int getQuestionsToFind () { //Simon lagt till
-        return questionsToFind;
     }
 
     public String getAnswer() {

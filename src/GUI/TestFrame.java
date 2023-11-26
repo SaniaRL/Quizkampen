@@ -51,7 +51,7 @@ public class TestFrame extends JFrame {
         chooseCategoryPage = new ChooseCategoryPage();
         questionPage = new QuestionPage(category, 4); //temp number 5. AmountofQuestions should be here
         waitingPage = new WaitingPage();
-        scoreBoardPage = new ScoreBoardPage(gameID);
+        scoreBoardPage = new ScoreBoardPage(gameID, 6, 4);
 
         settingsPage = new SettingsPage();
 
