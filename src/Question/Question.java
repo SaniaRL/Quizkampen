@@ -1,9 +1,10 @@
 package Question;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class Question {
+public class Question implements Serializable {
     private String question;
     private String[] questionOptions;
     private QuestionCategory category;

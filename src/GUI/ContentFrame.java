@@ -11,13 +11,14 @@ import Enums.Turn;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.awt.*;
 import java.io.IOException;
 
-public class ContentFrame extends JFrame {
+public class ContentFrame extends JFrame implements Serializable {
 
     JPanel contentPanel;
     CardLayout cardLayout;

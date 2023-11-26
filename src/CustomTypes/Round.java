@@ -2,11 +2,12 @@ package CustomTypes;
 
 import Question.Question;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class Round {
+public class Round implements Serializable {
     private String category;
     private List<Boolean> player1Score;
     private List<Boolean> player2Score;
@@ -41,7 +42,7 @@ public class Round {
     }
 
     public void setPlayer1Score(List<Boolean> player1Score) {
-        this.player1Score = player1Score;
+        this.player1Score = new ArrayList<>(player1Score);
     }
 
     public List<Boolean> getPlayer2Score() {
