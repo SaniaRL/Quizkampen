@@ -45,7 +45,7 @@ public class ScoreBoardPage extends JPanel {
 
         designOptions = new DesignOptions();
         //TODO get from server, from Other players GUI
-        player2Icon = new DesignOptions().getIcon();
+        player2Icon = new DesignOptions().getSmallIcon();
 
         centerPanel = new JPanel();
         northPanel = new JPanel();
@@ -106,7 +106,7 @@ public class ScoreBoardPage extends JPanel {
         northPanel.setLayout(new GridLayout(1, 3));
         northPanel.setOpaque(false);
 
-        ImageIcon yourIcon = designOptions.getIcon();
+        ImageIcon yourIcon = designOptions.getSmallIcon();
         JPanel yourPanel = createIconPanel(yourIcon, "YOU");
 
         JPanel opponentPanel = createIconPanel(player2Icon, "RANDOM");
@@ -139,7 +139,7 @@ public class ScoreBoardPage extends JPanel {
 
         JLabel textLabel = new JLabel(text, SwingConstants.CENTER);
         textLabel.setPreferredSize(new Dimension(200,30));
-        textLabel.setFont(designOptions.getSmallText());
+//        textLabel.setFont(designOptions.getSmallText());
 
         panel.setLayout(new GridLayout(2, 1));
         panel.setPreferredSize(new Dimension(200,150));

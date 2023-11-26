@@ -233,5 +233,12 @@ public class QuestionPage extends JPanel {
     }
     public void setDesignOptions(DesignOptions designOptions) {
         this.designOptions = designOptions;
+        questionLabel.setBorder(new LineBorder(designOptions.getColor(), 10));
+        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        Border border = new LineBorder(designOptions.getColor(), 2);
+        Border compoundBorder = new CompoundBorder(border, emptyBorder);
+        for(JButton option : optionButtons){
+            option.setBorder(compoundBorder);
+        }
     }
 }
