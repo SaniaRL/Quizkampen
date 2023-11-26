@@ -168,8 +168,7 @@ public class QuestionPage extends JPanel {
         Properties prop = new Properties();
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("GUI/NumberOfQuestions.properties")) {
             if (input != null) {
-                prop.load(input);
-                questionsToFind = Integer.parseInt(prop.getProperty("questionsToFind", "3")); //Returns 3 if not found i properties. Simon
+             questionsToFind = Integer.parseInt(prop.getProperty("questionsToFind", "3")); //Returns 3 if not found i properties. Simon
             } else {
                 System.out.println("Could not find properties");
             }

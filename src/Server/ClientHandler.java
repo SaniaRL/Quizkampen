@@ -26,8 +26,19 @@ public class ClientHandler extends Thread implements Serializable {
             in = new ObjectInputStream(socket.getInputStream());
             //end of stream types
 
-            writeToClient("Connection established to server", null);
 
+
+           //writeToClient("Tara är soviet", null);
+           //writeToClient("Connection established to server", null);
+
+
+
+
+            String nissesNr = server.getQuestionsToFind(); //Här ligger min 5:A
+            Object nisseObjekto = nissesNr; // Här gör jag ett objekt av min 5:a
+
+            System.out.println(nisseObjekto.toString() + "Femman är på G"); //Här testar vi skriva ut min 5:a som objekt.
+            writeToClient("Här", nisseObjekto); //VI SKICAKR 5:AN HÄR SOM OPBJEKT! BARA ATT TA EMOT.
 
             Object fromClient = readFromClient();
             System.out.println("Thread no." + Thread.currentThread().threadId() + ": " + fromClient);
@@ -75,8 +86,10 @@ public class ClientHandler extends Thread implements Serializable {
     public synchronized <T> void writeToClient(String message, T item) throws IOException {
         if (item != null) {
             out.writeObject(new Object[]{message, item});
+            System.out.println(" Här kommer nisseEk, han har fan koll på 5:an ev. lite skräp: " + item.toString()); //FUNGERAR DETAT OK!!
         } else {
             out.writeObject(message);
+            System.out.println("HÄR FÅR DU FAN EINGET ETT PESS XD XDXDF ");
         }
         out.flush();
     }

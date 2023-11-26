@@ -23,11 +23,14 @@ public class Client {
             in = new ObjectInputStream(socket.getInputStream());
             //end of stream types
 
-            writeToServer("Client connected", null);
             Object fromServer = readFromServer();
-            System.out.println(fromServer.toString());
+            Object[] fromServerArray = (Object[]) fromServer; //Från Ovako
+            System.out.println(fromServerArray[1] + " Ölen är god. Mkt godare V75");
+            int vivaLaVidaSången = Integer.parseInt(fromServerArray[1].toString());
+            System.out.println(vivaLaVidaSången + "Kan viva la vida var aen 5:a? DÅ blir det sören");
 
-            ContentFrame frame = new ContentFrame(out);
+
+            ContentFrame frame = new ContentFrame(out, vivaLaVidaSången);
             while (true) {
                 fromServer = readFromServer();
                 if (fromServer instanceof Object[] message) {

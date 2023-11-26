@@ -41,11 +41,14 @@ public class ContentFrame extends JFrame {
 
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
+    private int propAntalFrågor; //Här har vi sparat ifrån client yo XDDDD Detta 5:A
 
     private GameData game; //to store game data
     boolean chosenCategory = false;
 
-    public ContentFrame(ObjectOutputStream out) throws IOException {
+    public ContentFrame(ObjectOutputStream out, int antalFrågor) throws IOException {
+        this.propAntalFrågor = antalFrågor;
+        System.out.println(propAntalFrågor + " Dax för Ciggarr");
         this.out = out;
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
