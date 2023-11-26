@@ -124,8 +124,6 @@ public class QuestionPage extends JPanel {
 
         Border emptyBorder = BorderFactory.createEmptyBorder(20,10,20,10);
 
-//        categoryLabel.setOpaque(false);
-
         northPanel.setBorder(emptyBorder);
         northPanel.add(yourPanel);
         northPanel.add(categoryLabel);

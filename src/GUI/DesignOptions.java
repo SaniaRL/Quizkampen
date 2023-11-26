@@ -18,6 +18,8 @@ public class DesignOptions {
     Font titleFont;
     Font bigText;
     Font smallText;
+    String player1;
+    String player2;
 
 
     public Image getBackgroundImage() {
@@ -36,6 +38,8 @@ public class DesignOptions {
         titleFont = new Font("Sans Serif", Font.PLAIN, 50);
         bigText = new Font("Sans Serif", Font.PLAIN, 40);
         smallText = new Font("Sans Serif", Font.PLAIN, 22);
+        player1 = "YOU";
+        player2 = "ÅKE";
     }
 
     public void addIcons(){
@@ -104,5 +108,13 @@ public class DesignOptions {
 
     public Color getColor() {
         return color;
+    }
+
+    public String getPlayer1() {
+        return player1;
+    }
+
+    public String getPlayer2() {
+        return player2;
     }
 }

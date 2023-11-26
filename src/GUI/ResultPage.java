@@ -10,6 +10,9 @@ public class ResultPage extends JPanel {
     JButton newGame;
     JButton exitGame;
 
+    int yourPoints;
+    int player2Points;
+
     DesignOptions designOptions;
 
     public ResultPage(){
@@ -20,6 +23,9 @@ public class ResultPage extends JPanel {
         exitGame = new JButton("Exit Game");
 
         designOptions = new DesignOptions();
+
+        yourPoints = 10;
+        player2Points = 7;
 
         addComponents();
         actionListenerHandler();
@@ -48,13 +54,46 @@ public class ResultPage extends JPanel {
     }
 
     public void generateNorthPanel(){
-        northPanel.setLayout(new GridLayout(1,3));
-        northPanel.setPreferredSize(new Dimension(800, 500));
+        northPanel.setLayout(new GridLayout(1,2));
+        northPanel.setPreferredSize(new Dimension(800, 600));
         northPanel.setOpaque(false);
+
+        JPanel yourPanel = new JPanel();
+        JPanel opponentPanel = new JPanel();
+
+        createPlayerPanels(yourPanel, designOptions.getBigIcon(), designOptions.getPlayer1(), yourPoints > player2Points);
+        createPlayerPanels(opponentPanel, designOptions.getBigIcon(), designOptions.getPlayer2(), player2Points > yourPoints);
+
+
+        northPanel.add(yourPanel);
+        northPanel.add(opponentPanel);
+    }
+
+    public void createPlayerPanels(JPanel panel, ImageIcon icon, String text, Boolean win){
+        panel.setPreferredSize(new Dimension(400, 600));
+        panel.setLayout(new GridLayout(3, 1));
+        panel.setOpaque(false);
+
+        JLabel place;
+        if(win){
+            place = new JLabel("WINNER", SwingConstants.CENTER);
+        }
+        else{
+            place = new JLabel("LOSER", SwingConstants.CENTER);
+        }
+        place.setFont(designOptions.getBigText());
+
+        JLabel iconLabel = new JLabel(icon, SwingConstants.CENTER);
+        JLabel nameLabel = new JLabel(text, SwingConstants.CENTER);
+        nameLabel.setFont(designOptions.getBigText());
+
+        panel.add(place);
+        panel.add(iconLabel);
+        panel.add(nameLabel);
     }
     public void generateSouthPanel(){
         southPanel.setLayout(new GridLayout(1,2));
-        southPanel.setPreferredSize(new Dimension(800, 300));
+        southPanel.setPreferredSize(new Dimension(800, 200));
         southPanel.setOpaque(false);
 
         JPanel leftPanel = new JPanel();
