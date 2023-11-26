@@ -170,6 +170,7 @@ public class QuestionPage extends JPanel {
         revalidate();
     }
 
+
     public void nextThreeQuestions(String category){
         indexCount = 0;
         this.category = category;
@@ -179,6 +180,20 @@ public class QuestionPage extends JPanel {
         northPanel.removeAll();
         southPanel.removeAll();
         findThreeQuestion();
+        generateCenterPanel();
+        generationNorthPanel();
+        generateSouthPanel();
+    }
+
+    public void lastRoundQuestions(List<Question> questions){
+        threeQuestions.clear();
+        optionButtons.clear();
+        centerPanel.removeAll();
+        northPanel.removeAll();
+        southPanel.removeAll();
+
+        threeQuestions.addAll(questions);
+
         generateCenterPanel();
         generationNorthPanel();
         generateSouthPanel();
