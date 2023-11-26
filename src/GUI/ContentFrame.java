@@ -170,7 +170,7 @@ public class ContentFrame extends JFrame {
         }
 
         //QUESTION PAGE
-        //Simon Ändring. ActionListener till inställningsknapp
+        //ActionListener till inställningsknapp
         startPage.getSettings().addActionListener(e -> {
             System.out.println("Settings Button Clicked!");
             cardLayout.show(contentPanel, "SettingsPage");
@@ -197,7 +197,9 @@ public class ContentFrame extends JFrame {
 
 
     public void addActionListerToStartPage() {
-        startPage.getStartNewGame().addActionListener(ActionEvent -> writeToServer("new game", null));
+        startPage.getStartNewGame().addActionListener(ActionEvent -> {
+            writeToServer("new game", null);
+        });
     }
 
     public void addActionListenerToOptions() {
@@ -250,7 +252,7 @@ public class ContentFrame extends JFrame {
                             chosenCategory = true;
                         }
                         try {
-                            scoreBoardPage.updateScoreBoard();
+                            scoreBoardPage.updateScoreBoard(game);
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }

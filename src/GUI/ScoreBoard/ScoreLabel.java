@@ -33,12 +33,11 @@ public class ScoreLabel extends JLabel {
 
     public ScoreLabel(int amountOfQuestions){
         this.amountOfQuestions = amountOfQuestions;
-        System.out.println(amountOfQuestions+" frågor i ScoreLabel");
         addComponents();
         setForeground(defaultColor);
     }
 
-    public void addComponents(){ //Simon
+    public void addComponents(){
 
         if (amountOfQuestions <= 3) { //Adjusting button size to fit circles on the same row.
             setPreferredSize(new Dimension(80, 50));

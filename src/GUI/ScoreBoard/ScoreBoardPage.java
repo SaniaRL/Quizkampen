@@ -31,7 +31,6 @@ public class ScoreBoardPage extends JPanel {
     int player1 = 0;
     int player2 = 0;
 
-    //Temporary list
     List<ScoreCount> scoreCounts;
     List<QuestionCategory> categoryList;
     List<List<Boolean>> player1ScoreList;
@@ -42,7 +41,6 @@ public class ScoreBoardPage extends JPanel {
     public ScoreBoardPage(String gameID, int amountOfRounds, int amountOfQuestions) throws IOException {
         this.amountOfQuestions = amountOfQuestions;
         this.amountOfRounds = amountOfRounds;
-        System.out.println("rundor scoreboard "+amountOfRounds);
         this.gameID = gameID;
 
         designOptions = new DesignOptions();
@@ -94,7 +92,7 @@ public class ScoreBoardPage extends JPanel {
                 scoreCountLabel = new ScoreCount(player1ScoreList.get(i), player2ScoreList.get(i), categoryList.get(i), amountOfQuestions);
             }
             else{
-                scoreCountLabel = new ScoreCount(amountOfQuestions); //Denna?
+                scoreCountLabel = new ScoreCount(amountOfQuestions);
             }
             centerPanel.add(scoreCountLabel);
         }

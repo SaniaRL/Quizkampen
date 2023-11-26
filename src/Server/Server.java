@@ -16,14 +16,13 @@ public class Server {
     List<Game> games = Collections.synchronizedList(new ArrayList<>());
     ServerSocket socket;
     private boolean running = true;
-    private String questionsToFind;  //5
+    private String questionsToFind;
 
     public Server(int port) {
 
         try {
             socket = new ServerSocket(port);
-            loadPropertiesServer(); // Här sattes 5:an. Vi kan hämta 5:an med vår getter metod.
-            System.out.println(questionsToFind +" Det här är en femma i Servern");
+            loadPropertiesServer();
 
             while (running) {
                 Socket clientSocket = socket.accept();
@@ -52,10 +51,9 @@ public class Server {
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("Server/PropertiesFile.properties")) {
             if (input != null) {
                 prop.load(input);
-                questionsToFind = String.valueOf(Integer.parseInt(prop.getProperty("questionsToFind", "0"))); // Om mikakel justera sen
-                String categoriesToFind = String.valueOf(Integer.parseInt(prop.getProperty("categoriesToFind", "0")));
+                questionsToFind = String.valueOf(Integer.parseInt(prop.getProperty("questionsToFind", "3"))); // Om mikakel justera sen
+                String categoriesToFind = String.valueOf(Integer.parseInt(prop.getProperty("categoriesToFind", "4")));
                 questionsToFind = questionsToFind + ";" + categoriesToFind;
-                System.out.println(questionsToFind);
             } else {
                 System.out.println("Could not find properties");
             }

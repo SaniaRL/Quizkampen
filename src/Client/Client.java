@@ -23,19 +23,14 @@ public class Client {
             //end of stream types
 
             Object fromServer = readFromServer();
-            Object[] fromServerArray = (Object[]) fromServer; //Från Ovako
-            System.out.println(fromServerArray[1] + " Ölen är god. Mkt godare V75");
+            Object[] fromServerArray = (Object[]) fromServer;
 
             String str = fromServerArray[1].toString();
             String[] parts = str.split(";");
             int amountOfQuestions = Integer.parseInt(parts[0]);
             int amountOfRounds = Integer.parseInt(parts[1]);
-            System.out.println(amountOfQuestions + "frågor");
-            System.out.println(amountOfRounds + "rundor");
 
-           // int vivaLaVidaSången = Integer.parseInt(fromServerArray[1].toString());
-           // System.out.println(amountOfQuestions + "Kan viva la vida var aen 5:a? DÅ blir det sören");
-
+            writeToServer("client connected", null);
 
             ContentFrame frame = new ContentFrame(out, amountOfQuestions, amountOfRounds);
             while (true) {

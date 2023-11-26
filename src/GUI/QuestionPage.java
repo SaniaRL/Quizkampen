@@ -36,7 +36,7 @@ public class QuestionPage extends JPanel {
 
     DesignOptions designOptions;
 
-    public QuestionPage(String category, int amountOfQuestions) throws IOException {
+    public QuestionPage(int amountOfQuestions) throws IOException {
         this.amountOfQuestions = amountOfQuestions;
         designOptions = new DesignOptions();
         questionCollection = new QuestionCollection();

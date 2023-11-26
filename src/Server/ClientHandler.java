@@ -12,25 +12,25 @@ public class ClientHandler extends Thread implements Serializable {
     private ObjectInputStream in;
     private ObjectOutputStream out;
     Server server;
+    Object propertyObject;
 
     public ClientHandler(Socket socket, Server server) {
         this.socket = socket;
         this.server = server;
         this.protocol = new Protocol();
+
+        propertyObject = server.getQuestionsToFind();
     }
 
     @Override
     public void run() {
+
         try {
             //The types of stream may change depending on what you want to send.
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
             //end of stream types
 
-           //writeToClient("Connection established to server", null);
-
-            String propertyNumbers = server.getQuestionsToFind();
-            Object propertyObject = propertyNumbers;
             writeToClient("properties", propertyObject);
 
             Object fromClient = readFromClient();
@@ -39,6 +39,8 @@ public class ClientHandler extends Thread implements Serializable {
                     //TODO: Add logic for server
 
                     fromClient = readFromClient();
+
+                    System.out.println(fromClient instanceof String);
                     if (fromClient instanceof String) {
                         System.out.println(fromClient);
                         if (fromClient.equals("exit")) {
