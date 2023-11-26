@@ -58,6 +58,7 @@ public class ContentFrame extends JFrame {
         questionPage.setDesignOptions(this.designOptions);
         scoreBoardPage.setDesignOptions(this.designOptions);
         settingsPage.setDesignOptions(this.designOptions);
+        resultPage.setDesignOptions(this.designOptions);
     }
 
     public ContentFrame(ObjectOutputStream out, int amountOfQuestions, int amountOfRounds) throws IOException {

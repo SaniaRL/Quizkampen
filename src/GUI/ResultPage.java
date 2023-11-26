@@ -22,6 +22,7 @@ public class ResultPage extends JPanel {
         designOptions = new DesignOptions();
 
         addComponents();
+        actionListenerHandler();
     }
 
     public void addComponents(){
@@ -59,10 +60,32 @@ public class ResultPage extends JPanel {
         JPanel leftPanel = new JPanel();
         JPanel rightPanel = new JPanel();
 
-        leftPanel.add(newGame);
-        rightPanel.add(exitGame);
+        setButtonDesign(newGame, leftPanel);
+        setButtonDesign(exitGame, rightPanel);
+        newGame.setBackground(Color.green);
 
         southPanel.add(leftPanel);
         southPanel.add(rightPanel);
     }
+
+    public void setButtonDesign(JButton button, JPanel panel){
+        button.setPreferredSize(new Dimension(300, 100));
+        button.setBackground(Color.WHITE);
+        button.setFont(designOptions.getSmallText());
+        button.setBorder(designOptions.getBorder());
+        panel.add(button, SwingConstants.CENTER);
+        panel.setOpaque(false);
+    }
+
+    public void setDesignOptions(DesignOptions designOptions){
+        this.designOptions = designOptions;
+        newGame.setBorder(designOptions.getBorder());
+        exitGame.setBorder(designOptions.getBorder());
+    }
+
+    private void actionListenerHandler() {
+        newGame.addActionListener(e -> ((CardLayout) getParent().getLayout()).show(getParent(), "StartPage"));
+        exitGame.addActionListener(ActionEvent -> System.exit(0));
+    }
+
 }

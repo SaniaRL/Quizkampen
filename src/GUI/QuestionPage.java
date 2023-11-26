@@ -30,6 +30,9 @@ public class QuestionPage extends JPanel {
     JPanel centerPanel;
     JPanel northPanel;
     JPanel southPanel;
+
+    JButton nextQuestion;
+
     int indexCount;
     int amountOfQuestions;
     String answer;
@@ -152,7 +155,7 @@ public class QuestionPage extends JPanel {
         JPanel optionsPanel = new JPanel(new GridLayout(2,2));
         JPanel nextQuestionPanel = new JPanel();
         nextQuestionPanel.setLayout(new FlowLayout());
-        JButton nextQuestion = new JButton("Nästa fråga");
+        nextQuestion = new JButton("Nästa fråga");
         nextQuestion.setPreferredSize(new Dimension(200,80));
         nextQuestion.setBorder(designOptions.getBorder());
         nextQuestion.setBackground(Color.green);
@@ -248,5 +251,6 @@ public class QuestionPage extends JPanel {
         for(JButton option : optionButtons){
             option.setBorder(compoundBorder);
         }
+        nextQuestion.setBorder(designOptions.getBorder());
     }
 }
