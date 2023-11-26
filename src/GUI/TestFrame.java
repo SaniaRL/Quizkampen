@@ -1,3 +1,4 @@
+/*
 package GUI;
 
 import GUI.CategoryGUI.ChooseCategoryPage;
@@ -32,11 +33,10 @@ public class TestFrame extends JFrame {
     java.util.List<java.util.List<Boolean>> player2Wins = new ArrayList<>();
     java.util.List<Boolean> player1Round = new ArrayList<>();
     java.util.List<Boolean> player2Round = new ArrayList<>();
-    String category = "Film";
+    QuestionCategory category = QuestionCategory.MOVIES;
     String gameID = "4556";
 
     QuestionCollection questionCollection = new QuestionCollection();
-    ObjectOutputStream out;
 
     private final List<String> games = new ArrayList<>();
     boolean chosenCategory = true;
@@ -57,7 +57,7 @@ public class TestFrame extends JFrame {
         chooseCategoryPage = new ChooseCategoryPage();
         chooseCategoryPage.setDesignOptions(this.designOptions);
 
-        questionPage = new QuestionPage(category);
+        questionPage = new QuestionPage();
         questionPage.setDesignOptions(this.designOptions);
 
         waitingPage = new WaitingPage();
@@ -108,23 +108,23 @@ public class TestFrame extends JFrame {
 
         //CHOOSE CATEGORY PAGE
         chooseCategoryPage.getCategoryOption1().addActionListener(ActiveEvent -> {
-            category = chooseCategoryPage.getCategoryOption1().getText();
-            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-            questionPage.nextThreeQuestions(category);
+            category = QuestionCategory.valueOf(chooseCategoryPage.getCategoryOption1().getText());
+            scoreBoardPage.addToCategoryList(category);
+            questionPage.newQuestions(category);
             addActionListenerToOptions();
             cardLayout.show(contentPanel, "QuestionPage");
         });
         chooseCategoryPage.getCategoryOption2().addActionListener(ActiveEvent -> {
-            category = chooseCategoryPage.getCategoryOption2().getText();
-            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-            questionPage.nextThreeQuestions(category);
+            category = QuestionCategory.valueOf(chooseCategoryPage.getCategoryOption2().getText());
+            scoreBoardPage.addToCategoryList(category);
+            questionPage.newQuestions(category);
             addActionListenerToOptions();
             cardLayout.show(contentPanel, "QuestionPage");
         });
         chooseCategoryPage.getCategoryOption3().addActionListener(ActiveEvent -> {
-            category = chooseCategoryPage.getCategoryOption3().getText();
-            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-            questionPage.nextThreeQuestions(category);
+            category = QuestionCategory.valueOf(chooseCategoryPage.getCategoryOption3().getText());
+            scoreBoardPage.addToCategoryList(category);
+            questionPage.newQuestions(category);
             addActionListenerToOptions();
             cardLayout.show(contentPanel, "QuestionPage");
         });
@@ -132,24 +132,23 @@ public class TestFrame extends JFrame {
         //QUESTION PAGE
         //Simon Ändring. ActionListener till inställningsknapp
         startPage.getSettings().addActionListener(e -> {
-            System.out.println("Settings Button Clicked!");
             cardLayout.show(contentPanel, "SettingsPage");
         });
 
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
             if(chosenCategory) {
-                questionPage.nextThreeQuestions(QuestionCategory.MUSIC.label);
-                category = QuestionCategory.MUSIC.label;
-                scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-                questionPage.nextThreeQuestions(category);
+                questionPage.newQuestions(category);
+                category = QuestionCategory.MUSIC;
+                scoreBoardPage.addToCategoryList(category);
+                questionPage.newQuestions(category);
                 addActionListenerToOptions();
                 cardLayout.show(contentPanel, "QuestionPage");
                 chosenCategory = false;
 
             }
             else{
-                questionPage.nextThreeQuestions(questionCollection.getRandomCategory().label);
+                questionPage.newQuestions(questionCollection.getRandomCategory());
                 SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
                 addActionListenerToOptions();
                 cardLayout.show(contentPanel, "ChooseCategoryPage");
@@ -196,9 +195,9 @@ public class TestFrame extends JFrame {
                         }
                         else {
                             //TODO
-                            category = QuestionCategory.MUSIC.label;
-                            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-                            questionPage.nextThreeQuestions(category);
+                            category = QuestionCategory.MUSIC;
+                            scoreBoardPage.addToCategoryList(category);
+                            questionPage.newQuestions(category);
                             addActionListenerToOptions();
                             cardLayout.show(contentPanel, "QuestionPage");
                         }
@@ -237,12 +236,6 @@ public class TestFrame extends JFrame {
         chosenCategory = false;
     }
 
-    //Needed for NetWork
-
-    public List<String> getGames() {
-        return games;
-    }
-
     public void generateRandomPlayer2List(){
         player2Round.add(true);
         player2Round.add(false);
@@ -251,10 +244,12 @@ public class TestFrame extends JFrame {
         Collections.shuffle(player2Round);
         System.out.println(player2Round);
         player2Wins.add(new ArrayList<>(player2Round));
-        System.out.println(player2Round.size());
+       System.out.println(player2Round.size());
     }
 
-    public void setCategory(String category) {
+    public void setCategory(QuestionCategory category) {
         this.category = category;
     }
 }
+
+ */

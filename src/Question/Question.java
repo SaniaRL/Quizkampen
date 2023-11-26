@@ -38,4 +38,9 @@ public class Question implements Serializable {
     public void setCategory(QuestionCategory category) {
         this.category = category;
     }
+
+    @Override
+    public String toString(){
+        return question;
+    }
 }

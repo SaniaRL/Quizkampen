@@ -1,12 +1,16 @@
 package GUI.ScoreBoard;
 
+import CustomTypes.GameData;
+import CustomTypes.Round;
 import GUI.DesignOptions;
 import Question.QuestionCategory;
 import Question.QuestionCollection;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.*;
@@ -24,21 +28,26 @@ public class ScoreBoardPage extends JPanel {
     JButton playGame;
 
     DesignOptions designOptions;
+    ImageIcon player2Icon;
 
     int player1 = 0;
     int player2 = 0;
 
-    //Temporary list
     List<ScoreCount> scoreCounts;
     List<QuestionCategory> categoryList;
-
     List<List<Boolean>> player1ScoreList;
     List<List<Boolean>> player2ScoreList;
+    private int amountOfRounds;
+    private int amountOfQuestions;
 
-    public ScoreBoardPage(String gameID) throws IOException {
+    public ScoreBoardPage(String gameID, int amountOfRounds, int amountOfQuestions) throws IOException {
+        this.amountOfQuestions = amountOfQuestions;
+        this.amountOfRounds = amountOfRounds;
         this.gameID = gameID;
 
         designOptions = new DesignOptions();
+        //TODO get from server, from Other players GUI
+        player2Icon = new DesignOptions().getSmallIcon();
 
         centerPanel = new JPanel();
         northPanel = new JPanel();
@@ -49,7 +58,6 @@ public class ScoreBoardPage extends JPanel {
         setTurnLabel(true);
 
         categoryList = new ArrayList<>();
-        categoryList.add(QuestionCategory.HISTORY);
         player1ScoreList = new ArrayList<>();
         player2ScoreList = new ArrayList<>();
 
@@ -82,14 +90,13 @@ public class ScoreBoardPage extends JPanel {
 
     //TODO Set from frame
     public void generateScoreCounts() {
-        for(int i = 0; i < 6; i++){
+        for(int i = 0; i < amountOfRounds; i++){
             ScoreCount scoreCountLabel;
             if(player1ScoreList.size() > i && player2ScoreList.size() > i){
-                System.out.println(player1ScoreList + " : " + player2ScoreList + " : " + categoryList);
-                scoreCountLabel = new ScoreCount(player1ScoreList.get(i), player2ScoreList.get(i), categoryList.get(i));
+                scoreCountLabel = new ScoreCount(player1ScoreList.get(i), player2ScoreList.get(i), categoryList.get(i), amountOfQuestions);
             }
             else{
-                scoreCountLabel = new ScoreCount();
+                scoreCountLabel = new ScoreCount(amountOfQuestions);
             }
             centerPanel.add(scoreCountLabel);
         }
@@ -100,10 +107,10 @@ public class ScoreBoardPage extends JPanel {
         northPanel.setLayout(new GridLayout(1, 3));
         northPanel.setOpaque(false);
 
-        JLabel yourLabel = new JLabel("YOU", SwingConstants.CENTER);
-        yourLabel.setFont(designOptions.getSmallText());
-        JLabel opponentLabel = new JLabel("OPPONENT", SwingConstants.CENTER);
-        opponentLabel.setFont(designOptions.getSmallText());
+        ImageIcon yourIcon = designOptions.getSmallIcon();
+        JPanel yourPanel = createIconPanel(yourIcon, "YOU");
+
+        JPanel opponentPanel = createIconPanel(player2Icon, "RANDOM");
 
         JPanel middlePanel = new JPanel();
         turnLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Din tur", SwingConstants.CENTER);
@@ -116,13 +123,31 @@ public class ScoreBoardPage extends JPanel {
         middlePanel.add(scoreLabel);
         middlePanel.setOpaque(false);
 
-        setFont(yourLabel);
-        setFont(opponentLabel);
         setFont(turnLabel);
 
-        northPanel.add(yourLabel);
+        Border emptyBorder = BorderFactory.createEmptyBorder(10,10,10,10);
+        northPanel.setBorder(emptyBorder);
+
+        northPanel.add(yourPanel);
         northPanel.add(middlePanel);
-        northPanel.add(opponentLabel);
+        northPanel.add(opponentPanel);
+    }
+
+    public JPanel createIconPanel(ImageIcon imageIcon, String text){
+        JPanel panel = new JPanel();
+        JLabel iconLabel = new JLabel(imageIcon, SwingConstants.CENTER);
+        iconLabel.setPreferredSize(new Dimension(200, 100));
+
+        JLabel textLabel = new JLabel(text, SwingConstants.CENTER);
+        textLabel.setPreferredSize(new Dimension(200,30));
+//        textLabel.setFont(designOptions.getSmallText());
+
+        panel.setLayout(new GridLayout(2, 1));
+        panel.setPreferredSize(new Dimension(200,150));
+        panel.setOpaque(false);
+        panel.add(iconLabel);
+        panel.add(textLabel);
+        return panel;
     }
 
     public void setFont (JLabel label){
@@ -156,7 +181,28 @@ public class ScoreBoardPage extends JPanel {
         this.player2ScoreList = player2ScoreList;
     }
 
-    public void updateScoreBoard() throws IOException {
+    public void updateScoreBoard(GameData game) throws IOException {
+        centerPanel.removeAll();
+        northPanel.removeAll();
+        southPanel.removeAll();
+
+        categoryList.clear();
+        player1ScoreList.clear();
+        player2ScoreList.clear();
+        for (Round round : game.getRounds()) {
+            if(round.getPlayer1Score() != null)
+                player1ScoreList.add(Arrays.stream(round.getPlayer1Score()).toList());
+            if(round.getPlayer2Score() != null)
+                player2ScoreList.add(Arrays.stream(round.getPlayer2Score()).toList());
+            categoryList.add(round.getCategory());
+        }
+
+        generateCenterPanel();
+        generateNorthPanel();
+        generateSouthPanel();
+    }
+
+    public void updateScoreBoard() throws IOException{
         centerPanel.removeAll();
         northPanel.removeAll();
         southPanel.removeAll();

@@ -61,7 +61,8 @@ public class Protocol {
             System.out.println("before if");
             if (game.getGameData().getTurn() == Turn.Player2) {
                 game.getPlayer1().writeToClient("opponent turn", null);
-                game.getPlayer2().writeToClient("your turn", game.getGameData());
+                if(game.getPlayer2() != null)
+                    game.getPlayer2().writeToClient("your turn", game.getGameData());
                 System.out.println("player 2 turn");
             } else {
                 game.getPlayer2().writeToClient("opponent turn", null);

@@ -12,8 +12,10 @@ public class ScoreLabel extends JLabel {
     Color winColor;
     Color loseColor;
     Color defaultColor;
+    int amountOfQuestions;
 
-    public ScoreLabel(Boolean win){
+    public ScoreLabel(Boolean win, int amountOfQuestions){
+        this.amountOfQuestions = amountOfQuestions;
         designOptions = new DesignOptions();
         winColor = Color.GREEN;
         loseColor = Color.RED;
@@ -29,15 +31,30 @@ public class ScoreLabel extends JLabel {
         }
     }
 
-    public ScoreLabel(){
+    public ScoreLabel(int amountOfQuestions){
+        this.amountOfQuestions = amountOfQuestions;
         addComponents();
         setForeground(defaultColor);
     }
 
     public void addComponents(){
-        setSize(new Dimension(80, 50));
-        setOpaque(false);
+
+        if (amountOfQuestions <= 3) { //Adjusting button size to fit circles on the same row.
+            setPreferredSize(new Dimension(80, 50));
+            setFont(new Font("Montserrat", Font.PLAIN, 70));
+        }
+        else if (amountOfQuestions == 4) {
+            setPreferredSize(new Dimension(50, 30));
+            setFont(new Font("Montserrat", Font.PLAIN, 45));
+        }
+        else if (amountOfQuestions == 5) {
+            setPreferredSize(new Dimension(40, 25));
+            setFont(new Font("Montserrat", Font.PLAIN, 40));
+        }
+        else {
+            setPreferredSize(new Dimension(30, 20));
+            setFont(new Font("Montserrat", Font.PLAIN, 30));
+        }
         setText("⚫");
-        setFont(new Font("Montserrat", Font.PLAIN, 70));
     }
 }

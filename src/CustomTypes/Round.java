@@ -1,55 +1,73 @@
 package CustomTypes;
 
+import Enums.Turn;
+import Question.QuestionCategory;
 import Question.Question;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 public class Round implements Serializable {
-    private String category;
-    private List<Boolean> player1Score;
-    private List<Boolean> player2Score;
-    private List<Question> questions;
+    private QuestionCategory category;
+    private Boolean[] player1Score;
+    private Boolean[] player2Score;
+    private Question[] questions;
 
-    public Round(){}
-    public Round(String category, List<Question> questions, List<Boolean> player1Score, List<Boolean> player2Score) {
+    public Round(QuestionCategory category) {
         this.category = category;
-        this.questions = questions;
-        this.player1Score = player1Score;
-        this.player2Score = player2Score;
     }
 
-    public String getCategory() {
+    public Round(QuestionCategory category, Question[] questions, Boolean[] score, Turn player) {
+        this.category = category;
+        if (player == Turn.Player1)
+            this.player1Score = score;
+        else
+            this.player2Score = score;
+        this.questions = questions;
+    }
+
+    public QuestionCategory getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(QuestionCategory category) {
         this.category = category;
     }
 
-    public List<Question> getQuestions() {
+    public Question[] getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<Question> questions) {
+    public void setQuestions(Question[] questions) {
         this.questions = questions;
     }
 
-    public List<Boolean> getPlayer1Score() {
+    public Boolean[] getPlayer1Score() {
         return player1Score;
     }
 
-    public void setPlayer1Score(List<Boolean> player1Score) {
-        this.player1Score = new ArrayList<>(player1Score);
+    public void setPlayer1Score(Boolean[] player1Score) {
+        this.player1Score = player1Score;
     }
 
-    public List<Boolean> getPlayer2Score() {
+    public Boolean[] getPlayer2Score() {
         return player2Score;
     }
 
-    public void setPlayer2Score(List<Boolean> player2Score) {
+    public void setPlayer2Score(Boolean[] player2Score) {
         this.player2Score = player2Score;
+    }
+
+    @Override
+    public String toString() {
+        return "Round{" +
+                "category=" + category +
+                ", player1Score=" + Arrays.toString(player1Score) +
+                ", player2Score=" + Arrays.toString(player2Score) +
+                ", questions=" + Arrays.toString(questions) +
+                '}';
     }
 }

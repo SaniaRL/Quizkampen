@@ -22,11 +22,17 @@ public class Client {
             in = new ObjectInputStream(socket.getInputStream());
             //end of stream types
 
-            writeToServer("Client connected", null);
             Object fromServer = readFromServer();
-            System.out.println(fromServer.toString());
+            Object[] fromServerArray = (Object[]) fromServer;
 
-            ContentFrame frame = new ContentFrame(out);
+            String str = fromServerArray[1].toString();
+            String[] parts = str.split(";");
+            int amountOfQuestions = Integer.parseInt(parts[0]);
+            int amountOfRounds = Integer.parseInt(parts[1]);
+
+            writeToServer("client connected", null);
+
+            ContentFrame frame = new ContentFrame(out, amountOfQuestions, amountOfRounds);
             while (true) {
                 fromServer = readFromServer();
                 if (fromServer instanceof Object[] message) {
@@ -45,6 +51,7 @@ public class Client {
                         if (message[0].equals("game found start")) {
                             System.out.println("found game starting");
                             frame.setGame(gameData);
+                            frame.setPlayerSide(Turn.Player2);
                             frame.getQuestions();
                         }
                         if (message[0].equals("your turn")) {

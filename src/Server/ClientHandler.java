@@ -8,27 +8,30 @@ import java.util.Arrays;
 
 public class ClientHandler extends Thread implements Serializable {
     protected final Socket socket;
-    private final Server server;
     private final Protocol protocol;
     private ObjectInputStream in;
     private ObjectOutputStream out;
+    Server server;
+    Object propertyObject;
 
     public ClientHandler(Socket socket, Server server) {
         this.socket = socket;
         this.server = server;
         this.protocol = new Protocol();
+
+        propertyObject = server.getQuestionsToFind();
     }
 
     @Override
     public void run() {
+
         try {
             //The types of stream may change depending on what you want to send.
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
             //end of stream types
 
-            writeToClient("Connection established to server", null);
-
+            writeToClient("properties", propertyObject);
 
             Object fromClient = readFromClient();
             System.out.println("Thread no." + Thread.currentThread().threadId() + ": " + fromClient);
@@ -36,6 +39,8 @@ public class ClientHandler extends Thread implements Serializable {
                     //TODO: Add logic for server
 
                     fromClient = readFromClient();
+
+                    System.out.println(fromClient instanceof String);
                     if (fromClient instanceof String) {
                         System.out.println(fromClient);
                         if (fromClient.equals("exit")) {

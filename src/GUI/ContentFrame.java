@@ -2,9 +2,11 @@ package GUI;
 
 import CustomTypes.GameData;
 import CustomTypes.Round;
+import GUI.CategoryGUI.CategoryButton;
 import GUI.CategoryGUI.ChooseCategoryPage;
 import GUI.ScoreBoard.ScoreBoardPage;
 import GUI.StartPage.StartPage;
+import Question.Question;
 import Question.QuestionCategory;
 import Question.QuestionCollection;
 import Enums.Turn;
@@ -34,26 +36,32 @@ public class ContentFrame extends JFrame implements Serializable {
     //Should be moved to game logic later:
     List<List<Boolean>> player1Wins = new ArrayList<>();
     List<List<Boolean>> player2Wins = new ArrayList<>();
-    List<Boolean> player1Round = new ArrayList<>();
-    List<Boolean> player2Round = new ArrayList<>();
-    String category = "Film";
+    List<Boolean> playerRound = new ArrayList<>();
+    //    List<Boolean> player2Round = new ArrayList<>();
+    QuestionCategory category = QuestionCategory.MOVIES;
     String gameID = "4556";
-    DesignOptions designOptions = new DesignOptions();
+    DesignOptions designOptions;
 
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
-    private GameData game; //to store game data
+    private int amountOfQuestions;
+    private int amountOfRounds;
+    private GameData game;
     private Round round;
     private Turn playerSide;
     boolean chosenCategory = false;
 
-    public void setDesignOptions(){
-
-
-
+    public void setDesignOptions() {
+        startPage.setDesignOptions(this.designOptions);
+        chooseCategoryPage.setDesignOptions(this.designOptions);
+        questionPage.setDesignOptions(this.designOptions);
+        scoreBoardPage.setDesignOptions(this.designOptions);
+        settingsPage.setDesignOptions(this.designOptions);
     }
 
-    public ContentFrame(ObjectOutputStream out) throws IOException {
+    public ContentFrame(ObjectOutputStream out, int amountOfQuestions, int amountOfRounds) throws IOException {
+        this.amountOfQuestions = amountOfQuestions;
+        this.amountOfRounds = amountOfRounds;
         this.out = out;
         this.round = new Round();
         contentPanel = new JPanel();
@@ -62,13 +70,18 @@ public class ContentFrame extends JFrame implements Serializable {
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage(category);
+        questionPage = new QuestionPage(amountOfQuestions);
         waitingPage = new WaitingPage();
-        scoreBoardPage = new ScoreBoardPage(gameID);
+        scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
         settingsPage = new SettingsPage();
+        designOptions = new DesignOptions();
 
+        //Provat lila tema, ändra fram och tillbaka och kika
+        designOptions.setColor("violet");
+        setDesignOptions();
         buildFrame();
     }
+/*
     public ContentFrame() throws IOException {
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
@@ -76,19 +89,24 @@ public class ContentFrame extends JFrame implements Serializable {
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage(category);
+        questionPage = new QuestionPage(amountOfQuestions);
         waitingPage = new WaitingPage();
-        scoreBoardPage = new ScoreBoardPage(gameID);
+        scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
+
         settingsPage = new SettingsPage();
 
         buildFrame();
     }
+
+
 
     //TODO Remove main
     public static void main(String[] args) throws IOException {
         @SuppressWarnings("unused")
         ContentFrame contentFrame = new ContentFrame();
     }
+
+ */
 
     public void buildFrame() {
         setSize(800, 800);
@@ -124,16 +142,16 @@ public class ContentFrame extends JFrame implements Serializable {
     }
 
     public void newGameStarted() {
-        System.out.println("choose category");
+        System.out.println("new game started");
         cardLayout.show(contentPanel, "ChooseCategoryPage");
         addActionListenerToOptions();
+        chosenCategory = true;
     }
 
     public void getQuestions() {
         System.out.println("existing game found!");
-        chosenCategory = true;
-        scoreBoardPage.showPlayButton();
-        cardLayout.show(contentPanel, "ScoreBoardPage");
+        questionPage.setQuestionPage(game.getRounds().get(0).getCategory(), game.getRounds().get(0).getQuestions());
+        cardLayout.show(contentPanel, "QuestionPage");
         addActionListenerToOptions();
     }
 
@@ -152,36 +170,18 @@ public class ContentFrame extends JFrame implements Serializable {
         waitingPage.getTextButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ChooseCategoryPage"));
 
         //CHOOSE CATEGORY PAGE
-        chooseCategoryPage.getCategoryOption1().addActionListener(ActiveEvent -> {
-            category = chooseCategoryPage.getCategoryOption1().getText();
-            round.setCategory(category);
-            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-            questionPage.nextThreeQuestions(category);
-            addActionListenerToOptions();
-            cardLayout.show(contentPanel, "QuestionPage");
-            chosenCategory = true;
-        });
-        chooseCategoryPage.getCategoryOption2().addActionListener(ActiveEvent -> {
-            category = chooseCategoryPage.getCategoryOption2().getText();
-            round.setCategory(category);
-            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-            questionPage.nextThreeQuestions(category);
-            addActionListenerToOptions();
-            cardLayout.show(contentPanel, "QuestionPage");
-            chosenCategory = true;
-        });
-        chooseCategoryPage.getCategoryOption3().addActionListener(ActiveEvent -> {
-            category = chooseCategoryPage.getCategoryOption3().getText();
-            round.setCategory(category);
-            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-            questionPage.nextThreeQuestions(category);
-            addActionListenerToOptions();
-            cardLayout.show(contentPanel, "QuestionPage");
-            chosenCategory = true;
-        });
+        for (CategoryButton categoryOption : chooseCategoryPage.getCategoryOptions()) {
+            categoryOption.addActionListener(ActiveEvent -> {
+                category = QuestionCategory.getQuestionCategory(categoryOption.getText());
+                scoreBoardPage.addToCategoryList(category);
+                questionPage.newQuestions(category);
+                addActionListenerToOptions();
+                cardLayout.show(contentPanel, "QuestionPage");
+            });
+        }
 
         //QUESTION PAGE
-        //Simon Ändring. ActionListener till inställningsknapp
+        //ActionListener till inställningsknapp
         startPage.getSettings().addActionListener(e -> {
             System.out.println("Settings Button Clicked!");
             cardLayout.show(contentPanel, "SettingsPage");
@@ -189,23 +189,15 @@ public class ContentFrame extends JFrame implements Serializable {
 
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
-            System.out.println(game.getRounds().get(game.getRounds().size()-1).getCategory());
-            if(game.getRounds().get(game.getRounds().size()-1).getCategory() != null) {
-                /*questionPage.nextThreeQuestions(QuestionCategory.MUSIC.label);
-                category = QuestionCategory.MUSIC.label;
-                scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-                questionPage.nextThreeQuestions(category);
-                addActionListenerToOptions();
-                cardLayout.show(contentPanel, "QuestionPage");
-                chosenCategory = false;*/
-
-                questionPage.lastRoundQuestions(game.getRounds().get(game.getRounds().size()-1).getQuestions());
+            if (chosenCategory) {
+                questionPage.newQuestions(category);
+                scoreBoardPage.addToCategoryList(category);
+                questionPage.newQuestions(category);
                 addActionListenerToOptions();
                 cardLayout.show(contentPanel, "QuestionPage");
                 chosenCategory = false;
-            }
-            else{
-                questionPage.nextThreeQuestions(questionCollection.getRandomCategory().label);
+            } else {
+                questionPage.newQuestions(questionCollection.getRandomCategory());
                 SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
                 addActionListenerToOptions();
                 cardLayout.show(contentPanel, "ChooseCategoryPage");
@@ -216,12 +208,13 @@ public class ContentFrame extends JFrame implements Serializable {
 
 
     public void addActionListerToStartPage() {
-        startPage.getStartNewGame().addActionListener(ActionEvent -> writeToServer("new game", null));
+        startPage.getStartNewGame().addActionListener(ActionEvent -> {
+            writeToServer("new game", null);
+        });
     }
 
     public void addActionListenerToOptions() {
         List<JButton> optionButtons = questionPage.getOptionButtons();
-
         for (JButton option : optionButtons) {
             // Remove ActionListeners, to get the delay to work on every question
             ActionListener[] actionListeners = option.getActionListeners();
@@ -233,53 +226,49 @@ public class ContentFrame extends JFrame implements Serializable {
                 checkIfWin(option);
 
                 Timer timer = new Timer(500, evt -> {
-                    if (player1Round.size() < 3) {
+                    if (playerRound.size() < amountOfQuestions) {
                         questionPage.nextQuestion();
                         cardLayout.show(contentPanel, "QuestionPage");
                         addActionListenerToOptions();
                     } else {
-                        if(!(game.getRounds().isEmpty()) && game.getRounds().get(game.getRounds().size()-1).getCategory() != null) {
-                            getOpponentResults();
-                        }
-                        player1Wins.add(new ArrayList<>(player1Round));
-                        round.setPlayer1Score(player1Round);
-                        System.out.println("player 1 round: " + round.getPlayer1Score());
-                        round.setQuestions(questionPage.getThreeQuestions());
-                        System.out.println(round.getQuestions().get(0).getQuestion());
-
-                        player2Wins.add(new ArrayList<>(player2Round));
-                        player1Round.clear();
-                        player2Round.clear();
-                        scoreBoardPage.setWinList(player1Wins, player2Wins);
-                        System.out.println("rounds length before: " + game.getRounds().size());
-                        game.setRounds(round);
-                        System.out.println("rounds length after: " + game.getRounds().size());
-
-                        if(!chosenCategory) {
-                            cardLayout.show(contentPanel, "ScoreBoardPage");
-                            scoreBoardPage.setGameID(gameID);
-                            writeToServer("round finished", game);
-                        }
-                        else {
-                            //TODO
-                            /*category = QuestionCategory.MUSIC.label;
-                            questionPage.nextThreeQuestions(category);*/
-                            questionPage.lastRoundQuestions(game.getRounds().get(game.getRounds().size()-1).getQuestions());
-                            addActionListenerToOptions();
-                            cardLayout.show(contentPanel, "QuestionPage");
-                            newGameStarted();
-
+                        if (chosenCategory) {
                             game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
-
+                            Question[] tempQuestions = new Question[amountOfQuestions];
+                            Boolean[] tempScore = new Boolean[amountOfQuestions];
+                            for (int i = 0; i < amountOfQuestions; i++) {
+                                tempQuestions[i] = questionPage.questions.get(i);
+                                tempScore[i] = playerRound.get(i);
+                            }
+                            game.addRound(new Round(questionPage.category, tempQuestions, tempScore, playerSide));
+                            if (playerSide == Turn.Player1) {
+                                player1Wins.add(new ArrayList<>(playerRound));
+                                game.getRounds().get(game.getRounds().size() - 1).setPlayer2Score(new Boolean[0]);
+                                playerRound.clear();
+                            } else {
+                                player2Wins.add(new ArrayList<>(playerRound));
+                                game.getRounds().get(game.getRounds().size() - 1).setPlayer1Score(new Boolean[0]);
+                                playerRound.clear();
+                            }
                             writeToServer("round finished", game);
+                            cardLayout.show(contentPanel, "ScoreBoardPage");
+                        } else {
+                            System.out.println("time to choose category");
+                            if (playerSide == Turn.Player1) {
+                                game.getRounds().get(game.getRounds().size() - 1).setPlayer1Score(playerRound.toArray(new Boolean[0]));
+                            } else {
+                                game.getRounds().get(game.getRounds().size() - 1).setPlayer2Score(playerRound.toArray(new Boolean[0]));
+                            }
+                            playerRound.clear();
+                            cardLayout.show(contentPanel, "ChooseCategoryPage");
+                            chosenCategory = true;
                         }
                         try {
-                            scoreBoardPage.updateScoreBoard();
+                            scoreBoardPage.updateScoreBoard(game);
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
-
-                        scoreBoardPage.hidePlayButton();
+                        if(playerSide != game.getTurn())
+                            scoreBoardPage.hidePlayButton();
                         cardLayout.show(contentPanel, "ScoreBoardPage");
                     }
                 });
@@ -289,15 +278,15 @@ public class ContentFrame extends JFrame implements Serializable {
         }
     }
 
-    public void checkIfWin(JButton option){
+    public void checkIfWin(JButton option) {
         JButton rightAnswer = checkRightAnswer();
         if (!option.equals(rightAnswer)) {
             option.setBackground(Color.red);
             System.out.println("wrong");
-            player1Round.add(false);
+            playerRound.add(false);
         } else {
             System.out.println("right");
-            player1Round.add(true);
+            playerRound.add(true);
         }
         rightAnswer.setBackground(Color.green);
         option.repaint();
@@ -306,11 +295,11 @@ public class ContentFrame extends JFrame implements Serializable {
         rightAnswer.revalidate();
     }
 
-    public JButton checkRightAnswer(){
+    public JButton checkRightAnswer() {
         List<JButton> optionButtons = questionPage.getOptionButtons();
         JButton rightAnswer = new JButton();
-        for(JButton option : optionButtons){
-            if (option.getText().equals("<html><div style='text-align: center;'>" + questionPage.getAnswer())){
+        for (JButton option : optionButtons) {
+            if (option.getText().equals("<html><div style='text-align: center;'>" + questionPage.getAnswer())) {
                 rightAnswer = option;
             }
         }
@@ -339,16 +328,4 @@ public class ContentFrame extends JFrame implements Serializable {
     public void setPlayerSide(Turn playerSide) {
         this.playerSide = playerSide;
     }
-
-    public void getOpponentResults() {
-        int element = game.getRounds().size()-1;
-        System.out.println(game.getRounds().get(element).getPlayer1Score().size());
-        player2Round.add(game.getRounds().get(element).getPlayer1Score().get(0));
-        player2Round.add(game.getRounds().get(element).getPlayer1Score().get(1));
-        player2Round.add(game.getRounds().get(element).getPlayer1Score().get(2));
-        //Collections.shuffle(player2Round);
-        System.out.println(player2Round.size());
-    }
-
-
 }
