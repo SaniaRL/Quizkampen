@@ -12,6 +12,7 @@ import Question.QuestionCollection;
 import Enums.Turn;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -30,8 +31,8 @@ public class ContentFrame extends JFrame {
     QuestionPage questionPage;
     WaitingPage waitingPage;
     ScoreBoardPage scoreBoardPage;
-
     SettingsPage settingsPage;
+    ResultPage resultPage;
 
     //Should be moved to game logic later:
     List<List<Boolean>> player1Wins = new ArrayList<>();
@@ -73,6 +74,7 @@ public class ContentFrame extends JFrame {
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
         settingsPage = new SettingsPage();
+        resultPage = new ResultPage();
         designOptions = new DesignOptions();
 
         //Provat lila tema, ändra fram och tillbaka och kika
@@ -121,8 +123,8 @@ public class ContentFrame extends JFrame {
         contentPanel.add(questionPage, "QuestionPage");
         contentPanel.add(waitingPage, "WaitingPage");
         contentPanel.add(scoreBoardPage, "ScoreBoardPage");
-
         contentPanel.add(settingsPage, "SettingsPage");
+        contentPanel.add(resultPage, "ResultPage");
 
         add(contentPanel);
         addActionEvents();
@@ -210,6 +212,9 @@ public class ContentFrame extends JFrame {
     public void addActionListerToStartPage() {
         startPage.getStartNewGame().addActionListener(ActionEvent -> {
             writeToServer("new game", null);
+        });
+        startPage.getNotifications().addActionListener(ActionEvent -> {
+            cardLayout.show(contentPanel, "ResultPage");
         });
     }
 

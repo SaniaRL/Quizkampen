@@ -148,6 +148,7 @@ public class QuestionPage extends JPanel {
         southPanel.setLayout(new BorderLayout());
         southPanel.setPreferredSize(new Dimension(800, 350));
         southPanel.setOpaque(false);
+
         JPanel optionsPanel = new JPanel(new GridLayout(2,2));
         JPanel nextQuestionPanel = new JPanel();
         nextQuestionPanel.setLayout(new FlowLayout());

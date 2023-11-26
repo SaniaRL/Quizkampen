@@ -40,7 +40,6 @@ public class StartPage extends JPanel {
         setLayout(new BorderLayout());
         setOpaque(true);
 
-        //Methods for designing components to make it easier to navigate
         generateCenterPanel();
         generateNorthPanel();
         generateSouthPanel();
@@ -134,20 +133,6 @@ public class StartPage extends JPanel {
 
         southPanel.add(catButton);
     }
-
-  /*  public JButton createButton(JButton button, String path, Dimension dimension, int size){
-
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(size, size, Image.SCALE_REPLICATE));
-        button.setIcon(imageIcon);
-        button.setPreferredSize(dimension);
-        button.setOpaque(false);
-        button.setBorder(emptyBorder);
-        button.setContentAreaFilled(false);
-
-        return button;
-    }
-
-   */
 
     public void generateEastWestPanels(String borderLayout){
         JPanel panel = new JPanel();
