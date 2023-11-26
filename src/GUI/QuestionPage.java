@@ -112,15 +112,14 @@ public class QuestionPage extends JPanel {
 
         ImageIcon yourImageIcon = new ImageIcon(designOptions.getIcon().getImage().getScaledInstance(60,60, Image.SCALE_SMOOTH));
         JPanel yourPanel = new JPanel();
-        createIconPanel(yourImageIcon, "YOU", yourPanel);
+        createIconPanel(yourImageIcon, designOptions.getPlayer1(), yourPanel);
 
         categoryLabel = new JLabel("", SwingConstants.CENTER);
         categoryLabel.setFont(designOptions.getSmallText());
         categoryLabel.setPreferredSize(new Dimension(300, 150));
 
-        ImageIcon opponentImageIcon = new ImageIcon(designOptions.getIcon().getImage().getScaledInstance(60,60, Image.SCALE_SMOOTH));
         JPanel opponentPanel = new JPanel();
-        createIconPanel(opponentImageIcon, "Random", opponentPanel);
+        createIconPanel(designOptions.getPlayer2Icon(), designOptions.getPlayer2(), opponentPanel);
 
         Border emptyBorder = BorderFactory.createEmptyBorder(20,10,20,10);
 

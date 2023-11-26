@@ -28,7 +28,6 @@ public class ScoreBoardPage extends JPanel {
     JButton playGame;
 
     DesignOptions designOptions;
-    ImageIcon player2Icon;
 
     int player1 = 0;
     int player2 = 0;
@@ -47,7 +46,6 @@ public class ScoreBoardPage extends JPanel {
 
         designOptions = new DesignOptions();
         //TODO get from server, from Other players GUI
-        player2Icon = new DesignOptions().getSmallIcon();
 
         centerPanel = new JPanel();
         northPanel = new JPanel();
@@ -107,10 +105,10 @@ public class ScoreBoardPage extends JPanel {
         northPanel.setLayout(new GridLayout(1, 3));
         northPanel.setOpaque(false);
 
-        ImageIcon yourIcon = designOptions.getSmallIcon();
-        JPanel yourPanel = createIconPanel(yourIcon, "YOU");
+        ImageIcon yourIcon = designOptions.getIcon();
+        JPanel yourPanel = createIconPanel(yourIcon, designOptions.getPlayer1());
 
-        JPanel opponentPanel = createIconPanel(player2Icon, "RANDOM");
+        JPanel opponentPanel = createIconPanel(designOptions.getPlayer2Icon(), designOptions.getPlayer2());
 
         JPanel middlePanel = new JPanel();
         turnLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Din tur", SwingConstants.CENTER);

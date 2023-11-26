@@ -62,8 +62,7 @@ public class ResultPage extends JPanel {
         JPanel opponentPanel = new JPanel();
 
         createPlayerPanels(yourPanel, designOptions.getBigIcon(), designOptions.getPlayer1(), yourPoints > player2Points);
-        createPlayerPanels(opponentPanel, designOptions.getBigIcon(), designOptions.getPlayer2(), player2Points > yourPoints);
-
+        createPlayerPanels(opponentPanel, designOptions.getBigPlayer2Icon(), designOptions.getPlayer2(), player2Points > yourPoints);
 
         northPanel.add(yourPanel);
         northPanel.add(opponentPanel);
@@ -71,7 +70,7 @@ public class ResultPage extends JPanel {
 
     public void createPlayerPanels(JPanel panel, ImageIcon icon, String text, Boolean win){
         panel.setPreferredSize(new Dimension(400, 600));
-        panel.setLayout(new GridLayout(3, 1));
+        panel.setLayout(new GridLayout(4, 1));
         panel.setOpaque(false);
 
         JLabel place;
@@ -82,14 +81,21 @@ public class ResultPage extends JPanel {
             place = new JLabel("LOSER", SwingConstants.CENTER);
         }
         place.setFont(designOptions.getBigText());
+        place.setForeground(Color.BLACK);
 
         JLabel iconLabel = new JLabel(icon, SwingConstants.CENTER);
         JLabel nameLabel = new JLabel(text, SwingConstants.CENTER);
         nameLabel.setFont(designOptions.getBigText());
+        nameLabel.setForeground(Color.BLACK);
+
+        JLabel points = new JLabel("10", SwingConstants.CENTER);
+        points.setFont(designOptions.getBigText());
+        points.setForeground(Color.BLACK);
 
         panel.add(place);
         panel.add(iconLabel);
         panel.add(nameLabel);
+        panel.add(points);
     }
     public void generateSouthPanel(){
         southPanel.setLayout(new GridLayout(1,2));

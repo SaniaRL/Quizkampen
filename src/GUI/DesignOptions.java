@@ -18,8 +18,11 @@ public class DesignOptions {
     Font titleFont;
     Font bigText;
     Font smallText;
+
+    //WHERE TO PUT THESE?
     String player1;
     String player2;
+    ImageIcon player2Icon;
 
 
     public Image getBackgroundImage() {
@@ -38,8 +41,11 @@ public class DesignOptions {
         titleFont = new Font("Sans Serif", Font.PLAIN, 50);
         bigText = new Font("Sans Serif", Font.PLAIN, 40);
         smallText = new Font("Sans Serif", Font.PLAIN, 22);
-        player1 = "YOU";
+        //TEMP:
+        player1 = "SANIA";
         player2 = "ÅKE";
+        icon = new ImageIcon("Icons/crab.png");
+        player2Icon = new ImageIcon("Icons/lobster.png");
     }
 
     public void addIcons(){
@@ -51,10 +57,6 @@ public class DesignOptions {
     }
 
     public ImageIcon getIcon() {
-        return new ImageIcon((icon.getImage().getScaledInstance(80,80,Image.SCALE_SMOOTH)));
-    }
-
-    public ImageIcon getSmallIcon() {
         return new ImageIcon((icon.getImage().getScaledInstance(60,60,Image.SCALE_SMOOTH)));
     }
 
@@ -108,6 +110,14 @@ public class DesignOptions {
 
     public Color getColor() {
         return color;
+    }
+
+    public ImageIcon getPlayer2Icon() {
+        return new ImageIcon((player2Icon.getImage().getScaledInstance(60,60, Image.SCALE_SMOOTH)));
+    }
+
+    public ImageIcon getBigPlayer2Icon() {
+        return new ImageIcon((player2Icon.getImage().getScaledInstance(150,150, Image.SCALE_SMOOTH)));
     }
 
     public String getPlayer1() {
