@@ -47,7 +47,11 @@ public class DesignOptions {
     }
 
     public ImageIcon getIcon() {
-        return icon;
+        return new ImageIcon((icon.getImage().getScaledInstance(70,70,Image.SCALE_SMOOTH)));
+    }
+
+    public ImageIcon getBigIcon() {
+        return new ImageIcon((icon.getImage().getScaledInstance(150,150,Image.SCALE_SMOOTH)));
     }
 
     public List<ImageIcon> getImageIcons() {

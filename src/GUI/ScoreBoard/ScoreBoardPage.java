@@ -7,6 +7,7 @@ import Question.QuestionCategory;
 import Question.QuestionCollection;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.io.IOException;
 import java.util.Arrays;
@@ -27,6 +28,7 @@ public class ScoreBoardPage extends JPanel {
     JButton playGame;
 
     DesignOptions designOptions;
+    ImageIcon player2Icon;
 
     int player1 = 0;
     int player2 = 0;
@@ -42,6 +44,8 @@ public class ScoreBoardPage extends JPanel {
         this.gameID = gameID;
 
         designOptions = new DesignOptions();
+        //TODO get from server, from Other players GUI
+        player2Icon = new DesignOptions().getIcon();
 
         centerPanel = new JPanel();
         northPanel = new JPanel();
@@ -102,10 +106,10 @@ public class ScoreBoardPage extends JPanel {
         northPanel.setLayout(new GridLayout(1, 3));
         northPanel.setOpaque(false);
 
-        JLabel yourLabel = new JLabel("YOU", SwingConstants.CENTER);
-        yourLabel.setFont(designOptions.getSmallText());
-        JLabel opponentLabel = new JLabel("OPPONENT", SwingConstants.CENTER);
-        opponentLabel.setFont(designOptions.getSmallText());
+        ImageIcon yourIcon = designOptions.getIcon();
+        JPanel yourPanel = createIconPanel(yourIcon, "YOU");
+
+        JPanel opponentPanel = createIconPanel(player2Icon, "RANDOM");
 
         JPanel middlePanel = new JPanel();
         turnLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Din tur", SwingConstants.CENTER);
@@ -118,13 +122,31 @@ public class ScoreBoardPage extends JPanel {
         middlePanel.add(scoreLabel);
         middlePanel.setOpaque(false);
 
-        setFont(yourLabel);
-        setFont(opponentLabel);
         setFont(turnLabel);
 
-        northPanel.add(yourLabel);
+        Border emptyBorder = BorderFactory.createEmptyBorder(10,10,10,10);
+        northPanel.setBorder(emptyBorder);
+
+        northPanel.add(yourPanel);
         northPanel.add(middlePanel);
-        northPanel.add(opponentLabel);
+        northPanel.add(opponentPanel);
+    }
+
+    public JPanel createIconPanel(ImageIcon imageIcon, String text){
+        JPanel panel = new JPanel();
+        JLabel iconLabel = new JLabel(imageIcon, SwingConstants.CENTER);
+        iconLabel.setPreferredSize(new Dimension(200, 100));
+
+        JLabel textLabel = new JLabel(text, SwingConstants.CENTER);
+        textLabel.setPreferredSize(new Dimension(200,30));
+        textLabel.setFont(designOptions.getSmallText());
+
+        panel.setLayout(new GridLayout(2, 1));
+        panel.setPreferredSize(new Dimension(200,150));
+        panel.setOpaque(false);
+        panel.add(iconLabel);
+        panel.add(textLabel);
+        return panel;
     }
 
     public void setFont (JLabel label){

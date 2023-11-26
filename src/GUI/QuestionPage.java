@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.ScoreBoard.ScoreBoardPage;
 import Question.QuestionCollection;
 import Question.Question;
 import Question.QuestionCategory;
@@ -119,7 +120,7 @@ public class QuestionPage extends JPanel {
 
         Border emptyBorder = BorderFactory.createEmptyBorder(50,10,50,10);
 
-        categoryLabel.setOpaque(false);
+//        categoryLabel.setOpaque(false);
 
         northPanel.setBorder(emptyBorder);
         northPanel.add(yourPanel);
@@ -140,7 +141,6 @@ public class QuestionPage extends JPanel {
         panel.setOpaque(false);
         panel.add(iconLabel);
         panel.add(textLabel);
-
     }
 
     //Arrays.stream((threeQuestions.get(indexCount)).getQuestionOptions()).toList()

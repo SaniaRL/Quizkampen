@@ -40,7 +40,7 @@ public class ContentFrame extends JFrame {
     //    List<Boolean> player2Round = new ArrayList<>();
     QuestionCategory category = QuestionCategory.MOVIES;
     String gameID = "4556";
-    DesignOptions designOptions = new DesignOptions();
+    DesignOptions designOptions;
 
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
@@ -49,8 +49,11 @@ public class ContentFrame extends JFrame {
     boolean chosenCategory = false;
 
     public void setDesignOptions() {
-
-
+        startPage.setDesignOptions(this.designOptions);
+        chooseCategoryPage.setDesignOptions(this.designOptions);
+        questionPage.setDesignOptions(this.designOptions);
+        scoreBoardPage.setDesignOptions(this.designOptions);
+        settingsPage.setDesignOptions(this.designOptions);
     }
 
     public ContentFrame(ObjectOutputStream out) throws IOException {
@@ -64,12 +67,15 @@ public class ContentFrame extends JFrame {
         questionPage = new QuestionPage();
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID);
-
         settingsPage = new SettingsPage();
+        designOptions = new DesignOptions();
 
+        //Provat lila tema, ändra fram och tillbaka och kika
+        designOptions.setColor("violet");
+        setDesignOptions();
         buildFrame();
     }
-
+/*
     public ContentFrame() throws IOException {
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
@@ -86,11 +92,15 @@ public class ContentFrame extends JFrame {
         buildFrame();
     }
 
+
+
     //TODO Remove main
     public static void main(String[] args) throws IOException {
         @SuppressWarnings("unused")
         ContentFrame contentFrame = new ContentFrame();
     }
+
+ */
 
     public void buildFrame() {
         setSize(800, 800);
