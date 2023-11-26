@@ -31,7 +31,6 @@ public class ClientHandler extends Thread implements Serializable {
 
             Object fromClient = readFromClient();
             System.out.println("Thread no." + Thread.currentThread().threadId() + ": " + fromClient);
-            synchronized (this) {
                 while (true) {
                     //TODO: Add logic for server
 
@@ -40,7 +39,6 @@ public class ClientHandler extends Thread implements Serializable {
                         System.out.println(fromClient);
                         if (fromClient.equals("exit")) {
                             System.out.println("Client disconnected");
-                            server.shutdown();
                             break;
                         }
                         if (fromClient.equals("new game")) {
@@ -50,15 +48,13 @@ public class ClientHandler extends Thread implements Serializable {
                     if (fromClient instanceof Object[] message) {
                         if (message[1] instanceof GameData) {
                             System.out.println(Arrays.toString(message));
-                            protocol.roundFinished((String) message[0], (GameData) message[1], server, this);
+                            protocol.roundFinished((String) message[0], (GameData) message[1], server);
                         }
                     }
 
                 } /*else if (fromClient instanceof otherType) {
                 //TODO: Add logic for other types of objects
                 }*/
-            }
-
         } catch (IOException e) {
             System.out.println("IO Exception from ServerListener: " + e.getMessage());
         } catch (ClassNotFoundException e) {
@@ -75,7 +71,7 @@ public class ClientHandler extends Thread implements Serializable {
         }
     }
 
-    public <T> void writeToClient(String message, T item) {
+    public synchronized <T> void writeToClient(String message, T item) {
         try {
             if (item != null) {
                 out.writeObject(new Object[]{message, item});

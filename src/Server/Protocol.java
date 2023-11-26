@@ -6,8 +6,10 @@ import Server.Game.Game;
 import Enums.GameState;
 
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 
 public class Protocol {
+    CountDownLatch latch = new CountDownLatch(1);
     public Protocol() {
     }
 
@@ -21,9 +23,7 @@ public class Protocol {
 
                 game.setPlayer2(client);
                 game.setGameState(GameState.STARTED);
-                synchronized (game) {
-                    game.notify();
-                }
+                latch.countDown();
 
                 if (game.getGameData().getTurn() == Turn.Player1) {
                     System.out.println("entered wait");
@@ -42,7 +42,7 @@ public class Protocol {
         }
     }
 
-    public void roundFinished(String message, GameData gameData, Server server, ClientHandler client) throws IOException, InterruptedException {
+    public void roundFinished(String message, GameData gameData, Server server) throws IOException, InterruptedException {
         if (!message.equals("round finished")) {
             return;
         }
@@ -52,13 +52,10 @@ public class Protocol {
             game.setGameData(gameData);
             System.out.println("waiting for opponent");
 
-
             if(game.getPlayer2() == null) {
-                synchronized (game) {
-                    game.wait();
-                }
+                latch.await();
             }
-            System.out.println("Before if statement");
+
             if (game.getGameData().getTurn() == Turn.Player2) {
                 game.getPlayer1().writeToClient("opponent turn", null);
                 game.getPlayer2().writeToClient("your turn", game.getGameData());
