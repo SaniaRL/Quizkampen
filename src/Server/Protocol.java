@@ -23,6 +23,7 @@ public class Protocol {
 
                 game.setPlayer2(client);
                 game.setGameState(GameState.STARTED);
+                //Starts the latch countdown when entering an existing game
                 latch.countDown();
 
                 if (game.getGameData().getTurn() == Turn.Player1) {
@@ -52,6 +53,7 @@ public class Protocol {
             game.setGameData(gameData);
             System.out.println("waiting for opponent");
 
+            //Pause thread until opponent has been found
             if(game.getPlayer2() == null) {
                 latch.await();
             }
