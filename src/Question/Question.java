@@ -1,9 +1,10 @@
 package Question;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class Question {
+public class Question implements Serializable {
     private String question;
     private String[] questionOptions;
     private QuestionCategory category;
@@ -36,5 +37,10 @@ public class Question {
 
     public void setCategory(QuestionCategory category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString(){
+        return question;
     }
 }
