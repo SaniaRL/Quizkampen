@@ -99,9 +99,6 @@ public class ChooseCategoryPage extends JPanel {
         JPanel emptyPanel = new JPanel();
         emptyPanel.setPreferredSize(new Dimension(800, 50));
 
-//        generateCategoryLabels(categoryOption1, southPanel);
-//        generateCategoryLabels(categoryOption2, southPanel);
-//        generateCategoryLabels(categoryOption3, southPanel);
         for (CategoryButton categoryButton : categoryOptionsList) {
             generateCategoryLabels(categoryButton, southPanel);
         }

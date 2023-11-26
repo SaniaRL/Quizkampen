@@ -170,27 +170,6 @@ public class ContentFrame extends JFrame {
                 cardLayout.show(contentPanel, "QuestionPage");
             });
         }
-//        chooseCategoryPage.getCategoryOption1().addActionListener(ActiveEvent -> {
-//            category = QuestionCategory.getQuestionCategory(chooseCategoryPage.getCategoryOption1().getText());
-//            scoreBoardPage.addToCategoryList(category);
-//            questionPage.newQuestions(category);
-//            addActionListenerToOptions();
-//            cardLayout.show(contentPanel, "QuestionPage");
-//        });
-//        chooseCategoryPage.getCategoryOption2().addActionListener(ActiveEvent -> {
-//            category = chooseCategoryPage.getCategoryOption2().getText();
-//            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-//            questionPage.newQuestions(QuestionCategory.getQuestionCategory(category));
-//            addActionListenerToOptions();
-//            cardLayout.show(contentPanel, "QuestionPage");
-//        });
-//        chooseCategoryPage.getCategoryOption3().addActionListener(ActiveEvent -> {
-//            category = chooseCategoryPage.getCategoryOption3().getText();
-//            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-//            questionPage.newQuestions(QuestionCategory.getQuestionCategory(category));
-//            addActionListenerToOptions();
-//            cardLayout.show(contentPanel, "QuestionPage");
-//        });
 
         //QUESTION PAGE
         //Simon Ändring. ActionListener till inställningsknapp
@@ -225,9 +204,6 @@ public class ContentFrame extends JFrame {
 
     public void addActionListenerToOptions() {
         List<JButton> optionButtons = questionPage.getOptionButtons();
-        System.out.println(chosenCategory);
-        System.out.println(playerRound);
-
         for (JButton option : optionButtons) {
             // Remove ActionListeners, to get the delay to work on every question
             ActionListener[] actionListeners = option.getActionListeners();
@@ -281,7 +257,8 @@ public class ContentFrame extends JFrame {
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
-                        scoreBoardPage.hidePlayButton();
+                        if(playerSide != game.getTurn())
+                            scoreBoardPage.hidePlayButton();
                         cardLayout.show(contentPanel, "ScoreBoardPage");
                     }
                 });

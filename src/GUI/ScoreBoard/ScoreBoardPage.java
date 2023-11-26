@@ -88,7 +88,6 @@ public class ScoreBoardPage extends JPanel {
         for(int i = 0; i < 6; i++){
             ScoreCount scoreCountLabel;
             if(player1ScoreList.size() > i && player2ScoreList.size() > i){
-                System.out.println(player1ScoreList + " : " + player2ScoreList + " : " + categoryList);
                 scoreCountLabel = new ScoreCount(player1ScoreList.get(i), player2ScoreList.get(i), categoryList.get(i));
             }
             else{
