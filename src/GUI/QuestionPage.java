@@ -82,7 +82,7 @@ public class QuestionPage extends JPanel {
 
     public void generateCenterPanel() {
         centerPanel.setLayout(new FlowLayout());
-        centerPanel.setPreferredSize(new Dimension(800, 300));
+        centerPanel.setPreferredSize(new Dimension(800, 200));
         centerPanel.setOpaque(false);
 
 
@@ -100,9 +100,10 @@ public class QuestionPage extends JPanel {
         centerPanel.add(questionLabel);
     }
 
-    public void generationNorthPanel() {
-        northPanel.setLayout(new GridLayout(1, 3));
-        northPanel.setPreferredSize(new Dimension(800, 200));
+
+    public void generationNorthPanel(){
+        northPanel.setLayout(new GridLayout(1,3));
+        northPanel.setPreferredSize(new Dimension(800, 150));
         northPanel.setOpaque(false);
 
         JLabel yourPlayer = new JLabel("YOU", SwingConstants.CENTER);
@@ -123,12 +124,24 @@ public class QuestionPage extends JPanel {
         northPanel.add(opponent, SwingConstants.CENTER);
     }
 
-    //Arrays.stream((threeQuestions.get(indexCount)).getQuestionOptions()).toList()
-//"<html><div style='text-align: center;'>" + string    // for setText
-    public void generateSouthPanel() {
-        southPanel.setLayout(new GridLayout(2, 2));
-        southPanel.setPreferredSize(new Dimension(800, 300));
+
+    public void generateSouthPanel(){
+        southPanel.setLayout(new BorderLayout());
+        southPanel.setPreferredSize(new Dimension(800, 350));
         southPanel.setOpaque(false);
+        JPanel optionsPanel = new JPanel(new GridLayout(2,2));
+        JPanel nextQuestionPanel = new JPanel();
+        nextQuestionPanel.setLayout(new FlowLayout());
+        JButton nextQuestion = new JButton("Nästa fråga");
+        nextQuestion.setPreferredSize(new Dimension(200,80));
+        nextQuestion.setBorder(designOptions.getBorder());
+        nextQuestion.setBackground(Color.green);
+        nextQuestionPanel.add(nextQuestion, SwingConstants.CENTER);
+        nextQuestionPanel.setOpaque(false);
+        nextQuestionPanel.setPreferredSize(new Dimension(800, 100));
+        southPanel.add(optionsPanel, BorderLayout.CENTER);
+        southPanel.add(nextQuestionPanel, BorderLayout.SOUTH);
+
 
         for (int i = 0; i < 4; i++) {
             JButton button = new JButton();
