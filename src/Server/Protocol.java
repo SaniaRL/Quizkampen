@@ -11,32 +11,36 @@ public class Protocol {
     public void checkIfNewGame(String message, Server server, ClientHandler client) {
         if (!message.equals("new game"))
             return;
-        if (!server.games.isEmpty()) {
+
+        boolean gameFound = false;
+
             for (Game game : server.games) {
-                if (game.getPlayer2() != null)
-                    continue;
+                if (game.getGameState() == GameState.WAITING) {
+                    game.setPlayer2(client);
+                    game.setGameState(GameState.STARTED);
+                    //Starts the latch countdown when entering an existing game
+                    game.getLatch().countDown();
 
-                game.setPlayer2(client);
-                game.setGameState(GameState.STARTED);
-                //Starts the latch countdown when entering an existing game
-                game.getLatch().countDown();
-
-                if (game.getGameData().getTurn() == Turn.Player1) {
-                    System.out.println("entered wait");
-                    client.writeToClient("game found wait", game.getGameData());
-                } else {
-                    System.out.println("entered start");
-                    client.writeToClient("game found start", game.getGameData());
+                    if (game.getGameData().getTurn() == Turn.Player1) {
+                        System.out.println("entered wait");
+                        client.writeToClient("game found wait", game.getGameData());
+                    } else {
+                        System.out.println("entered start");
+                        client.writeToClient("game found start", game.getGameData());
+                    }
+                    gameFound = true;
+                    break;
                 }
-
             }
-        } else {
-            System.out.println("creating new game");
-            Game game = new Game(client);
-            server.games.add(game);
-            client.writeToClient("game started", game.getGameData());
+
+            if (!gameFound) {
+                System.out.println("creating new game");
+                Game game = new Game(client);
+                server.games.add(game);
+                client.writeToClient("game started", game.getGameData());
+            }
         }
-    }
+
 
     public void roundFinished(String message, GameData gameData, Server server) throws IOException, InterruptedException {
         if (!message.equals("round finished")) {
