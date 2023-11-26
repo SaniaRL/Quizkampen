@@ -9,38 +9,38 @@ public final class GameData implements Serializable {
     private Turn turn;
     private List<Round> rounds;
     public GameData(){}
-    public GameData(String gameID, List<Round> rounds, String turn) {
+    public GameData(String gameID, List<Round> rounds) {
         this.gameID = gameID;
         this.rounds = rounds;
         this.turn = Turn.Player1;
     }
 
-    public String getGameID() {
+    public synchronized String getGameID() {
         return gameID;
     }
 
-    public void setGameID(String gameID) {
+    public synchronized void setGameID(String gameID) {
         this.gameID = gameID;
     }
 
-    public List<Round> getRounds() {
+    public synchronized List<Round> getRounds() {
         return rounds;
     }
 
-    public void setRounds(List<Round> rounds) {
+    public synchronized void setRounds(List<Round> rounds) {
         this.rounds = rounds;
     }
 
-    public Turn getTurn() {
+    public synchronized Turn getTurn() {
         return turn;
     }
 
-    public void setTurn(Turn turn) {
+    public synchronized void setTurn(Turn turn) {
         this.turn = turn;
     }
 
     @Override
-    public String toString() {
+    public synchronized String toString() {
         return "GameData{" +
                 "gameID='" + gameID + '\'' +
                 ", turn='" + turn + '\'' +

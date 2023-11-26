@@ -1,13 +1,17 @@
 package GUI.CategoryGUI;
 
+import GUI.DesignOptions;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class CategoryLabel extends JLabel {
 
     JLabel textLabel;
+    DesignOptions designOptions;
 
     public CategoryLabel(Color color, Question.QuestionCategory category){
+        designOptions = new DesignOptions();
         textLabel = new JLabel(category.label, SwingConstants.CENTER);
         setBackground(color);
         addComponents();
@@ -22,7 +26,7 @@ public class CategoryLabel extends JLabel {
         setSize(new Dimension(200, 50));
         setLayout(new FlowLayout());
 
-        textLabel.setFont(new Font("Montserrat", Font.PLAIN, 40));
+        textLabel.setFont(designOptions.getBigText());
         textLabel.setVisible(true);
         textLabel.setForeground(Color.BLACK);
         add(textLabel);
