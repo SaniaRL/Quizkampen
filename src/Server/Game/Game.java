@@ -2,6 +2,7 @@ package Server.Game;
 
 import CustomTypes.Round;
 import Enums.GameState;
+import Enums.Turn;
 import Server.ClientHandler;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -14,9 +15,10 @@ public class Game {
     private ClientHandler player2;
     private GameState gameState;
     private GameData gameData;
+
     public Game(ClientHandler player1) {
         this.player1 = player1;
-        gameData = new GameData(String.valueOf(UUID.randomUUID()), "player1", 4, 4);
+        gameData = new GameData(String.valueOf(UUID.randomUUID()), 3, 3);
         gameState = GameState.WAITING;
     }
     public GameData getGameData() {

@@ -21,6 +21,7 @@ public class ChooseCategoryPage extends JPanel {
     CategoryButton categoryOption1;
     CategoryButton categoryOption2;
     CategoryButton categoryOption3;
+    List<CategoryButton> categoryOptionsList = new ArrayList<>();
 
     QuestionCollection questionCollection;
     List<QuestionCategory> randomCategoryList;
@@ -99,9 +100,12 @@ public class ChooseCategoryPage extends JPanel {
         JPanel emptyPanel = new JPanel();
         emptyPanel.setPreferredSize(new Dimension(800, 50));
 
-        generateCategoryLabels(categoryOption1, southPanel);
-        generateCategoryLabels(categoryOption2, southPanel);
-        generateCategoryLabels(categoryOption3, southPanel);
+//        generateCategoryLabels(categoryOption1, southPanel);
+//        generateCategoryLabels(categoryOption2, southPanel);
+//        generateCategoryLabels(categoryOption3, southPanel);
+        for (CategoryButton categoryButton : categoryOptionsList) {
+            generateCategoryLabels(categoryButton, southPanel);
+        }
     }
     public void generateCategoryLabels(CategoryButton button, JPanel panel){
         button.setOpaque(true);
@@ -121,9 +125,12 @@ public class ChooseCategoryPage extends JPanel {
     }
 
     public void generateCategoryButtons(){
-        categoryOption1 = new CategoryButton(randomCategoryList.get(0));
-        categoryOption2 = new CategoryButton(randomCategoryList.get(1));
-        categoryOption3 = new CategoryButton(randomCategoryList.get(2));
+//        categoryOption1 = new CategoryButton(randomCategoryList.get(0));
+//        categoryOption2 = new CategoryButton(randomCategoryList.get(1));
+//        categoryOption3 = new CategoryButton(randomCategoryList.get(2));
+        for (int i = 0; i < 3; i++) {
+            categoryOptionsList.add(new CategoryButton(randomCategoryList.get(i)));
+        }
     }
 
     public CategoryButton getCategoryOption1() {
@@ -136,6 +143,10 @@ public class ChooseCategoryPage extends JPanel {
 
     public CategoryButton getCategoryOption3() {
         return categoryOption3;
+    }
+
+    public List<CategoryButton> getCategoryOptions(){
+        return categoryOptionsList;
     }
 
     public void updateQuestionCategories(){

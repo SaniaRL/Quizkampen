@@ -2,24 +2,23 @@ package CustomTypes;
 
 import Enums.Turn;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public final class GameData implements Serializable {
     private String gameID;
     private Turn turn;
-    private Round[] rounds;
-    public GameData(){}
-    public GameData(String gameID, String turn, int roundsAmount, int questionAmount) {
-        this.gameID = gameID;
-        this.rounds = new Round[roundsAmount];
-        setRoundsQuestionAmount(questionAmount);
-        this.turn = Turn.Player1;
-    }
+    private List<Round> rounds = new ArrayList<>();
+    private int roundAmount;
+    private int questionAmount;
 
-    private void setRoundsQuestionAmount(int questionsAmount){
-        for (Round round : rounds) {
-            round.setQuestionsAmount(questionsAmount);
-        }
+    public GameData(){}
+    public GameData(String gameID, int roundAmount, int questionAmount) {
+        this.gameID = gameID;
+        this.roundAmount = roundAmount;
+        this.questionAmount = questionAmount;
+        this.turn = Turn.Player1;
     }
 
     public String getGameID() {
@@ -30,12 +29,15 @@ public final class GameData implements Serializable {
         this.gameID = gameID;
     }
 
-    public Round[] getRounds() {
+    public List<Round> getRounds() {
         return rounds;
     }
 
-    public void setRounds(Round[] rounds) {
+    public void setRounds(List<Round> rounds) {
         this.rounds = rounds;
+    }
+    public void addRound(Round round){
+        rounds.add(round);
     }
 
     public Turn getTurn() {
@@ -47,10 +49,13 @@ public final class GameData implements Serializable {
     }
 
     public int getRoundsAmount(){
-        return rounds.length;
+        return rounds.size();
     }
-    public int getQuestionsAmount(){
-        return rounds[0].getQuestions().length;
+    public int getQuestionAmount(){
+        return questionAmount;
+    }
+    public int getRoundAmount() {
+        return roundAmount;
     }
 
     @Override

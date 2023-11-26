@@ -1,11 +1,14 @@
 package GUI.ScoreBoard;
 
+import CustomTypes.GameData;
+import CustomTypes.Round;
 import Question.QuestionCategory;
 import Question.QuestionCollection;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.*;
@@ -172,7 +175,28 @@ public class ScoreBoardPage extends JPanel {
         this.player2ScoreList = player2ScoreList;
     }
 
-    public void updateScoreBoard() throws IOException {
+    public void updateScoreBoard(GameData game) throws IOException {
+        centerPanel.removeAll();
+        northPanel.removeAll();
+        southPanel.removeAll();
+
+        categoryList.clear();
+        player1ScoreList.clear();
+        player2ScoreList.clear();
+        for (Round round : game.getRounds()) {
+            if(round.getPlayer1Score() != null)
+                player1ScoreList.add(Arrays.stream(round.getPlayer1Score()).toList());
+            if(round.getPlayer2Score() != null)
+                player2ScoreList.add(Arrays.stream(round.getPlayer2Score()).toList());
+            categoryList.add(round.getCategory());
+        }
+
+        generateCenterPanel();
+        generateNorthPanel();
+        generateSouthPanel();
+    }
+    
+    public void updateScoreBoard() throws IOException{
         centerPanel.removeAll();
         northPanel.removeAll();
         southPanel.removeAll();

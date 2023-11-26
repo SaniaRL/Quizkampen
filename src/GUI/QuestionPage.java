@@ -2,6 +2,7 @@ package GUI;
 
 import Question.QuestionCollection;
 import Question.Question;
+import Question.QuestionCategory;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -19,7 +20,7 @@ public class QuestionPage extends JPanel {
     QuestionCollection questionCollection;
     List<Question> questionList;
     List<Question> questions;
-    String category = "";
+    QuestionCategory category;
 
     JLabel categoryLabel;
     JLabel questionLabel;
@@ -148,15 +149,11 @@ public class QuestionPage extends JPanel {
         this.questionAmount = questionAmount;
     }
 
-    public void updateQuestionPageData(String category) {
-        findQuestions(category);
-    }
-
-    public void findQuestions(String category) {
+    public void findQuestions(QuestionCategory category) {
         Collections.shuffle(questionList);
         for (Question question : questionList) {
             if (questions.size() < questionAmount) {
-                if (question.getCategory().label.equals(category)) {
+                if (question.getCategory() == category) {
                     questions.add(question);
                 }
             }
@@ -166,26 +163,41 @@ public class QuestionPage extends JPanel {
     public void nextQuestion() {
         indexCount++;
         updateQuestionText(indexCount);
-        updateButtonsText(indexCount);
+        updateButtons(indexCount);
     }
 
-    public void newQuestions(String category) {
+    public void newQuestions(QuestionCategory category) {
+        System.out.println(category);
         indexCount = 0;
         questions.clear();
+        this.category = category;
         findQuestions(category);
-        categoryLabel.setText(category);
+        categoryLabel.setText(category.label);
         updateQuestionText(0);
-        updateButtonsText(0);
+        updateButtons(0);
     }
 
-    private void updateButtonsText(int index) {
+    public void setQuestionPage(QuestionCategory category, Question[] questions){
+        indexCount = 0;
+        this.questions.clear();
+        this.questions.addAll(Arrays.asList(questions));
+        this.category = category;
+        categoryLabel.setText(category.label);
+        updateQuestionText(0);
+        updateButtons(0);
+    }
+
+    private void updateButtons(int index) {
         List<String> tempList = new ArrayList<>(List.of(questions.get(index).getQuestionOptions()));
+        answer = tempList.get(0);
         Collections.shuffle(tempList);
         for (int i = 0; i < 4; i++) {
+            optionButtons.get(i).setBackground(Color.WHITE);
             optionButtons.get(i).setText("<html><div style='text-align: center;'>" + tempList.get(i));
         }
     }
     private void updateQuestionText(int index) {
+        System.out.println(questions);
         questionLabel.setText("<html><div style='text-align: center;'>" + (questions.get(index).getQuestion()));
     }
 
