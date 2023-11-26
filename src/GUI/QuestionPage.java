@@ -105,22 +105,45 @@ public class QuestionPage extends JPanel {
         northPanel.setPreferredSize(new Dimension(800, 200));
         northPanel.setOpaque(false);
 
+        ImageIcon yourImageIcon = new ImageIcon(designOptions.getIcon().getImage().getScaledInstance(60,60, Image.SCALE_SMOOTH));
+        JLabel yourIconLabel = new JLabel(yourImageIcon, SwingConstants.CENTER);
+        yourIconLabel.setPreferredSize(new Dimension(200, 200));
+
         JLabel yourPlayer = new JLabel("YOU", SwingConstants.CENTER);
         yourPlayer.setFont(designOptions.getSmallText());
 
+        JPanel yourPanel = new JPanel();
+        yourPanel.setLayout(new GridLayout(2, 1));
+        yourPanel.setPreferredSize(new Dimension(200,200));
+        yourPanel.setOpaque(false);
+        yourPanel.add(yourIconLabel);
+        yourPanel.add(yourPlayer);
+
         categoryLabel = new JLabel("", SwingConstants.CENTER);
         categoryLabel.setFont(designOptions.getSmallText());
+        categoryLabel.setPreferredSize(new Dimension(300, 200));
+
+        ImageIcon opponentImageIcon = new ImageIcon(designOptions.getIcon().getImage().getScaledInstance(60,60, Image.SCALE_SMOOTH));
+        JLabel opponentIcon = new JLabel(opponentImageIcon, SwingConstants.CENTER);
 
         JLabel opponent = new JLabel("OPPONENT", SwingConstants.CENTER);
         opponent.setFont(designOptions.getSmallText());
+
+        JPanel opponentPanel = new JPanel();
+        opponentPanel.setLayout(new GridLayout(2, 1));
+        opponentPanel.setPreferredSize(new Dimension(200,200));
+        opponentPanel.setOpaque(false);
+        opponentPanel.add(opponentIcon, SwingConstants.CENTER);
+        opponentPanel.add(opponent);
+
 
         yourPlayer.setOpaque(false);
         categoryLabel.setOpaque(false);
         opponent.setOpaque(false);
 
-        northPanel.add(yourPlayer, SwingConstants.CENTER);
+        northPanel.add(yourPanel, SwingConstants.CENTER);
         northPanel.add(categoryLabel, SwingConstants.CENTER);
-        northPanel.add(opponent, SwingConstants.CENTER);
+        northPanel.add(opponentPanel, SwingConstants.CENTER);
     }
 
     //Arrays.stream((threeQuestions.get(indexCount)).getQuestionOptions()).toList()
