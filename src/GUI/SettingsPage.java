@@ -1,32 +1,32 @@
 package GUI;
 
 import javax.swing.*;
+import java.util.List;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class SettingsPage extends JPanel {
 
-    JPanel centerPanel;
     JPanel northPanel;
-    JPanel southPanel;
+    JPanel centerPanel;
 
     JButton backButton = new JButton("Home");
-    JButton test1 = new JButton("Home1");
-    JButton test2 = new JButton("Home2");
-    JButton test3 = new JButton("Home3");
-    JButton test4 = new JButton("Home4");
-    JLabel headerLabel = new JLabel("Quizkampen");
+    JButton test1 = new JButton("Change avatar");
+    JButton test2 = new JButton("Change Background");
+    JButton test3 = new JButton("test3");
+    JButton exitGame = new JButton("Exit game");
+    JLabel headerLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Quizkampen", SwingConstants.CENTER);
 
-    String backgroundImagePath;
-    Image backgroundImage;
+    List<JButton> optionsList;
+
+    DesignOptions designOptions;
 
     public SettingsPage() {
+        designOptions = new DesignOptions();
+        optionsList = new ArrayList<>();
 
         northPanel = new JPanel();
         centerPanel = new JPanel();
-        southPanel = new JPanel();
-
-        backgroundImagePath = "Backgrounds/blueBackground.png";
-        backgroundImage = (new ImageIcon(backgroundImagePath)).getImage();
 
         addComponents();
         actionListenerHandler();
@@ -44,8 +44,7 @@ public class SettingsPage extends JPanel {
         generateCenterPanel();
         add(centerPanel, BorderLayout.CENTER);
 
-        generateSouthPanel();
-        add(southPanel, BorderLayout.SOUTH);
+        addButtonsToList();
 
         setVisible(true);
     }
@@ -53,20 +52,9 @@ public class SettingsPage extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+        if (designOptions.getBackgroundImage() != null) {
+            g.drawImage(designOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
         }
-    }
-
-    private void generateSouthPanel() {
-        southPanel.setLayout(new GridLayout(1,3));
-        southPanel.setPreferredSize(new Dimension(800, 300));
-        southPanel.setOpaque(false);
-
-        southPanel.add(backButton);
-     //   southPanel.add(test4);
-     //   southPanel.add(test3);
-
     }
 
     private void generationNorthPanel() {
@@ -74,28 +62,56 @@ public class SettingsPage extends JPanel {
         northPanel.setPreferredSize(new Dimension(800, 200));
         northPanel.setOpaque(false);
 
-        northPanel.add(headerLabel);
+        northPanel.add(headerLabel, SwingConstants.CENTER);
     }
 
     private void generateCenterPanel() {
-        centerPanel.setLayout(new GridLayout(1,2));
-        centerPanel.setPreferredSize(new Dimension(800, 300));
+        centerPanel.setLayout(new GridLayout(5,1));
+        centerPanel.setPreferredSize(new Dimension(800, 600));
         centerPanel.setOpaque(false);
 
-      //  centerPanel.add(test1);
-      //  centerPanel.add(test2);
 
+        addButtons(backButton);
+        addButtons(test1);
+        addButtons(test2);
+        addButtons(test3);
+        addButtons(exitGame);
+
+    }
+
+    public void addButtons(JButton button){
+        button.setBackground(Color.WHITE);
+        button.setBorder(designOptions.getBorder());
+        button.setFont(designOptions.getSmallText());
+        centerPanel.add(button);
     }
 
     private void actionListenerHandler() {
         backButton.addActionListener(e -> ((CardLayout) getParent().getLayout()).show(getParent(), "StartPage"));
+        exitGame.addActionListener(ActionEvent -> System.exit(0));
     }
 
     private void componentStyling() {
-        Font fontL = new Font("Serif", Font.BOLD, 18);
+        Font fontL = designOptions.getTitleFont();
         headerLabel.setFont(fontL);
-        //headerLabel.setBackground(Color.WHITE);
+        headerLabel.setForeground(Color.WHITE);
+    }
 
+    private void addButtonsToList(){
+        optionsList.add(backButton);
+        optionsList.add(test1);
+        optionsList.add(test2);
+        optionsList.add(test3);
+        optionsList.add(exitGame);
+    }
+
+    public void setDesignOptions(DesignOptions designOptions) {
+        this.designOptions = designOptions;
+        for(JButton button : optionsList){
+            button.setBorder(designOptions.getBorder());
+            button.repaint();
+            button.revalidate();
+        }
     }
 }
 

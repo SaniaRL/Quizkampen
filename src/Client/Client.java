@@ -1,13 +1,12 @@
 package Client;
 
 import CustomTypes.GameData;
+import Enums.Turn;
 import GUI.ContentFrame;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Client {
 
@@ -45,16 +44,19 @@ public class Client {
                     if(message[1] instanceof GameData gameData){
                         if (message[0].equals("game started")) {
                             frame.setGame(gameData);
+                            frame.setPlayerSide(Turn.Player1);
                             frame.newGameStarted();
                         }
                         if (message[0].equals("game found wait")) {
                             System.out.println("found game waiting");
                             frame.setGame(gameData);
+                            frame.setPlayerSide(Turn.Player2);
                             frame.waitingForPlayer();
                         }
                         if (message[0].equals("game found start")) {
                             System.out.println("found game starting");
                             frame.setGame(gameData);
+                            frame.setPlayerSide(Turn.Player2);
                             frame.getQuestions();
                         }
                         if (message[0].equals("your turn")) {
@@ -62,6 +64,7 @@ public class Client {
                             frame.getQuestions();
                         }
                         if (message[0].equals("opponent turn")) {
+                            frame.setGame(gameData);
                             frame.waitingForPlayer();
                         }
                     }

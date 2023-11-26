@@ -1,11 +1,15 @@
 package GUI.ScoreBoard;
 
+import CustomTypes.GameData;
+import CustomTypes.Round;
+import GUI.DesignOptions;
 import Question.QuestionCategory;
 import Question.QuestionCollection;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.*;
@@ -22,8 +26,7 @@ public class ScoreBoardPage extends JPanel {
 
     JButton playGame;
 
-    String backgroundImagePath;
-    Image backgroundImage;
+    DesignOptions designOptions;
 
     int player1 = 0;
     int player2 = 0;
@@ -42,6 +45,8 @@ public class ScoreBoardPage extends JPanel {
         System.out.println("rundor scoreboard "+amountOfRounds);
         this.gameID = gameID;
 
+        designOptions = new DesignOptions();
+
         centerPanel = new JPanel();
         northPanel = new JPanel();
         southPanel = new JPanel();
@@ -54,27 +59,6 @@ public class ScoreBoardPage extends JPanel {
         player1ScoreList = new ArrayList<>();
         player2ScoreList = new ArrayList<>();
 
-        backgroundImagePath = "Backgrounds/blueBackground.png";
-        backgroundImage = (new ImageIcon(backgroundImagePath)).getImage();
-        scoreCounts = new ArrayList<>();
-        addComponents();
-    }
-
-    public ScoreBoardPage() throws IOException {
-        centerPanel = new JPanel();
-        northPanel = new JPanel();
-        southPanel = new JPanel();
-
-        playGame = new JButton("SPELA");
-        turnLabel = new JLabel();
-        setTurnLabel(true);
-
-        categoryList = new ArrayList<>();
-        player1ScoreList = new ArrayList<>();
-        player2ScoreList = new ArrayList<>();
-
-        backgroundImagePath = "Backgrounds/blueBackground.png";
-        backgroundImage = (new ImageIcon(backgroundImagePath)).getImage();
         scoreCounts = new ArrayList<>();
         addComponents();
     }
@@ -103,11 +87,10 @@ public class ScoreBoardPage extends JPanel {
     }
 
     //TODO Set from frame
-    public void generateScoreCounts() { //Changes rounds
+    public void generateScoreCounts() {
         for(int i = 0; i < amountOfRounds; i++){
             ScoreCount scoreCountLabel;
             if(player1ScoreList.size() > i && player2ScoreList.size() > i){
-                System.out.println(player1ScoreList + " : " + player2ScoreList + " : " + categoryList);
                 scoreCountLabel = new ScoreCount(player1ScoreList.get(i), player2ScoreList.get(i), categoryList.get(i), amountOfQuestions);
             }
             else{
@@ -123,12 +106,14 @@ public class ScoreBoardPage extends JPanel {
         northPanel.setOpaque(false);
 
         JLabel yourLabel = new JLabel("YOU", SwingConstants.CENTER);
+        yourLabel.setFont(designOptions.getSmallText());
         JLabel opponentLabel = new JLabel("OPPONENT", SwingConstants.CENTER);
+        opponentLabel.setFont(designOptions.getSmallText());
 
         JPanel middlePanel = new JPanel();
         turnLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Din tur", SwingConstants.CENTER);
         scoreLabel = new JLabel("<html><div style='text-align: center; vertical-align: top;'>" + player1 + "-" + player2 + "</div></html>", SwingConstants.CENTER);
-        scoreLabel.setFont(new Font("Vina Sans", Font.BOLD, 30));
+        scoreLabel.setFont(designOptions.getSmallText());
         setScores();
 
         middlePanel.setLayout(new GridLayout(2, 1));
@@ -146,7 +131,7 @@ public class ScoreBoardPage extends JPanel {
     }
 
     public void setFont (JLabel label){
-        label.setFont(new Font("Vina Sans", Font.PLAIN, 30));
+        label.setFont(designOptions.getSmallText());
         setOpaque(false);
     }
 
@@ -157,8 +142,8 @@ public class ScoreBoardPage extends JPanel {
 
         playGame.setBackground(Color.GREEN);
         playGame.setPreferredSize(new Dimension(200, 70));
-        playGame.setFont(new Font("Montserrat", Font.PLAIN, 22));
-        playGame.setBorder(new LineBorder(Color.BLUE, 5));
+        playGame.setFont(designOptions.getSmallText());
+        playGame.setBorder(designOptions.getBorder());
 
         southPanel.add(playGame);
     }
@@ -166,8 +151,8 @@ public class ScoreBoardPage extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+        if (designOptions.getBackgroundImage() != null) {
+            g.drawImage(designOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
 
@@ -176,7 +161,28 @@ public class ScoreBoardPage extends JPanel {
         this.player2ScoreList = player2ScoreList;
     }
 
-    public void updateScoreBoard() throws IOException {
+    public void updateScoreBoard(GameData game) throws IOException {
+        centerPanel.removeAll();
+        northPanel.removeAll();
+        southPanel.removeAll();
+
+        categoryList.clear();
+        player1ScoreList.clear();
+        player2ScoreList.clear();
+        for (Round round : game.getRounds()) {
+            if(round.getPlayer1Score() != null)
+                player1ScoreList.add(Arrays.stream(round.getPlayer1Score()).toList());
+            if(round.getPlayer2Score() != null)
+                player2ScoreList.add(Arrays.stream(round.getPlayer2Score()).toList());
+            categoryList.add(round.getCategory());
+        }
+
+        generateCenterPanel();
+        generateNorthPanel();
+        generateSouthPanel();
+    }
+
+    public void updateScoreBoard() throws IOException{
         centerPanel.removeAll();
         northPanel.removeAll();
         southPanel.removeAll();
@@ -184,6 +190,14 @@ public class ScoreBoardPage extends JPanel {
         generateCenterPanel();
         generateNorthPanel();
         generateSouthPanel();
+    }
+
+    public void hidePlayButton(){
+        playGame.setVisible(false);
+    }
+
+    public void showPlayButton(){
+        playGame.setVisible(true);
     }
 
     public JButton getPlayGame() {
@@ -223,6 +237,10 @@ public class ScoreBoardPage extends JPanel {
         player1 = calculateScore(player1ScoreList);
         player2 = calculateScore(player2ScoreList);
         scoreLabel.setText(player1 + " - " + player2);
+    }
+
+    public void setDesignOptions(DesignOptions designOptions) {
+        this.designOptions = designOptions;
     }
 
     public void setTurnLabel(Boolean yourTurn){
