@@ -2,6 +2,7 @@ package GUI.ScoreBoard;
 
 import GUI.CategoryGUI.CategoryColor;
 import GUI.CategoryGUI.CategoryLabel;
+import GUI.QuestionPage;
 import Question.QuestionCategory;
 
 import java.awt.*;
@@ -20,8 +21,10 @@ public class ScoreCount extends JPanel {
     JPanel player1Label;
     JPanel player2Label;
     JLabel categoryLabel;
+    int amountOfQuestions;
 
-    public ScoreCount(){
+    public ScoreCount(int amountOfQuestions){
+        this.amountOfQuestions = amountOfQuestions;
         player1Score = new ArrayList<>();
         player2Score = new ArrayList<>();
         player1Label = new JPanel();
@@ -29,7 +32,8 @@ public class ScoreCount extends JPanel {
         categoryLabel = new CategoryLabel();
         addComponents();
     }
-    public ScoreCount(List<Boolean> player1Score, List<Boolean> player2Score, QuestionCategory category){
+    public ScoreCount(List<Boolean> player1Score, List<Boolean> player2Score, QuestionCategory category, int amountOfQuestions){
+        this.amountOfQuestions = amountOfQuestions;
         this.questionCategory = category;
         this.player1Score = player1Score;
         this.player2Score = player2Score;
@@ -41,7 +45,7 @@ public class ScoreCount extends JPanel {
 
     public void addComponents(){
         setSize(new Dimension(800,80));
-        setLayout(new GridLayout(1, 3));
+        setLayout(new GridLayout(1, amountOfQuestions));
         setOpaque(false);
 
         player1Label.setLayout(new FlowLayout());
@@ -58,14 +62,14 @@ public class ScoreCount extends JPanel {
         panel.setSize(new Dimension(300, 80));
         panel.setLayout(new FlowLayout(FlowLayout.CENTER));
         panel.setOpaque(false);
-        if(list.size() >= 3){
-            for(int i = 0; i < 3; i++){
-                panel.add(new ScoreLabel(list.get(i)));
+        if(list.size() >= amountOfQuestions){
+            for(int i = 0; i < amountOfQuestions; i++){
+                panel.add(new ScoreLabel(list.get(i), amountOfQuestions));
             }
         }
         else{
-            for(int i = 0; i < 3; i++){
-                ScoreLabel scoreLabel = new ScoreLabel();
+            for(int i = 0; i < amountOfQuestions; i++){
+                ScoreLabel scoreLabel = new ScoreLabel(amountOfQuestions);
                 panel.add(scoreLabel);
             }
         }

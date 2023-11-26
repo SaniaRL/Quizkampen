@@ -3,22 +3,26 @@ package Server;
 import Server.Game.Game;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 public class Server {
     List<ClientHandler> connectedClients = Collections.synchronizedList(new ArrayList<>());
     List<Game> games = Collections.synchronizedList(new ArrayList<>());
     ServerSocket socket;
     private boolean running = true;
+    private String questionsToFind;
 
     public Server(int port) {
 
         try {
             socket = new ServerSocket(port);
+            loadPropertiesServer();
 
             while (running) {
                 Socket clientSocket = socket.accept();
@@ -30,6 +34,31 @@ public class Server {
             }
         } catch (IOException e) {
             System.out.println("Server error");
+        }
+    }
+
+    public String getQuestionsToFind() {
+        return questionsToFind;
+    }
+
+    public static void main(String[] args) {
+        int port = 8080;
+        new Server(port);
+    }
+
+    private void loadPropertiesServer() {
+        Properties prop = new Properties();
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("Server/PropertiesFile.properties")) {
+            if (input != null) {
+                prop.load(input);
+                questionsToFind = String.valueOf(Integer.parseInt(prop.getProperty("questionsToFind", "3"))); // Om mikakel justera sen
+                String categoriesToFind = String.valueOf(Integer.parseInt(prop.getProperty("categoriesToFind", "4")));
+                questionsToFind = questionsToFind + ";" + categoriesToFind;
+            } else {
+                System.out.println("Could not find properties");
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -51,8 +80,4 @@ public class Server {
         connectedClients.clear();
     }
 
-    public static void main(String[] args) {
-        int port = 8080;
-        new Server(port);
-    }
 }

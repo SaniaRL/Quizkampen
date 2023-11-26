@@ -44,7 +44,10 @@ public class ContentFrame extends JFrame {
 
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
-    private GameData game; //to store game data
+    private int amountOfQuestions;
+    private int amountOfRounds;
+
+    private GameData game;
     private Turn playerSide;
     boolean chosenCategory = false;
 
@@ -56,7 +59,9 @@ public class ContentFrame extends JFrame {
         settingsPage.setDesignOptions(this.designOptions);
     }
 
-    public ContentFrame(ObjectOutputStream out) throws IOException {
+    public ContentFrame(ObjectOutputStream out, int amountOfQuestions, int amountOfRounds) throws IOException {
+        this.amountOfQuestions = amountOfQuestions;
+        this.amountOfRounds = amountOfRounds;
         this.out = out;
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
@@ -64,9 +69,9 @@ public class ContentFrame extends JFrame {
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage();
+        questionPage = new QuestionPage(amountOfQuestions)       
         waitingPage = new WaitingPage();
-        scoreBoardPage = new ScoreBoardPage(gameID);
+        scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
         settingsPage = new SettingsPage();
         designOptions = new DesignOptions();
 
@@ -83,9 +88,9 @@ public class ContentFrame extends JFrame {
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage();
+        questionPage = new QuestionPage(amountOfQuestions);
         waitingPage = new WaitingPage();
-        scoreBoardPage = new ScoreBoardPage(gameID);
+        scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
 
         settingsPage = new SettingsPage();
 
@@ -138,7 +143,6 @@ public class ContentFrame extends JFrame {
 
     public void newGameStarted() {
         System.out.println("new game started");
-        questionPage.setQuestionAmount(game.getQuestionAmount());
         cardLayout.show(contentPanel, "ChooseCategoryPage");
         addActionListenerToOptions();
         chosenCategory = true;
@@ -146,12 +150,8 @@ public class ContentFrame extends JFrame {
 
     public void getQuestions() {
         System.out.println("existing game found!");
-        questionPage.setQuestionAmount(game.getQuestionAmount());
         questionPage.setQuestionPage(game.getRounds().get(0).getCategory(), game.getRounds().get(0).getQuestions());
         cardLayout.show(contentPanel, "QuestionPage");
-//        chosenCategory = true;
-//        scoreBoardPage.showPlayButton();
-//        cardLayout.show(contentPanel, "ScoreBoardPage");
         addActionListenerToOptions();
     }
 
@@ -169,7 +169,6 @@ public class ContentFrame extends JFrame {
         //WAITING PAGE
         waitingPage.getTextButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ChooseCategoryPage"));
 
-
         //CHOOSE CATEGORY PAGE
         for (CategoryButton categoryOption : chooseCategoryPage.getCategoryOptions()) {
             categoryOption.addActionListener(ActiveEvent -> {
@@ -182,7 +181,7 @@ public class ContentFrame extends JFrame {
         }
 
         //QUESTION PAGE
-        //Simon Ändring. ActionListener till inställningsknapp
+        //ActionListener till inställningsknapp
         startPage.getSettings().addActionListener(e -> {
             System.out.println("Settings Button Clicked!");
             cardLayout.show(contentPanel, "SettingsPage");
@@ -209,7 +208,9 @@ public class ContentFrame extends JFrame {
 
 
     public void addActionListerToStartPage() {
-        startPage.getStartNewGame().addActionListener(ActionEvent -> writeToServer("new game", null));
+        startPage.getStartNewGame().addActionListener(ActionEvent -> {
+            writeToServer("new game", null);
+        });
     }
 
     public void addActionListenerToOptions() {
@@ -225,16 +226,16 @@ public class ContentFrame extends JFrame {
                 checkIfWin(option);
 
                 Timer timer = new Timer(500, evt -> {
-                    if (playerRound.size() < game.getQuestionAmount()) {
+                    if (playerRound.size() < amountOfQuestions) {
                         questionPage.nextQuestion();
                         cardLayout.show(contentPanel, "QuestionPage");
                         addActionListenerToOptions();
                     } else {
                         if (chosenCategory) {
                             game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
-                            Question[] tempQuestions = new Question[game.getQuestionAmount()];
-                            Boolean[] tempScore = new Boolean[game.getQuestionAmount()];
-                            for (int i = 0; i < game.getQuestionAmount(); i++) {
+                            Question[] tempQuestions = new Question[amountOfQuestions];
+                            Boolean[] tempScore = new Boolean[amountOfQuestions];
+                            for (int i = 0; i < amountOfQuestions; i++) {
                                 tempQuestions[i] = questionPage.questions.get(i);
                                 tempScore[i] = playerRound.get(i);
                             }
@@ -262,7 +263,6 @@ public class ContentFrame extends JFrame {
                             chosenCategory = true;
                         }
                         try {
-                            System.out.println(game);
                             scoreBoardPage.updateScoreBoard(game);
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);

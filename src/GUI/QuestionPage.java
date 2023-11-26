@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.io.IOException;
+import java.util.List;
 
 public class QuestionPage extends JPanel {
 
@@ -30,15 +31,15 @@ public class QuestionPage extends JPanel {
     JPanel northPanel;
     JPanel southPanel;
     int indexCount;
+    int amountOfQuestions;
     String answer;
     List<JButton> optionButtons;
-    int questionAmount;
 
     DesignOptions designOptions;
 
-    public QuestionPage() throws IOException {
+    public QuestionPage(int amountOfQuestions) throws IOException {
+        this.amountOfQuestions = amountOfQuestions;
         designOptions = new DesignOptions();
-
         questionCollection = new QuestionCollection();
         questionList = questionCollection.getAllQuestions();
         questions = new ArrayList<>();
@@ -51,6 +52,7 @@ public class QuestionPage extends JPanel {
         indexCount = 0;
         optionButtons = new ArrayList<>();
 
+
         addComponents();
     }
 
@@ -58,8 +60,6 @@ public class QuestionPage extends JPanel {
         setSize(new Dimension(800, 800));
         setLayout(new BorderLayout());
         setOpaque(true);
-
-//        findThreeQuestion();
 
         generationNorthPanel();
         add(northPanel, BorderLayout.NORTH);
@@ -144,7 +144,6 @@ public class QuestionPage extends JPanel {
         panel.add(textLabel);
     }
 
-
     public void generateSouthPanel(){
         southPanel.setLayout(new BorderLayout());
         southPanel.setPreferredSize(new Dimension(800, 350));
@@ -177,14 +176,10 @@ public class QuestionPage extends JPanel {
         }
     }
 
-    public void setQuestionAmount(int questionAmount) {
-        this.questionAmount = questionAmount;
-    }
-
     public void findQuestions(QuestionCategory category) {
         Collections.shuffle(questionList);
         for (Question question : questionList) {
-            if (questions.size() < questionAmount) {
+            if (questions.size() < amountOfQuestions) {
                 if (question.getCategory() == category) {
                     questions.add(question);
                 }
@@ -229,7 +224,6 @@ public class QuestionPage extends JPanel {
         }
     }
     private void updateQuestionText(int index) {
-        System.out.println(questions);
         questionLabel.setText("<html><div style='text-align: center;'>" + (questions.get(index).getQuestion()));
     }
 
