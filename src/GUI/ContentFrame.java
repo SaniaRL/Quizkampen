@@ -69,7 +69,7 @@ public class ContentFrame extends JFrame {
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage(amountOfQuestions)       
+        questionPage = new QuestionPage(amountOfQuestions);
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
         settingsPage = new SettingsPage();
@@ -215,6 +215,9 @@ public class ContentFrame extends JFrame {
 
     public void addActionListenerToOptions() {
         List<JButton> optionButtons = questionPage.getOptionButtons();
+        for (JButton optionButton : optionButtons) {
+            System.out.println(optionButton.getText() + " hello");
+        }
         for (JButton option : optionButtons) {
             // Remove ActionListeners, to get the delay to work on every question
             ActionListener[] actionListeners = option.getActionListeners();

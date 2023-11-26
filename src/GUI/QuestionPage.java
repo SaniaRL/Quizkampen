@@ -171,7 +171,7 @@ public class QuestionPage extends JPanel {
             button.setPreferredSize(new Dimension(200, 100));
             button.setFont(designOptions.getSmallText());
             button.setBackground(Color.white);
-            southPanel.add(button, SwingConstants.CENTER);
+            optionsPanel.add(button, SwingConstants.CENTER);
             optionButtons.add(button);
         }
     }
