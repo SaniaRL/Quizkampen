@@ -111,7 +111,7 @@ public class ContentFrame extends JFrame {
         setVisible(true);
     }
 
-    public <T> void writeToServer(String message, T item) {
+    public synchronized <T> void writeToServer(String message, T item) {
         try {
             if (item != null)
                 out.writeObject(new Object[]{message, item});

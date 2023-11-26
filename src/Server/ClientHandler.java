@@ -8,14 +8,15 @@ import java.util.Arrays;
 
 public class ClientHandler extends Thread implements Serializable {
     protected final Socket socket;
+    private final Server server;
+    private final Protocol protocol;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    Server server;
-    Protocol protocol = new Protocol();
 
     public ClientHandler(Socket socket, Server server) {
         this.socket = socket;
         this.server = server;
+        this.protocol = new Protocol();
     }
 
     @Override

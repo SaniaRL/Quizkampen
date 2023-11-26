@@ -4,14 +4,9 @@ import CustomTypes.GameData;
 import Enums.Turn;
 import Server.Game.Game;
 import Enums.GameState;
-
 import java.io.IOException;
-import java.util.concurrent.CountDownLatch;
 
 public class Protocol {
-    CountDownLatch latch = new CountDownLatch(1);
-    public Protocol() {
-    }
 
     public void checkIfNewGame(String message, Server server, ClientHandler client) {
         if (!message.equals("new game"))
@@ -24,7 +19,7 @@ public class Protocol {
                 game.setPlayer2(client);
                 game.setGameState(GameState.STARTED);
                 //Starts the latch countdown when entering an existing game
-                latch.countDown();
+                game.getLatch().countDown();
 
                 if (game.getGameData().getTurn() == Turn.Player1) {
                     System.out.println("entered wait");
@@ -54,10 +49,10 @@ public class Protocol {
             System.out.println("waiting for opponent");
 
             //Pause thread until opponent has been found
-            if(game.getPlayer2() == null) {
-                latch.await();
+            if(game.getGameState() == GameState.WAITING) {
+                game.getLatch().await();
             }
-
+            System.out.println("before if");
             if (game.getGameData().getTurn() == Turn.Player2) {
                 game.getPlayer1().writeToClient("opponent turn", null);
                 game.getPlayer2().writeToClient("your turn", game.getGameData());
