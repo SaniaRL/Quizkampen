@@ -41,19 +41,32 @@
 //    private final List<String> games = new ArrayList<>();
 //    boolean chosenCategory = true;
 //
+//    DesignOptions designOptions;
+//
 //
 //    public TestFrame() throws IOException {
+//        designOptions = new DesignOptions();
+//        designOptions.setColor("violet");
 //        contentPanel = new JPanel();
 //        cardLayout = new CardLayout();
 //        contentPanel.setLayout(cardLayout);
 //
 //        startPage = new StartPage();
+//        startPage.setDesignOptions(this.designOptions);
+//
 //        chooseCategoryPage = new ChooseCategoryPage();
-//        questionPage = new QuestionPage();
+//        chooseCategoryPage.setDesignOptions(this.designOptions);
+//
+//        questionPage = new QuestionPage(category);
+//        questionPage.setDesignOptions(this.designOptions);
+//
 //        waitingPage = new WaitingPage();
+//
 //        scoreBoardPage = new ScoreBoardPage(gameID);
+//        scoreBoardPage.setDesignOptions(this.designOptions);
 //
 //        settingsPage = new SettingsPage();
+//        settingsPage.setDesignOptions(this.designOptions);
 //
 //        buildFrame();
 //    }
@@ -97,21 +110,21 @@
 //        chooseCategoryPage.getCategoryOption1().addActionListener(ActiveEvent -> {
 //            category = chooseCategoryPage.getCategoryOption1().getText();
 //            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-//            questionPage.newQuestions(category);
+//            questionPage.nextThreeQuestions(category);
 //            addActionListenerToOptions();
 //            cardLayout.show(contentPanel, "QuestionPage");
 //        });
 //        chooseCategoryPage.getCategoryOption2().addActionListener(ActiveEvent -> {
 //            category = chooseCategoryPage.getCategoryOption2().getText();
 //            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-//            questionPage.newQuestions(category);
+//            questionPage.nextThreeQuestions(category);
 //            addActionListenerToOptions();
 //            cardLayout.show(contentPanel, "QuestionPage");
 //        });
 //        chooseCategoryPage.getCategoryOption3().addActionListener(ActiveEvent -> {
 //            category = chooseCategoryPage.getCategoryOption3().getText();
 //            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-//            questionPage.newQuestions(category);
+//            questionPage.nextThreeQuestions(category);
 //            addActionListenerToOptions();
 //            cardLayout.show(contentPanel, "QuestionPage");
 //        });
@@ -126,17 +139,17 @@
 //        //SCORE BOARD PAGE
 //        scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
 //            if(chosenCategory) {
-//                questionPage.newQuestions(QuestionCategory.MUSIC.label);
+//                questionPage.nextThreeQuestions(QuestionCategory.MUSIC.label);
 //                category = QuestionCategory.MUSIC.label;
 //                scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-//                questionPage.newQuestions(category);
+//                questionPage.nextThreeQuestions(category);
 //                addActionListenerToOptions();
 //                cardLayout.show(contentPanel, "QuestionPage");
 //                chosenCategory = false;
 //
 //            }
 //            else{
-//                questionPage.newQuestions(questionCollection.getRandomCategory().label);
+//                questionPage.nextThreeQuestions(questionCollection.getRandomCategory().label);
 //                SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
 //                addActionListenerToOptions();
 //                cardLayout.show(contentPanel, "ChooseCategoryPage");
@@ -185,7 +198,7 @@
 //                            //TODO
 //                            category = QuestionCategory.MUSIC.label;
 //                            scoreBoardPage.addToCategoryList(QuestionCategory.getQuestionCategory(category));
-//                            questionPage.newQuestions(category);
+//                            questionPage.nextThreeQuestions(category);
 //                            addActionListenerToOptions();
 //                            cardLayout.show(contentPanel, "QuestionPage");
 //                        }

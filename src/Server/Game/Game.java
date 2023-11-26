@@ -7,6 +7,8 @@ import Server.ClientHandler;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
+
 import CustomTypes.GameData;
 import Server.Server;
 
@@ -15,11 +17,13 @@ public class Game {
     private ClientHandler player2;
     private GameState gameState;
     private GameData gameData;
-
+    private final CountDownLatch latch;
+    Properties properties = new Properties();
     public Game(ClientHandler player1) {
         this.player1 = player1;
         gameData = new GameData(String.valueOf(UUID.randomUUID()), 3, 3);
         gameState = GameState.WAITING;
+        this.latch = new CountDownLatch(1);
     }
     public GameData getGameData() {
         return gameData;
@@ -50,5 +54,9 @@ public class Game {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+    }
+
+    public CountDownLatch getLatch() {
+        return latch;
     }
 }

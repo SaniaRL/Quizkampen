@@ -8,14 +8,15 @@ import java.util.Arrays;
 
 public class ClientHandler extends Thread implements Serializable {
     protected final Socket socket;
+    private final Server server;
+    private final Protocol protocol;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    Server server;
-    Protocol protocol = new Protocol();
 
     public ClientHandler(Socket socket, Server server) {
         this.socket = socket;
         this.server = server;
+        this.protocol = new Protocol();
     }
 
     @Override
@@ -31,16 +32,14 @@ public class ClientHandler extends Thread implements Serializable {
 
             Object fromClient = readFromClient();
             System.out.println("Thread no." + Thread.currentThread().threadId() + ": " + fromClient);
+                while (true) {
+                    //TODO: Add logic for server
 
-            while (true) {
-                //TODO: Add logic for server
-                synchronized (this) {
                     fromClient = readFromClient();
                     if (fromClient instanceof String) {
                         System.out.println(fromClient);
                         if (fromClient.equals("exit")) {
                             System.out.println("Client disconnected");
-                            server.shutdown();
                             break;
                         }
                         if (fromClient.equals("new game")) {
@@ -50,18 +49,19 @@ public class ClientHandler extends Thread implements Serializable {
                     if (fromClient instanceof Object[] message) {
                         if (message[1] instanceof GameData) {
                             System.out.println(Arrays.toString(message));
-                            protocol.roundFinished((String) message[0], (GameData) message[1], server, this);
+                            protocol.roundFinished((String) message[0], (GameData) message[1], server);
                         }
                     }
-                }
-            } /*else if (fromClient instanceof otherType) {
-                //TODO: Add logic for other types of objects
-            }*/
 
+                } /*else if (fromClient instanceof otherType) {
+                //TODO: Add logic for other types of objects
+                }*/
         } catch (IOException e) {
             System.out.println("IO Exception from ServerListener: " + e.getMessage());
         } catch (ClassNotFoundException e) {
             System.out.println("Class not found exception from ServerListener: " + e.getMessage());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 closeConnection();
@@ -72,16 +72,20 @@ public class ClientHandler extends Thread implements Serializable {
         }
     }
 
-    public synchronized <T> void writeToClient(String message, T item) throws IOException {
-        if (item != null) {
-            out.writeObject(new Object[]{message, item});
-        } else {
-            out.writeObject(message);
+    public synchronized <T> void writeToClient(String message, T item) {
+        try {
+            if (item != null) {
+                out.writeObject(new Object[]{message, item});
+            } else {
+                out.writeObject(message);
+            }
+            out.flush();
+        } catch (IOException e) {
+            System.out.println("Error writing to client: " + e.getMessage());
         }
-        out.flush();
     }
 
-    public synchronized Object readFromClient() throws IOException, ClassNotFoundException {
+    public Object readFromClient() throws IOException, ClassNotFoundException {
         return in.readObject();
     }
 

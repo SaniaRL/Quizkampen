@@ -37,7 +37,7 @@ public class ContentFrame extends JFrame {
     List<List<Boolean>> player1Wins = new ArrayList<>();
     List<List<Boolean>> player2Wins = new ArrayList<>();
     List<Boolean> playerRound = new ArrayList<>();
-//    List<Boolean> player2Round = new ArrayList<>();
+    //    List<Boolean> player2Round = new ArrayList<>();
     QuestionCategory category = QuestionCategory.MOVIES;
     String gameID = "4556";
     DesignOptions designOptions = new DesignOptions();
@@ -47,6 +47,11 @@ public class ContentFrame extends JFrame {
     private GameData game; //to store game data
     private Turn playerSide;
     boolean chosenCategory = false;
+
+    public void setDesignOptions() {
+
+
+    }
 
     public ContentFrame(ObjectOutputStream out) throws IOException {
         this.out = out;
@@ -109,7 +114,7 @@ public class ContentFrame extends JFrame {
         setVisible(true);
     }
 
-    public <T> void writeToServer(String message, T item) {
+    public synchronized <T> void writeToServer(String message, T item) {
         try {
             if (item != null)
                 out.writeObject(new Object[]{message, item});
@@ -134,11 +139,16 @@ public class ContentFrame extends JFrame {
         questionPage.setQuestionAmount(game.getQuestionAmount());
         questionPage.setQuestionPage(game.getRounds().get(0).getCategory(), game.getRounds().get(0).getQuestions());
         cardLayout.show(contentPanel, "QuestionPage");
+//        chosenCategory = true;
+//        scoreBoardPage.showPlayButton();
+//        cardLayout.show(contentPanel, "ScoreBoardPage");
         addActionListenerToOptions();
     }
 
     public void waitingForPlayer() {
-        cardLayout.show(contentPanel, "WaitingPage");
+        System.out.println("waiting for player method");
+        scoreBoardPage.hidePlayButton();
+        cardLayout.show(contentPanel, "ScoreBoardPage");
     }
 
     public void addActionEvents() {
@@ -234,16 +244,7 @@ public class ContentFrame extends JFrame {
                         cardLayout.show(contentPanel, "QuestionPage");
                         addActionListenerToOptions();
                     } else {
-//                        generateRandomPlayer2List();
-//                        player1Wins.add(new ArrayList<>(player1Round));
-//                        player2Wins.add(new ArrayList<>(player2Round));
-//                        player1Round.clear();
-//                        player2Round.clear();
-//                        scoreBoardPage.setWinList(player1Wins, player2Wins);
-
                         if (chosenCategory) {
-//                            cardLayout.show(contentPanel, "ScoreBoardPage");
-//                            scoreBoardPage.setGameID(gameID);
                             game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
                             Question[] tempQuestions = new Question[game.getQuestionAmount()];
                             Boolean[] tempScore = new Boolean[game.getQuestionAmount()];
@@ -265,19 +266,14 @@ public class ContentFrame extends JFrame {
                             cardLayout.show(contentPanel, "ScoreBoardPage");
                         } else {
                             System.out.println("time to choose category");
-                            //TODO
-//                            category = QuestionCategory.MUSIC.label;
-//                            questionPage.newQuestions(category);
-                            if(playerSide == Turn.Player1) {
+                            if (playerSide == Turn.Player1) {
                                 game.getRounds().get(game.getRounds().size() - 1).setPlayer1Score(playerRound.toArray(new Boolean[0]));
                             } else {
                                 game.getRounds().get(game.getRounds().size() - 1).setPlayer2Score(playerRound.toArray(new Boolean[0]));
                             }
                             playerRound.clear();
                             cardLayout.show(contentPanel, "ChooseCategoryPage");
-//                            newGameStarted();
                             chosenCategory = true;
-//                            writeToServer("round finished", game);
                         }
                         try {
                             System.out.println(game);
@@ -285,7 +281,8 @@ public class ContentFrame extends JFrame {
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
-//                        cardLayout.show(contentPanel, "ScoreBoardPage");
+                        scoreBoardPage.hidePlayButton();
+                        cardLayout.show(contentPanel, "ScoreBoardPage");
                     }
                 });
                 timer.setRepeats(false);
@@ -295,19 +292,32 @@ public class ContentFrame extends JFrame {
     }
 
     public void checkIfWin(JButton option) {
-        if (option.getText().equals("<html><div style='text-align: center;'>" + questionPage.getAnswer())) {
-            option.setBackground(Color.green);
-            System.out.println("right");
-            playerRound.add(true);
-        } else {
+        JButton rightAnswer = checkRightAnswer();
+        if (!option.equals(rightAnswer)) {
             option.setBackground(Color.red);
             System.out.println("wrong");
             playerRound.add(false);
+        } else {
+            System.out.println("right");
+            playerRound.add(true);
         }
+        rightAnswer.setBackground(Color.green);
         option.repaint();
         option.revalidate();
+        rightAnswer.repaint();
+        rightAnswer.revalidate();
     }
 
+    public JButton checkRightAnswer() {
+        List<JButton> optionButtons = questionPage.getOptionButtons();
+        JButton rightAnswer = new JButton();
+        for (JButton option : optionButtons) {
+            if (option.getText().equals("<html><div style='text-align: center;'>" + questionPage.getAnswer())) {
+                rightAnswer = option;
+            }
+        }
+        return rightAnswer;
+    }
 
     public void showScoreBoardPage() {
         cardLayout.show(contentPanel, "ScoreBoardPage");
@@ -330,15 +340,5 @@ public class ContentFrame extends JFrame {
 
     public void setPlayerSide(Turn playerSide) {
         this.playerSide = playerSide;
-    }
-
-    public void generateRandomPlayer2List() {
-        playerRound.add(true);
-        playerRound.add(false);
-        playerRound.add(false);
-        Collections.shuffle(playerRound);
-        player2Wins.add(new ArrayList<>(playerRound));
-        System.out.println(playerRound.size());
-
     }
 }

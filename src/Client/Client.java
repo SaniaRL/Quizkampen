@@ -7,9 +7,6 @@ import GUI.ContentFrame;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
 
 public class Client {
 
@@ -56,6 +53,7 @@ public class Client {
                             frame.getQuestions();
                         }
                         if (message[0].equals("opponent turn")) {
+                            frame.setGame(gameData);
                             frame.waitingForPlayer();
                         }
                     }

@@ -1,9 +1,9 @@
 package GUI;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
+import java.util.List;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class SettingsPage extends JPanel {
 
@@ -17,16 +17,16 @@ public class SettingsPage extends JPanel {
     JButton exitGame = new JButton("Exit game");
     JLabel headerLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Quizkampen", SwingConstants.CENTER);
 
-    String backgroundImagePath;
-    Image backgroundImage;
+    List<JButton> optionsList;
+
+    DesignOptions designOptions;
 
     public SettingsPage() {
+        designOptions = new DesignOptions();
+        optionsList = new ArrayList<>();
 
         northPanel = new JPanel();
         centerPanel = new JPanel();
-
-        backgroundImagePath = "Backgrounds/blueBackground.png";
-        backgroundImage = (new ImageIcon(backgroundImagePath)).getImage();
 
         addComponents();
         actionListenerHandler();
@@ -44,14 +44,16 @@ public class SettingsPage extends JPanel {
         generateCenterPanel();
         add(centerPanel, BorderLayout.CENTER);
 
+        addButtonsToList();
+
         setVisible(true);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+        if (designOptions.getBackgroundImage() != null) {
+            g.drawImage(designOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
 
@@ -79,23 +81,37 @@ public class SettingsPage extends JPanel {
 
     public void addButtons(JButton button){
         button.setBackground(Color.WHITE);
-        button.setBorder(new LineBorder(Color.BLUE, 5));
-        button.setFont(new Font("Cabin", Font.BOLD, 22));
+        button.setBorder(designOptions.getBorder());
+        button.setFont(designOptions.getSmallText());
         centerPanel.add(button);
-
     }
 
     private void actionListenerHandler() {
         backButton.addActionListener(e -> ((CardLayout) getParent().getLayout()).show(getParent(), "StartPage"));
         exitGame.addActionListener(ActionEvent -> System.exit(0));
-
     }
 
     private void componentStyling() {
-        Font fontL = new Font("Serif", Font.BOLD, 50);
+        Font fontL = designOptions.getTitleFont();
         headerLabel.setFont(fontL);
         headerLabel.setForeground(Color.WHITE);
+    }
 
+    private void addButtonsToList(){
+        optionsList.add(backButton);
+        optionsList.add(test1);
+        optionsList.add(test2);
+        optionsList.add(test3);
+        optionsList.add(exitGame);
+    }
+
+    public void setDesignOptions(DesignOptions designOptions) {
+        this.designOptions = designOptions;
+        for(JButton button : optionsList){
+            button.setBorder(designOptions.getBorder());
+            button.repaint();
+            button.revalidate();
+        }
     }
 }
 

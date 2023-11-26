@@ -21,30 +21,30 @@ public final class GameData implements Serializable {
         this.turn = Turn.Player1;
     }
 
-    public String getGameID() {
+    public synchronized String getGameID() {
         return gameID;
     }
 
-    public void setGameID(String gameID) {
+    public synchronized void setGameID(String gameID) {
         this.gameID = gameID;
     }
 
-    public List<Round> getRounds() {
+    public synchronized List<Round> getRounds() {
         return rounds;
     }
 
-    public void setRounds(List<Round> rounds) {
+    public synchronized void setRounds(List<Round> rounds) {
         this.rounds = rounds;
     }
     public void addRound(Round round){
         rounds.add(round);
     }
 
-    public Turn getTurn() {
+    public synchronized Turn getTurn() {
         return turn;
     }
 
-    public void setTurn(Turn turn) {
+    public synchronized void setTurn(Turn turn) {
         this.turn = turn;
     }
 
@@ -59,7 +59,7 @@ public final class GameData implements Serializable {
     }
 
     @Override
-    public String toString() {
+    public synchronized String toString() {
         return "GameData{" +
                 "gameID='" + gameID + '\'' +
                 ", turn='" + turn + '\'' +
