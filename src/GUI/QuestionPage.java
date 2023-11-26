@@ -192,6 +192,10 @@ public class QuestionPage extends JPanel {
         this.designOptions = designOptions;
     }
 
+    public List<Question> getThreeQuestions() {
+        return threeQuestions;
+    }
+
     public List<JButton> getOptionButtons() {return optionButtons;}
     public void setIndexCount(int indexCount) {this.indexCount = indexCount;}
 
