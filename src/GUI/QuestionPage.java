@@ -83,9 +83,8 @@ public class QuestionPage extends JPanel {
 
     public void generateCenterPanel(){
         centerPanel.setLayout(new FlowLayout());
-        centerPanel.setPreferredSize(new Dimension(800, 300));
+        centerPanel.setPreferredSize(new Dimension(800, 200));
         centerPanel.setOpaque(false);
-
 
         JLabel questionLabel = new JLabel("<html><div style='text-align: center;'>"  + (threeQuestions.get(indexCount)).getQuestion(), SwingConstants.CENTER);
         questionLabel.setFont(designOptions.getSmallText());
@@ -102,7 +101,7 @@ public class QuestionPage extends JPanel {
 
     public void generationNorthPanel(){
         northPanel.setLayout(new GridLayout(1,3));
-        northPanel.setPreferredSize(new Dimension(800, 200));
+        northPanel.setPreferredSize(new Dimension(800, 150));
         northPanel.setOpaque(false);
 
         JLabel yourPlayer = new JLabel("YOU", SwingConstants.CENTER);
@@ -125,14 +124,20 @@ public class QuestionPage extends JPanel {
 
     public void generateSouthPanel(){
         southPanel.setLayout(new BorderLayout());
-        southPanel.setPreferredSize(new Dimension(800, 300));
+        southPanel.setPreferredSize(new Dimension(800, 350));
         southPanel.setOpaque(false);
         JPanel optionsPanel = new JPanel(new GridLayout(2,2));
+        JPanel nextQuestionPanel = new JPanel();
+        nextQuestionPanel.setLayout(new FlowLayout());
         JButton nextQuestion = new JButton("Nästa fråga");
-        nextQuestion.setPreferredSize(new Dimension(80,80));
+        nextQuestion.setPreferredSize(new Dimension(200,80));
+        nextQuestion.setBorder(designOptions.getBorder());
         nextQuestion.setBackground(Color.green);
+        nextQuestionPanel.add(nextQuestion, SwingConstants.CENTER);
+        nextQuestionPanel.setOpaque(false);
+        nextQuestionPanel.setPreferredSize(new Dimension(800, 100));
         southPanel.add(optionsPanel, BorderLayout.CENTER);
-        southPanel.add(nextQuestion, BorderLayout.SOUTH);
+        southPanel.add(nextQuestionPanel, BorderLayout.SOUTH);
 
         List<String> optionsList = new ArrayList<>(Arrays.stream((threeQuestions.get(indexCount)).getQuestionOptions()).toList());
         answer = optionsList.get(0);
