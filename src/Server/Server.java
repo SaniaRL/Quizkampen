@@ -1,5 +1,6 @@
 package Server;
 
+import CustomTypes.GameData;
 import Server.Game.Game;
 
 import java.io.IOException;
@@ -10,9 +11,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class Server {
-    List<ClientHandler> connectedClients = Collections.synchronizedList(new ArrayList<>());
-    List<Game> games = Collections.synchronizedList(new ArrayList<>());
-    ServerSocket socket;
+    private final List<ClientHandler> connectedClients = Collections.synchronizedList(new ArrayList<>());
+    private final List<Game> games = Collections.synchronizedList(new ArrayList<>());
+    private ServerSocket socket;
     private boolean running = true;
 
     public Server(int port) {
@@ -55,4 +56,13 @@ public class Server {
         int port = 8080;
         new Server(port);
     }
+
+    public List<ClientHandler> getConnectedClients() {
+        return connectedClients;
+    }
+
+    public List<Game> getGames() {
+        return games;
+    }
+
 }
