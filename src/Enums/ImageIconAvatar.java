@@ -18,5 +18,5 @@ public enum ImageIconAvatar {
     ImageIconAvatar(String iconPath){
         this.iconPath = iconPath;
     }
-    
+
     }

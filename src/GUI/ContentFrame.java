@@ -2,6 +2,7 @@ package GUI;
 
 import CustomTypes.GameData;
 import CustomTypes.Round;
+import Enums.ImageIconAvatar;
 import GUI.CategoryGUI.CategoryButton;
 import GUI.CategoryGUI.ChooseCategoryPage;
 import GUI.ScoreBoard.ScoreBoardPage;
@@ -79,6 +80,8 @@ public class ContentFrame extends JFrame implements Serializable {
 
         //Provat lila tema, ändra fram och tillbaka och kika
         settingsOptions.setColor("hejsan");
+//        settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
+//        settingsOptions.setPlayer2Icon(ImageIconAvatar.ELEPHANT.iconPath);
         setDesignOptions();
         buildFrame();
     }

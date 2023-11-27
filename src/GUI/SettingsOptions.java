@@ -1,5 +1,7 @@
 package GUI;
 
+import Enums.ImageIconAvatar;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -8,23 +10,23 @@ import java.util.Collections;
 import java.util.List;
 
 public class SettingsOptions {
-    ImageIcon icon;
-    Color color;
-    Color detailColor;
-    String backgroundImagePath;
-    Image backgroundImage;
-    LineBorder border;
-    List<ImageIcon> imageIcons;
-    Font titleFont;
-    Font bigText;
-    Font smallText;
-    Color textColor;
-    Color contrastColor;
+    private ImageIcon icon;
+    private Color color;
+    private Color detailColor;
+    private String backgroundImagePath;
+    private Image backgroundImage;
+    private LineBorder border;
+    private final List<ImageIcon> imageIcons;
+    private final Font titleFont;
+    private final Font bigText;
+    private final Font smallText;
+    private final Color textColor;
+    private Color contrastColor;
 
     //WHERE TO PUT THESE?
-    String player1;
-    String player2;
-    ImageIcon player2Icon;
+    private String player1;
+    private String player2;
+    private ImageIcon player2Icon;
 
 
     public Image getBackgroundImage() {
@@ -53,17 +55,17 @@ public class SettingsOptions {
     }
 
     public void addIcons(){
-        imageIcons.add(new ImageIcon("Icons/crab.png"));
-        imageIcons.add(new ImageIcon("Icons/squid.png"));
-        imageIcons.add(new ImageIcon("Icons/lobster.png"));
-        imageIcons.add(new ImageIcon("Icons/apa.png"));
-        imageIcons.add(new ImageIcon("Icons/elefant.png"));
-        imageIcons.add(new ImageIcon("Icons/gris.png"));
-        imageIcons.add(new ImageIcon("Icons/kanin.png"));
-        imageIcons.add(new ImageIcon("Icons/ko.png"));
-        imageIcons.add(new ImageIcon("Icons/orm.png"));
-        imageIcons.add(new ImageIcon("Icons/panda.png"));
-        imageIcons.add(new ImageIcon("Icons/tiger.png"));
+        imageIcons.add(new ImageIcon(ImageIconAvatar.CRAB.iconPath));
+        imageIcons.add(new ImageIcon(ImageIconAvatar.SQUID.iconPath));
+        imageIcons.add(new ImageIcon(ImageIconAvatar.LOBSTER.iconPath));
+        imageIcons.add(new ImageIcon(ImageIconAvatar.MONKEY.iconPath));
+        imageIcons.add(new ImageIcon(ImageIconAvatar.ELEPHANT.iconPath));
+        imageIcons.add(new ImageIcon(ImageIconAvatar.PIG.iconPath));
+        imageIcons.add(new ImageIcon(ImageIconAvatar.BUNNY.iconPath));
+        imageIcons.add(new ImageIcon(ImageIconAvatar.COW.iconPath));
+        imageIcons.add(new ImageIcon(ImageIconAvatar.SNAKE.iconPath));
+        imageIcons.add(new ImageIcon(ImageIconAvatar.PANDA.iconPath));
+        imageIcons.add(new ImageIcon(ImageIconAvatar.TIGER.iconPath));
         Collections.shuffle(imageIcons);
     }
 
@@ -157,8 +159,8 @@ public class SettingsOptions {
         return contrastColor;
     }
 
-    public void setIcon(ImageIcon icon) {
-        this.icon = icon;
+    public void setIcon(String iconPath) {
+        this.icon = new ImageIcon(new ImageIcon(iconPath).getImage().getScaledInstance(60,60,Image.SCALE_SMOOTH));
     }
 
     public void setPlayer1(String player1) {
@@ -169,7 +171,7 @@ public class SettingsOptions {
         this.player2 = player2;
     }
 
-    public void setPlayer2Icon(ImageIcon player2Icon) {
-        this.player2Icon = player2Icon;
+    public void setPlayer2Icon(String iconPath) {
+        this.player2Icon = new ImageIcon(new ImageIcon(iconPath).getImage().getScaledInstance(60,60,Image.SCALE_SMOOTH));
     }
 }
