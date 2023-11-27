@@ -1,14 +1,11 @@
 package GUI.ScoreBoard;
 
-import GUI.CategoryGUI.CategoryColor;
 import GUI.CategoryGUI.CategoryLabel;
-import GUI.QuestionPage;
-import Question.QuestionCategory;
+import Enums.QuestionCategory;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -74,26 +71,6 @@ public class ScoreCount extends JPanel {
             panel.add(scoreLabel);
             list.add(scoreLabel);
         }
-    }
-
-    public JPanel getPlayer1Panel() {
-        return player1Panel;
-    }
-
-    public void setPlayer1Panel(JPanel player1Panel) {
-        this.player1Panel = player1Panel;
-    }
-
-    public JPanel getPlayer2Panel() {
-        return player2Panel;
-    }
-
-    public void setPlayer2Panel(JPanel player2Panel) {
-        this.player2Panel = player2Panel;
-    }
-
-    public JLabel getCategoryLabel() {
-        return categoryLabel;
     }
 
     public void setCategoryLabel(String label) {

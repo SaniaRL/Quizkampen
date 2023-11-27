@@ -1,6 +1,7 @@
 package GUI.CategoryGUI;
 
-import GUI.DesignOptions;
+import Enums.QuestionCategory;
+import GUI.SettingsOptions;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,43 +9,31 @@ import java.awt.*;
 public class CategoryLabel extends JLabel {
 
     JLabel textLabel;
-    DesignOptions designOptions;
+    SettingsOptions settingsOptions;
 
-    public CategoryLabel(Color color, Question.QuestionCategory category){
-        designOptions = new DesignOptions();
+    public CategoryLabel(Color color, QuestionCategory category){
+        settingsOptions = new SettingsOptions();
         textLabel = new JLabel(category.label, SwingConstants.CENTER);
         setBackground(color);
         addComponents();
     }
 
     public CategoryLabel(){
-        designOptions = new DesignOptions();
+        settingsOptions = new SettingsOptions();
         textLabel = new JLabel("", SwingConstants.CENTER);
 //        textLabel.setHorizontalAlignment(SwingConstants.CENTER);
         addComponents();
     }
 
-    public JLabel getTextLabel() {
-        return textLabel;
-    }
-
-    public void setTextLabel(JLabel textLabel) {
-        this.textLabel = textLabel;
-    }
-
-    public DesignOptions getDesignOptions() {
-        return designOptions;
-    }
-
-    public void setDesignOptions(DesignOptions designOptions) {
-        this.designOptions = designOptions;
+    public void setDesignOptions(SettingsOptions settingsOptionsOptions) {
+        this.settingsOptions = settingsOptionsOptions;
     }
 
     public void addComponents(){
         setSize(new Dimension(200, 50));
         setLayout(new FlowLayout());
 
-        textLabel.setFont(designOptions.getBigText());
+        textLabel.setFont(settingsOptions.getBigText());
         textLabel.setVisible(true);
         textLabel.setForeground(Color.BLACK);
         add(textLabel);

@@ -19,10 +19,10 @@ public class SettingsPage extends JPanel {
 
     List<JButton> optionsList;
 
-    DesignOptions designOptions;
+    SettingsOptions settingsOptions;
 
     public SettingsPage() {
-        designOptions = new DesignOptions();
+        settingsOptions = new SettingsOptions();
         optionsList = new ArrayList<>();
 
         northPanel = new JPanel();
@@ -52,8 +52,8 @@ public class SettingsPage extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (designOptions.getBackgroundImage() != null) {
-            g.drawImage(designOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
+        if (settingsOptions.getBackgroundImage() != null) {
+            g.drawImage(settingsOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
 
@@ -81,8 +81,8 @@ public class SettingsPage extends JPanel {
 
     public void addButtons(JButton button){
         button.setBackground(Color.WHITE);
-        button.setBorder(designOptions.getBorder());
-        button.setFont(designOptions.getSmallText());
+        button.setBorder(settingsOptions.getBorder());
+        button.setFont(settingsOptions.getSmallText());
         centerPanel.add(button);
     }
 
@@ -92,7 +92,7 @@ public class SettingsPage extends JPanel {
     }
 
     private void componentStyling() {
-        Font fontL = designOptions.getTitleFont();
+        Font fontL = settingsOptions.getTitleFont();
         headerLabel.setFont(fontL);
         headerLabel.setForeground(Color.WHITE);
     }
@@ -105,10 +105,10 @@ public class SettingsPage extends JPanel {
         optionsList.add(exitGame);
     }
 
-    public void setDesignOptions(DesignOptions designOptions) {
-        this.designOptions = designOptions;
+    public void setDesignOptions(SettingsOptions settingsOptions) {
+        this.settingsOptions = settingsOptions;
         for(JButton button : optionsList){
-            button.setBorder(designOptions.getBorder());
+            button.setBorder(settingsOptions.getBorder());
             button.repaint();
             button.revalidate();
         }

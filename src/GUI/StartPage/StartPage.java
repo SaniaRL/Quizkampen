@@ -1,6 +1,6 @@
 package GUI.StartPage;
 
-import GUI.DesignOptions;
+import GUI.SettingsOptions;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -21,15 +21,15 @@ public class StartPage extends JPanel {
 
     Border emptyBorder;
 
-    DesignOptions designOptions;
+    SettingsOptions settingsOptions;
 
     public StartPage(){
-        designOptions = new DesignOptions();
+        settingsOptions = new SettingsOptions();
 
         settings = new StartButton("\uD83D\uDD27", new Dimension(150,150), 50, Color.BLACK);
         notifications = new StartButton("\uD83D\uDCAC", new Dimension(150,150), 50, Color.BLACK);
         catButton = new StartButton("", new Dimension(150,150), 50, Color.BLACK);
-        homeButton = new StartButton("Q", new Dimension(180,180), 130, designOptions.getDetailColor());
+        homeButton = new StartButton("Q", new Dimension(180,180), 130, settingsOptions.getDetailColor());
 
         emptyBorder = BorderFactory.createEmptyBorder();
         addComponents();
@@ -40,7 +40,6 @@ public class StartPage extends JPanel {
         setLayout(new BorderLayout());
         setOpaque(true);
 
-        //Methods for designing components to make it easier to navigate
         generateCenterPanel();
         generateNorthPanel();
         generateSouthPanel();
@@ -55,8 +54,8 @@ public class StartPage extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (designOptions.getBackgroundImage() != null) {
-            g.drawImage(designOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
+        if (settingsOptions.getBackgroundImage() != null) {
+            g.drawImage(settingsOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
 
@@ -79,11 +78,11 @@ public class StartPage extends JPanel {
         startNewGame.setPreferredSize(buttonSize);
         startNewGame.setMinimumSize(buttonSize);
         startNewGame.setMaximumSize(buttonSize);
-        startNewGame.setBackground(designOptions.getDetailColor());
+        startNewGame.setBackground(settingsOptions.getDetailColor());
         startNewGame.setLocation(200, 200);
         startNewGame.setText("New Game");
-        startNewGame.setFont(designOptions.getTitleFont());
-        startNewGame.setBorder(designOptions.getBorder());
+        startNewGame.setFont(settingsOptions.getTitleFont());
+        startNewGame.setBorder(settingsOptions.getBorder());
 
         generateEastWestPanels(BorderLayout.WEST);
         centerPanel.add(startNewGame);
@@ -135,20 +134,6 @@ public class StartPage extends JPanel {
         southPanel.add(catButton);
     }
 
-  /*  public JButton createButton(JButton button, String path, Dimension dimension, int size){
-
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(size, size, Image.SCALE_REPLICATE));
-        button.setIcon(imageIcon);
-        button.setPreferredSize(dimension);
-        button.setOpaque(false);
-        button.setBorder(emptyBorder);
-        button.setContentAreaFilled(false);
-
-        return button;
-    }
-
-   */
-
     public void generateEastWestPanels(String borderLayout){
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(100, 400));
@@ -172,11 +157,11 @@ public class StartPage extends JPanel {
         return catButton;
     }
 
-    public void setDesignOptions(DesignOptions designOptions) {
-        this.designOptions = designOptions;
-        startNewGame.setBorder(new LineBorder(designOptions.getColor(), 10));
-        startNewGame.setBackground(designOptions.getDetailColor());
-        homeButton.setForeground(designOptions.getDetailColor());
+    public void setDesignOptions(SettingsOptions settingsOptions) {
+        this.settingsOptions = settingsOptions;
+        startNewGame.setBorder(new LineBorder(settingsOptions.getColor(), 10));
+        startNewGame.setBackground(settingsOptions.getDetailColor());
+        homeButton.setForeground(settingsOptions.getDetailColor());
     }
 
     public JButton getStartNewGame() {
