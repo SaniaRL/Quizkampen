@@ -52,14 +52,17 @@ public class Client {
                             System.out.println("found game starting");
                             frame.setGame(gameData);
                             frame.setPlayerSide(Turn.Player2);
+                            frame.setChosenCategory(true);
                             frame.getQuestions();
                         }
                         if (message[0].equals("your turn")) {
+                            System.out.println("your turn size: " + gameData.getRounds().size());
                             frame.setGame(gameData);
                             System.out.println(gameData);
                             frame.getQuestions();
                         }
                         if (message[0].equals("opponent turn")) {
+                            System.out.println("opponent turn size: " + gameData.getRounds().size());
                             frame.setGame(gameData);
                             frame.waitingForPlayer();
                         }

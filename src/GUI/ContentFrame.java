@@ -14,12 +14,13 @@ import Enums.Turn;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 import java.io.IOException;
 
-public class ContentFrame extends JFrame {
+public class ContentFrame extends JFrame implements Serializable {
 
     JPanel contentPanel;
     CardLayout cardLayout;
@@ -45,9 +46,10 @@ public class ContentFrame extends JFrame {
     ObjectOutputStream out;
     private int amountOfQuestions;
     private int amountOfRounds;
-
     private GameData game;
     private Turn playerSide;
+
+
     boolean chosenCategory = false;
 
     public void setDesignOptions() {
@@ -157,6 +159,7 @@ public class ContentFrame extends JFrame {
     }
 
     public void waitingForPlayer() {
+        chosenCategory = true;
         System.out.println("waiting for player method");
         scoreBoardPage.hidePlayButton();
         cardLayout.show(contentPanel, "ScoreBoardPage");
@@ -334,5 +337,9 @@ public class ContentFrame extends JFrame {
     public void setPlayerSide(Turn playerSide) {
         this.playerSide = playerSide;
         scoreBoardPage.setPlayerSide(playerSide);
+    }
+
+    public void setChosenCategory(boolean chosenCategory) {
+        this.chosenCategory = chosenCategory;
     }
 }

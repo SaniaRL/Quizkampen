@@ -220,6 +220,7 @@ public class ScoreBoardPage extends JPanel {
             scoreCounts.get(i).setCategoryLabel(round.getCategory().label);
             i++;
         }
+        setScores();
     }
 
     public void updateScoreBoard() throws IOException {

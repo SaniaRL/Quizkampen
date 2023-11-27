@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Properties;
 
 public class Server {
-    List<ClientHandler> connectedClients = Collections.synchronizedList(new ArrayList<>());
-    List<Game> games = Collections.synchronizedList(new ArrayList<>());
-    ServerSocket socket;
+    private final List<ClientHandler> connectedClients = Collections.synchronizedList(new ArrayList<>());
+    private final List<Game> games = Collections.synchronizedList(new ArrayList<>());
+    private ServerSocket socket;
     private boolean running = true;
     private String questionsToFind;
 
@@ -80,4 +80,11 @@ public class Server {
         connectedClients.clear();
     }
 
+    public List<Game> getGames() {
+        return games;
+    }
+
+    public List<ClientHandler> getConnectedClients() {
+        return connectedClients;
+    }
 }
