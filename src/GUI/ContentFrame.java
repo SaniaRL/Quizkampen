@@ -47,8 +47,9 @@ public class ContentFrame extends JFrame implements Serializable {
     private int amountOfQuestions;
     private int amountOfRounds;
     private GameData game;
-    private Round round;
     private Turn playerSide;
+
+
     boolean chosenCategory = false;
 
     public void setDesignOptions() {
@@ -63,7 +64,6 @@ public class ContentFrame extends JFrame implements Serializable {
         this.amountOfQuestions = amountOfQuestions;
         this.amountOfRounds = amountOfRounds;
         this.out = out;
-        this.round = new Round();
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
         contentPanel.setLayout(cardLayout);
@@ -149,13 +149,16 @@ public class ContentFrame extends JFrame implements Serializable {
     }
 
     public void getQuestions() {
+
         System.out.println("existing game found!");
         questionPage.setQuestionPage(game.getRounds().get(0).getCategory(), game.getRounds().get(0).getQuestions());
-        cardLayout.show(contentPanel, "QuestionPage");
+        scoreBoardPage.showPlayButton();
+        cardLayout.show(contentPanel, "ScoreBoardPage");
         addActionListenerToOptions();
     }
 
     public void waitingForPlayer() {
+        chosenCategory = true;
         System.out.println("waiting for player method");
         scoreBoardPage.hidePlayButton();
         cardLayout.show(contentPanel, "ScoreBoardPage");
@@ -231,8 +234,8 @@ public class ContentFrame extends JFrame implements Serializable {
                         cardLayout.show(contentPanel, "QuestionPage");
                         addActionListenerToOptions();
                     } else {
+
                         if (chosenCategory) {
-                            game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
                             Question[] tempQuestions = new Question[amountOfQuestions];
                             Boolean[] tempScore = new Boolean[amountOfQuestions];
                             for (int i = 0; i < amountOfQuestions; i++) {
@@ -240,6 +243,12 @@ public class ContentFrame extends JFrame implements Serializable {
                                 tempScore[i] = playerRound.get(i);
                             }
                             game.addRound(new Round(questionPage.category, tempQuestions, tempScore, playerSide));
+                            if(game.getRounds().isEmpty() || game.getRounds().get(game.getRounds().size() - 1).getCategory() != null) {
+                                game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
+                            } else {
+                                game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player1 : Turn.Player2);
+                            }
+
                             if (playerSide == Turn.Player1) {
                                 player1Wins.add(new ArrayList<>(playerRound));
                                 game.getRounds().get(game.getRounds().size() - 1).setPlayer2Score(new Boolean[0]);
@@ -259,8 +268,9 @@ public class ContentFrame extends JFrame implements Serializable {
                                 game.getRounds().get(game.getRounds().size() - 1).setPlayer2Score(playerRound.toArray(new Boolean[0]));
                             }
                             playerRound.clear();
-                            cardLayout.show(contentPanel, "ChooseCategoryPage");
-                            chosenCategory = true;
+                            writeToServer("round finished", game);
+                            /*cardLayout.show(contentPanel, "ScoreBoardPage");
+                            chosenCategory = true;*/
                         }
                         try {
                             scoreBoardPage.updateScoreBoard(game);
@@ -327,5 +337,9 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public void setPlayerSide(Turn playerSide) {
         this.playerSide = playerSide;
+    }
+
+    public void setChosenCategory(boolean chosenCategory) {
+        this.chosenCategory = chosenCategory;
     }
 }

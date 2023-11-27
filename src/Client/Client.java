@@ -52,6 +52,7 @@ public class Client {
                             System.out.println("found game starting");
                             frame.setGame(gameData);
                             frame.setPlayerSide(Turn.Player2);
+                            frame.setChosenCategory(true);
                             frame.getQuestions();
                         }
                         if (message[0].equals("your turn")) {
