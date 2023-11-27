@@ -57,6 +57,7 @@ public class Round implements Serializable {
         return player2Score;
     }
 
+
     public void setPlayer2Score(Boolean[] player2Score) {
         this.player2Score = player2Score;
     }
