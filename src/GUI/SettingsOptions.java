@@ -156,4 +156,20 @@ public class SettingsOptions {
     public Color getContrastColor() {
         return contrastColor;
     }
+
+    public void setIcon(ImageIcon icon) {
+        this.icon = icon;
+    }
+
+    public void setPlayer1(String player1) {
+        this.player1 = player1;
+    }
+
+    public void setPlayer2(String player2) {
+        this.player2 = player2;
+    }
+
+    public void setPlayer2Icon(ImageIcon player2Icon) {
+        this.player2Icon = player2Icon;
+    }
 }

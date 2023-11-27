@@ -256,6 +256,9 @@ public class QuestionPage extends JPanel {
         }
         nextQuestion.setBorder(settingsOptions.getBorder());
         categoryLabel.setForeground(settingsOptions.getContrastColor());
+    }
+
+    public void updateIcon(ImageIcon icon){
 
     }
 }
