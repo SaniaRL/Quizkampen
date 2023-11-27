@@ -58,6 +58,7 @@ public class Client {
                         if (message[0].equals("your turn")) {
                             System.out.println("your turn size: " + gameData.getRounds().size());
                             frame.setGame(gameData);
+                            System.out.println(gameData);
                             frame.getQuestions();
                         }
                         if (message[0].equals("opponent turn")) {

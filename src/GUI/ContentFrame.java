@@ -10,6 +10,7 @@ import Question.Question;
 import Enums.QuestionCategory;
 import Question.QuestionCollection;
 import Enums.Turn;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.ObjectOutputStream;
@@ -150,13 +151,11 @@ public class ContentFrame extends JFrame implements Serializable {
         chosenCategory = true;
     }
 
-    public void getQuestions() {
-
+    public void getQuestions() throws IOException {
         System.out.println("existing game found!");
-        questionPage.setQuestionPage(game.getRounds().get(0).getCategory(), game.getRounds().get(0).getQuestions());
-        scoreBoardPage.showPlayButton();
+        scoreBoardPage.updateScoreBoard(game);
         cardLayout.show(contentPanel, "ScoreBoardPage");
-        addActionListenerToOptions();
+        scoreBoardPage.showPlayButton();
     }
 
     public void waitingForPlayer() {
@@ -199,18 +198,20 @@ public class ContentFrame extends JFrame implements Serializable {
 
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
-            if (chosenCategory) {
-                questionPage.newQuestions(category);
-                scoreBoardPage.addToCategoryList(category);
-                questionPage.newQuestions(category);
-                addActionListenerToOptions();
+            boolean player1LatestEmpty = game.getRounds().get(game.getRounds().size() - 1).getPlayer1Score().length == 0;
+            boolean player1LatestNotEmpty = game.getRounds().get(game.getRounds().size() - 1).getPlayer1Score().length != 0;
+            boolean player2LatestEmpty = game.getRounds().get(game.getRounds().size() - 1).getPlayer2Score().length == 0;
+            boolean player2LatestNotEmpty = game.getRounds().get(game.getRounds().size() - 1).getPlayer2Score().length != 0;
+            if ((player1LatestEmpty && player2LatestNotEmpty) || (player2LatestEmpty && player1LatestNotEmpty)) {
+                questionPage.setQuestionPage(game.getRounds().get(game.getRounds().size() - 1).getCategory(), game.getRounds().get(game.getRounds().size() - 1).getQuestions());
                 cardLayout.show(contentPanel, "QuestionPage");
+                addActionListenerToOptions();
                 chosenCategory = false;
             } else {
                 questionPage.newQuestions(questionCollection.getRandomCategory());
                 SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
-                addActionListenerToOptions();
                 cardLayout.show(contentPanel, "ChooseCategoryPage");
+                addActionListenerToOptions();
                 chosenCategory = true;
             }
         });
@@ -242,58 +243,45 @@ public class ContentFrame extends JFrame implements Serializable {
         }
     }
 
-    public void helpMe(){
+    public void helpMe() {
         Timer timer = new Timer(500, evt -> {
             if (playerRound.size() < amountOfQuestions) {
                 questionPage.nextQuestion();
                 cardLayout.show(contentPanel, "QuestionPage");
                 addActionListenerToOptions();
             } else {
-                        if (chosenCategory) {
-                            Question[] tempQuestions = new Question[amountOfQuestions];
-                            Boolean[] tempScore = new Boolean[amountOfQuestions];
-                            for (int i = 0; i < amountOfQuestions; i++) {
-                                tempQuestions[i] = questionPage.questions.get(i);
-                                tempScore[i] = playerRound.get(i);
-                            }
-                            game.addRound(new Round(questionPage.category, tempQuestions, tempScore, playerSide));
-                            if(game.getRounds().isEmpty() || game.getRounds().get(game.getRounds().size() - 1).getCategory() != null) {
-                                game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
-                            } else {
-                                game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player1 : Turn.Player2);
-                            }
-
-                            if (playerSide == Turn.Player1) {
-                                player1Wins.add(new ArrayList<>(playerRound));
-                                game.getRounds().get(game.getRounds().size() - 1).setPlayer2Score(new Boolean[0]);
-                                playerRound.clear();
-                            } else {
-                                player2Wins.add(new ArrayList<>(playerRound));
-                                game.getRounds().get(game.getRounds().size() - 1).setPlayer1Score(new Boolean[0]);
-                                playerRound.clear();
-                            }
-                            writeToServer("round finished", game);
-                            cardLayout.show(contentPanel, "ScoreBoardPage");
-                        } else {
-                            System.out.println("time to choose category");
-                            if (playerSide == Turn.Player1) {
-                                game.getRounds().get(game.getRounds().size() - 1).setPlayer1Score(playerRound.toArray(new Boolean[0]));
-                            } else {
-                                game.getRounds().get(game.getRounds().size() - 1).setPlayer2Score(playerRound.toArray(new Boolean[0]));
-                            }
-                            playerRound.clear();
-                            writeToServer("round finished", game);
-                            /*cardLayout.show(contentPanel, "ScoreBoardPage");
-                            chosenCategory = true;*/
-                        }
-                        try {
-                            scoreBoardPage.updateScoreBoard(game);
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                        if(playerSide != game.getTurn())
-                            scoreBoardPage.hidePlayButton();
-                        cardLayout.show(contentPanel, "ScoreBoardPage");
+                if (chosenCategory) {
+                    game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
+                    Question[] tempQuestions = new Question[amountOfQuestions];
+                    Boolean[] tempScore = new Boolean[amountOfQuestions];
+                    for (int i = 0; i < amountOfQuestions; i++) {
+                        tempQuestions[i] = questionPage.questions.get(i);
+                        tempScore[i] = playerRound.get(i);
+                    }
+                    game.addRound(new Round(questionPage.category, tempQuestions, tempScore, playerSide));
+                    if (playerSide == Turn.Player1) {
+                        player1Wins.add(new ArrayList<>(playerRound));
+                        game.getRounds().get(game.getRounds().size() - 1).setPlayer2Score(new Boolean[0]);
+                        playerRound.clear();
+                    } else {
+                        player2Wins.add(new ArrayList<>(playerRound));
+                        game.getRounds().get(game.getRounds().size() - 1).setPlayer1Score(new Boolean[0]);
+                        playerRound.clear();
+                    }
+                    writeToServer("round finished", game);
+                } else {
+                    System.out.println("time to choose category");
+                    if (playerSide == Turn.Player1) {
+                        game.getRounds().get(game.getRounds().size() - 1).setPlayer1Score(playerRound.toArray(new Boolean[0]));
+                    } else {
+                        game.getRounds().get(game.getRounds().size() - 1).setPlayer2Score(playerRound.toArray(new Boolean[0]));
+                    }
+                    playerRound.clear();
+                }
+                scoreBoardPage.updateScoreBoard(game);
+                if (playerSide != game.getTurn())
+                    scoreBoardPage.hidePlayButton();
+                cardLayout.show(contentPanel, "ScoreBoardPage");
             }
         });
         timer.setRepeats(false);
@@ -305,10 +293,8 @@ public class ContentFrame extends JFrame implements Serializable {
         JButton rightAnswer = checkRightAnswer();
         if (!option.equals(rightAnswer)) {
             option.setBackground(Color.red);
-            System.out.println("wrong");
             playerRound.add(false);
         } else {
-            System.out.println("right");
             playerRound.add(true);
         }
         rightAnswer.setBackground(Color.green);
@@ -334,7 +320,7 @@ public class ContentFrame extends JFrame implements Serializable {
         chosenCategory = false;
     }
 
-    //Needed for NetWork
+//Needed for NetWork
 
     public GameData getGame() {
         return game;
@@ -350,6 +336,7 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public void setPlayerSide(Turn playerSide) {
         this.playerSide = playerSide;
+        scoreBoardPage.setPlayerSide(playerSide);
     }
 
     public void setChosenCategory(boolean chosenCategory) {
