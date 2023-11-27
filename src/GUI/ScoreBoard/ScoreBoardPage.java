@@ -202,6 +202,8 @@ public class ScoreBoardPage extends JPanel {
                     player2Label.setForeground(round.getPlayer2Score()[j] ? Color.green : Color.RED);
                     j++;
                 }
+                player1ScoreList.add(Arrays.stream(round.getPlayer1Score()).toList());
+                player2ScoreList.add(Arrays.stream(round.getPlayer2Score()).toList());
             }
             if(playerSide == Turn.Player1 && round.getPlayer1Score().length != 0 && round.getPlayer2Score().length == 0) {
                 int j = 0;
@@ -209,6 +211,7 @@ public class ScoreBoardPage extends JPanel {
                     player1Label.setForeground(round.getPlayer1Score()[j] ? Color.green : Color.RED);
                     j++;
                 }
+                player1ScoreList.add(Arrays.stream(round.getPlayer1Score()).toList());
             }
             if(playerSide == Turn.Player2 && round.getPlayer2Score().length != 0 && round.getPlayer1Score().length == 0) {
                 int j = 0;
@@ -216,6 +219,7 @@ public class ScoreBoardPage extends JPanel {
                     player2Label.setForeground(round.getPlayer2Score()[j] ? Color.green : Color.RED);
                     j++;
                 }
+                player2ScoreList.add(Arrays.stream(round.getPlayer2Score()).toList());
             }
             scoreCounts.get(i).setCategoryLabel(round.getCategory().label);
             i++;
