@@ -114,9 +114,9 @@ public class ScoreBoardPage extends JPanel {
         northPanel.setOpaque(false);
 
         ImageIcon yourIcon = designOptions.getSmallIcon();
-        JPanel yourPanel = createIconPanel(yourIcon, playerSide == Turn.Player1 ? "YOU" : "OPPONENT");
+        JPanel yourPanel = createIconPanel(yourIcon, "YOU");
 
-        JPanel opponentPanel = createIconPanel(player2Icon, playerSide == Turn.Player2 ? "YOU" : "OPPONENT");
+        JPanel opponentPanel = createIconPanel(player2Icon, "RANDOM");
 
         JPanel middlePanel = new JPanel();
         turnLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Din tur", SwingConstants.CENTER);
@@ -188,10 +188,6 @@ public class ScoreBoardPage extends JPanel {
     }
 
     public void updateScoreBoard(GameData game) {
-//        centerPanel.removeAll();
-//        northPanel.removeAll();
-//        southPanel.removeAll();
-
         categoryList.clear();
         player1ScoreList.clear();
         player2ScoreList.clear();
@@ -227,10 +223,6 @@ public class ScoreBoardPage extends JPanel {
             scoreCounts.get(i).setCategoryLabel(round.getCategory().label);
             i++;
         }
-
-//        generateCenterPanel();
-//        generateNorthPanel();
-//        generateSouthPanel();
     }
 
     public void updateScoreBoard() throws IOException {

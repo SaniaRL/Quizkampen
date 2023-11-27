@@ -25,7 +25,7 @@ public class ScoreCount extends JPanel {
     CategoryLabel categoryLabel;
     int amountOfQuestions;
 
-    public ScoreCount(int amountOfQuestions){
+    public ScoreCount(int amountOfQuestions) {
         this.amountOfQuestions = amountOfQuestions;
         player1Score = new ArrayList<>();
         player2Score = new ArrayList<>();
@@ -36,7 +36,8 @@ public class ScoreCount extends JPanel {
         categoryLabel = new CategoryLabel();
         addComponents();
     }
-    public ScoreCount(List<Boolean> player1Score, List<Boolean> player2Score, QuestionCategory category, int amountOfQuestions){
+
+    public ScoreCount(List<Boolean> player1Score, List<Boolean> player2Score, QuestionCategory category, int amountOfQuestions) {
         this.amountOfQuestions = amountOfQuestions;
         this.questionCategory = category;
         this.player1Score = player1Score;
@@ -47,8 +48,8 @@ public class ScoreCount extends JPanel {
         addComponents();
     }
 
-    public void addComponents(){
-        setSize(new Dimension(800,80));
+    public void addComponents() {
+        setSize(new Dimension(800, 80));
         setLayout(new GridLayout(1, amountOfQuestions));
         setOpaque(false);
 
@@ -62,24 +63,17 @@ public class ScoreCount extends JPanel {
         add(player2Panel);
     }
 
-    public void generatePlayerLabel(JPanel panel, List<ScoreLabel> list){
+    public void generatePlayerLabel(JPanel panel, List<ScoreLabel> list) {
         panel.setSize(new Dimension(300, 80));
         panel.setLayout(new FlowLayout(FlowLayout.CENTER));
         panel.setOpaque(false);
-        Border emptyBorder = BorderFactory.createEmptyBorder(0,2,0,2);
+        Border emptyBorder = BorderFactory.createEmptyBorder(0, 2, 0, 2);
         panel.setBorder(emptyBorder);
-//        if(list.size() >= amountOfQuestions){
-//            for(int i = 0; i < amountOfQuestions; i++){
-//                panel.add(new ScoreLabel(list.get(i), amountOfQuestions));
-//            }
-//        }
-//        else{
-            for(int i = 0; i < amountOfQuestions; i++){
-                ScoreLabel scoreLabel = new ScoreLabel(amountOfQuestions);
-                panel.add(scoreLabel);
-                list.add(scoreLabel);
-            }
-//        }
+        for (int i = 0; i < amountOfQuestions; i++) {
+            ScoreLabel scoreLabel = new ScoreLabel(amountOfQuestions);
+            panel.add(scoreLabel);
+            list.add(scoreLabel);
+        }
     }
 
     public JPanel getPlayer1Panel() {

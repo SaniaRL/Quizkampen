@@ -150,8 +150,6 @@ public class ContentFrame extends JFrame {
 
     public void getQuestions() throws IOException {
         System.out.println("existing game found!");
-//        questionPage.setQuestionPage(game.getRounds().get(0).getCategory(), game.getRounds().get(0).getQuestions());
-        System.out.println(scoreBoardPage.getPlayerSide());
         scoreBoardPage.updateScoreBoard(game);
         cardLayout.show(contentPanel, "ScoreBoardPage");
         scoreBoardPage.showPlayButton();
@@ -253,7 +251,6 @@ public class ContentFrame extends JFrame {
                                 game.getRounds().get(game.getRounds().size() - 1).setPlayer1Score(new Boolean[0]);
                                 playerRound.clear();
                             }
-                            System.out.println(game);
                             writeToServer("round finished", game);
                         } else {
                             System.out.println("time to choose category");
