@@ -22,8 +22,21 @@ import java.io.IOException;
 public class ContentFrame extends JFrame {
 
     JPanel contentPanel;
-    CardLayout cardLayout;
 
+    JMenuBar menuBar;
+    JMenu settingsMenu;
+    JMenu backgroundMenu;
+    JMenu avatarMenu;
+    JMenuItem itemExit;
+    JMenuItem itemSelectRed;
+    JMenuItem itemSelectBlue;
+    JMenuItem itemSelectGreen;
+    JMenuItem itemSelectAvatar1;
+    JMenuItem itemSelectAvatar2;
+    JMenuItem itemSelectAvatar3;
+
+
+    CardLayout cardLayout;
     StartPage startPage;
     ChooseCategoryPage chooseCategoryPage;
     QuestionPage questionPage;
@@ -79,6 +92,7 @@ public class ContentFrame extends JFrame {
         //Provat lila tema, ändra fram och tillbaka och kika
         settingsOptions.setColor("hejsan");
         setDesignOptions();
+        createMenu();
         buildFrame();
     }
 /*
@@ -129,6 +143,38 @@ public class ContentFrame extends JFrame {
         addActionEvents();
         setVisible(true);
     }
+
+    private void createMenu() {
+        Font menuFont = new Font("Arial", Font.BOLD, 14);
+        menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+
+        settingsMenu = new JMenu("Settings");
+        backgroundMenu = new JMenu("Customize background");
+        avatarMenu = new JMenu("Select avatar");
+        menuBar.add(settingsMenu);
+        settingsMenu.add(backgroundMenu);
+        settingsMenu.add(avatarMenu);
+        settingsMenu.setFont(menuFont);
+
+        itemSelectRed = new JMenuItem("Red");
+        itemSelectBlue = new JMenuItem("Blue");
+        itemSelectGreen = new JMenuItem("Green");
+        itemSelectAvatar1 = new JMenuItem("Pig");
+        itemSelectAvatar2 = new JMenuItem("Lobster");
+        itemSelectAvatar3 = new JMenuItem("Monkey");
+        itemExit = new JMenuItem("Exit the game");
+        settingsMenu.add(itemExit);
+
+        backgroundMenu.add(itemSelectRed);
+        backgroundMenu.add(itemSelectBlue);
+        backgroundMenu.add(itemSelectGreen);
+        avatarMenu.add(itemSelectAvatar1);
+        avatarMenu.add(itemSelectAvatar2);
+        avatarMenu.add(itemSelectAvatar3);
+    }
+
+
 
     public synchronized <T> void writeToServer(String message, T item) {
         try {
