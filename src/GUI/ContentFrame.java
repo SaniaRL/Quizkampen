@@ -31,6 +31,7 @@ public class ContentFrame extends JFrame {
     JMenuItem itemSelectViolet;
     JMenuItem itemSelectBlack;
     JMenuItem itemSelectBlue;
+    JMenuItem itemSelectGreen;
     JMenuItem itemSelectAvatar1;
     JMenuItem itemSelectAvatar2;
     JMenuItem itemSelectAvatar3;
@@ -63,7 +64,7 @@ public class ContentFrame extends JFrame {
     private Turn playerSide;
     boolean chosenCategory = false;
 
-    public void setDesignOptions() {
+    public void setDesignOptions() { //Uppdaterar alla sidors options
         startPage.setDesignOptions(this.settingsOptions);
         chooseCategoryPage.setDesignOptions(this.settingsOptions);
         questionPage.setDesignOptions(this.settingsOptions);
@@ -159,6 +160,7 @@ public class ContentFrame extends JFrame {
 
         itemSelectViolet = new JMenuItem("Violet");
         itemSelectBlack = new JMenuItem("Black");
+        itemSelectGreen = new JMenuItem("Green");
         itemSelectBlue = new JMenuItem("Blue");
         itemSelectAvatar1 = new JMenuItem("Pig");
         itemSelectAvatar2 = new JMenuItem("Lobster");
@@ -168,6 +170,7 @@ public class ContentFrame extends JFrame {
 
         backgroundMenu.add(itemSelectViolet);
         backgroundMenu.add(itemSelectBlack);
+        backgroundMenu.add(itemSelectGreen);
         backgroundMenu.add(itemSelectBlue);
         avatarMenu.add(itemSelectAvatar1);
         avatarMenu.add(itemSelectAvatar2);
@@ -260,35 +263,36 @@ public class ContentFrame extends JFrame {
         });
     }
 
-    private void updateBackgroundImage() {
-        System.out.println("Ödet");
-        //setColour
-    }
-
     private void addActionListenerToSettingsMenu() {
         itemSelectViolet.addActionListener(e -> {
+
             settingsOptions.setColor("violet");
-            System.out.println("Violet");
-            //updateBackgroundImage();
+            setDesignOptions();
             getContentPane().revalidate();
             getContentPane().repaint();
         });
 
         itemSelectBlack.addActionListener(e -> {
             settingsOptions.setColor("black");
-            System.out.println("Svart");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+
+        itemSelectGreen.addActionListener(e -> {
+            settingsOptions.setColor("green");
+            setDesignOptions();
             getContentPane().revalidate();
             getContentPane().repaint();
         });
 
         itemSelectBlue.addActionListener(e -> {
             settingsOptions.setColor("sören");
-            System.out.println("Blå");
+            setDesignOptions();
             getContentPane().revalidate();
             getContentPane().repaint();
         });
     }
-
 
     public void addActionListerToStartPage() {
         startPage.getStartNewGame().addActionListener(ActionEvent -> {
