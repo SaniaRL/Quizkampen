@@ -3,7 +3,7 @@ package GUI.ScoreBoard;
 import CustomTypes.GameData;
 import CustomTypes.Round;
 import GUI.SettingsOptions;
-import Question.QuestionCategory;
+import Enums.QuestionCategory;
 import Question.QuestionCollection;
 
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package Question;
+package Enums;
 
 public enum QuestionCategory {
 
