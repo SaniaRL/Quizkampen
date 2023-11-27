@@ -1,27 +1,26 @@
 package GUI.CategoryGUI;
-import GUI.DesignOptions;
+import GUI.SettingsOptions;
 import Question.QuestionCategory;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class CategoryButton extends JButton {
 
     QuestionCategory category;
     Color backgroundColor;
-    DesignOptions designOptions;
+    SettingsOptions settingsOptions;
 
     public CategoryButton(QuestionCategory category) {
-        designOptions = new DesignOptions();
+        settingsOptions = new SettingsOptions();
         this.category = category;
         this.backgroundColor = CategoryColor.getColor(category.label);
 
         setText(category.label);
         setBackground(backgroundColor);
         setPreferredSize(new Dimension(600, 200));
-        setFont(designOptions.getBigText());
-        setBorder(designOptions.getBorder());
+        setFont(settingsOptions.getBigText());
+        setBorder(settingsOptions.getBorder());
     }
 
     public void updateCategoryButton(QuestionCategory category){
@@ -29,11 +28,12 @@ public class CategoryButton extends JButton {
         this.backgroundColor = CategoryColor.getColor(category.label);
 
         setText(category.label);
+        setForeground(Color.BLACK);
         setBackground(backgroundColor);
     }
 
-    public void setDesignOptions(DesignOptions designOptions) {
-        this.designOptions = designOptions;
-        setBorder(designOptions.getBorder());
+    public void setDesignOptions(SettingsOptions settingsOptions) {
+        this.settingsOptions = settingsOptions;
+        setBorder(settingsOptions.getBorder());
     }
 }
