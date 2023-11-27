@@ -2,7 +2,7 @@ package GUI;
 
 import Question.QuestionCollection;
 import Question.Question;
-import Question.QuestionCategory;
+import Enums.QuestionCategory;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -152,7 +152,7 @@ public class QuestionPage extends JPanel {
         JPanel optionsPanel = new JPanel(new GridLayout(2,2));
         JPanel nextQuestionPanel = new JPanel();
         nextQuestionPanel.setLayout(new FlowLayout());
-        nextQuestion = new JButton("Nästa fråga");
+        nextQuestion = new JButton("Skip Question");
         nextQuestion.setPreferredSize(new Dimension(200,80));
         nextQuestion.setBorder(settingsOptions.getBorder());
         nextQuestion.setBackground(Color.green);
@@ -234,6 +234,10 @@ public class QuestionPage extends JPanel {
 
     public List<JButton> getOptionButtons() {
         return optionButtons;
+    }
+
+    public JButton getNextQuestion() {
+        return nextQuestion;
     }
 
     public void setIndexCount(int indexCount) {

@@ -1,7 +1,7 @@
 package GUI.CategoryGUI;
 
 import GUI.SettingsOptions;
-import Question.QuestionCategory;
+import Enums.QuestionCategory;
 import Question.QuestionCollection;
 
 import javax.swing.*;

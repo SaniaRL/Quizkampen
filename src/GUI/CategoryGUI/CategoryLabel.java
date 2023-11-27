@@ -1,5 +1,6 @@
 package GUI.CategoryGUI;
 
+import Enums.QuestionCategory;
 import GUI.SettingsOptions;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ public class CategoryLabel extends JLabel {
     JLabel textLabel;
     SettingsOptions settingsOptions;
 
-    public CategoryLabel(Color color, Question.QuestionCategory category){
+    public CategoryLabel(Color color, QuestionCategory category){
         settingsOptions = new SettingsOptions();
         textLabel = new JLabel(category.label, SwingConstants.CENTER);
         setBackground(color);

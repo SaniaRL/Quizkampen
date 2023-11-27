@@ -1,8 +1,8 @@
 package Question;
 
+import Enums.QuestionCategory;
+
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class Question implements Serializable {
     private String question;

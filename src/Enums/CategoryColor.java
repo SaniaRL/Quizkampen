@@ -1,4 +1,4 @@
-package GUI.CategoryGUI;
+package Enums;
 
 import java.awt.*;
 
