@@ -33,9 +33,8 @@ public final class GameData implements Serializable {
         return rounds;
     }
 
-    public synchronized void setRounds(Round round) {
-        Round newRound = new Round(round.getCategory(), round.getQuestions(), round.getPlayer1Score(), round.getPlayer2Score());
-        this.rounds.add(newRound);
+    public synchronized void setRounds(List<Round> rounds) {
+        this.rounds = rounds;
     }
     public void addRound(Round round){
         rounds.add(round);
