@@ -209,6 +209,8 @@ public class ContentFrame extends JFrame {
     }
 
     public void addActionEvents() {
+        //SETTINGS MENU
+        addActionListenerToSettingsMenu();
 
         //START PAGE
         addActionListerToStartPage();
@@ -258,6 +260,9 @@ public class ContentFrame extends JFrame {
         });
     }
 
+    private void addActionListenerToSettingsMenu() {
+        itemExit.addActionListener(e -> System.exit(0));
+    }
 
     public void addActionListerToStartPage() {
         startPage.getStartNewGame().addActionListener(ActionEvent -> {
