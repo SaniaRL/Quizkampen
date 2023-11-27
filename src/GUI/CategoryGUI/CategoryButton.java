@@ -28,6 +28,7 @@ public class CategoryButton extends JButton {
         this.backgroundColor = CategoryColor.getColor(category.label);
 
         setText(category.label);
+        setForeground(Color.BLACK);
         setBackground(backgroundColor);
     }
 

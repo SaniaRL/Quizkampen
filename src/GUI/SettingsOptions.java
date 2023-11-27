@@ -19,6 +19,7 @@ public class SettingsOptions {
     Font bigText;
     Font smallText;
     Color textColor;
+    Color contrastColor;
 
     //WHERE TO PUT THESE?
     String player1;
@@ -43,6 +44,7 @@ public class SettingsOptions {
         bigText = new Font("Sans Serif", Font.PLAIN, 40);
         smallText = new Font("Sans Serif", Font.PLAIN, 22);
         textColor = Color.black;
+        contrastColor = Color.BLACK;
         //TEMP:
         player1 = "SANIA";
         player2 = "ÅKE";
@@ -64,6 +66,36 @@ public class SettingsOptions {
         imageIcons.add(new ImageIcon("Icons/tiger.png"));
         Collections.shuffle(imageIcons);
     }
+
+    public void setColor(String color) {
+        switch (color.toLowerCase()) {
+            case "black" -> {
+                this.color = Color.BLACK;
+                this.detailColor = Color.lightGray;
+                this.backgroundImagePath = "Backgrounds/blackBackground.png";
+                border = new LineBorder(this.color, 5);
+                backgroundImage = new ImageIcon(backgroundImagePath).getImage();
+                contrastColor = Color.WHITE;
+            }
+            case "violet" -> {
+                this.color = new Color(112, 31, 69);
+                this.detailColor = new Color(191, 112, 151);
+                this.backgroundImagePath = "Backgrounds/violetBackground.png";
+                border = new LineBorder(this.color, 5);
+                backgroundImage = new ImageIcon(backgroundImagePath).getImage();
+                contrastColor = Color.BLACK;
+            }
+            default -> {
+                this.color = Color.BLUE;
+                this.detailColor = Color.CYAN;
+                this.backgroundImagePath = "Backgrounds/blueBackground.png";
+                border = new LineBorder(this.color, 5);
+                backgroundImage = new ImageIcon(backgroundImagePath).getImage();
+                contrastColor = Color.BLACK;
+            }
+        }
+    }
+
 
     public ImageIcon getIcon() {
         return new ImageIcon((icon.getImage().getScaledInstance(60,60,Image.SCALE_SMOOTH)));
@@ -93,32 +125,6 @@ public class SettingsOptions {
         return border;
     }
 
-    public void setColor(String color) {
-        switch (color.toLowerCase()) {
-            case "black" -> {
-                this.color = Color.BLUE;
-                this.detailColor = Color.CYAN;
-                this.backgroundImagePath = "Backgrounds/blueBackground.png";
-                border = new LineBorder(this.color, 5);
-                backgroundImage = new ImageIcon(backgroundImagePath).getImage();
-            }
-            case "violet" -> {
-                this.color = new Color(112, 31, 69);
-                this.detailColor = new Color(191, 112, 151);
-                this.backgroundImagePath = "Backgrounds/violetBackground.png";
-                border = new LineBorder(this.color, 5);
-                backgroundImage = new ImageIcon(backgroundImagePath).getImage();
-            }
-            default -> {
-                this.color = Color.BLACK;
-                this.detailColor = Color.lightGray;
-                this.backgroundImagePath = "Backgrounds/blackBackground.png";
-                border = new LineBorder(this.color, 5);
-                backgroundImage = new ImageIcon(backgroundImagePath).getImage();
-            }
-        }
-    }
-
     public Color getDetailColor() {
         return detailColor;
     }
@@ -141,5 +147,13 @@ public class SettingsOptions {
 
     public String getPlayer2() {
         return player2;
+    }
+
+    public Color getTextColor() {
+        return textColor;
+    }
+
+    public Color getContrastColor() {
+        return contrastColor;
     }
 }

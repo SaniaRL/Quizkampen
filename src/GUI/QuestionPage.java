@@ -115,6 +115,7 @@ public class QuestionPage extends JPanel {
         categoryLabel = new JLabel("", SwingConstants.CENTER);
         categoryLabel.setFont(settingsOptions.getSmallText());
         categoryLabel.setPreferredSize(new Dimension(300, 150));
+        categoryLabel.setForeground(settingsOptions.getContrastColor());
 
         JPanel opponentPanel = new JPanel();
         createIconPanel(settingsOptions.getPlayer2Icon(), settingsOptions.getPlayer2(), opponentPanel);
@@ -134,6 +135,7 @@ public class QuestionPage extends JPanel {
         JLabel textLabel = new JLabel(text, SwingConstants.CENTER);
         textLabel.setPreferredSize(new Dimension(200,30));
         textLabel.setFont(settingsOptions.getSmallText());
+        textLabel.setForeground(settingsOptions.getContrastColor());
 
         panel.setLayout(new GridLayout(2, 1));
         panel.setPreferredSize(new Dimension(200,150));
@@ -249,5 +251,7 @@ public class QuestionPage extends JPanel {
             option.setBorder(compoundBorder);
         }
         nextQuestion.setBorder(settingsOptions.getBorder());
+        categoryLabel.setForeground(settingsOptions.getContrastColor());
+
     }
 }

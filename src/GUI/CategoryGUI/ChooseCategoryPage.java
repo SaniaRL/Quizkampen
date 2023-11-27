@@ -24,6 +24,8 @@ public class ChooseCategoryPage extends JPanel {
     QuestionCollection questionCollection;
     List<QuestionCategory> randomCategoryList;
 
+    JLabel text;
+
     SettingsOptions settingsOptions;
 
     public ChooseCategoryPage() throws IOException {
@@ -79,9 +81,10 @@ public class ChooseCategoryPage extends JPanel {
         panel.setOpaque(false);
 
 
-        JLabel text = new JLabel("Välj en kategori", SwingConstants.CENTER);
+        text = new JLabel("Välj en kategori", SwingConstants.CENTER);
         text.setFont(settingsOptions.getTitleFont());
         text.setPreferredSize(new Dimension(800, 100));
+        text.setForeground(settingsOptions.getContrastColor());
         text.setOpaque(false);
 
         panel.add(text, BorderLayout.CENTER);
@@ -159,5 +162,7 @@ public class ChooseCategoryPage extends JPanel {
         for (CategoryButton categoryButton : categoryOptionsList) {
             categoryButton.setBorder(settingsOptions.getBorder());
         }
+        text.setForeground(settingsOptions.getContrastColor());
+
     }
 }

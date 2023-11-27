@@ -77,7 +77,7 @@ public class ContentFrame extends JFrame {
         settingsOptions = new SettingsOptions();
 
         //Provat lila tema, ändra fram och tillbaka och kika
-        settingsOptions.setColor("violet");
+        settingsOptions.setColor("hejsan");
         setDesignOptions();
         buildFrame();
     }

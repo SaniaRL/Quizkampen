@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 public class ScoreCount extends JPanel {
 
@@ -62,6 +63,8 @@ public class ScoreCount extends JPanel {
         panel.setSize(new Dimension(300, 80));
         panel.setLayout(new FlowLayout(FlowLayout.CENTER));
         panel.setOpaque(false);
+        Border emptyBorder = BorderFactory.createEmptyBorder(0,2,0,2);
+        panel.setBorder(emptyBorder);
         if(list.size() >= amountOfQuestions){
             for(int i = 0; i < amountOfQuestions; i++){
                 panel.add(new ScoreLabel(list.get(i), amountOfQuestions));
