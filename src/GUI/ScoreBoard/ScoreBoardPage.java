@@ -38,7 +38,7 @@ public class ScoreBoardPage extends JPanel {
     List<List<Boolean>> playerScoreList;
     List<List<Boolean>> opponentScoreList;
     private int amountOfRounds;
-    private int amountOfQuestions;
+    private final int amountOfQuestions;
 
     public ScoreBoardPage(String gameID, int amountOfRounds, int amountOfQuestions) throws IOException {
         this.amountOfQuestions = amountOfQuestions;
