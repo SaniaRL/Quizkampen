@@ -1,13 +1,13 @@
 package GUI.ScoreBoard;
 
-import GUI.DesignOptions;
+import GUI.SettingsOptions;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ScoreLabel extends JLabel {
 
-    DesignOptions designOptions;
+    SettingsOptions settingsOptions;
 
     Color winColor;
     Color loseColor;
@@ -16,11 +16,11 @@ public class ScoreLabel extends JLabel {
 
     public ScoreLabel(Boolean win, int amountOfQuestions){
         this.amountOfQuestions = amountOfQuestions;
-        designOptions = new DesignOptions();
+        settingsOptions = new SettingsOptions();
         winColor = Color.GREEN;
         loseColor = Color.RED;
-        defaultColor = designOptions.getColor();
-        designOptions.setColor("violet");
+        defaultColor = settingsOptions.getColor();
+        settingsOptions.setColor("violet");
 
         addComponents();
         if(win){

@@ -2,13 +2,12 @@ package GUI.ScoreBoard;
 
 import CustomTypes.GameData;
 import CustomTypes.Round;
-import GUI.DesignOptions;
+import GUI.SettingsOptions;
 import Question.QuestionCategory;
 import Question.QuestionCollection;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -27,8 +26,7 @@ public class ScoreBoardPage extends JPanel {
 
     JButton playGame;
 
-    DesignOptions designOptions;
-    ImageIcon player2Icon;
+    SettingsOptions settingsOptions;
 
     int player1 = 0;
     int player2 = 0;
@@ -45,9 +43,8 @@ public class ScoreBoardPage extends JPanel {
         this.amountOfRounds = amountOfRounds;
         this.gameID = gameID;
 
-        designOptions = new DesignOptions();
+        settingsOptions = new SettingsOptions();
         //TODO get from server, from Other players GUI
-        player2Icon = new DesignOptions().getSmallIcon();
 
         centerPanel = new JPanel();
         northPanel = new JPanel();
@@ -107,15 +104,15 @@ public class ScoreBoardPage extends JPanel {
         northPanel.setLayout(new GridLayout(1, 3));
         northPanel.setOpaque(false);
 
-        ImageIcon yourIcon = designOptions.getSmallIcon();
-        JPanel yourPanel = createIconPanel(yourIcon, "YOU");
+        ImageIcon yourIcon = settingsOptions.getIcon();
+        JPanel yourPanel = createIconPanel(yourIcon, settingsOptions.getPlayer1());
 
-        JPanel opponentPanel = createIconPanel(player2Icon, "RANDOM");
+        JPanel opponentPanel = createIconPanel(settingsOptions.getPlayer2Icon(), settingsOptions.getPlayer2());
 
         JPanel middlePanel = new JPanel();
         turnLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Din tur", SwingConstants.CENTER);
         scoreLabel = new JLabel("<html><div style='text-align: center; vertical-align: top;'>" + player1 + "-" + player2 + "</div></html>", SwingConstants.CENTER);
-        scoreLabel.setFont(designOptions.getSmallText());
+        scoreLabel.setFont(settingsOptions.getSmallText());
         setScores();
 
         middlePanel.setLayout(new GridLayout(2, 1));
@@ -151,7 +148,7 @@ public class ScoreBoardPage extends JPanel {
     }
 
     public void setFont (JLabel label){
-        label.setFont(designOptions.getSmallText());
+        label.setFont(settingsOptions.getSmallText());
         setOpaque(false);
     }
 
@@ -162,8 +159,8 @@ public class ScoreBoardPage extends JPanel {
 
         playGame.setBackground(Color.GREEN);
         playGame.setPreferredSize(new Dimension(200, 70));
-        playGame.setFont(designOptions.getSmallText());
-        playGame.setBorder(designOptions.getBorder());
+        playGame.setFont(settingsOptions.getSmallText());
+        playGame.setBorder(settingsOptions.getBorder());
 
         southPanel.add(playGame);
     }
@@ -171,8 +168,8 @@ public class ScoreBoardPage extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (designOptions.getBackgroundImage() != null) {
-            g.drawImage(designOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
+        if (settingsOptions.getBackgroundImage() != null) {
+            g.drawImage(settingsOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
 
@@ -259,8 +256,8 @@ public class ScoreBoardPage extends JPanel {
         scoreLabel.setText(player1 + " - " + player2);
     }
 
-    public void setDesignOptions(DesignOptions designOptions) {
-        this.designOptions = designOptions;
+    public void setDesignOptions(SettingsOptions settingsOptions) {
+        this.settingsOptions = settingsOptions;
     }
 
     public void setTurnLabel(Boolean yourTurn){

@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.awt.*;
 import java.io.IOException;
@@ -30,8 +29,8 @@ public class ContentFrame extends JFrame implements Serializable {
     QuestionPage questionPage;
     WaitingPage waitingPage;
     ScoreBoardPage scoreBoardPage;
-
     SettingsPage settingsPage;
+    ResultPage resultPage;
 
     //Should be moved to game logic later:
     List<List<Boolean>> player1Wins = new ArrayList<>();
@@ -40,7 +39,7 @@ public class ContentFrame extends JFrame implements Serializable {
     //    List<Boolean> player2Round = new ArrayList<>();
     QuestionCategory category = QuestionCategory.MOVIES;
     String gameID = "4556";
-    DesignOptions designOptions;
+    SettingsOptions settingsOptions;
 
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
@@ -53,11 +52,12 @@ public class ContentFrame extends JFrame implements Serializable {
     boolean chosenCategory = false;
 
     public void setDesignOptions() {
-        startPage.setDesignOptions(this.designOptions);
-        chooseCategoryPage.setDesignOptions(this.designOptions);
-        questionPage.setDesignOptions(this.designOptions);
-        scoreBoardPage.setDesignOptions(this.designOptions);
-        settingsPage.setDesignOptions(this.designOptions);
+        startPage.setDesignOptions(this.settingsOptions);
+        chooseCategoryPage.setDesignOptions(this.settingsOptions);
+        questionPage.setDesignOptions(this.settingsOptions);
+        scoreBoardPage.setDesignOptions(this.settingsOptions);
+        settingsPage.setDesignOptions(this.settingsOptions);
+        resultPage.setDesignOptions(this.settingsOptions);
     }
 
     public ContentFrame(ObjectOutputStream out, int amountOfQuestions, int amountOfRounds) throws IOException {
@@ -74,10 +74,11 @@ public class ContentFrame extends JFrame implements Serializable {
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
         settingsPage = new SettingsPage();
-        designOptions = new DesignOptions();
+        resultPage = new ResultPage();
+        settingsOptions = new SettingsOptions();
 
         //Provat lila tema, ändra fram och tillbaka och kika
-        designOptions.setColor("violet");
+        settingsOptions.setColor("hejsan");
         setDesignOptions();
         buildFrame();
     }
@@ -123,6 +124,7 @@ public class ContentFrame extends JFrame implements Serializable {
         contentPanel.add(waitingPage, "WaitingPage");
         contentPanel.add(scoreBoardPage, "ScoreBoardPage");
         contentPanel.add(settingsPage, "SettingsPage");
+        contentPanel.add(resultPage, "ResultPage");
 
         add(contentPanel);
         addActionEvents();
@@ -213,6 +215,9 @@ public class ContentFrame extends JFrame implements Serializable {
     public void addActionListerToStartPage() {
         startPage.getStartNewGame().addActionListener(ActionEvent -> {
             writeToServer("new game", null);
+        });
+        startPage.getNotifications().addActionListener(ActionEvent -> {
+            cardLayout.show(contentPanel, "ResultPage");
         });
     }
 
