@@ -12,6 +12,8 @@ public class CategoryButton extends JButton {
     Color backgroundColor;
     SettingsOptions settingsOptions;
 
+    //La till en tom konstruktor för att kunna initeria tomma knappar i ChooseCategoryPage
+    public CategoryButton() {}
     public CategoryButton(QuestionCategory category) {
         settingsOptions = new SettingsOptions();
         this.category = category;

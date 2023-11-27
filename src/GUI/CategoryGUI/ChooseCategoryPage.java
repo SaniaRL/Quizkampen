@@ -35,6 +35,11 @@ public class ChooseCategoryPage extends JPanel {
         southPanel = new JPanel();
         questionCollection = new QuestionCollection();
 
+        //Initierarar dessa för att förhindra nullpointerexception
+        categoryOption1 = new CategoryButton();
+        categoryOption2 = new CategoryButton();
+        categoryOption3 = new CategoryButton();
+
         randomCategoryList = new ArrayList<>();
 
         generateRandomCategoryList();
