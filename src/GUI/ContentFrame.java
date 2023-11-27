@@ -28,9 +28,9 @@ public class ContentFrame extends JFrame {
     JMenu backgroundMenu;
     JMenu avatarMenu;
     JMenuItem itemExit;
-    JMenuItem itemSelectRed;
+    JMenuItem itemSelectViolet;
+    JMenuItem itemSelectBlack;
     JMenuItem itemSelectBlue;
-    JMenuItem itemSelectGreen;
     JMenuItem itemSelectAvatar1;
     JMenuItem itemSelectAvatar2;
     JMenuItem itemSelectAvatar3;
@@ -157,18 +157,18 @@ public class ContentFrame extends JFrame {
         settingsMenu.add(avatarMenu);
         settingsMenu.setFont(menuFont);
 
-        itemSelectRed = new JMenuItem("Red");
+        itemSelectViolet = new JMenuItem("Violet");
+        itemSelectBlack = new JMenuItem("Black");
         itemSelectBlue = new JMenuItem("Blue");
-        itemSelectGreen = new JMenuItem("Green");
         itemSelectAvatar1 = new JMenuItem("Pig");
         itemSelectAvatar2 = new JMenuItem("Lobster");
         itemSelectAvatar3 = new JMenuItem("Monkey");
         itemExit = new JMenuItem("Exit the game");
         settingsMenu.add(itemExit);
 
-        backgroundMenu.add(itemSelectRed);
+        backgroundMenu.add(itemSelectViolet);
+        backgroundMenu.add(itemSelectBlack);
         backgroundMenu.add(itemSelectBlue);
-        backgroundMenu.add(itemSelectGreen);
         avatarMenu.add(itemSelectAvatar1);
         avatarMenu.add(itemSelectAvatar2);
         avatarMenu.add(itemSelectAvatar3);
@@ -260,9 +260,35 @@ public class ContentFrame extends JFrame {
         });
     }
 
-    private void addActionListenerToSettingsMenu() {
-        itemExit.addActionListener(e -> System.exit(0));
+    private void updateBackgroundImage() {
+        System.out.println("Ödet");
+        //setColour
     }
+
+    private void addActionListenerToSettingsMenu() {
+        itemSelectViolet.addActionListener(e -> {
+            settingsOptions.setColor("violet");
+            System.out.println("Violet");
+            //updateBackgroundImage();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+
+        itemSelectBlack.addActionListener(e -> {
+            settingsOptions.setColor("black");
+            System.out.println("Svart");
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+
+        itemSelectBlue.addActionListener(e -> {
+            settingsOptions.setColor("sören");
+            System.out.println("Blå");
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+    }
+
 
     public void addActionListerToStartPage() {
         startPage.getStartNewGame().addActionListener(ActionEvent -> {

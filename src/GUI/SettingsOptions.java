@@ -95,6 +95,9 @@ public class SettingsOptions {
             }
         }
     }
+    public String getBackgroundImagePath() {
+        return backgroundImagePath;
+    }
 
 
     public ImageIcon getIcon() {
