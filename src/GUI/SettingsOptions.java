@@ -58,13 +58,13 @@ public class SettingsOptions {
         imageIcons.add(new ImageIcon("Icons/lobster.png"));
         imageIcons.add(new ImageIcon("Icons/apa.png"));
         imageIcons.add(new ImageIcon("Icons/elefant.png"));
-        imageIcons.add(new ImageIcon("Icons/gris.png"));
+        imageIcons.add(new ImageIcon("Icons/gris.png")); //5
         imageIcons.add(new ImageIcon("Icons/kanin.png"));
         imageIcons.add(new ImageIcon("Icons/ko.png"));
         imageIcons.add(new ImageIcon("Icons/orm.png"));
         imageIcons.add(new ImageIcon("Icons/panda.png"));
         imageIcons.add(new ImageIcon("Icons/tiger.png"));
-        Collections.shuffle(imageIcons);
+        //Collections.shuffle(imageIcons);
     }
 
     public void setColor(String color) {
@@ -103,10 +103,6 @@ public class SettingsOptions {
             }
         }
     }
-    public String getBackgroundImagePath() {
-        return backgroundImagePath;
-    }
-
 
     public ImageIcon getIcon() {
         return new ImageIcon((icon.getImage().getScaledInstance(60,60,Image.SCALE_SMOOTH)));

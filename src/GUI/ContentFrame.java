@@ -32,7 +32,7 @@ public class ContentFrame extends JFrame {
     JMenuItem itemSelectBlack;
     JMenuItem itemSelectBlue;
     JMenuItem itemSelectGreen;
-    JMenuItem itemSelectAvatar1;
+    JMenuItem itemSelectPig;
     JMenuItem itemSelectAvatar2;
     JMenuItem itemSelectAvatar3;
 
@@ -162,7 +162,7 @@ public class ContentFrame extends JFrame {
         itemSelectBlack = new JMenuItem("Black");
         itemSelectGreen = new JMenuItem("Green");
         itemSelectBlue = new JMenuItem("Blue");
-        itemSelectAvatar1 = new JMenuItem("Pig");
+        itemSelectPig = new JMenuItem("Pig");
         itemSelectAvatar2 = new JMenuItem("Lobster");
         itemSelectAvatar3 = new JMenuItem("Monkey");
         itemExit = new JMenuItem("Exit the game");
@@ -172,7 +172,7 @@ public class ContentFrame extends JFrame {
         backgroundMenu.add(itemSelectBlack);
         backgroundMenu.add(itemSelectGreen);
         backgroundMenu.add(itemSelectBlue);
-        avatarMenu.add(itemSelectAvatar1);
+        avatarMenu.add(itemSelectPig);
         avatarMenu.add(itemSelectAvatar2);
         avatarMenu.add(itemSelectAvatar3);
     }
@@ -288,6 +288,15 @@ public class ContentFrame extends JFrame {
 
         itemSelectBlue.addActionListener(e -> {
             settingsOptions.setColor("sören");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+
+        itemSelectPig.addActionListener(e -> {
+            System.out.println("Gris");
+            ImageIcon yourImageIcon = new ImageIcon(settingsOptions.getIcon().getImage().getScaledInstance(60,60, Image.SCALE_SMOOTH)); //hämtar bild
+
             setDesignOptions();
             getContentPane().revalidate();
             getContentPane().repaint();
