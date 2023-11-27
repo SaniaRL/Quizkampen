@@ -1,6 +1,6 @@
 package GUI.CategoryGUI;
 
-import GUI.DesignOptions;
+import GUI.SettingsOptions;
 import Question.QuestionCategory;
 import Question.QuestionCollection;
 
@@ -24,10 +24,10 @@ public class ChooseCategoryPage extends JPanel {
     QuestionCollection questionCollection;
     List<QuestionCategory> randomCategoryList;
 
-    DesignOptions designOptions;
+    SettingsOptions settingsOptions;
 
     public ChooseCategoryPage() throws IOException {
-        designOptions = new DesignOptions();
+        settingsOptions = new SettingsOptions();
 
         northPanel = new JPanel();
         southPanel = new JPanel();
@@ -58,8 +58,8 @@ public class ChooseCategoryPage extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (designOptions.getBackgroundImage() != null) {
-            g.drawImage(designOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
+        if (settingsOptions.getBackgroundImage() != null) {
+            g.drawImage(settingsOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
 
@@ -80,7 +80,7 @@ public class ChooseCategoryPage extends JPanel {
 
 
         JLabel text = new JLabel("Välj en kategori", SwingConstants.CENTER);
-        text.setFont(designOptions.getTitleFont());
+        text.setFont(settingsOptions.getTitleFont());
         text.setPreferredSize(new Dimension(800, 100));
         text.setOpaque(false);
 
@@ -123,7 +123,7 @@ public class ChooseCategoryPage extends JPanel {
     public void generateCategoryButtons(){
         for (int i = 0; i < 3; i++) {
             categoryOptionsList.add(new CategoryButton(randomCategoryList.get(i)));
-            categoryOptionsList.get(i).setDesignOptions(this.designOptions);
+            categoryOptionsList.get(i).setDesignOptions(this.settingsOptions);
         }
     }
 
@@ -154,10 +154,10 @@ public class ChooseCategoryPage extends JPanel {
         revalidate();
     }
 
-    public void setDesignOptions(DesignOptions designOptions) {
-        this.designOptions = designOptions;
+    public void setDesignOptions(SettingsOptions settingsOptions) {
+        this.settingsOptions = settingsOptions;
         for (CategoryButton categoryButton : categoryOptionsList) {
-            categoryButton.setBorder(designOptions.getBorder());
+            categoryButton.setBorder(settingsOptions.getBorder());
         }
     }
 }

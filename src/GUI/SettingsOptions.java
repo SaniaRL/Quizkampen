@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DesignOptions {
+public class SettingsOptions {
     ImageIcon icon;
     Color color;
     Color detailColor;
@@ -18,6 +18,7 @@ public class DesignOptions {
     Font titleFont;
     Font bigText;
     Font smallText;
+    Color textColor;
 
     //WHERE TO PUT THESE?
     String player1;
@@ -29,7 +30,7 @@ public class DesignOptions {
         return backgroundImage;
     }
 
-    public DesignOptions(){
+    public SettingsOptions(){
         imageIcons = new ArrayList<>();
         addIcons();
         icon = imageIcons.get(0);
@@ -41,18 +42,26 @@ public class DesignOptions {
         titleFont = new Font("Sans Serif", Font.PLAIN, 50);
         bigText = new Font("Sans Serif", Font.PLAIN, 40);
         smallText = new Font("Sans Serif", Font.PLAIN, 22);
+        textColor = Color.black;
         //TEMP:
         player1 = "SANIA";
         player2 = "ÅKE";
-        icon = new ImageIcon("Icons/crab.png");
+        icon = imageIcons.get(0);
         player2Icon = new ImageIcon("Icons/lobster.png");
     }
 
     public void addIcons(){
         imageIcons.add(new ImageIcon("Icons/crab.png"));
-        imageIcons.add(new ImageIcon("Icons/worm.png"));
         imageIcons.add(new ImageIcon("Icons/squid.png"));
         imageIcons.add(new ImageIcon("Icons/lobster.png"));
+        imageIcons.add(new ImageIcon("Icons/apa.png"));
+        imageIcons.add(new ImageIcon("Icons/elefant.png"));
+        imageIcons.add(new ImageIcon("Icons/gris.png"));
+        imageIcons.add(new ImageIcon("Icons/kanin.png"));
+        imageIcons.add(new ImageIcon("Icons/ko.png"));
+        imageIcons.add(new ImageIcon("Icons/orm.png"));
+        imageIcons.add(new ImageIcon("Icons/panda.png"));
+        imageIcons.add(new ImageIcon("Icons/tiger.png"));
         Collections.shuffle(imageIcons);
     }
 
@@ -85,19 +94,25 @@ public class DesignOptions {
     }
 
     public void setColor(String color) {
-        switch (color.toLowerCase()){
-            case "blue" -> {
+        switch (color.toLowerCase()) {
+            case "black" -> {
                 this.color = Color.BLUE;
                 this.detailColor = Color.CYAN;
                 this.backgroundImagePath = "Backgrounds/blueBackground.png";
                 border = new LineBorder(this.color, 5);
                 backgroundImage = new ImageIcon(backgroundImagePath).getImage();
-
             }
             case "violet" -> {
                 this.color = new Color(112, 31, 69);
                 this.detailColor = new Color(191, 112, 151);
                 this.backgroundImagePath = "Backgrounds/violetBackground.png";
+                border = new LineBorder(this.color, 5);
+                backgroundImage = new ImageIcon(backgroundImagePath).getImage();
+            }
+            default -> {
+                this.color = Color.BLACK;
+                this.detailColor = Color.lightGray;
+                this.backgroundImagePath = "Backgrounds/blackBackground.png";
                 border = new LineBorder(this.color, 5);
                 backgroundImage = new ImageIcon(backgroundImagePath).getImage();
             }

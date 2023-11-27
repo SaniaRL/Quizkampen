@@ -12,11 +12,9 @@ import Question.QuestionCollection;
 import Enums.Turn;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.awt.*;
 import java.io.IOException;
@@ -41,7 +39,7 @@ public class ContentFrame extends JFrame {
     //    List<Boolean> player2Round = new ArrayList<>();
     QuestionCategory category = QuestionCategory.MOVIES;
     String gameID = "4556";
-    DesignOptions designOptions;
+    SettingsOptions settingsOptions;
 
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
@@ -53,12 +51,12 @@ public class ContentFrame extends JFrame {
     boolean chosenCategory = false;
 
     public void setDesignOptions() {
-        startPage.setDesignOptions(this.designOptions);
-        chooseCategoryPage.setDesignOptions(this.designOptions);
-        questionPage.setDesignOptions(this.designOptions);
-        scoreBoardPage.setDesignOptions(this.designOptions);
-        settingsPage.setDesignOptions(this.designOptions);
-        resultPage.setDesignOptions(this.designOptions);
+        startPage.setDesignOptions(this.settingsOptions);
+        chooseCategoryPage.setDesignOptions(this.settingsOptions);
+        questionPage.setDesignOptions(this.settingsOptions);
+        scoreBoardPage.setDesignOptions(this.settingsOptions);
+        settingsPage.setDesignOptions(this.settingsOptions);
+        resultPage.setDesignOptions(this.settingsOptions);
     }
 
     public ContentFrame(ObjectOutputStream out, int amountOfQuestions, int amountOfRounds) throws IOException {
@@ -76,10 +74,10 @@ public class ContentFrame extends JFrame {
         scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
         settingsPage = new SettingsPage();
         resultPage = new ResultPage();
-        designOptions = new DesignOptions();
+        settingsOptions = new SettingsOptions();
 
         //Provat lila tema, ändra fram och tillbaka och kika
-        designOptions.setColor("violet");
+        settingsOptions.setColor("violet");
         setDesignOptions();
         buildFrame();
     }

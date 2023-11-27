@@ -1,6 +1,5 @@
 package GUI;
 
-import GUI.ScoreBoard.ScoreBoardPage;
 import Question.QuestionCollection;
 import Question.Question;
 import Question.QuestionCategory;
@@ -15,7 +14,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.io.IOException;
-import java.util.List;
 
 public class QuestionPage extends JPanel {
 
@@ -38,11 +36,11 @@ public class QuestionPage extends JPanel {
     String answer;
     List<JButton> optionButtons;
 
-    DesignOptions designOptions;
+    SettingsOptions settingsOptions;
 
     public QuestionPage(int amountOfQuestions) throws IOException {
         this.amountOfQuestions = amountOfQuestions;
-        designOptions = new DesignOptions();
+        settingsOptions = new SettingsOptions();
         questionCollection = new QuestionCollection();
         questionList = questionCollection.getAllQuestions();
         questions = new ArrayList<>();
@@ -79,8 +77,8 @@ public class QuestionPage extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (designOptions.getBackgroundImage() != null) {
-            g.drawImage(designOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
+        if (settingsOptions.getBackgroundImage() != null) {
+            g.drawImage(settingsOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
 
@@ -92,9 +90,9 @@ public class QuestionPage extends JPanel {
 
         questionLabel = new JLabel();
         questionLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        questionLabel.setFont(designOptions.getSmallText());
+        questionLabel.setFont(settingsOptions.getSmallText());
         Border emptyBorder = BorderFactory.createEmptyBorder(10,10,10,10);
-        Border border = new LineBorder(designOptions.getColor(), 10);
+        Border border = new LineBorder(settingsOptions.getColor(), 10);
         Border compoundBorder = new CompoundBorder(border, emptyBorder);
         questionLabel.setPreferredSize(new Dimension(600, 200));
         questionLabel.setBackground(Color.white);
@@ -110,16 +108,16 @@ public class QuestionPage extends JPanel {
         northPanel.setPreferredSize(new Dimension(800, 150));
         northPanel.setOpaque(false);
 
-        ImageIcon yourImageIcon = new ImageIcon(designOptions.getIcon().getImage().getScaledInstance(60,60, Image.SCALE_SMOOTH));
+        ImageIcon yourImageIcon = new ImageIcon(settingsOptions.getIcon().getImage().getScaledInstance(60,60, Image.SCALE_SMOOTH));
         JPanel yourPanel = new JPanel();
-        createIconPanel(yourImageIcon, designOptions.getPlayer1(), yourPanel);
+        createIconPanel(yourImageIcon, settingsOptions.getPlayer1(), yourPanel);
 
         categoryLabel = new JLabel("", SwingConstants.CENTER);
-        categoryLabel.setFont(designOptions.getSmallText());
+        categoryLabel.setFont(settingsOptions.getSmallText());
         categoryLabel.setPreferredSize(new Dimension(300, 150));
 
         JPanel opponentPanel = new JPanel();
-        createIconPanel(designOptions.getPlayer2Icon(), designOptions.getPlayer2(), opponentPanel);
+        createIconPanel(settingsOptions.getPlayer2Icon(), settingsOptions.getPlayer2(), opponentPanel);
 
         Border emptyBorder = BorderFactory.createEmptyBorder(20,10,20,10);
 
@@ -135,7 +133,7 @@ public class QuestionPage extends JPanel {
 
         JLabel textLabel = new JLabel(text, SwingConstants.CENTER);
         textLabel.setPreferredSize(new Dimension(200,30));
-        textLabel.setFont(designOptions.getSmallText());
+        textLabel.setFont(settingsOptions.getSmallText());
 
         panel.setLayout(new GridLayout(2, 1));
         panel.setPreferredSize(new Dimension(200,150));
@@ -154,7 +152,7 @@ public class QuestionPage extends JPanel {
         nextQuestionPanel.setLayout(new FlowLayout());
         nextQuestion = new JButton("Nästa fråga");
         nextQuestion.setPreferredSize(new Dimension(200,80));
-        nextQuestion.setBorder(designOptions.getBorder());
+        nextQuestion.setBorder(settingsOptions.getBorder());
         nextQuestion.setBackground(Color.green);
         nextQuestionPanel.add(nextQuestion, SwingConstants.CENTER);
         nextQuestionPanel.setOpaque(false);
@@ -166,11 +164,11 @@ public class QuestionPage extends JPanel {
         for (int i = 0; i < 4; i++) {
             JButton button = new JButton();
             Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-            Border border = new LineBorder(designOptions.getColor(), 2);
+            Border border = new LineBorder(settingsOptions.getColor(), 2);
             Border compoundBorder = new CompoundBorder(border, emptyBorder);
             button.setBorder(compoundBorder);
             button.setPreferredSize(new Dimension(200, 100));
-            button.setFont(designOptions.getSmallText());
+            button.setFont(settingsOptions.getSmallText());
             button.setBackground(Color.white);
             optionsPanel.add(button, SwingConstants.CENTER);
             optionButtons.add(button);
@@ -239,15 +237,17 @@ public class QuestionPage extends JPanel {
     public void setIndexCount(int indexCount) {
         this.indexCount = indexCount;
     }
-    public void setDesignOptions(DesignOptions designOptions) {
-        this.designOptions = designOptions;
-        questionLabel.setBorder(new LineBorder(designOptions.getColor(), 10));
+    public void setDesignOptions(SettingsOptions settingsOptions) {
+        this.settingsOptions = settingsOptions;
+        Border bigBorder = new LineBorder(settingsOptions.getColor(), 10);
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-        Border border = new LineBorder(designOptions.getColor(), 2);
+        Border border = new LineBorder(settingsOptions.getColor(), 2);
         Border compoundBorder = new CompoundBorder(border, emptyBorder);
+        Border questionCompoundBorder = new CompoundBorder(bigBorder, emptyBorder);
+        questionLabel.setBorder(questionCompoundBorder);
         for(JButton option : optionButtons){
             option.setBorder(compoundBorder);
         }
-        nextQuestion.setBorder(designOptions.getBorder());
+        nextQuestion.setBorder(settingsOptions.getBorder());
     }
 }

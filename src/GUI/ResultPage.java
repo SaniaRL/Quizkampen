@@ -13,7 +13,7 @@ public class ResultPage extends JPanel {
     int yourPoints;
     int player2Points;
 
-    DesignOptions designOptions;
+    SettingsOptions settingsOptions;
 
     public ResultPage(){
         northPanel = new JPanel();
@@ -22,7 +22,7 @@ public class ResultPage extends JPanel {
         newGame = new JButton("New Game");
         exitGame = new JButton("Exit Game");
 
-        designOptions = new DesignOptions();
+        settingsOptions = new SettingsOptions();
 
         yourPoints = 10;
         player2Points = 7;
@@ -48,8 +48,8 @@ public class ResultPage extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (designOptions.getBackgroundImage() != null) {
-            g.drawImage(designOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
+        if (settingsOptions.getBackgroundImage() != null) {
+            g.drawImage(settingsOptions.getBackgroundImage(), 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
 
@@ -61,8 +61,8 @@ public class ResultPage extends JPanel {
         JPanel yourPanel = new JPanel();
         JPanel opponentPanel = new JPanel();
 
-        createPlayerPanels(yourPanel, designOptions.getBigIcon(), designOptions.getPlayer1(), yourPoints > player2Points);
-        createPlayerPanels(opponentPanel, designOptions.getBigPlayer2Icon(), designOptions.getPlayer2(), player2Points > yourPoints);
+        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), yourPoints > player2Points);
+        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), player2Points > yourPoints);
 
         northPanel.add(yourPanel);
         northPanel.add(opponentPanel);
@@ -80,16 +80,16 @@ public class ResultPage extends JPanel {
         else{
             place = new JLabel("LOSER", SwingConstants.CENTER);
         }
-        place.setFont(designOptions.getBigText());
+        place.setFont(settingsOptions.getBigText());
         place.setForeground(Color.BLACK);
 
         JLabel iconLabel = new JLabel(icon, SwingConstants.CENTER);
         JLabel nameLabel = new JLabel(text, SwingConstants.CENTER);
-        nameLabel.setFont(designOptions.getBigText());
+        nameLabel.setFont(settingsOptions.getBigText());
         nameLabel.setForeground(Color.BLACK);
 
         JLabel points = new JLabel("10", SwingConstants.CENTER);
-        points.setFont(designOptions.getBigText());
+        points.setFont(settingsOptions.getBigText());
         points.setForeground(Color.BLACK);
 
         panel.add(place);
@@ -116,16 +116,16 @@ public class ResultPage extends JPanel {
     public void setButtonDesign(JButton button, JPanel panel){
         button.setPreferredSize(new Dimension(300, 100));
         button.setBackground(Color.WHITE);
-        button.setFont(designOptions.getSmallText());
-        button.setBorder(designOptions.getBorder());
+        button.setFont(settingsOptions.getSmallText());
+        button.setBorder(settingsOptions.getBorder());
         panel.add(button, SwingConstants.CENTER);
         panel.setOpaque(false);
     }
 
-    public void setDesignOptions(DesignOptions designOptions){
-        this.designOptions = designOptions;
-        newGame.setBorder(designOptions.getBorder());
-        exitGame.setBorder(designOptions.getBorder());
+    public void setDesignOptions(SettingsOptions settingsOptions){
+        this.settingsOptions = settingsOptions;
+        newGame.setBorder(settingsOptions.getBorder());
+        exitGame.setBorder(settingsOptions.getBorder());
     }
 
     private void actionListenerHandler() {
