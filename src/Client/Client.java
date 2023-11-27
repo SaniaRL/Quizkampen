@@ -56,6 +56,7 @@ public class Client {
                         }
                         if (message[0].equals("your turn")) {
                             frame.setGame(gameData);
+                            System.out.println(gameData);
                             frame.getQuestions();
                         }
                         if (message[0].equals("opponent turn")) {

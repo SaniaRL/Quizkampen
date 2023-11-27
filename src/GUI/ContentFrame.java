@@ -148,11 +148,13 @@ public class ContentFrame extends JFrame {
         chosenCategory = true;
     }
 
-    public void getQuestions() {
+    public void getQuestions() throws IOException {
         System.out.println("existing game found!");
-        questionPage.setQuestionPage(game.getRounds().get(0).getCategory(), game.getRounds().get(0).getQuestions());
-        cardLayout.show(contentPanel, "QuestionPage");
-        addActionListenerToOptions();
+//        questionPage.setQuestionPage(game.getRounds().get(0).getCategory(), game.getRounds().get(0).getQuestions());
+        System.out.println(scoreBoardPage.getPlayerSide());
+        scoreBoardPage.updateScoreBoard(game);
+        cardLayout.show(contentPanel, "ScoreBoardPage");
+        scoreBoardPage.showPlayButton();
     }
 
     public void waitingForPlayer() {
@@ -189,18 +191,20 @@ public class ContentFrame extends JFrame {
 
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
-            if (chosenCategory) {
-                questionPage.newQuestions(category);
-                scoreBoardPage.addToCategoryList(category);
-                questionPage.newQuestions(category);
-                addActionListenerToOptions();
+            boolean player1LatestEmpty = game.getRounds().get(game.getRounds().size() - 1).getPlayer1Score().length == 0;
+            boolean player1LatestNotEmpty = game.getRounds().get(game.getRounds().size() - 1).getPlayer1Score().length != 0;
+            boolean player2LatestEmpty = game.getRounds().get(game.getRounds().size() - 1).getPlayer2Score().length == 0;
+            boolean player2LatestNotEmpty = game.getRounds().get(game.getRounds().size() - 1).getPlayer2Score().length != 0;
+            if ((player1LatestEmpty && player2LatestNotEmpty) || (player2LatestEmpty && player1LatestNotEmpty)) {
+                questionPage.setQuestionPage(game.getRounds().get(game.getRounds().size()- 1).getCategory(), game.getRounds().get(game.getRounds().size() - 1).getQuestions());
                 cardLayout.show(contentPanel, "QuestionPage");
+                addActionListenerToOptions();
                 chosenCategory = false;
             } else {
                 questionPage.newQuestions(questionCollection.getRandomCategory());
                 SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
-                addActionListenerToOptions();
                 cardLayout.show(contentPanel, "ChooseCategoryPage");
+                addActionListenerToOptions();
                 chosenCategory = true;
             }
         });
@@ -249,8 +253,8 @@ public class ContentFrame extends JFrame {
                                 game.getRounds().get(game.getRounds().size() - 1).setPlayer1Score(new Boolean[0]);
                                 playerRound.clear();
                             }
+                            System.out.println(game);
                             writeToServer("round finished", game);
-                            cardLayout.show(contentPanel, "ScoreBoardPage");
                         } else {
                             System.out.println("time to choose category");
                             if (playerSide == Turn.Player1) {
@@ -259,15 +263,9 @@ public class ContentFrame extends JFrame {
                                 game.getRounds().get(game.getRounds().size() - 1).setPlayer2Score(playerRound.toArray(new Boolean[0]));
                             }
                             playerRound.clear();
-                            cardLayout.show(contentPanel, "ChooseCategoryPage");
-                            chosenCategory = true;
                         }
-                        try {
-                            scoreBoardPage.updateScoreBoard(game);
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                        if(playerSide != game.getTurn())
+                        scoreBoardPage.updateScoreBoard(game);
+                        if (playerSide != game.getTurn())
                             scoreBoardPage.hidePlayButton();
                         cardLayout.show(contentPanel, "ScoreBoardPage");
                     }
@@ -282,10 +280,8 @@ public class ContentFrame extends JFrame {
         JButton rightAnswer = checkRightAnswer();
         if (!option.equals(rightAnswer)) {
             option.setBackground(Color.red);
-            System.out.println("wrong");
             playerRound.add(false);
         } else {
-            System.out.println("right");
             playerRound.add(true);
         }
         rightAnswer.setBackground(Color.green);
@@ -327,5 +323,6 @@ public class ContentFrame extends JFrame {
 
     public void setPlayerSide(Turn playerSide) {
         this.playerSide = playerSide;
+        scoreBoardPage.setPlayerSide(playerSide);
     }
 }

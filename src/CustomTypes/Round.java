@@ -67,7 +67,6 @@ public class Round implements Serializable {
                 "category=" + category +
                 ", player1Score=" + Arrays.toString(player1Score) +
                 ", player2Score=" + Arrays.toString(player2Score) +
-                ", questions=" + Arrays.toString(questions) +
                 '}';
     }
 }

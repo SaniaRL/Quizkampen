@@ -1,6 +1,7 @@
 package Server;
 
 import CustomTypes.GameData;
+import CustomTypes.Round;
 import Enums.Turn;
 import Server.Game.Game;
 import Enums.GameState;
@@ -58,13 +59,13 @@ public class Protocol {
             }
             System.out.println("before if");
             if (game.getGameData().getTurn() == Turn.Player2) {
-                game.getPlayer1().writeToClient("opponent turn", null);
+//                game.getPlayer1().writeToClient("opponent turn", null);
                 if(game.getPlayer2() != null)
-                    game.getPlayer2().writeToClient("your turn", game.getGameData());
+                    game.getPlayer2().writeToClient("your turn", gameData);
                 System.out.println("player 2 turn");
             } else {
-                game.getPlayer2().writeToClient("opponent turn", null);
-                game.getPlayer1().writeToClient("your turn", game.getGameData());
+//                game.getPlayer2().writeToClient("opponent turn", null);
+                game.getPlayer1().writeToClient("your turn", gameData);
                 System.out.println("player 1 turn");
             }
         }

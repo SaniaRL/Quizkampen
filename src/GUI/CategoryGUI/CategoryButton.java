@@ -12,6 +12,7 @@ public class CategoryButton extends JButton {
     Color backgroundColor;
     DesignOptions designOptions;
 
+    public CategoryButton(){}
     public CategoryButton(QuestionCategory category) {
         designOptions = new DesignOptions();
         this.category = category;

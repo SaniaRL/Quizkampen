@@ -18,8 +18,26 @@ public class CategoryLabel extends JLabel {
     }
 
     public CategoryLabel(){
-        textLabel = new JLabel();
-        setOpaque(false);
+        designOptions = new DesignOptions();
+        textLabel = new JLabel("", SwingConstants.CENTER);
+//        textLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        addComponents();
+    }
+
+    public JLabel getTextLabel() {
+        return textLabel;
+    }
+
+    public void setTextLabel(JLabel textLabel) {
+        this.textLabel = textLabel;
+    }
+
+    public DesignOptions getDesignOptions() {
+        return designOptions;
+    }
+
+    public void setDesignOptions(DesignOptions designOptions) {
+        this.designOptions = designOptions;
     }
 
     public void addComponents(){
