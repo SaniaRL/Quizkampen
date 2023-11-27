@@ -1,14 +1,11 @@
 package GUI.ScoreBoard;
 
-import GUI.CategoryGUI.CategoryColor;
 import GUI.CategoryGUI.CategoryLabel;
-import GUI.QuestionPage;
-import Question.QuestionCategory;
+import Enums.QuestionCategory;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import javax.swing.*;
 import javax.swing.border.Border;
 

@@ -1,14 +1,11 @@
 package CustomTypes;
 
 import Enums.Turn;
-import Question.QuestionCategory;
+import Enums.QuestionCategory;
 import Question.Question;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
 
 public class Round implements Serializable {
     private QuestionCategory category;

@@ -7,7 +7,7 @@ import GUI.CategoryGUI.ChooseCategoryPage;
 import GUI.ScoreBoard.ScoreBoardPage;
 import GUI.StartPage.StartPage;
 import Question.Question;
-import Question.QuestionCategory;
+import Enums.QuestionCategory;
 import Question.QuestionCollection;
 import Enums.Turn;
 import javax.swing.*;
@@ -186,6 +186,11 @@ public class ContentFrame extends JFrame implements Serializable {
         }
 
         //QUESTION PAGE
+        questionPage.getNextQuestion().addActionListener(ActiveEvent -> {
+            playerRound.add(false);
+            helpMe();
+        });
+
         //ActionListener till inställningsknapp
         startPage.getSettings().addActionListener(e -> {
             System.out.println("Settings Button Clicked!");
@@ -232,14 +237,18 @@ public class ContentFrame extends JFrame implements Serializable {
 
             option.addActionListener(e -> {
                 checkIfWin(option);
+                helpMe();
+            });
+        }
+    }
 
-                Timer timer = new Timer(500, evt -> {
-                    if (playerRound.size() < amountOfQuestions) {
-                        questionPage.nextQuestion();
-                        cardLayout.show(contentPanel, "QuestionPage");
-                        addActionListenerToOptions();
-                    } else {
-
+    public void helpMe(){
+        Timer timer = new Timer(500, evt -> {
+            if (playerRound.size() < amountOfQuestions) {
+                questionPage.nextQuestion();
+                cardLayout.show(contentPanel, "QuestionPage");
+                addActionListenerToOptions();
+            } else {
                         if (chosenCategory) {
                             Question[] tempQuestions = new Question[amountOfQuestions];
                             Boolean[] tempScore = new Boolean[amountOfQuestions];
@@ -285,12 +294,11 @@ public class ContentFrame extends JFrame implements Serializable {
                         if(playerSide != game.getTurn())
                             scoreBoardPage.hidePlayButton();
                         cardLayout.show(contentPanel, "ScoreBoardPage");
-                    }
-                });
-                timer.setRepeats(false);
-                timer.start();
-            });
-        }
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
+
     }
 
     public void checkIfWin(JButton option) {

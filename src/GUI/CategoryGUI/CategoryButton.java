@@ -1,6 +1,7 @@
 package GUI.CategoryGUI;
+import Enums.CategoryColor;
 import GUI.SettingsOptions;
-import Question.QuestionCategory;
+import Enums.QuestionCategory;
 
 import javax.swing.*;
 import java.awt.*;
