@@ -23,8 +23,22 @@ import java.io.IOException;
 public class ContentFrame extends JFrame implements Serializable {
 
     JPanel contentPanel;
-    CardLayout cardLayout;
 
+    JMenuBar menuBar;
+    JMenu settingsMenu;
+    JMenu backgroundMenu;
+    JMenu avatarMenu;
+    JMenuItem itemExit;
+    JMenuItem itemSelectViolet;
+    JMenuItem itemSelectBlack;
+    JMenuItem itemSelectBlue;
+    JMenuItem itemSelectGreen;
+    JMenuItem itemSelectPig;
+    JMenuItem itemSelectAvatar2;
+    JMenuItem itemSelectAvatar3;
+
+
+    CardLayout cardLayout;
     StartPage startPage;
     ChooseCategoryPage chooseCategoryPage;
     QuestionPage questionPage;
@@ -52,7 +66,7 @@ public class ContentFrame extends JFrame implements Serializable {
 
     boolean chosenCategory = false;
 
-    public void setDesignOptions() {
+    public void setDesignOptions() { //Uppdaterar alla sidors options
         startPage.setDesignOptions(this.settingsOptions);
         chooseCategoryPage.setDesignOptions(this.settingsOptions);
         questionPage.setDesignOptions(this.settingsOptions);
@@ -81,6 +95,7 @@ public class ContentFrame extends JFrame implements Serializable {
         //Provat lila tema, ändra fram och tillbaka och kika
         settingsOptions.setColor("hejsan");
         setDesignOptions();
+        createMenu();
         buildFrame();
     }
 /*
@@ -132,6 +147,40 @@ public class ContentFrame extends JFrame implements Serializable {
         setVisible(true);
     }
 
+    private void createMenu() {
+        Font menuFont = new Font("Arial", Font.BOLD, 14);
+        menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+
+        settingsMenu = new JMenu("Settings");
+        backgroundMenu = new JMenu("Customize background");
+        avatarMenu = new JMenu("Select avatar");
+        menuBar.add(settingsMenu);
+        settingsMenu.add(backgroundMenu);
+        settingsMenu.add(avatarMenu);
+        settingsMenu.setFont(menuFont);
+
+        itemSelectViolet = new JMenuItem("Violet");
+        itemSelectBlack = new JMenuItem("Black");
+        itemSelectGreen = new JMenuItem("Green");
+        itemSelectBlue = new JMenuItem("Blue");
+        itemSelectPig = new JMenuItem("Pig");
+        itemSelectAvatar2 = new JMenuItem("Lobster");
+        itemSelectAvatar3 = new JMenuItem("Monkey");
+        itemExit = new JMenuItem("Exit the game");
+        settingsMenu.add(itemExit);
+
+        backgroundMenu.add(itemSelectViolet);
+        backgroundMenu.add(itemSelectBlack);
+        backgroundMenu.add(itemSelectGreen);
+        backgroundMenu.add(itemSelectBlue);
+        avatarMenu.add(itemSelectPig);
+        avatarMenu.add(itemSelectAvatar2);
+        avatarMenu.add(itemSelectAvatar3);
+    }
+
+
+
     public synchronized <T> void writeToServer(String message, T item) {
         try {
             if (item != null)
@@ -166,6 +215,8 @@ public class ContentFrame extends JFrame implements Serializable {
     }
 
     public void addActionEvents() {
+        //SETTINGS MENU
+        addActionListenerToSettingsMenu();
 
         //START PAGE
         addActionListerToStartPage();
@@ -217,6 +268,45 @@ public class ContentFrame extends JFrame implements Serializable {
         });
     }
 
+    private void addActionListenerToSettingsMenu() {
+        itemSelectViolet.addActionListener(e -> {
+
+            settingsOptions.setColor("violet");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+
+        itemSelectBlack.addActionListener(e -> {
+            settingsOptions.setColor("black");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+
+        itemSelectGreen.addActionListener(e -> {
+            settingsOptions.setColor("green");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+
+        itemSelectBlue.addActionListener(e -> {
+            settingsOptions.setColor("sören");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+
+        itemSelectPig.addActionListener(e -> {
+            System.out.println("Gris");
+            ImageIcon yourImageIcon = new ImageIcon(settingsOptions.getIcon().getImage().getScaledInstance(60,60, Image.SCALE_SMOOTH)); //hämtar bild
+
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+    }
 
     public void addActionListerToStartPage() {
         startPage.getStartNewGame().addActionListener(ActionEvent -> {
