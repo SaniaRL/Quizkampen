@@ -57,8 +57,6 @@ public class QuestionPage extends JPanel {
         indexCount = 0;
         optionButtons = new ArrayList<>();
 
-
-
         addComponents();
     }
 
@@ -261,5 +259,17 @@ public class QuestionPage extends JPanel {
         }
         nextQuestion.setBorder(settingsOptions.getBorder());
         categoryLabel.setForeground(settingsOptions.getContrastColor());
+    }
+
+    public void setIcon(SettingsOptions settingsOptions){
+        this.settingsOptions = settingsOptions;
+        yourPanel.removeAll();
+        opponentPanel.removeAll();
+
+        createIconPanel(settingsOptions.getIcon(), settingsOptions.getPlayer1(), yourPanel);
+        createIconPanel(settingsOptions.getPlayer2Icon(), settingsOptions.getPlayer2(), opponentPanel);
+
+        northPanel.repaint();
+        northPanel.revalidate();
     }
 }

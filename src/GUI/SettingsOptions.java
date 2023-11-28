@@ -49,7 +49,7 @@ public class SettingsOptions {
         contrastColor = Color.BLACK;
         //TEMP:
         player1 = "SANIA";
-        player2 = "ÅKE";
+        player2 = "SIMON";
         icon = imageIcons.get(0);
         player2Icon = new ImageIcon("Icons/lobster.png");
     }
@@ -112,7 +112,7 @@ public class SettingsOptions {
     }
 
     public ImageIcon getBigIcon() {
-        return new ImageIcon((icon.getImage().getScaledInstance(150,150,Image.SCALE_SMOOTH)));
+        return new ImageIcon((icon.getImage().getScaledInstance(120,120,Image.SCALE_SMOOTH)));
     }
 
     public List<ImageIcon> getImageIcons() {
@@ -148,7 +148,7 @@ public class SettingsOptions {
     }
 
     public ImageIcon getBigPlayer2Icon() {
-        return new ImageIcon((player2Icon.getImage().getScaledInstance(150,150, Image.SCALE_SMOOTH)));
+        return new ImageIcon((player2Icon.getImage().getScaledInstance(120,120, Image.SCALE_SMOOTH)));
     }
 
     public String getPlayer1() {
