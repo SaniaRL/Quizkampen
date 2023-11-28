@@ -34,8 +34,10 @@ public class ContentFrame extends JFrame implements Serializable {
     JMenuItem itemSelectBlue;
     JMenuItem itemSelectGreen;
     JMenuItem itemSelectPig;
-    JMenuItem itemSelectAvatar2;
-    JMenuItem itemSelectAvatar3;
+    JMenuItem itemSelectLobster;
+    JMenuItem itemSelectMonkey;
+    JMenuItem itemSelectCrab;
+    JMenuItem itemSelectTiger;
 
 
     CardLayout cardLayout;
@@ -151,8 +153,10 @@ public class ContentFrame extends JFrame implements Serializable {
         itemSelectGreen = new JMenuItem("Green");
         itemSelectBlue = new JMenuItem("Blue");
         itemSelectPig = new JMenuItem("Pig");
-        itemSelectAvatar2 = new JMenuItem("Lobster");
-        itemSelectAvatar3 = new JMenuItem("Monkey");
+        itemSelectLobster = new JMenuItem("Lobster");
+        itemSelectMonkey = new JMenuItem("Monkey");
+        itemSelectCrab = new JMenuItem("Crab");
+        itemSelectTiger = new JMenuItem("Tiger");
         itemExit = new JMenuItem("Exit the game");
         settingsMenu.add(itemExit);
 
@@ -160,8 +164,10 @@ public class ContentFrame extends JFrame implements Serializable {
         backgroundMenu.add(itemSelectGreen);
         backgroundMenu.add(itemSelectBlue);
         avatarMenu.add(itemSelectPig);
-        avatarMenu.add(itemSelectAvatar2);
-        avatarMenu.add(itemSelectAvatar3);
+        avatarMenu.add(itemSelectLobster);
+        avatarMenu.add(itemSelectMonkey);
+        avatarMenu.add(itemSelectCrab);
+        avatarMenu.add(itemSelectTiger);
     }
 
 
@@ -257,34 +263,54 @@ public class ContentFrame extends JFrame implements Serializable {
 
     private void addActionListenerToSettingsMenu() {
         itemSelectViolet.addActionListener(e -> {
-
             settingsOptions.setColor("violet");
             setDesignOptions();
             getContentPane().revalidate();
             getContentPane().repaint();
         });
-
         itemSelectGreen.addActionListener(e -> {
             settingsOptions.setColor("green");
             setDesignOptions();
             getContentPane().revalidate();
             getContentPane().repaint();
         });
-
         itemSelectBlue.addActionListener(e -> {
             settingsOptions.setColor("sören");
             setDesignOptions();
             getContentPane().revalidate();
             getContentPane().repaint();
         });
-
         itemSelectPig.addActionListener(e -> {
-            System.out.println("Gris");
             settingsOptions.setIcon(ImageIconAvatar.PIG.iconPath);
             setIconAndPlayerName();
             getContentPane().revalidate();
             getContentPane().repaint();
         });
+        itemSelectLobster.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.LOBSTER.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectMonkey.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.MONKEY.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectCrab.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.CRAB.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectTiger.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.TIGER.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+
     }
 
     public void addActionListerToStartPage() {
