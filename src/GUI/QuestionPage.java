@@ -261,7 +261,7 @@ public class QuestionPage extends JPanel {
         categoryLabel.setForeground(settingsOptions.getContrastColor());
     }
 
-    public void setIcon(SettingsOptions settingsOptions){
+    public void setIconAndPlayerNames(SettingsOptions settingsOptions){
         this.settingsOptions = settingsOptions;
         yourPanel.removeAll();
         opponentPanel.removeAll();
@@ -271,5 +271,9 @@ public class QuestionPage extends JPanel {
 
         northPanel.repaint();
         northPanel.revalidate();
+    }
+
+    public void setPlayerNames(SettingsOptions settingsOptions){
+        this.settingsOptions = settingsOptions;
     }
 }

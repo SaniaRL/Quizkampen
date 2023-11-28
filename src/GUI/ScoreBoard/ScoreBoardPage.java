@@ -316,7 +316,7 @@ public class ScoreBoardPage extends JPanel {
         this.settingsOptions = settingsOptions;
     }
 
-    public void setIcon(SettingsOptions settingsOptions){
+    public void setIconAndPlayerName(SettingsOptions settingsOptions){
         this.settingsOptions = settingsOptions;
         yourPanel.removeAll();
         opponentPanel.removeAll();
