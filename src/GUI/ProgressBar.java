@@ -1,8 +1,6 @@
 package GUI;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProgressBar extends JProgressBar {
 
@@ -10,39 +8,37 @@ public class ProgressBar extends JProgressBar {
     int width;
     int height;
     private Timer timer;
+    private final ProgressBarParent parent;
+    AtomicInteger count;
 
-    public ProgressBar(int sec, int height, int width) {
+    public ProgressBar(int sec, int height, int width, ProgressBarParent parent) {
         millis = sec * 1000;
         this.height = height;
         this.width = width;
+        this.parent = parent;
         addComponents();
     }
 
     public void addComponents(){
         setValue(100);
-        setForeground(Color.lightGray);
-        setBackground(Color.WHITE);
         setBounds(0, 0, width, height);
         setVisible(true);
 
-        timer = new Timer(millis / 100, new ActionListener() {
-            int count = 100;
+        count = new AtomicInteger(100);
+        timer = new Timer(millis / 100, ActionEvent -> {
+            count.getAndDecrement();
+            setValue(count.get());
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                count--;
-                setValue(count);
-
-                if (count == 0) {
-                    timer.stop();
-                    // TODO Outside of this class
-                }
+            if (count.get() == 0) {
+                timer.stop();
+                parent.onTimerEnded();
             }
         });
     }
 
     public void start() {
+        if(timer.isRunning())timer.stop();
+        count = new AtomicInteger(100);
         timer.start();
     }
-
 }

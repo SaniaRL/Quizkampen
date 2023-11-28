@@ -30,11 +30,12 @@ public class QuestionPage extends JPanel {
     JPanel southPanel;
 
     JPanel opponentPanel;
-    JPanel yourPanel;
+    private JPanel yourPanel;
 
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
+    private QuestionPageParent parent;
 
-    JButton nextQuestion;
+    private JButton nextQuestion;
 
     int indexCount;
     int amountOfQuestions;
@@ -43,7 +44,7 @@ public class QuestionPage extends JPanel {
 
     SettingsOptions settingsOptions;
 
-    public QuestionPage(int amountOfQuestions) throws IOException {
+    public QuestionPage(int amountOfQuestions, QuestionPageParent parent) throws IOException {
         this.amountOfQuestions = amountOfQuestions;
         settingsOptions = new SettingsOptions();
         questionCollection = new QuestionCollection();
@@ -57,6 +58,8 @@ public class QuestionPage extends JPanel {
 
         indexCount = 0;
         optionButtons = new ArrayList<>();
+
+        this.parent = parent;
 
         addComponents();
     }
@@ -152,7 +155,7 @@ public class QuestionPage extends JPanel {
         southPanel.setPreferredSize(new Dimension(800, 350));
         southPanel.setOpaque(false);
 
-        progressBar = new ProgressBar(10, 50, 500);
+        progressBar = new ProgressBar(4, 50, 500, () -> parent.nextPanel());
         progressBar.setBorder(settingsOptions.getBorder());
         progressBar.setForeground(settingsOptions.getColor());
         progressBar.setBackground(settingsOptions.getDetailColor());
