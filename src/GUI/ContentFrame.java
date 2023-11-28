@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ContentFrame extends JFrame implements Serializable {
 
@@ -58,22 +59,12 @@ public class ContentFrame extends JFrame implements Serializable {
 
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
+    int test1 = 0;
+    boolean chosenCategory = false;
     private int amountOfQuestions;
     private int amountOfRounds;
     private GameData game;
     private Turn playerSide;
-
-
-    boolean chosenCategory = false;
-
-    public void setDesignOptions() { //Uppdaterar alla sidors options
-        startPage.setDesignOptions(this.settingsOptions);
-        chooseCategoryPage.setDesignOptions(this.settingsOptions);
-        questionPage.setDesignOptions(this.settingsOptions);
-        scoreBoardPage.setDesignOptions(this.settingsOptions);
-        settingsPage.setDesignOptions(this.settingsOptions);
-        resultPage.setDesignOptions(this.settingsOptions);
-    }
 
     public ContentFrame(ObjectOutputStream out, int amountOfQuestions, int amountOfRounds) throws IOException {
         this.amountOfQuestions = amountOfQuestions;
@@ -97,6 +88,15 @@ public class ContentFrame extends JFrame implements Serializable {
         setDesignOptions();
         createMenu();
         buildFrame();
+    }
+
+    public void setDesignOptions() { //Uppdaterar alla sidors options
+        startPage.setDesignOptions(this.settingsOptions);
+        chooseCategoryPage.setDesignOptions(this.settingsOptions);
+        questionPage.setDesignOptions(this.settingsOptions);
+        scoreBoardPage.setDesignOptions(this.settingsOptions);
+        settingsPage.setDesignOptions(this.settingsOptions);
+        resultPage.setDesignOptions(this.settingsOptions);
     }
 /*
     public ContentFrame() throws IOException {
@@ -178,7 +178,6 @@ public class ContentFrame extends JFrame implements Serializable {
         avatarMenu.add(itemSelectAvatar2);
         avatarMenu.add(itemSelectAvatar3);
     }
-
 
 
     public synchronized <T> void writeToServer(String message, T item) {
@@ -300,7 +299,7 @@ public class ContentFrame extends JFrame implements Serializable {
 
         itemSelectPig.addActionListener(e -> {
             System.out.println("Gris");
-            ImageIcon yourImageIcon = new ImageIcon(settingsOptions.getIcon().getImage().getScaledInstance(60,60, Image.SCALE_SMOOTH)); //hämtar bild
+            ImageIcon yourImageIcon = new ImageIcon(settingsOptions.getIcon().getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)); //hämtar bild
 
             setDesignOptions();
             getContentPane().revalidate();
@@ -334,12 +333,15 @@ public class ContentFrame extends JFrame implements Serializable {
     }
 
     public void helpMe() {
+
         Timer timer = new Timer(500, evt -> {
             if (playerRound.size() < amountOfQuestions) {
                 questionPage.nextQuestion();
                 cardLayout.show(contentPanel, "QuestionPage");
                 addActionListenerToOptions();
             } else {
+
+
                 if (chosenCategory) {
                     game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
                     Question[] tempQuestions = new Question[amountOfQuestions];
@@ -358,7 +360,11 @@ public class ContentFrame extends JFrame implements Serializable {
                         game.getRounds().get(game.getRounds().size() - 1).setPlayer1Score(new Boolean[0]);
                         playerRound.clear();
                     }
+
+
                     writeToServer("round finished", game);
+
+
                 } else {
                     System.out.println("time to choose category");
                     if (playerSide == Turn.Player1) {
@@ -368,6 +374,11 @@ public class ContentFrame extends JFrame implements Serializable {
                     }
                     playerRound.clear();
                 }
+
+                if (amountOfRounds == game.getRounds().size() && game.getRounds().get(amountOfRounds - 1).getPlayer1Score().length == amountOfQuestions &&
+                        game.getRounds().get(amountOfRounds - 1).getPlayer2Score().length == amountOfQuestions) {
+                    writeToServer("game finished", game);
+                }
                 scoreBoardPage.updateScoreBoard(game);
                 if (playerSide != game.getTurn())
                     scoreBoardPage.hidePlayButton();
@@ -376,9 +387,10 @@ public class ContentFrame extends JFrame implements Serializable {
         });
         timer.setRepeats(false);
         timer.start();
-
     }
-
+    public void showResultPage() {
+        cardLayout.show(contentPanel, "ResultPage");
+    }
     public void checkIfWin(JButton option) {
         JButton rightAnswer = checkRightAnswer();
         if (!option.equals(rightAnswer)) {
