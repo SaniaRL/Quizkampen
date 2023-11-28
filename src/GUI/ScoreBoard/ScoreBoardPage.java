@@ -79,7 +79,7 @@ public class ScoreBoardPage extends JPanel {
         centerPanel.setPreferredSize(new Dimension(800, 500));
         centerPanel.setLayout(new GridLayout(6, 1));
         centerPanel.setOpaque(false);
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < amountOfRounds; i++) {
             ScoreCount sc = new ScoreCount(amountOfQuestions);
             scoreCounts.add(sc);
             centerPanel.add(sc);
