@@ -179,6 +179,7 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public void newGameStarted() {
         System.out.println("new game started");
+        scoreBoardPage.clearScoreBoard();
         cardLayout.show(contentPanel, "ChooseCategoryPage");
         addActionListenerToOptions();
         chosenCategory = true;
@@ -186,6 +187,7 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public void getQuestions() throws IOException {
         System.out.println("existing game found!");
+        scoreBoardPage.clearScoreBoard();
         scoreBoardPage.updateScoreBoard(game);
         cardLayout.show(contentPanel, "ScoreBoardPage");
         scoreBoardPage.showPlayButton();
