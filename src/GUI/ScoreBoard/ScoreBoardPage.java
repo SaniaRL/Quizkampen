@@ -32,8 +32,8 @@ public class ScoreBoardPage extends JPanel {
 
     SettingsOptions settingsOptions;
 
-    int player = 0;
-    int opponent = 0;
+    int player; //Tidigare = 0;
+    int opponent; //Tidigare = 0;
     private Turn playerSide;
 
     List<ScoreCount> scoreCounts;
@@ -308,8 +308,22 @@ public class ScoreBoardPage extends JPanel {
 
     public void setScores() {
         player = calculateScore(playerScoreList);
+        setPlayer(player);
         opponent = calculateScore(opponentScoreList);
+        setOpponent(opponent);
         scoreLabel.setText(player + " - " + opponent);
+    }
+    public int getPlayer() {
+        return player;
+    }
+    public void setPlayer(int player) {
+        this.player = player;
+    }
+    public int getOpponent() {
+        return opponent;
+    }
+    public void setOpponent(int opponent) {
+        this.opponent = opponent;
     }
 
     public void setDesignOptions(SettingsOptions settingsOptions) {

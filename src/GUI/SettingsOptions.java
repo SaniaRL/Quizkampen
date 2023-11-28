@@ -72,14 +72,6 @@ public class SettingsOptions {
 
     public void setColor(String color) {
         switch (color.toLowerCase()) {
-            case "black" -> {
-                this.color = Color.BLACK;
-                this.detailColor = Color.lightGray;
-                this.backgroundImagePath = "Backgrounds/blackBackground.png";
-                border = new LineBorder(this.color, 5);
-                backgroundImage = new ImageIcon(backgroundImagePath).getImage();
-                contrastColor = Color.WHITE;
-            }
             case "violet" -> {
                 this.color = new Color(112, 31, 69);
                 this.detailColor = new Color(191, 112, 151);
