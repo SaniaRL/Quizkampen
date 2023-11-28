@@ -80,7 +80,7 @@ public class ContentFrame extends JFrame implements Serializable {
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
         settingsPage = new SettingsPage();
-        resultPage = new ResultPage();
+        //resultPage = new ResultPage(); SIMON!
         settingsOptions = new SettingsOptions();
 
         //Provat lila tema, ändra fram och tillbaka och kika
@@ -98,7 +98,7 @@ public class ContentFrame extends JFrame implements Serializable {
     public void setIconAndPlayerName() { //Uppdaterar alla sidors Ikoner/Avatarer - och namn
         questionPage.setIconAndPlayerNames(this.settingsOptions);
         scoreBoardPage.setIconAndPlayerName(this.settingsOptions);
-        resultPage.setIconAndPlayerName(this.settingsOptions);
+       // resultPage.setIconAndPlayerName(this.settingsOptions); Simon
     }
 
     public void setDesignOptions() { //Uppdaterar alla sidors options
@@ -107,7 +107,7 @@ public class ContentFrame extends JFrame implements Serializable {
         questionPage.setDesignOptions(this.settingsOptions);
         scoreBoardPage.setDesignOptions(this.settingsOptions);
         settingsPage.setDesignOptions(this.settingsOptions);
-        resultPage.setDesignOptions(this.settingsOptions);
+      //  resultPage.setDesignOptions(this.settingsOptions); Simon
     }
 
     public void buildFrame() {
@@ -125,7 +125,7 @@ public class ContentFrame extends JFrame implements Serializable {
         contentPanel.add(waitingPage, "WaitingPage");
         contentPanel.add(scoreBoardPage, "ScoreBoardPage");
         contentPanel.add(settingsPage, "SettingsPage");
-        contentPanel.add(resultPage, "ResultPage");
+      //  contentPanel.add(resultPage, "ResultPage"); Simon
 
         add(contentPanel);
         addActionEvents();
@@ -296,9 +296,9 @@ public class ContentFrame extends JFrame implements Serializable {
         startPage.getStartNewGame().addActionListener(ActionEvent -> {
             writeToServer("new game", null);
         });
-        startPage.getNotifications().addActionListener(ActionEvent -> {
-            cardLayout.show(contentPanel, "ResultPage");
-        });
+      //  startPage.getNotifications().addActionListener(ActionEvent -> {
+      //      cardLayout.show(contentPanel, "ResultPage"); SIMON
+      //  });
     }
 
     public void addActionListenerToOptions() {
@@ -369,7 +369,16 @@ public class ContentFrame extends JFrame implements Serializable {
         timer.setRepeats(false);
         timer.start();
     }
-    public void showResultPage() {
+
+    public void showResultPage() { //Simon ändring.
+        resultPage = new ResultPage(3,4);
+        resultPage.setIconAndPlayerName(this.settingsOptions);
+        resultPage.setDesignOptions(this.settingsOptions);
+        contentPanel.add(resultPage, "ResultPage");
+        startPage.getNotifications().addActionListener(ActionEvent -> {
+            cardLayout.show(contentPanel, "ResultPage");
+        });
+
         cardLayout.show(contentPanel, "ResultPage");
     }
     public void checkIfWin(JButton option) {

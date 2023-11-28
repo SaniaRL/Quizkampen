@@ -13,12 +13,12 @@ public class ResultPage extends JPanel {
     JPanel yourPanel;
     JPanel opponentPanel;
 
-    int yourPoints;
-    int player2Points;
+    int playerPoints;
+    int opponentPoints;
 
     SettingsOptions settingsOptions;
 
-    public ResultPage(){
+    public ResultPage(int playerPoints, int opponentPoints){
         northPanel = new JPanel();
         southPanel = new JPanel();
 
@@ -27,8 +27,8 @@ public class ResultPage extends JPanel {
 
         settingsOptions = new SettingsOptions();
 
-        yourPoints = 10;
-        player2Points = 7;
+        this.playerPoints = playerPoints; //Tar in nummer via konstruktorn. Simon
+        this.opponentPoints = opponentPoints; //Tar in nummer via konstruktorn. Simon
 
         addComponents();
         actionListenerHandler();
@@ -64,8 +64,8 @@ public class ResultPage extends JPanel {
         yourPanel = new JPanel();
         opponentPanel = new JPanel();
 
-        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), yourPoints > player2Points);
-        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), player2Points > yourPoints);
+        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), playerPoints > opponentPoints);
+        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), opponentPoints > playerPoints);
 
         northPanel.add(yourPanel);
         northPanel.add(opponentPanel);
