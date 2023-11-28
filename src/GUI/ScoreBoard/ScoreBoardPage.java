@@ -306,11 +306,11 @@ public class ScoreBoardPage extends JPanel {
         return score;
     }
 
-    public void setScores() { //Simon ändring
+    public void setScores() {
         player = calculateScore(playerScoreList);
-        setPlayer(player); //sätter score för spelare.
+        setPlayer(player);
         opponent = calculateScore(opponentScoreList);
-        setOpponent(opponent); //sätter score för motståndare
+        setOpponent(opponent);
         scoreLabel.setText(player + " - " + opponent);
     }
     public int getPlayer() {
@@ -322,7 +322,6 @@ public class ScoreBoardPage extends JPanel {
     public int getOpponent() {
         return opponent;
     }
-
     public void setOpponent(int opponent) {
         this.opponent = opponent;
     }

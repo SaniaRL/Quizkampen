@@ -31,7 +31,6 @@ public class ContentFrame extends JFrame implements Serializable {
     JMenu avatarMenu;
     JMenuItem itemExit;
     JMenuItem itemSelectViolet;
-    JMenuItem itemSelectBlack;
     JMenuItem itemSelectBlue;
     JMenuItem itemSelectGreen;
     JMenuItem itemSelectPig;
@@ -80,7 +79,7 @@ public class ContentFrame extends JFrame implements Serializable {
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
         settingsPage = new SettingsPage();
-        //resultPage = new ResultPage(); SIMON!
+        //resultPage = new ResultPage();
         settingsOptions = new SettingsOptions();
 
         //Provat lila tema, ändra fram och tillbaka och kika
@@ -95,19 +94,19 @@ public class ContentFrame extends JFrame implements Serializable {
         buildFrame();
     }
 
-    public void setIconAndPlayerName() { //Uppdaterar alla sidors Ikoner/Avatarer - och namn
+    public void setIconAndPlayerName() {
         questionPage.setIconAndPlayerNames(this.settingsOptions);
         scoreBoardPage.setIconAndPlayerName(this.settingsOptions);
-       // resultPage.setIconAndPlayerName(this.settingsOptions); Simon
+       // resultPage.setIconAndPlayerName(this.settingsOptions);
     }
 
-    public void setDesignOptions() { //Uppdaterar alla sidors options
+    public void setDesignOptions() {
         startPage.setDesignOptions(this.settingsOptions);
         chooseCategoryPage.setDesignOptions(this.settingsOptions);
         questionPage.setDesignOptions(this.settingsOptions);
         scoreBoardPage.setDesignOptions(this.settingsOptions);
         settingsPage.setDesignOptions(this.settingsOptions);
-      //  resultPage.setDesignOptions(this.settingsOptions); Simon
+      //  resultPage.setDesignOptions(this.settingsOptions);
     }
 
     public void buildFrame() {
@@ -125,7 +124,7 @@ public class ContentFrame extends JFrame implements Serializable {
         contentPanel.add(waitingPage, "WaitingPage");
         contentPanel.add(scoreBoardPage, "ScoreBoardPage");
         contentPanel.add(settingsPage, "SettingsPage");
-      //  contentPanel.add(resultPage, "ResultPage"); Simon
+      //  contentPanel.add(resultPage, "ResultPage");
 
         add(contentPanel);
         addActionEvents();
@@ -146,7 +145,6 @@ public class ContentFrame extends JFrame implements Serializable {
         settingsMenu.setFont(menuFont);
 
         itemSelectViolet = new JMenuItem("Violet");
-        itemSelectBlack = new JMenuItem("Black");
         itemSelectGreen = new JMenuItem("Green");
         itemSelectBlue = new JMenuItem("Blue");
         itemSelectPig = new JMenuItem("Pig");
@@ -156,7 +154,6 @@ public class ContentFrame extends JFrame implements Serializable {
         settingsMenu.add(itemExit);
 
         backgroundMenu.add(itemSelectViolet);
-        backgroundMenu.add(itemSelectBlack);
         backgroundMenu.add(itemSelectGreen);
         backgroundMenu.add(itemSelectBlue);
         avatarMenu.add(itemSelectPig);
@@ -261,13 +258,6 @@ public class ContentFrame extends JFrame implements Serializable {
             getContentPane().repaint();
         });
 
-        itemSelectBlack.addActionListener(e -> {
-            settingsOptions.setColor("black");
-            setDesignOptions();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-
         itemSelectGreen.addActionListener(e -> {
             settingsOptions.setColor("green");
             setDesignOptions();
@@ -284,7 +274,7 @@ public class ContentFrame extends JFrame implements Serializable {
 
         itemSelectPig.addActionListener(e -> {
             System.out.println("Gris");
-            ImageIcon yourImageIcon = new ImageIcon(settingsOptions.getIcon().getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)); //hämtar bild
+            ImageIcon yourImageIcon = new ImageIcon(settingsOptions.getIcon().getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
 
             setDesignOptions();
             getContentPane().revalidate();
@@ -297,7 +287,7 @@ public class ContentFrame extends JFrame implements Serializable {
             writeToServer("new game", null);
         });
       //  startPage.getNotifications().addActionListener(ActionEvent -> {
-      //      cardLayout.show(contentPanel, "ResultPage"); SIMON
+      //      cardLayout.show(contentPanel, "ResultPage");
       //  });
     }
 
@@ -370,8 +360,8 @@ public class ContentFrame extends JFrame implements Serializable {
         timer.start();
     }
 
-    public void showResultPage() { //Simon ändring.
-        resultPage = new ResultPage(scoreBoardPage.getPlayer(),scoreBoardPage.getOpponent()); //Hämtar score. Skickar in.
+    public void showResultPage() {
+        resultPage = new ResultPage(scoreBoardPage.getPlayer(),scoreBoardPage.getOpponent());
         resultPage.setIconAndPlayerName(this.settingsOptions);
         resultPage.setDesignOptions(this.settingsOptions);
         contentPanel.add(resultPage, "ResultPage");

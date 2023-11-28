@@ -27,8 +27,8 @@ public class ResultPage extends JPanel {
 
         settingsOptions = new SettingsOptions();
 
-        this.playerPoints = playerPoints; //Tar in nummer via konstruktorn. Simon
-        this.opponentPoints = opponentPoints; //Tar in nummer via konstruktorn. Simon
+        this.playerPoints = playerPoints;
+        this.opponentPoints = opponentPoints;
         System.out.println(this.playerPoints+" Spelarens poäng");
         System.out.println(this.opponentPoints+" Motståndarens poäng");
 
@@ -66,14 +66,14 @@ public class ResultPage extends JPanel {
         yourPanel = new JPanel();
         opponentPanel = new JPanel();
 
-        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), playerPoints > opponentPoints);
-        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), opponentPoints > playerPoints);
+        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), playerPoints > opponentPoints, playerPoints);
+        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), opponentPoints > playerPoints, opponentPoints);
 
         northPanel.add(yourPanel);
         northPanel.add(opponentPanel);
     }
 
-    public void createPlayerPanels(JPanel panel, ImageIcon icon, String text, Boolean win){ //Denna?
+    public void createPlayerPanels(JPanel panel, ImageIcon icon, String text, Boolean win, int playerScore){
         panel.setPreferredSize(new Dimension(400, 600));
         panel.setLayout(new GridLayout(4, 1));
         panel.setOpaque(false);
@@ -93,20 +93,14 @@ public class ResultPage extends JPanel {
         nameLabel.setFont(settingsOptions.getBigText());
         nameLabel.setForeground(Color.BLACK);
 
-        JLabel points = new JLabel(Integer.toString(playerPoints), SwingConstants.CENTER);
+        JLabel points = new JLabel(Integer.toString(playerScore), SwingConstants.CENTER);
         points.setFont(settingsOptions.getBigText());
         points.setForeground(Color.BLACK);
-
-        //Simon
-        JLabel pointsOpponent = new JLabel(Integer.toString(opponentPoints), SwingConstants.CENTER); //motståndare
-        pointsOpponent.setFont(settingsOptions.getBigText());
-        pointsOpponent.setForeground(Color.BLACK);
 
         panel.add(place);
         panel.add(iconLabel);
         panel.add(nameLabel);
         panel.add(points);
-        panel.add(pointsOpponent); //Simon
     }
     public void generateSouthPanel(){
         southPanel.setLayout(new GridLayout(1,2));
@@ -145,8 +139,8 @@ public class ResultPage extends JPanel {
         yourPanel.removeAll();
         opponentPanel.removeAll();
 
-        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), true);
-        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), false);
+        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), true, playerPoints);
+        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), false, opponentPoints);
     }
 
     private void actionListenerHandler() {
