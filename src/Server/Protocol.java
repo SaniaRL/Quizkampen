@@ -47,7 +47,6 @@ public class Protocol {
         Game tempGame = new Game(clientHandler);
 
         for (Game game : server.getGames()) {
-            System.out.println(game);
             if (!game.getGameData().getGameID().equals(gameData.getGameID())) //Går igenom alla games i listan som skapats i servernclassen och jämför gameID. Om ej hittar, continue.
                 continue;
             game.setGameData(gameData);
