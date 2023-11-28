@@ -190,7 +190,7 @@ public class ContentFrame extends JFrame implements Serializable {
     public void getQuestions() throws IOException {
         System.out.println("existing game found!");
         scoreBoardPage.updateScoreBoard(game);
-        cardLayout.show(contentPanel, "ScoreBoardPage");
+        showScoreBoardPage();
         scoreBoardPage.showPlayButton();
     }
 
@@ -198,7 +198,7 @@ public class ContentFrame extends JFrame implements Serializable {
         chosenCategory = true;
         System.out.println("waiting for player method");
         scoreBoardPage.hidePlayButton();
-        cardLayout.show(contentPanel, "ScoreBoardPage");
+        showScoreBoardPage();
     }
 
     public void addActionEvents() {
@@ -352,11 +352,7 @@ public class ContentFrame extends JFrame implements Serializable {
                         game.getRounds().get(game.getRounds().size() - 1).setPlayer1Score(new Boolean[0]);
                         playerRound.clear();
                     }
-
-
                     writeToServer("round finished", game);
-
-
                 } else {
                     System.out.println("time to choose category");
                     if (playerSide == Turn.Player1) {
@@ -374,7 +370,7 @@ public class ContentFrame extends JFrame implements Serializable {
                 scoreBoardPage.updateScoreBoard(game);
                 if (playerSide != game.getTurn())
                     scoreBoardPage.hidePlayButton();
-                cardLayout.show(contentPanel, "ScoreBoardPage");
+                showScoreBoardPage();
             }
         });
         timer.setRepeats(false);
@@ -410,8 +406,8 @@ public class ContentFrame extends JFrame implements Serializable {
     }
 
     public void showScoreBoardPage() {
+        scoreBoardPage.setTurnLabel(playerSide == game.getTurn());
         cardLayout.show(contentPanel, "ScoreBoardPage");
-        chosenCategory = false;
     }
 
 //Needed for NetWork
