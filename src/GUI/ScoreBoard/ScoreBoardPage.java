@@ -26,6 +26,7 @@ public class ScoreBoardPage extends JPanel {
     JLabel turnLabel;
 
     JPanel yourPanel;
+    JPanel opponentPanel;
 
     JButton playGame;
 
@@ -57,6 +58,9 @@ public class ScoreBoardPage extends JPanel {
         playGame = new JButton("SPELA");
         turnLabel = new JLabel();
         setTurnLabel(true);
+
+        yourPanel = new JPanel();
+        opponentPanel = new JPanel();
 
         categoryList = new ArrayList<>();
         playerScoreList = new ArrayList<>();
@@ -112,10 +116,9 @@ public class ScoreBoardPage extends JPanel {
         northPanel.setLayout(new GridLayout(1, 3));
         northPanel.setOpaque(false);
 
-        ImageIcon yourIcon = settingsOptions.getIcon();
-        yourPanel = createIconPanel(yourIcon, settingsOptions.getPlayer1());
+        createIconPanel(yourPanel, settingsOptions.getIcon(), settingsOptions.getPlayer1());
 
-        JPanel opponentPanel = createIconPanel(settingsOptions.getPlayer2Icon(), settingsOptions.getPlayer2());
+        createIconPanel(opponentPanel, settingsOptions.getPlayer2Icon(), settingsOptions.getPlayer2());
 
         JPanel middlePanel = new JPanel();
         turnLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Din tur", SwingConstants.CENTER);
@@ -138,21 +141,18 @@ public class ScoreBoardPage extends JPanel {
         northPanel.add(opponentPanel);
     }
 
-    public JPanel createIconPanel(ImageIcon imageIcon, String text) {
-        JPanel panel = new JPanel();
+    public void createIconPanel(JPanel panel, ImageIcon imageIcon, String text) {
         JLabel iconLabel = new JLabel(imageIcon, SwingConstants.CENTER);
         iconLabel.setPreferredSize(new Dimension(200, 100));
 
         JLabel textLabel = new JLabel(text, SwingConstants.CENTER);
         textLabel.setPreferredSize(new Dimension(200, 30));
-//        textLabel.setFont(designOptions.getSmallText());
 
         panel.setLayout(new GridLayout(2, 1));
         panel.setPreferredSize(new Dimension(200, 150));
         panel.setOpaque(false);
         panel.add(iconLabel);
         panel.add(textLabel);
-        return panel;
     }
 
     public void setFont (JLabel label){
@@ -318,8 +318,14 @@ public class ScoreBoardPage extends JPanel {
 
     public void setIcon(SettingsOptions settingsOptions){
         this.settingsOptions = settingsOptions;
-        yourPanel = createIconPanel(settingsOptions.getIcon(), settingsOptions.getPlayer1());
-        //TODO
+        yourPanel.removeAll();
+        opponentPanel.removeAll();
+
+        createIconPanel(yourPanel, settingsOptions.getIcon(), settingsOptions.getPlayer1());
+        createIconPanel(opponentPanel, settingsOptions.getPlayer2Icon(), settingsOptions.getPlayer2());
+
+        yourPanel.repaint();
+        opponentPanel.revalidate();
     }
 
     public void setTurnLabel(Boolean yourTurn) {
@@ -328,6 +334,5 @@ public class ScoreBoardPage extends JPanel {
         } else {
             turnLabel.setText("<html><div style='text-align: center; vertical-align: bottom;'>Deras tur");
         }
-
     }
 }

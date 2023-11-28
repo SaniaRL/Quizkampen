@@ -87,7 +87,7 @@ public class ContentFrame extends JFrame implements Serializable {
         //Provat lila tema, ändra fram och tillbaka och kika
         settingsOptions.setColor("hejsan");
         settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
-        settingsOptions.setPlayer2Icon(ImageIconAvatar.ELEPHANT.iconPath);
+        settingsOptions.setPlayer2Icon(ImageIconAvatar.MONKEY.iconPath);
         setDesignOptions();
         setIcon();
         createMenu();
@@ -96,6 +96,7 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public void setIcon() { //Uppdaterar alla sidors Ikoner/Avatarer
         questionPage.setIcon(this.settingsOptions);
+        scoreBoardPage.setIcon(this.settingsOptions);
 
     }
 

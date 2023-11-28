@@ -49,7 +49,7 @@ public class SettingsOptions {
         contrastColor = Color.BLACK;
         //TEMP:
         player1 = "SANIA";
-        player2 = "ÅKE";
+        player2 = "SIMON";
         icon = imageIcons.get(0);
         player2Icon = new ImageIcon("Icons/lobster.png");
     }
