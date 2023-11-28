@@ -2,6 +2,7 @@ package GUI;
 
 import CustomTypes.GameData;
 import CustomTypes.Round;
+import Enums.ImageIconAvatar;
 import GUI.CategoryGUI.CategoryButton;
 import GUI.CategoryGUI.ChooseCategoryPage;
 import GUI.ScoreBoard.ScoreBoardPage;
@@ -19,12 +20,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ContentFrame extends JFrame implements Serializable {
 
     JPanel contentPanel;
-    CardLayout cardLayout;
 
+    JMenuBar menuBar;
+    JMenu settingsMenu;
+    JMenu backgroundMenu;
+    JMenu avatarMenu;
+    JMenuItem itemExit;
+    JMenuItem itemSelectViolet;
+    JMenuItem itemSelectBlack;
+    JMenuItem itemSelectBlue;
+    JMenuItem itemSelectGreen;
+    JMenuItem itemSelectPig;
+    JMenuItem itemSelectAvatar2;
+    JMenuItem itemSelectAvatar3;
+
+
+    CardLayout cardLayout;
     StartPage startPage;
     ChooseCategoryPage chooseCategoryPage;
     QuestionPage questionPage;
@@ -44,22 +60,12 @@ public class ContentFrame extends JFrame implements Serializable {
 
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
+    int test1 = 0;
+    boolean chosenCategory = false;
     private int amountOfQuestions;
     private int amountOfRounds;
     private GameData game;
     private Turn playerSide;
-
-
-    boolean chosenCategory = false;
-
-    public void setDesignOptions() {
-        startPage.setDesignOptions(this.settingsOptions);
-        chooseCategoryPage.setDesignOptions(this.settingsOptions);
-        questionPage.setDesignOptions(this.settingsOptions);
-        scoreBoardPage.setDesignOptions(this.settingsOptions);
-        settingsPage.setDesignOptions(this.settingsOptions);
-        resultPage.setDesignOptions(this.settingsOptions);
-    }
 
     public ContentFrame(ObjectOutputStream out, int amountOfQuestions, int amountOfRounds) throws IOException {
         this.amountOfQuestions = amountOfQuestions;
@@ -80,8 +86,20 @@ public class ContentFrame extends JFrame implements Serializable {
 
         //Provat lila tema, ändra fram och tillbaka och kika
         settingsOptions.setColor("hejsan");
+//        settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
+//        settingsOptions.setPlayer2Icon(ImageIconAvatar.ELEPHANT.iconPath);
         setDesignOptions();
+        createMenu();
         buildFrame();
+    }
+
+    public void setDesignOptions() { //Uppdaterar alla sidors options
+        startPage.setDesignOptions(this.settingsOptions);
+        chooseCategoryPage.setDesignOptions(this.settingsOptions);
+        questionPage.setDesignOptions(this.settingsOptions);
+        scoreBoardPage.setDesignOptions(this.settingsOptions);
+        settingsPage.setDesignOptions(this.settingsOptions);
+        resultPage.setDesignOptions(this.settingsOptions);
     }
 /*
     public ContentFrame() throws IOException {
@@ -132,6 +150,39 @@ public class ContentFrame extends JFrame implements Serializable {
         setVisible(true);
     }
 
+    private void createMenu() {
+        Font menuFont = new Font("Arial", Font.BOLD, 14);
+        menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+
+        settingsMenu = new JMenu("Settings");
+        backgroundMenu = new JMenu("Customize background");
+        avatarMenu = new JMenu("Select avatar");
+        menuBar.add(settingsMenu);
+        settingsMenu.add(backgroundMenu);
+        settingsMenu.add(avatarMenu);
+        settingsMenu.setFont(menuFont);
+
+        itemSelectViolet = new JMenuItem("Violet");
+        itemSelectBlack = new JMenuItem("Black");
+        itemSelectGreen = new JMenuItem("Green");
+        itemSelectBlue = new JMenuItem("Blue");
+        itemSelectPig = new JMenuItem("Pig");
+        itemSelectAvatar2 = new JMenuItem("Lobster");
+        itemSelectAvatar3 = new JMenuItem("Monkey");
+        itemExit = new JMenuItem("Exit the game");
+        settingsMenu.add(itemExit);
+
+        backgroundMenu.add(itemSelectViolet);
+        backgroundMenu.add(itemSelectBlack);
+        backgroundMenu.add(itemSelectGreen);
+        backgroundMenu.add(itemSelectBlue);
+        avatarMenu.add(itemSelectPig);
+        avatarMenu.add(itemSelectAvatar2);
+        avatarMenu.add(itemSelectAvatar3);
+    }
+
+
     public synchronized <T> void writeToServer(String message, T item) {
         try {
             if (item != null)
@@ -166,6 +217,8 @@ public class ContentFrame extends JFrame implements Serializable {
     }
 
     public void addActionEvents() {
+        //SETTINGS MENU
+        addActionListenerToSettingsMenu();
 
         //START PAGE
         addActionListerToStartPage();
@@ -217,6 +270,45 @@ public class ContentFrame extends JFrame implements Serializable {
         });
     }
 
+    private void addActionListenerToSettingsMenu() {
+        itemSelectViolet.addActionListener(e -> {
+
+            settingsOptions.setColor("violet");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+
+        itemSelectBlack.addActionListener(e -> {
+            settingsOptions.setColor("black");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+
+        itemSelectGreen.addActionListener(e -> {
+            settingsOptions.setColor("green");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+
+        itemSelectBlue.addActionListener(e -> {
+            settingsOptions.setColor("sören");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+
+        itemSelectPig.addActionListener(e -> {
+            System.out.println("Gris");
+            ImageIcon yourImageIcon = new ImageIcon(settingsOptions.getIcon().getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)); //hämtar bild
+
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+    }
 
     public void addActionListerToStartPage() {
         startPage.getStartNewGame().addActionListener(ActionEvent -> {
@@ -244,12 +336,15 @@ public class ContentFrame extends JFrame implements Serializable {
     }
 
     public void helpMe() {
+
         Timer timer = new Timer(500, evt -> {
             if (playerRound.size() < amountOfQuestions) {
                 questionPage.nextQuestion();
                 cardLayout.show(contentPanel, "QuestionPage");
                 addActionListenerToOptions();
             } else {
+
+
                 if (chosenCategory) {
                     game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
                     Question[] tempQuestions = new Question[amountOfQuestions];
@@ -268,7 +363,11 @@ public class ContentFrame extends JFrame implements Serializable {
                         game.getRounds().get(game.getRounds().size() - 1).setPlayer1Score(new Boolean[0]);
                         playerRound.clear();
                     }
+
+
                     writeToServer("round finished", game);
+
+
                 } else {
                     System.out.println("time to choose category");
                     if (playerSide == Turn.Player1) {
@@ -278,6 +377,11 @@ public class ContentFrame extends JFrame implements Serializable {
                     }
                     playerRound.clear();
                 }
+
+                if (amountOfRounds == game.getRounds().size() && game.getRounds().get(amountOfRounds - 1).getPlayer1Score().length == amountOfQuestions &&
+                        game.getRounds().get(amountOfRounds - 1).getPlayer2Score().length == amountOfQuestions) {
+                    writeToServer("game finished", game);
+                }
                 scoreBoardPage.updateScoreBoard(game);
                 if (playerSide != game.getTurn())
                     scoreBoardPage.hidePlayButton();
@@ -286,9 +390,10 @@ public class ContentFrame extends JFrame implements Serializable {
         });
         timer.setRepeats(false);
         timer.start();
-
     }
-
+    public void showResultPage() {
+        cardLayout.show(contentPanel, "ResultPage");
+    }
     public void checkIfWin(JButton option) {
         JButton rightAnswer = checkRightAnswer();
         if (!option.equals(rightAnswer)) {

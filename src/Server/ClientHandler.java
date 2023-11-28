@@ -9,10 +9,10 @@ import java.util.Arrays;
 public class ClientHandler extends Thread implements Serializable {
     protected final Socket socket;
     private final Protocol protocol;
-    private ObjectInputStream in;
-    private ObjectOutputStream out;
     Server server;
     Object propertyObject;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
 
     public ClientHandler(Socket socket, Server server) {
         this.socket = socket;
@@ -35,30 +35,36 @@ public class ClientHandler extends Thread implements Serializable {
 
             Object fromClient = readFromClient();
             System.out.println("Thread no." + Thread.currentThread().threadId() + ": " + fromClient);
-                while (true) {
-                    //TODO: Add logic for server
+            while (true) {
+                //TODO: Add logic for server
 
-                    fromClient = readFromClient();
+                fromClient = readFromClient();
 
-                    System.out.println(fromClient instanceof String);
-                    if (fromClient instanceof String) {
-                        System.out.println(fromClient);
-                        if (fromClient.equals("exit")) {
-                            System.out.println("Client disconnected");
-                            break;
-                        }
-                        if (fromClient.equals("new game")) {
-                            protocol.checkIfNewGame((String) fromClient, server, this);
-                        }
+                System.out.println(fromClient instanceof String);
+                if (fromClient instanceof String) {
+                    System.out.println(fromClient);
+                    if (fromClient.equals("exit")) {
+                        System.out.println("Client disconnected");
+                        break;
                     }
-                    if (fromClient instanceof Object[] message) {
-                        if (message[1] instanceof GameData) {
-                            System.out.println(Arrays.toString(message));
+                    if (fromClient.equals("new game")) {
+                        protocol.checkIfNewGame((String) fromClient, server, this);
+                    }
+                }
+                if (fromClient instanceof Object[] message) {
+                    if (message[1] instanceof GameData) {
+                        System.out.println(Arrays.toString(message));
+                        if (message[0].equals("round finished")) {
                             protocol.roundFinished((String) message[0], (GameData) message[1], server);
                         }
+                        else if (message[0].equals("game finished")) {
+                            protocol.gameFinished((String) message[0], (GameData) message[1], server, this);
+                        }
                     }
+                }
+                //if from client -> Protokol?
 
-                } /*else if (fromClient instanceof otherType) {
+            } /*else if (fromClient instanceof otherType) {
                 //TODO: Add logic for other types of objects
                 }*/
         } catch (IOException e) {

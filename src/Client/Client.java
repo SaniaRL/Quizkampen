@@ -66,6 +66,10 @@ public class Client {
                             frame.setGame(gameData);
                             frame.waitingForPlayer();
                         }
+                        if (message[0].equals("game finished")) {
+                            System.out.println("Vi är här hehehe");
+                            frame.showResultPage();
+                        }
                     }
                     //TODO: Add logic for client
                 } /*else if (fromServer instanceof otherObject) {

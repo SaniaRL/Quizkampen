@@ -15,10 +15,10 @@ public class ScoreCount extends JPanel {
 
     List<Boolean> player1Score; // can be removed
     List<Boolean> player2Score; // can be removed
-    List<ScoreLabel> player1Labels;
-    List<ScoreLabel> player2Labels;
-    JPanel player1Panel;
-    JPanel player2Panel;
+    List<ScoreLabel> playerLabels;
+    List<ScoreLabel> opponentLabels;
+    JPanel playerPanel;
+    JPanel opponentPanel;
     CategoryLabel categoryLabel;
     int amountOfQuestions;
 
@@ -26,10 +26,10 @@ public class ScoreCount extends JPanel {
         this.amountOfQuestions = amountOfQuestions;
         player1Score = new ArrayList<>();
         player2Score = new ArrayList<>();
-        player1Panel = new JPanel();
-        player2Panel = new JPanel();
-        player1Labels = new ArrayList<>();
-        player2Labels = new ArrayList<>();
+        playerPanel = new JPanel();
+        opponentPanel = new JPanel();
+        playerLabels = new ArrayList<>();
+        opponentLabels = new ArrayList<>();
         categoryLabel = new CategoryLabel();
         addComponents();
     }
@@ -39,8 +39,8 @@ public class ScoreCount extends JPanel {
         this.questionCategory = category;
         this.player1Score = player1Score;
         this.player2Score = player2Score;
-        player1Panel = new JPanel();
-        player2Panel = new JPanel();
+        playerPanel = new JPanel();
+        opponentPanel = new JPanel();
         categoryLabel = new CategoryLabel(Color.ORANGE, questionCategory);
         addComponents();
     }
@@ -50,14 +50,14 @@ public class ScoreCount extends JPanel {
         setLayout(new GridLayout(1, amountOfQuestions));
         setOpaque(false);
 
-        player1Panel.setLayout(new FlowLayout());
-        player2Panel.setLayout(new FlowLayout());
+        playerPanel.setLayout(new FlowLayout());
+        opponentPanel.setLayout(new FlowLayout());
 
-        generatePlayerLabel(player1Panel, player1Labels);
-        add(player1Panel);
+        generatePlayerLabel(playerPanel, playerLabels);
+        add(playerPanel);
         add(categoryLabel);
-        generatePlayerLabel(player2Panel, player2Labels);
-        add(player2Panel);
+        generatePlayerLabel(opponentPanel, opponentLabels);
+        add(opponentPanel);
     }
 
     public void generatePlayerLabel(JPanel panel, List<ScoreLabel> list) {
@@ -79,11 +79,11 @@ public class ScoreCount extends JPanel {
         this.categoryLabel.setText("<html><font size=40>" + label + "</font></html>");
     }
 
-    public List<ScoreLabel> getPlayer1Labels() {
-        return player1Labels;
+    public List<ScoreLabel> getPlayerLabels() {
+        return playerLabels;
     }
 
-    public List<ScoreLabel> getPlayer2Labels() {
-        return player2Labels;
+    public List<ScoreLabel> getOpponentLabels() {
+        return opponentLabels;
     }
 }
