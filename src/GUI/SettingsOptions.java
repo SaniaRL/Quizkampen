@@ -48,10 +48,10 @@ public class SettingsOptions {
         textColor = Color.black;
         contrastColor = Color.BLACK;
         //TEMP:
-        player1 = "SANIA";
-        player2 = "SIMON";
+        player1 = "YOU";
+        player2 = "OPPONENT";
         icon = imageIcons.get(0);
-        player2Icon = new ImageIcon("Icons/lobster.png");
+        player2Icon = new ImageIcon("Icons/questionmark.png");
     }
 
     public void addIcons(){

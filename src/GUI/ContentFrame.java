@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ContentFrame extends JFrame implements Serializable {
 
@@ -86,18 +85,20 @@ public class ContentFrame extends JFrame implements Serializable {
 
         //Provat lila tema, ändra fram och tillbaka och kika
         settingsOptions.setColor("hejsan");
+        settingsOptions.setPlayer1("Sania");
+        settingsOptions.setPlayer2("Simon");
         settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
         settingsOptions.setPlayer2Icon(ImageIconAvatar.MONKEY.iconPath);
         setDesignOptions();
-        setIcon();
+        setIconAndPlayerName();
         createMenu();
         buildFrame();
     }
 
-    public void setIcon() { //Uppdaterar alla sidors Ikoner/Avatarer
-        questionPage.setIcon(this.settingsOptions);
-        scoreBoardPage.setIcon(this.settingsOptions);
-        resultPage.setIcon(this.settingsOptions);
+    public void setIconAndPlayerName() { //Uppdaterar alla sidors Ikoner/Avatarer - och namn
+        questionPage.setIconAndPlayerNames(this.settingsOptions);
+        scoreBoardPage.setIconAndPlayerName(this.settingsOptions);
+        resultPage.setIconAndPlayerName(this.settingsOptions);
     }
 
     public void setDesignOptions() { //Uppdaterar alla sidors options

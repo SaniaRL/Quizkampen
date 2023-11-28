@@ -131,7 +131,7 @@ public class ResultPage extends JPanel {
         exitGame.setBorder(settingsOptions.getBorder());
     }
 
-    public void setIcon(SettingsOptions settingsOptions){
+    public void setIconAndPlayerName(SettingsOptions settingsOptions){
         this.settingsOptions = settingsOptions;
 
         yourPanel.removeAll();
