@@ -29,6 +29,9 @@ public class ResultPage extends JPanel {
 
         this.playerPoints = playerPoints; //Tar in nummer via konstruktorn. Simon
         this.opponentPoints = opponentPoints; //Tar in nummer via konstruktorn. Simon
+        System.out.println(this.playerPoints+" Spelarens poäng");
+        System.out.println(this.opponentPoints+" Motståndarens poäng");
+
 
         addComponents();
         actionListenerHandler();
@@ -91,7 +94,7 @@ public class ResultPage extends JPanel {
         nameLabel.setFont(settingsOptions.getBigText());
         nameLabel.setForeground(Color.BLACK);
 
-        JLabel points = new JLabel("10", SwingConstants.CENTER);
+        JLabel points = new JLabel(Integer.toString(playerPoints), SwingConstants.CENTER);
         points.setFont(settingsOptions.getBigText());
         points.setForeground(Color.BLACK);
 

@@ -371,7 +371,7 @@ public class ContentFrame extends JFrame implements Serializable {
     }
 
     public void showResultPage() { //Simon ändring.
-        resultPage = new ResultPage(3,4);
+        resultPage = new ResultPage(scoreBoardPage.getPlayer(),scoreBoardPage.getOpponent()); //Hämtar score. Skickar in.
         resultPage.setIconAndPlayerName(this.settingsOptions);
         resultPage.setDesignOptions(this.settingsOptions);
         contentPanel.add(resultPage, "ResultPage");
