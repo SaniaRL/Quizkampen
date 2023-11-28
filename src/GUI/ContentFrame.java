@@ -24,7 +24,6 @@ import java.io.IOException;
 public class ContentFrame extends JFrame implements Serializable {
 
     JPanel contentPanel;
-
     JMenuBar menuBar;
     JMenu settingsMenu;
     JMenu backgroundMenu;
@@ -95,7 +94,10 @@ public class ContentFrame extends JFrame implements Serializable {
         settingsOptions.setPlayer2Icon(ImageIconAvatar.MONKEY.iconPath);
         setDesignOptions();
         setIconAndPlayerName();
-        createMenu();
+
+        menuBar = MenuCreator.createMenu(this);
+        setJMenuBar(menuBar);
+
         buildFrame();
     }
 
@@ -137,39 +139,9 @@ public class ContentFrame extends JFrame implements Serializable {
     }
 
     private void createMenu() {
-        Font menuFont = new Font("Arial", Font.BOLD, 14);
-        menuBar = new JMenuBar();
+        JMenuBar menuBar = MenuCreator.createMenu(this);
         setJMenuBar(menuBar);
-
-        settingsMenu = new JMenu("Settings");
-        backgroundMenu = new JMenu("Customize background");
-        avatarMenu = new JMenu("Select avatar");
-        menuBar.add(settingsMenu);
-        settingsMenu.add(backgroundMenu);
-        settingsMenu.add(avatarMenu);
-        settingsMenu.setFont(menuFont);
-
-        itemSelectViolet = new JMenuItem("Violet");
-        itemSelectGreen = new JMenuItem("Green");
-        itemSelectBlue = new JMenuItem("Blue");
-        itemSelectPig = new JMenuItem("Pig");
-        itemSelectLobster = new JMenuItem("Lobster");
-        itemSelectMonkey = new JMenuItem("Monkey");
-        itemSelectCrab = new JMenuItem("Crab");
-        itemSelectTiger = new JMenuItem("Tiger");
-        itemExit = new JMenuItem("Exit the game");
-        settingsMenu.add(itemExit);
-
-        backgroundMenu.add(itemSelectViolet);
-        backgroundMenu.add(itemSelectGreen);
-        backgroundMenu.add(itemSelectBlue);
-        avatarMenu.add(itemSelectPig);
-        avatarMenu.add(itemSelectLobster);
-        avatarMenu.add(itemSelectMonkey);
-        avatarMenu.add(itemSelectCrab);
-        avatarMenu.add(itemSelectTiger);
     }
-
 
     public synchronized <T> void writeToServer(String message, T item) {
         try {
