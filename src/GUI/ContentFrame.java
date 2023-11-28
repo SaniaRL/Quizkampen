@@ -97,7 +97,7 @@ public class ContentFrame extends JFrame implements Serializable {
     public void setIcon() { //Uppdaterar alla sidors Ikoner/Avatarer
         questionPage.setIcon(this.settingsOptions);
         scoreBoardPage.setIcon(this.settingsOptions);
-
+        resultPage.setIcon(this.settingsOptions);
     }
 
     public void setDesignOptions() { //Uppdaterar alla sidors options
