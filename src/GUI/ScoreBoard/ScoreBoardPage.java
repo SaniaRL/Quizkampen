@@ -2,6 +2,7 @@ package GUI.ScoreBoard;
 
 import CustomTypes.GameData;
 import CustomTypes.Round;
+import Enums.Turn;
 import GUI.SettingsOptions;
 import Enums.QuestionCategory;
 import Question.QuestionCollection;
@@ -28,15 +29,16 @@ public class ScoreBoardPage extends JPanel {
 
     SettingsOptions settingsOptions;
 
-    int player1 = 0;
-    int player2 = 0;
+    int player = 0;
+    int opponent = 0;
+    private Turn playerSide;
 
     List<ScoreCount> scoreCounts;
     List<QuestionCategory> categoryList;
-    List<List<Boolean>> player1ScoreList;
-    List<List<Boolean>> player2ScoreList;
+    List<List<Boolean>> playerScoreList;
+    List<List<Boolean>> opponentScoreList;
     private int amountOfRounds;
-    private int amountOfQuestions;
+    private final int amountOfQuestions;
 
     public ScoreBoardPage(String gameID, int amountOfRounds, int amountOfQuestions) throws IOException {
         this.amountOfQuestions = amountOfQuestions;
@@ -55,8 +57,8 @@ public class ScoreBoardPage extends JPanel {
         setTurnLabel(true);
 
         categoryList = new ArrayList<>();
-        player1ScoreList = new ArrayList<>();
-        player2ScoreList = new ArrayList<>();
+        playerScoreList = new ArrayList<>();
+        opponentScoreList = new ArrayList<>();
 
         scoreCounts = new ArrayList<>();
         addComponents();
@@ -77,29 +79,33 @@ public class ScoreBoardPage extends JPanel {
         centerPanel.setPreferredSize(new Dimension(800, 500));
         centerPanel.setLayout(new GridLayout(6, 1));
         centerPanel.setOpaque(false);
+        for (int i = 0; i < amountOfRounds; i++) {
+            ScoreCount sc = new ScoreCount(amountOfQuestions);
+            scoreCounts.add(sc);
+            centerPanel.add(sc);
+        }
 
         QuestionCollection questionCollection = new QuestionCollection();
         questionCollection.shuffleCategoryList();
 
-        generateScoreCounts();
+//        generateScoreCounts();
 
     }
 
     //TODO Set from frame
-    public void generateScoreCounts() {
-        for(int i = 0; i < amountOfRounds; i++){
-            ScoreCount scoreCountLabel;
-            if(player1ScoreList.size() > i && player2ScoreList.size() > i){
-                scoreCountLabel = new ScoreCount(player1ScoreList.get(i), player2ScoreList.get(i), categoryList.get(i), amountOfQuestions);
-            }
-            else{
-                scoreCountLabel = new ScoreCount(amountOfQuestions);
-            }
-            centerPanel.add(scoreCountLabel);
-        }
-    }
+//    public void generateScoreCounts() {
+//        for (int i = 0; i < amountOfRounds; i++) {
+//            ScoreCount scoreCountLabel;
+//            if (player1ScoreList.size() > i && player2ScoreList.size() > i) {
+//                scoreCountLabel = new ScoreCount(player1ScoreList.get(i), player2ScoreList.get(i), categoryList.get(i), amountOfQuestions);
+//            } else {
+//                scoreCountLabel = new ScoreCount(amountOfQuestions);
+//            }
+//            centerPanel.add(scoreCountLabel);
+//        }
+//    }
 
-    public void generateNorthPanel(){
+    public void generateNorthPanel() {
         northPanel.setPreferredSize(new Dimension(800, 150));
         northPanel.setLayout(new GridLayout(1, 3));
         northPanel.setOpaque(false);
@@ -111,7 +117,7 @@ public class ScoreBoardPage extends JPanel {
 
         JPanel middlePanel = new JPanel();
         turnLabel = new JLabel("<html><div style='text-align: center; padding-top: 36px;'>Din tur", SwingConstants.CENTER);
-        scoreLabel = new JLabel("<html><div style='text-align: center; vertical-align: top;'>" + player1 + "-" + player2 + "</div></html>", SwingConstants.CENTER);
+        scoreLabel = new JLabel("<html><div style='text-align: center; vertical-align: top;'>" + player + "-" + opponent + "</div></html>", SwingConstants.CENTER);
         scoreLabel.setFont(settingsOptions.getSmallText());
         setScores();
 
@@ -122,7 +128,7 @@ public class ScoreBoardPage extends JPanel {
 
         setFont(turnLabel);
 
-        Border emptyBorder = BorderFactory.createEmptyBorder(10,10,10,10);
+        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         northPanel.setBorder(emptyBorder);
 
         northPanel.add(yourPanel);
@@ -130,17 +136,17 @@ public class ScoreBoardPage extends JPanel {
         northPanel.add(opponentPanel);
     }
 
-    public JPanel createIconPanel(ImageIcon imageIcon, String text){
+    public JPanel createIconPanel(ImageIcon imageIcon, String text) {
         JPanel panel = new JPanel();
         JLabel iconLabel = new JLabel(imageIcon, SwingConstants.CENTER);
         iconLabel.setPreferredSize(new Dimension(200, 100));
 
         JLabel textLabel = new JLabel(text, SwingConstants.CENTER);
-        textLabel.setPreferredSize(new Dimension(200,30));
+        textLabel.setPreferredSize(new Dimension(200, 30));
 //        textLabel.setFont(designOptions.getSmallText());
 
         panel.setLayout(new GridLayout(2, 1));
-        panel.setPreferredSize(new Dimension(200,150));
+        panel.setPreferredSize(new Dimension(200, 150));
         panel.setOpaque(false);
         panel.add(iconLabel);
         panel.add(textLabel);
@@ -152,7 +158,7 @@ public class ScoreBoardPage extends JPanel {
         setOpaque(false);
     }
 
-    public void generateSouthPanel(){
+    public void generateSouthPanel() {
         southPanel.setLayout(new FlowLayout());
         southPanel.setPreferredSize(new Dimension(800, 100));
         southPanel.setOpaque(false);
@@ -173,55 +179,103 @@ public class ScoreBoardPage extends JPanel {
         }
     }
 
-    public void setWinList(List<List<Boolean>> player1ScoreList, List<List<Boolean>> player2ScoreList) {
-        this.player1ScoreList = player1ScoreList;
-        this.player2ScoreList = player2ScoreList;
+    public void setWinList(List<List<Boolean>> playerScoreList, List<List<Boolean>> opponentScoreList) {
+        this.playerScoreList = playerScoreList;
+        this.opponentScoreList = opponentScoreList;
     }
 
-    public void updateScoreBoard(GameData game) throws IOException {
-        centerPanel.removeAll();
-        northPanel.removeAll();
-        southPanel.removeAll();
-
+    public void updateScoreBoard(GameData game) {
         categoryList.clear();
-        player1ScoreList.clear();
-        player2ScoreList.clear();
-        for (Round round : game.getRounds()) {
-            if(round.getPlayer1Score() != null)
-                player1ScoreList.add(Arrays.stream(round.getPlayer1Score()).toList());
-            if(round.getPlayer2Score() != null)
-                player2ScoreList.add(Arrays.stream(round.getPlayer2Score()).toList());
-            categoryList.add(round.getCategory());
+        playerScoreList.clear();
+        opponentScoreList.clear();
+        if(playerSide == Turn.Player1){
+            updatePlayer1(game);
+        } else {
+            updatePlayer2(game);
         }
-
-        generateCenterPanel();
-        generateNorthPanel();
-        generateSouthPanel();
+        setScores();
+    }
+    private void updatePlayer1(GameData game){
+        int i = 0;
+        for (Round round : game.getRounds()) {
+            if (round.getPlayer1Score().length != 0 && round.getPlayer2Score().length != 0) {
+                int j = 0;
+                for (ScoreLabel playerLabel : scoreCounts.get(i).getPlayerLabels()) {
+                    playerLabel.setForeground(round.getPlayer1Score()[j] ? Color.green : Color.RED);
+                    j++;
+                }
+                j = 0;
+                for (ScoreLabel opponentLabel : scoreCounts.get(i).getOpponentLabels()) {
+                    opponentLabel.setForeground(round.getPlayer2Score()[j] ? Color.green : Color.RED);
+                    j++;
+                }
+                playerScoreList.add(Arrays.stream(round.getPlayer1Score()).toList());
+                opponentScoreList.add(Arrays.stream(round.getPlayer2Score()).toList());
+            }
+            if(round.getPlayer1Score().length != 0 && round.getPlayer2Score().length == 0) {
+                int j = 0;
+                for (ScoreLabel player1Label : scoreCounts.get(i).getPlayerLabels()) {
+                    player1Label.setForeground(round.getPlayer1Score()[j] ? Color.green : Color.RED);
+                    j++;
+                }
+                playerScoreList.add(Arrays.stream(round.getPlayer1Score()).toList());
+            }
+            scoreCounts.get(i).setCategoryLabel(round.getCategory().label);
+            i++;
+        }
     }
 
-    public void updateScoreBoard() throws IOException{
-        centerPanel.removeAll();
-        northPanel.removeAll();
-        southPanel.removeAll();
-
-        generateCenterPanel();
-        generateNorthPanel();
-        generateSouthPanel();
+    private void updatePlayer2(GameData game){
+        int i = 0;
+        for (Round round : game.getRounds()) {
+            if (round.getPlayer1Score().length != 0 && round.getPlayer2Score().length != 0) {
+                int j = 0;
+                for (ScoreLabel playerLabel : scoreCounts.get(i).getPlayerLabels()) {
+                    playerLabel.setForeground(round.getPlayer2Score()[j] ? Color.green : Color.RED);
+                    j++;
+                }
+                j = 0;
+                for (ScoreLabel opponentLabel : scoreCounts.get(i).getOpponentLabels()) {
+                    opponentLabel.setForeground(round.getPlayer1Score()[j] ? Color.green : Color.RED);
+                    j++;
+                }
+                playerScoreList.add(Arrays.stream(round.getPlayer2Score()).toList());
+                opponentScoreList.add(Arrays.stream(round.getPlayer1Score()).toList());
+            }
+            if(round.getPlayer2Score().length != 0 && round.getPlayer1Score().length == 0) {
+                int j = 0;
+                for (ScoreLabel playerLabel : scoreCounts.get(i).getPlayerLabels()) {
+                    playerLabel.setForeground(round.getPlayer2Score()[j] ? Color.green : Color.RED);
+                    j++;
+                }
+                playerScoreList.add(Arrays.stream(round.getPlayer2Score()).toList());
+            }
+            scoreCounts.get(i).setCategoryLabel(round.getCategory().label);
+            i++;
+        }
     }
 
-    public void hidePlayButton(){
+    public void hidePlayButton() {
         playGame.setVisible(false);
     }
 
-    public void showPlayButton(){
+    public void showPlayButton() {
         playGame.setVisible(true);
+    }
+
+    public void setPlayerSide(Turn playerSide) {
+        this.playerSide = playerSide;
+    }
+
+    public Turn getPlayerSide() {
+        return playerSide;
     }
 
     public JButton getPlayGame() {
         return playGame;
     }
 
-    public void addToCategoryList(QuestionCategory category){
+    public void addToCategoryList(QuestionCategory category) {
         categoryList.add(category);
     }
 
@@ -250,21 +304,20 @@ public class ScoreBoardPage extends JPanel {
         return score;
     }
 
-    public void setScores(){
-        player1 = calculateScore(player1ScoreList);
-        player2 = calculateScore(player2ScoreList);
-        scoreLabel.setText(player1 + " - " + player2);
+    public void setScores() {
+        player = calculateScore(playerScoreList);
+        opponent = calculateScore(opponentScoreList);
+        scoreLabel.setText(player + " - " + opponent);
     }
 
     public void setDesignOptions(SettingsOptions settingsOptions) {
         this.settingsOptions = settingsOptions;
     }
 
-    public void setTurnLabel(Boolean yourTurn){
-        if(yourTurn){
+    public void setTurnLabel(Boolean yourTurn) {
+        if (yourTurn) {
             turnLabel.setText("<html><div style='text-align: center; vertical-align: bottom;'>Din tur");
-        }
-        else{
+        } else {
             turnLabel.setText("<html><div style='text-align: center; vertical-align: bottom;'>Deras tur");
         }
 
