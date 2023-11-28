@@ -216,6 +216,7 @@ public class ContentFrame extends JFrame implements Serializable {
                 questionPage.newQuestions(category);
                 addActionListenerToOptions();
                 cardLayout.show(contentPanel, "QuestionPage");
+                questionPage.getProgressBar().start();
             });
         }
 
