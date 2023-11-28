@@ -32,7 +32,6 @@ public class ResultPage extends JPanel {
         System.out.println(this.playerPoints+" Spelarens poäng");
         System.out.println(this.opponentPoints+" Motståndarens poäng");
 
-
         addComponents();
         actionListenerHandler();
     }
@@ -74,7 +73,7 @@ public class ResultPage extends JPanel {
         northPanel.add(opponentPanel);
     }
 
-    public void createPlayerPanels(JPanel panel, ImageIcon icon, String text, Boolean win){
+    public void createPlayerPanels(JPanel panel, ImageIcon icon, String text, Boolean win){ //Denna?
         panel.setPreferredSize(new Dimension(400, 600));
         panel.setLayout(new GridLayout(4, 1));
         panel.setOpaque(false);
@@ -98,10 +97,16 @@ public class ResultPage extends JPanel {
         points.setFont(settingsOptions.getBigText());
         points.setForeground(Color.BLACK);
 
+        //Simon
+        JLabel pointsOpponent = new JLabel(Integer.toString(opponentPoints), SwingConstants.CENTER); //motståndare
+        pointsOpponent.setFont(settingsOptions.getBigText());
+        pointsOpponent.setForeground(Color.BLACK);
+
         panel.add(place);
         panel.add(iconLabel);
         panel.add(nameLabel);
         panel.add(points);
+        panel.add(pointsOpponent); //Simon
     }
     public void generateSouthPanel(){
         southPanel.setLayout(new GridLayout(1,2));
