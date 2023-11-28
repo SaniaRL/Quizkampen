@@ -44,11 +44,10 @@ public class Protocol {
     }
 
     public void gameFinished(String message, GameData gameData, Server server, ClientHandler clientHandler) throws IOException, InterruptedException {
-
         Game tempGame = new Game(clientHandler);
 
-
         for (Game game : server.getGames()) {
+            System.out.println(game);
             if (!game.getGameData().getGameID().equals(gameData.getGameID())) //Går igenom alla games i listan som skapats i servernclassen och jämför gameID. Om ej hittar, continue.
                 continue;
             game.setGameData(gameData);
@@ -57,7 +56,7 @@ public class Protocol {
 
         tempGame.getPlayer1().writeToClient("game finished", tempGame.getGameData());
         tempGame.getPlayer2().writeToClient("game finished", tempGame.getGameData());
-
+        server.getGames().removeIf(n -> (n.getGameData().getGameID().equals(gameData.getGameID())));
     }
 
     public void roundFinished(String message, GameData gameData, Server server) throws
