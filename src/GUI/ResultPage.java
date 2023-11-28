@@ -10,6 +10,9 @@ public class ResultPage extends JPanel {
     JButton newGame;
     JButton exitGame;
 
+    JPanel yourPanel;
+    JPanel opponentPanel;
+
     int yourPoints;
     int player2Points;
 
@@ -58,8 +61,8 @@ public class ResultPage extends JPanel {
         northPanel.setPreferredSize(new Dimension(800, 600));
         northPanel.setOpaque(false);
 
-        JPanel yourPanel = new JPanel();
-        JPanel opponentPanel = new JPanel();
+        yourPanel = new JPanel();
+        opponentPanel = new JPanel();
 
         createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), yourPoints > player2Points);
         createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), player2Points > yourPoints);
@@ -126,6 +129,16 @@ public class ResultPage extends JPanel {
         this.settingsOptions = settingsOptions;
         newGame.setBorder(settingsOptions.getBorder());
         exitGame.setBorder(settingsOptions.getBorder());
+    }
+
+    public void setIcon(SettingsOptions settingsOptions){
+        this.settingsOptions = settingsOptions;
+
+        yourPanel.removeAll();
+        opponentPanel.removeAll();
+
+        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), true);
+        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), false);
     }
 
     private void actionListenerHandler() {
