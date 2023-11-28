@@ -86,11 +86,17 @@ public class ContentFrame extends JFrame implements Serializable {
 
         //Provat lila tema, ändra fram och tillbaka och kika
         settingsOptions.setColor("hejsan");
-//        settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
-//        settingsOptions.setPlayer2Icon(ImageIconAvatar.ELEPHANT.iconPath);
+        settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
+        settingsOptions.setPlayer2Icon(ImageIconAvatar.ELEPHANT.iconPath);
         setDesignOptions();
+        setIcon();
         createMenu();
         buildFrame();
+    }
+
+    public void setIcon() { //Uppdaterar alla sidors Ikoner/Avatarer
+        questionPage.setIcon(this.settingsOptions);
+
     }
 
     public void setDesignOptions() { //Uppdaterar alla sidors options
@@ -101,32 +107,6 @@ public class ContentFrame extends JFrame implements Serializable {
         settingsPage.setDesignOptions(this.settingsOptions);
         resultPage.setDesignOptions(this.settingsOptions);
     }
-/*
-    public ContentFrame() throws IOException {
-        contentPanel = new JPanel();
-        cardLayout = new CardLayout();
-        contentPanel.setLayout(cardLayout);
-
-        startPage = new StartPage();
-        chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage(amountOfQuestions);
-        waitingPage = new WaitingPage();
-        scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
-
-        settingsPage = new SettingsPage();
-
-        buildFrame();
-    }
-
-
-
-    //TODO Remove main
-    public static void main(String[] args) throws IOException {
-        @SuppressWarnings("unused")
-        ContentFrame contentFrame = new ContentFrame();
-    }
-
- */
 
     public void buildFrame() {
         setSize(800, 800);

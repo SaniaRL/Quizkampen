@@ -25,6 +25,8 @@ public class ScoreBoardPage extends JPanel {
     JLabel scoreLabel;
     JLabel turnLabel;
 
+    JPanel yourPanel;
+
     JButton playGame;
 
     SettingsOptions settingsOptions;
@@ -111,7 +113,7 @@ public class ScoreBoardPage extends JPanel {
         northPanel.setOpaque(false);
 
         ImageIcon yourIcon = settingsOptions.getIcon();
-        JPanel yourPanel = createIconPanel(yourIcon, settingsOptions.getPlayer1());
+        yourPanel = createIconPanel(yourIcon, settingsOptions.getPlayer1());
 
         JPanel opponentPanel = createIconPanel(settingsOptions.getPlayer2Icon(), settingsOptions.getPlayer2());
 
@@ -312,6 +314,12 @@ public class ScoreBoardPage extends JPanel {
 
     public void setDesignOptions(SettingsOptions settingsOptions) {
         this.settingsOptions = settingsOptions;
+    }
+
+    public void setIcon(SettingsOptions settingsOptions){
+        this.settingsOptions = settingsOptions;
+        yourPanel = createIconPanel(settingsOptions.getIcon(), settingsOptions.getPlayer1());
+        //TODO
     }
 
     public void setTurnLabel(Boolean yourTurn) {
