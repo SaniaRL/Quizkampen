@@ -29,6 +29,10 @@ public class QuestionPage extends JPanel {
     JPanel northPanel;
     JPanel southPanel;
 
+    JPanel opponentPanel;
+    JPanel yourPanel;
+
+
     JButton nextQuestion;
 
     int indexCount;
@@ -52,6 +56,7 @@ public class QuestionPage extends JPanel {
 
         indexCount = 0;
         optionButtons = new ArrayList<>();
+
 
 
         addComponents();
@@ -108,16 +113,15 @@ public class QuestionPage extends JPanel {
         northPanel.setPreferredSize(new Dimension(800, 150));
         northPanel.setOpaque(false);
 
-        ImageIcon yourImageIcon = new ImageIcon(settingsOptions.getIcon().getImage().getScaledInstance(60,60, Image.SCALE_SMOOTH));
-        JPanel yourPanel = new JPanel();
-        createIconPanel(yourImageIcon, settingsOptions.getPlayer1(), yourPanel);
+        yourPanel = new JPanel();
+        createIconPanel(settingsOptions.getIcon(), settingsOptions.getPlayer1(), yourPanel);
 
         categoryLabel = new JLabel("", SwingConstants.CENTER);
         categoryLabel.setFont(settingsOptions.getSmallText());
         categoryLabel.setPreferredSize(new Dimension(300, 150));
         categoryLabel.setForeground(settingsOptions.getContrastColor());
 
-        JPanel opponentPanel = new JPanel();
+        opponentPanel = new JPanel();
         createIconPanel(settingsOptions.getPlayer2Icon(), settingsOptions.getPlayer2(), opponentPanel);
 
         Border emptyBorder = BorderFactory.createEmptyBorder(20,10,20,10);
@@ -243,6 +247,7 @@ public class QuestionPage extends JPanel {
     public void setIndexCount(int indexCount) {
         this.indexCount = indexCount;
     }
+
     public void setDesignOptions(SettingsOptions settingsOptions) {
         this.settingsOptions = settingsOptions;
         Border bigBorder = new LineBorder(settingsOptions.getColor(), 10);
@@ -256,6 +261,5 @@ public class QuestionPage extends JPanel {
         }
         nextQuestion.setBorder(settingsOptions.getBorder());
         categoryLabel.setForeground(settingsOptions.getContrastColor());
-
     }
 }
