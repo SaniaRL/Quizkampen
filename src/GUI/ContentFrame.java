@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ContentFrame extends JFrame implements Serializable {
 
@@ -86,11 +85,20 @@ public class ContentFrame extends JFrame implements Serializable {
 
         //Provat lila tema, ändra fram och tillbaka och kika
         settingsOptions.setColor("hejsan");
-//        settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
-//        settingsOptions.setPlayer2Icon(ImageIconAvatar.ELEPHANT.iconPath);
+        settingsOptions.setPlayer1("Sania");
+        settingsOptions.setPlayer2("Simon");
+        settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
+        settingsOptions.setPlayer2Icon(ImageIconAvatar.MONKEY.iconPath);
         setDesignOptions();
+        setIconAndPlayerName();
         createMenu();
         buildFrame();
+    }
+
+    public void setIconAndPlayerName() { //Uppdaterar alla sidors Ikoner/Avatarer - och namn
+        questionPage.setIconAndPlayerNames(this.settingsOptions);
+        scoreBoardPage.setIconAndPlayerName(this.settingsOptions);
+        resultPage.setIconAndPlayerName(this.settingsOptions);
     }
 
     public void setDesignOptions() { //Uppdaterar alla sidors options
@@ -101,32 +109,6 @@ public class ContentFrame extends JFrame implements Serializable {
         settingsPage.setDesignOptions(this.settingsOptions);
         resultPage.setDesignOptions(this.settingsOptions);
     }
-/*
-    public ContentFrame() throws IOException {
-        contentPanel = new JPanel();
-        cardLayout = new CardLayout();
-        contentPanel.setLayout(cardLayout);
-
-        startPage = new StartPage();
-        chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage(amountOfQuestions);
-        waitingPage = new WaitingPage();
-        scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
-
-        settingsPage = new SettingsPage();
-
-        buildFrame();
-    }
-
-
-
-    //TODO Remove main
-    public static void main(String[] args) throws IOException {
-        @SuppressWarnings("unused")
-        ContentFrame contentFrame = new ContentFrame();
-    }
-
- */
 
     public void buildFrame() {
         setSize(800, 800);
