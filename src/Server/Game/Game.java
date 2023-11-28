@@ -18,7 +18,6 @@ public class Game {
     private GameState gameState;
     private GameData gameData;
     private final CountDownLatch latch;
-    Properties properties = new Properties();
     public Game(ClientHandler player1) {
         this.player1 = player1;
         gameData = new GameData(String.valueOf(UUID.randomUUID()), 3, 3);

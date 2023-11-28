@@ -1,6 +1,7 @@
 package Server;
 
 import CustomTypes.GameData;
+import CustomTypes.Round;
 import Enums.Turn;
 import Server.Game.Game;
 import Enums.GameState;
@@ -42,11 +43,29 @@ public class Protocol {
         }
     }
 
+    public void gameFinished(String message, GameData gameData, Server server, ClientHandler clientHandler) throws IOException, InterruptedException {
 
-    public void roundFinished(String message, GameData gameData, Server server) throws IOException, InterruptedException {
+        Game tempGame = new Game(clientHandler);
+
+
+        for (Game game : server.getGames()) {
+            if (!game.getGameData().getGameID().equals(gameData.getGameID())) //Går igenom alla games i listan som skapats i servernclassen och jämför gameID. Om ej hittar, continue.
+                continue;
+            game.setGameData(gameData);
+            tempGame = game;
+        }
+
+        tempGame.getPlayer1().writeToClient("game finished", tempGame.getGameData());
+        tempGame.getPlayer2().writeToClient("game finished", tempGame.getGameData());
+
+    }
+
+    public void roundFinished(String message, GameData gameData, Server server) throws
+            IOException, InterruptedException {
         if (!message.equals("round finished")) {
             return;
         }
+
         for (Game game : server.getGames()) {
             if (!game.getGameData().getGameID().equals(gameData.getGameID()))
                 continue;
@@ -60,13 +79,13 @@ public class Protocol {
             }
             System.out.println("before if");
             if (game.getGameData().getTurn() == Turn.Player2) {
-                game.getPlayer1().writeToClient("opponent turn", null);
-                if(game.getPlayer2() != null)
-                    game.getPlayer2().writeToClient("your turn", game.getGameData());
+//                game.getPlayer1().writeToClient("opponent turn", null);
+                if (game.getPlayer2() != null)
+                    game.getPlayer2().writeToClient("your turn", gameData);
                 System.out.println("player 2 turn");
             } else {
-                game.getPlayer2().writeToClient("opponent turn", null);
-                game.getPlayer1().writeToClient("your turn", game.getGameData());
+//                game.getPlayer2().writeToClient("opponent turn", null);
+                game.getPlayer1().writeToClient("your turn", gameData);
                 System.out.println("player 1 turn");
             }
         }
