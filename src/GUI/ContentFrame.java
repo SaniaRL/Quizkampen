@@ -61,8 +61,8 @@ public class ContentFrame extends JFrame implements Serializable {
     ObjectOutputStream out;
     int test1 = 0;
     boolean chosenCategory = false;
-    private int amountOfQuestions;
-    private int amountOfRounds;
+    private final int amountOfQuestions;
+    private final int amountOfRounds;
     private GameData game;
     private Turn playerSide;
 
@@ -76,7 +76,10 @@ public class ContentFrame extends JFrame implements Serializable {
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage(amountOfQuestions);
+        questionPage = new QuestionPage(amountOfQuestions, () -> {
+            playerRound.add(false);
+            helpMe();
+        });
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
         settingsPage = new SettingsPage();
@@ -216,6 +219,7 @@ public class ContentFrame extends JFrame implements Serializable {
                 questionPage.newQuestions(category);
                 addActionListenerToOptions();
                 cardLayout.show(contentPanel, "QuestionPage");
+                questionPage.getProgressBar().start();
             });
         }
 
@@ -242,11 +246,13 @@ public class ContentFrame extends JFrame implements Serializable {
                 cardLayout.show(contentPanel, "QuestionPage");
                 addActionListenerToOptions();
                 chosenCategory = false;
+                questionPage.getProgressBar().start();
             } else {
                 questionPage.newQuestions(questionCollection.getRandomCategory());
                 SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
                 cardLayout.show(contentPanel, "ChooseCategoryPage");
-                addActionListenerToOptions();
+                //TODO why add action listener to options?
+//                addActionListenerToOptions();
                 chosenCategory = true;
             }
         });
@@ -284,21 +290,20 @@ public class ContentFrame extends JFrame implements Serializable {
 
         itemSelectPig.addActionListener(e -> {
             System.out.println("Gris");
-            ImageIcon yourImageIcon = new ImageIcon(settingsOptions.getIcon().getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)); //hämtar bild
-
-            setDesignOptions();
+            settingsOptions.setIcon(ImageIconAvatar.PIG.iconPath);
+            setIconAndPlayerName();
             getContentPane().revalidate();
             getContentPane().repaint();
         });
     }
 
     public void addActionListerToStartPage() {
-        startPage.getStartNewGame().addActionListener(ActionEvent -> {
-            writeToServer("new game", null);
-        });
-        startPage.getNotifications().addActionListener(ActionEvent -> {
-            cardLayout.show(contentPanel, "ResultPage");
-        });
+        startPage.getStartNewGame().addActionListener(ActionEvent ->
+            writeToServer("new game", null)
+        );
+        startPage.getNotifications().addActionListener(ActionEvent ->
+            cardLayout.show(contentPanel, "ResultPage")
+        );
     }
 
     public void addActionListenerToOptions() {
@@ -324,8 +329,10 @@ public class ContentFrame extends JFrame implements Serializable {
                 questionPage.nextQuestion();
                 cardLayout.show(contentPanel, "QuestionPage");
                 addActionListenerToOptions();
+                questionPage.getProgressBar().start();
             } else {
-
+                System.out.println("Answers: " + playerRound.size());
+                System.out.println("Amount: " + amountOfQuestions);
 
                 if (chosenCategory) {
                     game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
