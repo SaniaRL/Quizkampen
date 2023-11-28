@@ -301,9 +301,6 @@ public class ContentFrame extends JFrame implements Serializable {
         startPage.getStartNewGame().addActionListener(ActionEvent ->
             writeToServer("new game", null)
         );
-        startPage.getNotifications().addActionListener(ActionEvent ->
-            cardLayout.show(contentPanel, "ResultPage")
-        );
     }
 
     public void addActionListenerToOptions() {
@@ -320,6 +317,12 @@ public class ContentFrame extends JFrame implements Serializable {
                 helpMe();
             });
         }
+    }
+
+    public void addActionListenerToResultPage(){
+        scoreBoardPage.updateScoreBoard(game);
+        resultPage.getNewGame().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "StartPage"));
+        resultPage.getExitGame().addActionListener(ActionEvent -> System.exit(0));
     }
 
     public void helpMe() {
@@ -408,6 +411,7 @@ public class ContentFrame extends JFrame implements Serializable {
     public void showScoreBoardPage() {
         scoreBoardPage.setTurnLabel(playerSide == game.getTurn());
         cardLayout.show(contentPanel, "ScoreBoardPage");
+        addActionListenerToResultPage();
     }
 
 //Needed for NetWork

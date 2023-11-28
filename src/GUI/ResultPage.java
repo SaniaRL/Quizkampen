@@ -31,7 +31,6 @@ public class ResultPage extends JPanel {
         player2Points = 7;
 
         addComponents();
-        actionListenerHandler();
     }
 
     public void addComponents(){
@@ -141,9 +140,11 @@ public class ResultPage extends JPanel {
         createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), false);
     }
 
-    private void actionListenerHandler() {
-        newGame.addActionListener(e -> ((CardLayout) getParent().getLayout()).show(getParent(), "StartPage"));
-        exitGame.addActionListener(ActionEvent -> System.exit(0));
+    public JButton getNewGame() {
+        return newGame;
     }
 
+    public JButton getExitGame() {
+        return exitGame;
+    }
 }
