@@ -89,13 +89,16 @@ public class Protocol {
         }
     }
 
-    public void clientDisconnected(Server server, ClientHandler client){
+    public void clientDisconnected(Server server, ClientHandler client) {
         for (Game game : server.getGames()) {
-            if(game.getPlayer1().equals(client))
+            if (game.getPlayer1().equals(client)) {
                 game.getPlayer2().writeToClient("opponent disconnected", null);
-            if(game.getPlayer2().equals(client))
+                server.getGames().remove(game);
+            }
+            if (game.getPlayer2().equals(client)) {
                 game.getPlayer1().writeToClient("opponent disconnected", null);
-            server.getGames().remove(game);
+                server.getGames().remove(game);
+            }
         }
     }
 }
