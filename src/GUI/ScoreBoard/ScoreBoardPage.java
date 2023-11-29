@@ -257,6 +257,18 @@ public class ScoreBoardPage extends JPanel {
         }
     }
 
+    public void clearScoreBoard(){
+        for (ScoreCount scoreCount : scoreCounts) {
+            scoreCount.setCategoryLabel("");
+            for (ScoreLabel playerLabel : scoreCount.getPlayerLabels()) {
+                playerLabel.setForeground(settingsOptions.getColor());
+            }
+            for (ScoreLabel opponentLabel : scoreCount.getOpponentLabels()) {
+                opponentLabel.setForeground(settingsOptions.getColor());
+            }
+        }
+    }
+
     public void hidePlayButton() {
         playGame.setVisible(false);
     }

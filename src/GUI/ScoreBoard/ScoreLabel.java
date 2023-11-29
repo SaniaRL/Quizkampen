@@ -32,8 +32,10 @@ public class ScoreLabel extends JLabel {
 
     public ScoreLabel(int amountOfQuestions) {
         this.amountOfQuestions = amountOfQuestions;
-        addComponents();
+        settingsOptions = new SettingsOptions();
+        defaultColor = settingsOptions.getColor();
         setForeground(defaultColor);
+        addComponents();
     }
 
     public void addComponents() {
