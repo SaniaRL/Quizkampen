@@ -33,7 +33,7 @@ public class QuestionPage extends JPanel {
     private JPanel yourPanel;
 
     private ProgressBar progressBar;
-    private QuestionPageParent parent;
+    private final QuestionPageParent parent;
 
     private JButton nextQuestion;
 
@@ -155,7 +155,7 @@ public class QuestionPage extends JPanel {
         southPanel.setPreferredSize(new Dimension(800, 350));
         southPanel.setOpaque(false);
 
-        progressBar = new ProgressBar(4, 50, 500, () -> parent.nextPanel());
+        progressBar = new ProgressBar(4, 50, 500, parent::nextPanel);
         progressBar.setBorder(settingsOptions.getBorder());
         progressBar.setForeground(settingsOptions.getColor());
         progressBar.setBackground(settingsOptions.getDetailColor());
