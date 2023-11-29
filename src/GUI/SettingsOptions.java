@@ -11,7 +11,7 @@ import java.util.List;
 
 public class SettingsOptions {
     private ImageIcon icon;
-    private Color color;
+    Color color;
     private Color detailColor;
     private String backgroundImagePath;
     private Image backgroundImage;
@@ -173,5 +173,8 @@ public class SettingsOptions {
 
     public void setPlayer2Icon(String iconPath) {
         this.player2Icon = new ImageIcon(new ImageIcon(iconPath).getImage().getScaledInstance(60,60,Image.SCALE_SMOOTH));
+    }
+    public void setPlayer2Icon(ImageIcon icon) {
+        this.player2Icon = icon;
     }
 }

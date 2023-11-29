@@ -11,7 +11,7 @@ import Question.Question;
 import Enums.QuestionCategory;
 import Question.QuestionCollection;
 import Enums.Turn;
-
+import Server.UserData.User;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.ObjectOutputStream;
@@ -54,6 +54,7 @@ public class ContentFrame extends JFrame implements Serializable {
     SettingsPage settingsPage;
     ResultPage resultPage;
     MenuCreator menuCreator;
+    GroupYellow groupYellow;
 
     //Should be moved to game logic later:
     List<List<Boolean>> player1Wins = new ArrayList<>();
@@ -85,7 +86,7 @@ public class ContentFrame extends JFrame implements Serializable {
         chooseCategoryPage = new ChooseCategoryPage();
         questionPage = new QuestionPage(amountOfQuestions, () -> {
             playerRound.add(false);
-            helpMe();
+            runQuestions();
         });
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
@@ -93,13 +94,10 @@ public class ContentFrame extends JFrame implements Serializable {
         //resultPage = new ResultPage();
         settingsOptions = new SettingsOptions();
         menuCreator = new MenuCreator();
+        groupYellow = new GroupYellow();
 
         //Provat lila tema, ändra fram och tillbaka och kika
         settingsOptions.setColor("hejsan");
-        settingsOptions.setPlayer1("Sania");
-        settingsOptions.setPlayer2("Simon");
-        settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
-        settingsOptions.setPlayer2Icon(ImageIconAvatar.MONKEY.iconPath);
         setDesignOptions();
         setIconAndPlayerName();
 
@@ -139,6 +137,7 @@ public class ContentFrame extends JFrame implements Serializable {
         contentPanel.add(waitingPage, "WaitingPage");
         contentPanel.add(scoreBoardPage, "ScoreBoardPage");
         contentPanel.add(settingsPage, "SettingsPage");
+        contentPanel.add(groupYellow, "GroupYellow");
       //  contentPanel.add(resultPage, "ResultPage");
 
         add(contentPanel);
@@ -160,6 +159,7 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public void newGameStarted() {
         System.out.println("new game started");
+        scoreBoardPage.clearScoreBoard();
         cardLayout.show(contentPanel, "ChooseCategoryPage");
         addActionListenerToOptions();
         chosenCategory = true;
@@ -167,6 +167,12 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public void getQuestions() throws IOException {
         System.out.println("existing game found!");
+        if (playerSide == Turn.Player1 && game.getRounds().size() == 2) {
+            settingsOptions.setPlayer2(game.getPlayer2().getName());
+            settingsOptions.setPlayer2Icon(game.getPlayer2().getAvatar());
+            setIconAndPlayerName();
+        }
+        scoreBoardPage.clearScoreBoard();
         scoreBoardPage.updateScoreBoard(game);
         showScoreBoardPage();
         scoreBoardPage.showPlayButton();
@@ -175,6 +181,7 @@ public class ContentFrame extends JFrame implements Serializable {
     public void waitingForPlayer() {
         chosenCategory = true;
         System.out.println("waiting for player method");
+        scoreBoardPage.clearScoreBoard();
         scoreBoardPage.hidePlayButton();
         showScoreBoardPage();
     }
@@ -204,13 +211,12 @@ public class ContentFrame extends JFrame implements Serializable {
         //QUESTION PAGE
         questionPage.getNextQuestion().addActionListener(ActiveEvent -> {
             playerRound.add(false);
-            helpMe();
+            runQuestions();
         });
 
         //ActionListener till inställningsknapp
         startPage.getSettings().addActionListener(e -> {
-            System.out.println("Settings Button Clicked!");
-            cardLayout.show(contentPanel, "SettingsPage");
+            cardLayout.show(contentPanel, "GroupYellow");
         });
 
         //SCORE BOARD PAGE
@@ -238,9 +244,10 @@ public class ContentFrame extends JFrame implements Serializable {
 
 
     public void addActionListerToStartPage() {
-        startPage.getStartNewGame().addActionListener(ActionEvent ->
-            writeToServer("new game", null)
-        );
+        startPage.getStartNewGame().addActionListener(ActionEvent -> {
+            User user = new User(startPage.getNameField().getText(), settingsOptions.getIcon());
+            writeToServer("new game", user);
+        });
       //  startPage.getNotifications().addActionListener(ActionEvent -> {
       //      cardLayout.show(contentPanel, "ResultPage");
       //  });
@@ -257,13 +264,12 @@ public class ContentFrame extends JFrame implements Serializable {
 
             option.addActionListener(e -> {
                 checkIfWin(option);
-                helpMe();
+                runQuestions();
             });
         }
     }
 
-    public void helpMe() {
-
+    public void runQuestions() {
         Timer timer = new Timer(500, evt -> {
             if (playerRound.size() < amountOfQuestions) {
                 questionPage.nextQuestion();
@@ -271,9 +277,6 @@ public class ContentFrame extends JFrame implements Serializable {
                 addActionListenerToOptions();
                 questionPage.getProgressBar().start();
             } else {
-                System.out.println("Answers: " + playerRound.size());
-                System.out.println("Amount: " + amountOfQuestions);
-
                 if (chosenCategory) {
                     game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
                     Question[] tempQuestions = new Question[amountOfQuestions];
@@ -468,5 +471,9 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public void setChosenCategory(boolean chosenCategory) {
         this.chosenCategory = chosenCategory;
+    }
+
+    public SettingsOptions getSettingsOptions() {
+        return settingsOptions;
     }
 }
