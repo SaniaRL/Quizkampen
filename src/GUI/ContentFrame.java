@@ -242,6 +242,8 @@ public class ContentFrame extends JFrame implements Serializable {
                 chosenCategory = true;
             }
         });
+        scoreBoardPage.getGiveUp().addActionListener(ActiveEvent -> System.exit(0));
+
     }
 
 

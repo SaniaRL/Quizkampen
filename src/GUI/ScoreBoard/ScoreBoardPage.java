@@ -29,6 +29,7 @@ public class ScoreBoardPage extends JPanel {
     JPanel opponentPanel;
 
     JButton playGame;
+    JButton giveUp;
 
     SettingsOptions settingsOptions;
 
@@ -56,6 +57,7 @@ public class ScoreBoardPage extends JPanel {
         southPanel = new JPanel();
 
         playGame = new JButton("SPELA");
+        giveUp = new JButton("GE UPP");
         turnLabel = new JLabel();
         setTurnLabel(true);
 
@@ -170,7 +172,13 @@ public class ScoreBoardPage extends JPanel {
         playGame.setFont(settingsOptions.getSmallText());
         playGame.setBorder(settingsOptions.getBorder());
 
+        giveUp.setBackground(Color.ORANGE);
+        giveUp.setPreferredSize(new Dimension(200, 70));
+        giveUp.setFont(settingsOptions.getSmallText());
+        giveUp.setBorder(settingsOptions.getBorder());
+
         southPanel.add(playGame);
+        southPanel.add(giveUp);
     }
 
     @Override
@@ -288,6 +296,9 @@ public class ScoreBoardPage extends JPanel {
     public JButton getPlayGame() {
         return playGame;
     }
+    public JButton getGiveUp() {
+        return giveUp;
+    }
 
     public void addToCategoryList(QuestionCategory category) {
         categoryList.add(category);
@@ -339,6 +350,7 @@ public class ScoreBoardPage extends JPanel {
     public void setDesignOptions(SettingsOptions settingsOptions) {
         this.settingsOptions = settingsOptions;
         playGame.setBorder(settingsOptions.getBorder());
+        giveUp.setBorder(settingsOptions.getBorder());
     }
 
     public void setIconAndPlayerName(SettingsOptions settingsOptions){
