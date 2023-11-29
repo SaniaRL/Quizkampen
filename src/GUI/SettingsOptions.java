@@ -88,6 +88,22 @@ public class SettingsOptions {
                 backgroundImage = new ImageIcon(backgroundImagePath).getImage();
                 contrastColor = Color.BLACK;
             }
+            case "red" -> {
+                this.color = new Color(110, 44, 44);
+                this.detailColor = new Color(253, 119, 119);
+                this.backgroundImagePath = "Backgrounds/redColor.png";
+                border = new LineBorder(this.color, 5);
+                backgroundImage = new ImageIcon(backgroundImagePath).getImage();
+                contrastColor = Color.BLACK;
+            }
+            case "yellow" -> {
+                this.color = new Color(154, 132, 24);
+                this.detailColor = new Color(239, 255, 142);
+                this.backgroundImagePath = "Backgrounds/sunYellow.png";
+                border = new LineBorder(this.color, 5);
+                backgroundImage = new ImageIcon(backgroundImagePath).getImage();
+                contrastColor = Color.BLACK;
+            }
             default -> {
                 this.color = Color.BLUE;
                 this.detailColor = Color.CYAN;
