@@ -34,6 +34,7 @@ public class ResultPage extends JPanel {
         System.out.println(this.opponentPoints+" Motståndarens poäng");
 
         addComponents();
+        actionListenerHandler();
     }
 
     public void addComponents(){
@@ -150,7 +151,8 @@ public class ResultPage extends JPanel {
         createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), Integer.compare(opponentPoints, playerPoints), opponentPoints);
     }
 
-    public JButton getNewGame() {
-        return newGame;
+    private void actionListenerHandler() {
+        newGame.addActionListener(e -> ((CardLayout) getParent().getLayout()).show(getParent(), "StartPage"));
+        exitGame.addActionListener(ActionEvent -> System.exit(0));
     }
 }
