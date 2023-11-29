@@ -3,7 +3,6 @@ package GUI.StartPage;
 import GUI.SettingsOptions;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
@@ -20,19 +19,15 @@ public class StartPage extends JPanel {
     private final StartButton homeButton;
     private final StartButton catButton;
     private JTextField nameField;
-    Border emptyBorder;
-
     private SettingsOptions settingsOptions;
 
     public StartPage(){
         settingsOptions = new SettingsOptions();
-
         settings = new StartButton("\uD83D\uDD27", new Dimension(150,150), 50, Color.BLACK);
         notifications = new StartButton("\uD83D\uDCAC", new Dimension(150,150), 50, Color.BLACK);
         catButton = new StartButton("", new Dimension(150,150), 50, Color.BLACK);
         homeButton = new StartButton("Q", new Dimension(180,180), 130, settingsOptions.getDetailColor());
 
-        emptyBorder = BorderFactory.createEmptyBorder();
         addComponents();
     }
 
@@ -77,7 +72,6 @@ public class StartPage extends JPanel {
         nameField = new JTextField();
         nameField.setFont(new Font("Sans Serif", Font.PLAIN, 18));
 
-
         nameFieldPanel.add(textLabel);
         nameFieldPanel.add(emptyLabel);
         nameFieldPanel.add(nameField);
@@ -118,9 +112,7 @@ public class StartPage extends JPanel {
         centerPanel.add(startNewGame);
         generateEastWestPanels(BorderLayout.EAST);
 
-
         setOpaque(false);
-
     }
 
     public void generateNorthPanel(){
@@ -138,13 +130,11 @@ public class StartPage extends JPanel {
             label.setOpaque(false);
             northPanel.add(label);
         }
-
         northPanel.add(notifications);
     }
 
     public void generateSouthPanel(){
         southPanel = new JPanel();
-
         southPanel.setLayout(new GridLayout(1,4));
         Dimension northPanelSize = new Dimension(800,200);
         southPanel.setSize(northPanelSize);
@@ -159,7 +149,6 @@ public class StartPage extends JPanel {
             label.setOpaque(false);
             southPanel.add(label);
         }
-
         southPanel.add(catButton);
     }
 
