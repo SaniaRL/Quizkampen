@@ -11,7 +11,7 @@ import java.util.List;
 
 public class SettingsOptions {
     private ImageIcon icon;
-    private Color color;
+    Color color;
     private Color detailColor;
     private String backgroundImagePath;
     private Image backgroundImage;
@@ -72,14 +72,6 @@ public class SettingsOptions {
 
     public void setColor(String color) {
         switch (color.toLowerCase()) {
-            case "black" -> {
-                this.color = Color.BLACK;
-                this.detailColor = Color.lightGray;
-                this.backgroundImagePath = "Backgrounds/blackBackground.png";
-                border = new LineBorder(this.color, 5);
-                backgroundImage = new ImageIcon(backgroundImagePath).getImage();
-                contrastColor = Color.WHITE;
-            }
             case "violet" -> {
                 this.color = new Color(112, 31, 69);
                 this.detailColor = new Color(191, 112, 151);
@@ -92,6 +84,22 @@ public class SettingsOptions {
                 this.color = new Color(54, 105, 39);
                 this.detailColor = new Color(134, 191, 112);
                 this.backgroundImagePath = "Backgrounds/greenBackground.png";
+                border = new LineBorder(this.color, 5);
+                backgroundImage = new ImageIcon(backgroundImagePath).getImage();
+                contrastColor = Color.BLACK;
+            }
+            case "red" -> {
+                this.color = new Color(110, 44, 44);
+                this.detailColor = new Color(253, 119, 119);
+                this.backgroundImagePath = "Backgrounds/redColor.png";
+                border = new LineBorder(this.color, 5);
+                backgroundImage = new ImageIcon(backgroundImagePath).getImage();
+                contrastColor = Color.BLACK;
+            }
+            case "yellow" -> {
+                this.color = new Color(154, 132, 24);
+                this.detailColor = new Color(239, 255, 142);
+                this.backgroundImagePath = "Backgrounds/sunYellow.png";
                 border = new LineBorder(this.color, 5);
                 backgroundImage = new ImageIcon(backgroundImagePath).getImage();
                 contrastColor = Color.BLACK;
@@ -181,5 +189,8 @@ public class SettingsOptions {
 
     public void setPlayer2Icon(String iconPath) {
         this.player2Icon = new ImageIcon(new ImageIcon(iconPath).getImage().getScaledInstance(60,60,Image.SCALE_SMOOTH));
+    }
+    public void setPlayer2Icon(ImageIcon icon) {
+        this.player2Icon = icon;
     }
 }

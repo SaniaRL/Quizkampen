@@ -32,8 +32,8 @@ public class ScoreBoardPage extends JPanel {
 
     private SettingsOptions settingsOptions;
 
-    int player = 0;
-    int opponent = 0;
+    int player; //Tidigare = 0;
+    int opponent; //Tidigare = 0;
     private Turn playerSide;
 
     private final List<ScoreCount> scoreCounts;
@@ -257,6 +257,18 @@ public class ScoreBoardPage extends JPanel {
         }
     }
 
+    public void clearScoreBoard(){
+        for (ScoreCount scoreCount : scoreCounts) {
+            scoreCount.setCategoryLabel("");
+            for (ScoreLabel playerLabel : scoreCount.getPlayerLabels()) {
+                playerLabel.setForeground(settingsOptions.getColor());
+            }
+            for (ScoreLabel opponentLabel : scoreCount.getOpponentLabels()) {
+                opponentLabel.setForeground(settingsOptions.getColor());
+            }
+        }
+    }
+
     public void hidePlayButton() {
         playGame.setVisible(false);
     }
@@ -311,9 +323,22 @@ public class ScoreBoardPage extends JPanel {
         opponent = calculateScore(opponentScoreList);
         scoreLabel.setText(player + " - " + opponent);
     }
+    public int getPlayer() {
+        return player;
+    }
+    public void setPlayer(int player) {
+        this.player = player;
+    }
+    public int getOpponent() {
+        return opponent;
+    }
+    public void setOpponent(int opponent) {
+        this.opponent = opponent;
+    }
 
     public void setDesignOptions(SettingsOptions settingsOptions) {
         this.settingsOptions = settingsOptions;
+        playGame.setBorder(settingsOptions.getBorder());
     }
 
     public void setIconAndPlayerName(SettingsOptions settingsOptions){

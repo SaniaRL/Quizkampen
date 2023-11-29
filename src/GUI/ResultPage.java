@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public class ResultPage extends JPanel {
@@ -13,12 +14,12 @@ public class ResultPage extends JPanel {
     JPanel yourPanel;
     JPanel opponentPanel;
 
-    int yourPoints;
-    int player2Points;
+    int playerPoints;
+    int opponentPoints;
 
     SettingsOptions settingsOptions;
 
-    public ResultPage(){
+    public ResultPage(int playerPoints, int opponentPoints){
         northPanel = new JPanel();
         southPanel = new JPanel();
 
@@ -27,8 +28,10 @@ public class ResultPage extends JPanel {
 
         settingsOptions = new SettingsOptions();
 
-        yourPoints = 10;
-        player2Points = 7;
+        this.playerPoints = playerPoints;
+        this.opponentPoints = opponentPoints;
+        System.out.println(this.playerPoints+" Spelarens poäng");
+        System.out.println(this.opponentPoints+" Motståndarens poäng");
 
         addComponents();
     }
@@ -63,24 +66,27 @@ public class ResultPage extends JPanel {
         yourPanel = new JPanel();
         opponentPanel = new JPanel();
 
-        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), yourPoints > player2Points);
-        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), player2Points > yourPoints);
+        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), Integer.compare(playerPoints, opponentPoints), playerPoints);
+        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), Integer.compare(opponentPoints, playerPoints), opponentPoints);
 
         northPanel.add(yourPanel);
         northPanel.add(opponentPanel);
     }
 
-    public void createPlayerPanels(JPanel panel, ImageIcon icon, String text, Boolean win){
+    public void createPlayerPanels(JPanel panel, ImageIcon icon, String text, int compare, int playerScore){
         panel.setPreferredSize(new Dimension(400, 600));
-        panel.setLayout(new GridLayout(4, 1));
+        panel.setLayout(new GridLayout(5, 1));
         panel.setOpaque(false);
 
         JLabel place;
-        if(win){
+        if(compare == 1){
             place = new JLabel("WINNER", SwingConstants.CENTER);
         }
-        else{
+        else if (compare == -1){
             place = new JLabel("LOSER", SwingConstants.CENTER);
+        }
+         else {
+             place = new JLabel("TIE", SwingConstants.CENTER);
         }
         place.setFont(settingsOptions.getBigText());
         place.setForeground(Color.BLACK);
@@ -90,14 +96,18 @@ public class ResultPage extends JPanel {
         nameLabel.setFont(settingsOptions.getBigText());
         nameLabel.setForeground(Color.BLACK);
 
-        JLabel points = new JLabel("10", SwingConstants.CENTER);
+        JLabel points = new JLabel(Integer.toString(playerScore), SwingConstants.CENTER);
         points.setFont(settingsOptions.getBigText());
         points.setForeground(Color.BLACK);
+
+        JLabel emptyLabel = new JLabel();
+        emptyLabel.setPreferredSize(new Dimension(400,20));
 
         panel.add(place);
         panel.add(iconLabel);
         panel.add(nameLabel);
         panel.add(points);
+        panel.add(emptyLabel);
     }
     public void generateSouthPanel(){
         southPanel.setLayout(new GridLayout(1,2));
@@ -136,15 +146,11 @@ public class ResultPage extends JPanel {
         yourPanel.removeAll();
         opponentPanel.removeAll();
 
-        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), true);
-        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), false);
+        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), Integer.compare(playerPoints, opponentPoints), playerPoints);
+        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), Integer.compare(opponentPoints, playerPoints), opponentPoints);
     }
 
     public JButton getNewGame() {
         return newGame;
-    }
-
-    public JButton getExitGame() {
-        return exitGame;
     }
 }

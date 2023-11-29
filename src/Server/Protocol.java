@@ -1,16 +1,16 @@
 package Server;
 
 import CustomTypes.GameData;
-import CustomTypes.Round;
 import Enums.Turn;
 import Server.Game.Game;
 import Enums.GameState;
+import Server.UserData.User;
 
 import java.io.IOException;
 
 public class Protocol {
 
-    public void checkIfNewGame(String message, Server server, ClientHandler client) {
+    public void checkIfNewGame(String message, Server server, ClientHandler client, User user) {
         if (!message.equals("new game"))
             return;
 
@@ -18,28 +18,33 @@ public class Protocol {
 
         for (Game game : server.getGames()) {
             if (game.getGameState() == GameState.WAITING) {
-                game.setPlayer2(client);
-                game.setGameState(GameState.STARTED);
-                //Starts the latch countdown when entering an existing game
-                game.getLatch().countDown();
+                    game.setPlayer2(client);
+                    game.getGameData().setPlayer2(user);
+                    game.setUser2(user);
+                    game.setGameState(GameState.STARTED);
 
-                if (game.getGameData().getTurn() == Turn.Player1) {
-                    System.out.println("entered wait");
-                    client.writeToClient("game found wait", game.getGameData());
-                } else {
-                    System.out.println("entered start");
-                    client.writeToClient("game found start", game.getGameData());
-                }
-                gameFound = true;
-                break;
+                    //Starts the latch countdown when entering an existing game
+
+                    if (game.getGameData().getTurn() == Turn.Player1) {
+                        System.out.println("entered wait");
+                        client.writeToClient("game found wait", game.getGameData());
+                    } else {
+                        System.out.println("entered start");
+                        client.writeToClient("game found start", game.getGameData());
+                    }
+                    gameFound = true;
+                    break;
             }
         }
 
         if (!gameFound) {
             System.out.println("creating new game");
             Game game = new Game(client);
+
+            game.getGameData().setPlayer1(user);
             server.getGames().add(game);
             client.writeToClient("game started", game.getGameData());
+
         }
     }
 
@@ -71,16 +76,17 @@ public class Protocol {
             game.setGameData(gameData);
             System.out.println("waiting for opponent");
 
-            //Pause thread until opponent has been found
-            if (game.getGameState() == GameState.WAITING) {
-                game.getLatch().await();
-            }
-            System.out.println("before if");
+
+            System.out.println("before if");;
             if (game.getGameData().getTurn() == Turn.Player2) {
 //                game.getPlayer1().writeToClient("opponent turn", null);
-                if (game.getPlayer2() != null)
+                if (game.getPlayer2() != null) {
+                    if (game.getGameData().getPlayer2().getName().equals("OPPONENT")) {
+                        game.getGameData().setPlayer2(game.getUser2());
+                    }
                     game.getPlayer2().writeToClient("your turn", gameData);
-                System.out.println("player 2 turn");
+                    System.out.println("player 2 turn");
+                }
             } else {
 //                game.getPlayer2().writeToClient("opponent turn", null);
                 game.getPlayer1().writeToClient("your turn", gameData);
@@ -93,6 +99,7 @@ public class Protocol {
         if (server.getGames().isEmpty())
             return;
         for (Game game : server.getGames()) {
+            if(game.getPlayer2() == null && game.getPlayer1().equals(client)) break;
             if (game.getPlayer1().equals(client)) {
                 game.getPlayer2().writeToClient("opponent disconnected", null);
                 break;
@@ -104,7 +111,7 @@ public class Protocol {
         }
         server.getGames().removeIf(game -> {
             boolean isPlayer1 = game.getPlayer1().equals(client);
-            boolean isPlayer2 = game.getPlayer2().equals(client);
+            boolean isPlayer2 = game.getPlayer2() != null && game.getPlayer2().equals(client);
             return (isPlayer1 || isPlayer2);
         });
     }

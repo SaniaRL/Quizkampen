@@ -1,28 +1,23 @@
 package Server.Game;
 
-import CustomTypes.Round;
 import Enums.GameState;
-import Enums.Turn;
 import Server.ClientHandler;
-import java.util.ArrayList;
-import java.util.Properties;
 import java.util.UUID;
-import java.util.concurrent.CountDownLatch;
-
 import CustomTypes.GameData;
-import Server.Server;
+import Server.UserData.User;
+
 
 public class Game {
     private ClientHandler player1;
     private ClientHandler player2;
+    private User user2;
     private GameState gameState;
     private GameData gameData;
-    private final CountDownLatch latch;
+
     public Game(ClientHandler player1) {
         this.player1 = player1;
         gameData = new GameData(String.valueOf(UUID.randomUUID()), 3, 3);
         gameState = GameState.WAITING;
-        this.latch = new CountDownLatch(1);
     }
     public GameData getGameData() {
         return gameData;
@@ -45,17 +40,17 @@ public class Game {
     public void setPlayer1(ClientHandler player1) {
         this.player1 = player1;
     }
-
-
     public GameState getGameState() {
         return gameState;
     }
-
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
-
-    public CountDownLatch getLatch() {
-        return latch;
+    public User getUser2() {
+        return user2;
     }
+    public void setUser2(User user2) {
+        this.user2 = user2;
+    }
+
 }
