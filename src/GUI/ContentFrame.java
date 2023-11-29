@@ -46,6 +46,7 @@ public class ContentFrame extends JFrame implements Serializable {
     ScoreBoardPage scoreBoardPage;
     SettingsPage settingsPage;
     ResultPage resultPage;
+    GroupYellow groupYellow;
 
     //Should be moved to game logic later:
     List<List<Boolean>> player1Wins = new ArrayList<>();
@@ -84,6 +85,7 @@ public class ContentFrame extends JFrame implements Serializable {
         settingsPage = new SettingsPage();
         //resultPage = new ResultPage();
         settingsOptions = new SettingsOptions();
+        groupYellow = new GroupYellow();
 
         //Provat lila tema, ändra fram och tillbaka och kika
         settingsOptions.setColor("hejsan");
@@ -127,6 +129,7 @@ public class ContentFrame extends JFrame implements Serializable {
         contentPanel.add(waitingPage, "WaitingPage");
         contentPanel.add(scoreBoardPage, "ScoreBoardPage");
         contentPanel.add(settingsPage, "SettingsPage");
+        contentPanel.add(groupYellow, "GroupYellow");
       //  contentPanel.add(resultPage, "ResultPage");
 
         add(contentPanel);
@@ -228,8 +231,7 @@ public class ContentFrame extends JFrame implements Serializable {
 
         //ActionListener till inställningsknapp
         startPage.getSettings().addActionListener(e -> {
-            System.out.println("Settings Button Clicked!");
-            cardLayout.show(contentPanel, "SettingsPage");
+            cardLayout.show(contentPanel, "GroupYellow");
         });
 
         //SCORE BOARD PAGE
