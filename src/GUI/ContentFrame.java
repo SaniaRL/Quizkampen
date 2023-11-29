@@ -77,7 +77,7 @@ public class ContentFrame extends JFrame implements Serializable {
         chooseCategoryPage = new ChooseCategoryPage();
         questionPage = new QuestionPage(amountOfQuestions, () -> {
             playerRound.add(false);
-            helpMe();
+            runQuestions();
         });
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
@@ -196,6 +196,7 @@ public class ContentFrame extends JFrame implements Serializable {
     public void waitingForPlayer() {
         chosenCategory = true;
         System.out.println("waiting for player method");
+        scoreBoardPage.clearScoreBoard();
         scoreBoardPage.hidePlayButton();
         showScoreBoardPage();
     }
@@ -225,7 +226,7 @@ public class ContentFrame extends JFrame implements Serializable {
         //QUESTION PAGE
         questionPage.getNextQuestion().addActionListener(ActiveEvent -> {
             playerRound.add(false);
-            helpMe();
+            runQuestions();
         });
 
         //ActionListener till inställningsknapp
@@ -309,13 +310,12 @@ public class ContentFrame extends JFrame implements Serializable {
 
             option.addActionListener(e -> {
                 checkIfWin(option);
-                helpMe();
+                runQuestions();
             });
         }
     }
 
-    public void helpMe() {
-
+    public void runQuestions() {
         Timer timer = new Timer(500, evt -> {
             if (playerRound.size() < amountOfQuestions) {
                 questionPage.nextQuestion();
@@ -323,9 +323,6 @@ public class ContentFrame extends JFrame implements Serializable {
                 addActionListenerToOptions();
                 questionPage.getProgressBar().start();
             } else {
-                System.out.println("Answers: " + playerRound.size());
-                System.out.println("Amount: " + amountOfQuestions);
-
                 if (chosenCategory) {
                     game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
                     Question[] tempQuestions = new Question[amountOfQuestions];
