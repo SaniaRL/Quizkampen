@@ -32,6 +32,8 @@ public class ContentFrame extends JFrame implements Serializable {
     JMenuItem itemSelectViolet;
     JMenuItem itemSelectBlue;
     JMenuItem itemSelectGreen;
+    JMenuItem itemSelectRed;
+    JMenuItem itemSelectYellow;
     JMenuItem itemSelectPig;
     JMenuItem itemSelectLobster;
     JMenuItem itemSelectMonkey;
@@ -385,8 +387,20 @@ public class ContentFrame extends JFrame implements Serializable {
             getContentPane().revalidate();
             getContentPane().repaint();
         });
+        itemSelectRed.addActionListener(e -> {
+            settingsOptions.setColor("red");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectYellow.addActionListener(e -> {
+            settingsOptions.setColor("yellow");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
         itemSelectBlue.addActionListener(e -> {
-            settingsOptions.setColor("sören");
+            settingsOptions.setColor("blue");
             setDesignOptions();
             getContentPane().revalidate();
             getContentPane().repaint();

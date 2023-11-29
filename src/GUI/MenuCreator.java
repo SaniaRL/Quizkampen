@@ -11,6 +11,8 @@ public class MenuCreator {
     JMenuItem itemSelectViolet = new JMenuItem("Violet");
     JMenuItem itemSelectGreen = new JMenuItem("Green");
     JMenuItem itemSelectBlue = new JMenuItem("Blue");
+    JMenuItem itemSelectRed = new JMenuItem("Red");
+    JMenuItem itemSelectYellow = new JMenuItem("Yellow");
     JMenuItem itemSelectPig = new JMenuItem("Pig");
     JMenuItem itemSelectLobster = new JMenuItem("Lobster");
     JMenuItem itemSelectMonkey = new JMenuItem("Monkey");
@@ -31,6 +33,9 @@ public class MenuCreator {
         contentFrame.itemSelectViolet = itemSelectViolet;
         contentFrame.itemSelectGreen = itemSelectGreen;
         contentFrame.itemSelectBlue = itemSelectBlue;
+        contentFrame.itemSelectRed = itemSelectRed;
+        contentFrame.itemSelectYellow = itemSelectYellow;
+
         contentFrame.itemSelectPig = itemSelectPig;
         contentFrame.itemSelectLobster = itemSelectLobster;
         contentFrame.itemSelectMonkey = itemSelectMonkey;
@@ -42,6 +47,7 @@ public class MenuCreator {
         contentFrame.itemSelectPanda = itemSelectPanda;
         contentFrame.itemSelectSnake = itemSelectSnake;
         contentFrame.itemSelectBunny = itemSelectBunny;
+
         contentFrame.settingsMenu = settingsMenu;
         contentFrame.backgroundMenu = backgroundMenu;
         contentFrame.avatarMenu = avatarMenu;
@@ -56,6 +62,8 @@ public class MenuCreator {
         backgroundMenu.add(itemSelectViolet);
         backgroundMenu.add(itemSelectGreen);
         backgroundMenu.add(itemSelectBlue);
+        backgroundMenu.add(itemSelectRed);
+        backgroundMenu.add(itemSelectYellow);
 
         avatarMenu.add(itemSelectPig);
         avatarMenu.add(itemSelectLobster);
