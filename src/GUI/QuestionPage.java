@@ -175,7 +175,7 @@ public class QuestionPage extends JPanel {
         nextQuestionPanel.setPreferredSize(new Dimension(800, 100));
         nextQuestion.setVisible(false);
 
-       /* southPanel.add(progressBar, BorderLayout.NORTH);*/
+        southPanel.add(progressBar, BorderLayout.NORTH);
         southPanel.add(optionsPanel, BorderLayout.CENTER);
         southPanel.add(nextQuestionPanel, BorderLayout.SOUTH);
 
