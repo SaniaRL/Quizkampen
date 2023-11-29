@@ -64,10 +64,8 @@ public class ContentFrame extends JFrame implements Serializable {
     QuestionCategory category = QuestionCategory.MOVIES;
     String gameID = "4556";
     SettingsOptions settingsOptions;
-
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
-    int test1 = 0;
     boolean chosenCategory = false;
     private final int amountOfQuestions;
     private final int amountOfRounds;
