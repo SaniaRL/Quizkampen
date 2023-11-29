@@ -37,6 +37,12 @@ public class ContentFrame extends JFrame implements Serializable {
     JMenuItem itemSelectMonkey;
     JMenuItem itemSelectCrab;
     JMenuItem itemSelectTiger;
+    JMenuItem itemSelectCow;
+    JMenuItem itemSelectSquid;
+    JMenuItem itemSelectElephant;
+    JMenuItem itemSelectPanda;
+    JMenuItem itemSelectSnake;
+    JMenuItem itemSelectBunny;
 
 
     CardLayout cardLayout;
@@ -278,6 +284,42 @@ public class ContentFrame extends JFrame implements Serializable {
         });
         itemSelectTiger.addActionListener(e -> {
             settingsOptions.setIcon(ImageIconAvatar.TIGER.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectCow.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectSquid.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.SQUID.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectElephant.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.ELEPHANT.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectPanda.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.PANDA.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectSnake.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.SNAKE.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectBunny.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.BUNNY.iconPath);
             setIconAndPlayerName();
             getContentPane().revalidate();
             getContentPane().repaint();
