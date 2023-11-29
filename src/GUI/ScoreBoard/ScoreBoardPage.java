@@ -36,11 +36,11 @@ public class ScoreBoardPage extends JPanel {
     int opponent; //Tidigare = 0;
     private Turn playerSide;
 
-    List<ScoreCount> scoreCounts;
-    List<QuestionCategory> categoryList;
-    List<List<Boolean>> playerScoreList;
-    List<List<Boolean>> opponentScoreList;
-    private int amountOfRounds;
+    private List<ScoreCount> scoreCounts;
+    private List<QuestionCategory> categoryList;
+    private List<List<Boolean>> playerScoreList;
+    private List<List<Boolean>> opponentScoreList;
+    private final int amountOfRounds;
     private final int amountOfQuestions;
 
     public ScoreBoardPage(String gameID, int amountOfRounds, int amountOfQuestions) throws IOException {
