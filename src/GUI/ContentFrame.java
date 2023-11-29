@@ -275,7 +275,6 @@ public class ContentFrame extends JFrame implements Serializable {
     }
 
     public void runQuestions() {
-        Timer timer = new Timer(500, evt -> {
             if (playerRound.size() < amountOfQuestions) {
                 questionPage.nextQuestion();
                 cardLayout.show(contentPanel, "QuestionPage");
@@ -321,10 +320,6 @@ public class ContentFrame extends JFrame implements Serializable {
                     writeToServer("game finished", game);
                 }
             }
-        });
-
-        timer.setRepeats(false);
-        timer.start();
     }
 
 
