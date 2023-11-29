@@ -73,13 +73,11 @@ public class ContentFrame extends JFrame implements Serializable {
     private final int amountOfRounds;
     private GameData game;
     private Turn playerSide;
-    private boolean answeredQuestion;
 
     public ContentFrame(ObjectOutputStream out, int amountOfQuestions, int amountOfRounds) throws IOException {
         this.amountOfQuestions = amountOfQuestions;
         this.amountOfRounds = amountOfRounds;
         this.out = out;
-        answeredQuestion = false;
         contentPanel = new JPanel();
         cardLayout = new CardLayout();
         contentPanel.setLayout(cardLayout);
@@ -284,7 +282,6 @@ public class ContentFrame extends JFrame implements Serializable {
                 questionPage.nextQuestion();
                 cardLayout.show(contentPanel, "QuestionPage");
                 addActionListenerToOptions();
-                answeredQuestion = true;
                 questionPage.getProgressBar().start();
             } else {
                 if (chosenCategory) {
