@@ -464,7 +464,7 @@ public class ContentFrame extends JFrame implements Serializable {
             getContentPane().revalidate();
             getContentPane().repaint();
         });
-
+        itemExit.addActionListener(e -> System.exit(0));
     }
 
 //Needed for NetWork
