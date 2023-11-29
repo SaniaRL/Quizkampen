@@ -42,34 +42,47 @@ public class Client {
                     }
                 }
                 if (fromServer instanceof Object[] message) {
-                    if(message[1] instanceof GameData gameData){
+                    if (message[1] instanceof GameData gameData) {
                         if (message[0].equals("game started")) {
+                            frame.getSettingsOptions().setPlayer1(gameData.getPlayer1().getName());
+                            frame.setIconAndPlayerName();
+
                             frame.setGame(gameData);
                             frame.setPlayerSide(Turn.Player1);
                             frame.newGameStarted();
                         }
-                        if (message[0].equals("game found wait")) {
-                            System.out.println("found game waiting");
-                            frame.setGame(gameData);
-                            frame.setPlayerSide(Turn.Player2);
-                            frame.waitingForPlayer();
-                        }
-                        if (message[0].equals("game found start")) {
-                            System.out.println("found game starting");
-                            frame.setGame(gameData);
-                            frame.setPlayerSide(Turn.Player2);
-                            frame.setChosenCategory(true);
-                            frame.getQuestions();
+                        if (message[0].toString().contains("game found")) {
+                            frame.getSettingsOptions().setPlayer1(gameData.getPlayer2().getName());
+                            frame.getSettingsOptions().setPlayer2(gameData.getPlayer1().getName());
+                            frame.getSettingsOptions().setPlayer2Icon(gameData.getPlayer1().getAvatar());
+                            frame.setIconAndPlayerName();
+
+                            if (message[0].equals("game found wait")) {
+                                System.out.println("found game waiting");
+                                frame.setGame(gameData);
+                                frame.setPlayerSide(Turn.Player2);
+                                frame.waitingForPlayer();
+                            }
+                            if (message[0].equals("game found start")) {
+                                System.out.println("found game starting");
+                                frame.setGame(gameData);
+                                frame.setPlayerSide(Turn.Player2);
+                                frame.setChosenCategory(true);
+                                frame.getQuestions();
+                            }
                         }
                         if (message[0].equals("your turn")) {
-                            System.out.println("your turn size: " + gameData.getRounds().size());
+
                             frame.setGame(gameData);
+
                             System.out.println(gameData);
                             frame.getQuestions();
                         }
                         if (message[0].equals("opponent turn")) {
                             System.out.println("opponent turn size: " + gameData.getRounds().size());
+
                             frame.setGame(gameData);
+
                             frame.waitingForPlayer();
                         }
                         if (message[0].equals("game finished")) {
@@ -84,19 +97,19 @@ public class Client {
             }
         } catch (IOException e) {
             System.out.println("Client error: " + e.getMessage());
-        } catch(ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             System.out.println("Class not found: " + e.getMessage());
         } finally {
-                try {
-                    closeStreams();
-                } catch (IOException e) {
-                    System.out.println("Error closing streams: " + e.getMessage());
-                }
+            try {
+                closeStreams();
+            } catch (IOException e) {
+                System.out.println("Error closing streams: " + e.getMessage());
             }
         }
+    }
 
     public <T> void writeToServer(String message, T item) throws IOException {
-        if(item != null){
+        if (item != null) {
             out.writeObject(new Object[]{message, item});
         } else {
             out.writeObject(message);

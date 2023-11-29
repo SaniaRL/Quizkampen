@@ -10,6 +10,7 @@ import java.awt.*;
 public class StartPage extends JPanel {
 
     JPanel northPanel;
+    JPanel nameFieldPanel;
     JPanel centerPanel;
     JPanel southPanel;
 
@@ -18,6 +19,7 @@ public class StartPage extends JPanel {
     StartButton notifications;
     StartButton homeButton;
     StartButton catButton;
+    JTextField nameField;
 
     Border emptyBorder;
 
@@ -59,10 +61,30 @@ public class StartPage extends JPanel {
         }
     }
 
+    public void generateNameFieldPanel(){
+        nameFieldPanel = new JPanel();
+        nameFieldPanel.setLayout(new GridLayout(2,1));
+        Dimension nameFieldPanelSize = new Dimension(400, 50);
+        nameFieldPanel.setSize(nameFieldPanelSize);
+        nameFieldPanel.setMinimumSize(nameFieldPanelSize);
+        nameFieldPanel.setMaximumSize(nameFieldPanelSize);
+        nameFieldPanel.setOpaque(false);
+
+        JLabel nameLabel = new JLabel("Please enter your nickname and start your game:");
+        Dimension textFieldSize = new Dimension(380, 25);
+        nameField = new JTextField();
+        nameField.setSize(textFieldSize);
+        nameField.setPreferredSize(textFieldSize);
+
+        nameFieldPanel.add(nameLabel);
+        nameFieldPanel.add(nameField);
+
+    }
+
     public void generateCenterPanel(){
         centerPanel = new JPanel();
-        centerPanel.setLayout(new GridLayout(3, 1));
-        Dimension centerPanelSize = new Dimension(800, 600);
+        centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 25));
+        Dimension centerPanelSize = new Dimension(1000, 600);
         centerPanel.setSize(centerPanelSize);
         centerPanel.setMinimumSize(centerPanelSize);
         centerPanel.setMaximumSize(centerPanelSize);
@@ -84,7 +106,9 @@ public class StartPage extends JPanel {
         startNewGame.setFont(settingsOptions.getTitleFont());
         startNewGame.setBorder(settingsOptions.getBorder());
 
+        generateNameFieldPanel();
         generateEastWestPanels(BorderLayout.WEST);
+        centerPanel.add(nameFieldPanel);
         centerPanel.add(startNewGame);
         generateEastWestPanels(BorderLayout.EAST);
 
@@ -101,7 +125,6 @@ public class StartPage extends JPanel {
         northPanel.setMaximumSize(northPanelSize);
         northPanel.setMinimumSize(northPanelSize);
         northPanel.setOpaque(false);
-
         northPanel.add(settings);
 
         for(int i = 0; i < 5; i++){
@@ -155,6 +178,10 @@ public class StartPage extends JPanel {
 
     public JButton getCatButton() {
         return catButton;
+    }
+
+    public JTextField getNameField() {
+        return nameField;
     }
 
     public void setDesignOptions(SettingsOptions settingsOptions) {
