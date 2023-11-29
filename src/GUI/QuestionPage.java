@@ -166,13 +166,14 @@ public class QuestionPage extends JPanel {
         JPanel optionsPanel = new JPanel(new GridLayout(2,2));
         JPanel nextQuestionPanel = new JPanel();
         nextQuestionPanel.setLayout(new FlowLayout());
-        nextQuestion = new JButton("Skip Question");
+        nextQuestion = new JButton("Continue");
         nextQuestion.setPreferredSize(new Dimension(200,80));
         nextQuestion.setBorder(settingsOptions.getBorder());
         nextQuestion.setBackground(Color.green);
         nextQuestionPanel.add(nextQuestion, SwingConstants.CENTER);
         nextQuestionPanel.setOpaque(false);
         nextQuestionPanel.setPreferredSize(new Dimension(800, 100));
+        nextQuestion.setVisible(false);
 
         southPanel.add(progressBar, BorderLayout.NORTH);
         southPanel.add(optionsPanel, BorderLayout.CENTER);
