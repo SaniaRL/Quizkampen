@@ -186,6 +186,11 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public void getQuestions() throws IOException {
         System.out.println("existing game found!");
+        if (playerSide == Turn.Player1 && game.getRounds().size() == 2) {
+            settingsOptions.setPlayer2(game.getPlayer2().getName());
+            settingsOptions.setPlayer2Icon(game.getPlayer2().getAvatar());
+            setIconAndPlayerName();
+        }
         scoreBoardPage.updateScoreBoard(game);
         cardLayout.show(contentPanel, "ScoreBoardPage");
         scoreBoardPage.showPlayButton();
