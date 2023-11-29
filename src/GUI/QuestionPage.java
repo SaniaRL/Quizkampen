@@ -32,8 +32,8 @@ public class QuestionPage extends JPanel {
     JPanel opponentPanel;
     private JPanel yourPanel;
 
-    //private ProgressBar progressBar;
-    private QuestionPageParent parent;
+    private ProgressBar progressBar;
+    private final QuestionPageParent parent;
 
     private JButton nextQuestion;
 
@@ -155,14 +155,14 @@ public class QuestionPage extends JPanel {
         southPanel.setPreferredSize(new Dimension(800, 350));
         southPanel.setOpaque(false);
 
-        /*progressBar = new ProgressBar(4, 50, 500, () -> parent.nextPanel());
+        progressBar = new ProgressBar(4, 50, 500, parent::nextPanel);
         progressBar.setBorder(settingsOptions.getBorder());
         progressBar.setForeground(settingsOptions.getColor());
         progressBar.setBackground(settingsOptions.getDetailColor());
         JPanel progressBarPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         progressBarPanel.add(progressBar);
         progressBarPanel.setOpaque(true);
-*/
+
         JPanel optionsPanel = new JPanel(new GridLayout(2,2));
         JPanel nextQuestionPanel = new JPanel();
         nextQuestionPanel.setLayout(new FlowLayout());
@@ -245,9 +245,9 @@ public class QuestionPage extends JPanel {
         questionLabel.setText("<html><div style='text-align: center;'>" + (questions.get(index).getQuestion()));
     }
 
-    /*public ProgressBar getProgressBar() {
+    public ProgressBar getProgressBar() {
         return progressBar;
-    }*/
+    }
 
     public String getAnswer() {
         return answer;
@@ -278,9 +278,9 @@ public class QuestionPage extends JPanel {
         }
         nextQuestion.setBorder(settingsOptions.getBorder());
         categoryLabel.setForeground(settingsOptions.getContrastColor());
-        /*progressBar.setBorder(settingsOptions.getBorder());
+        progressBar.setBorder(settingsOptions.getBorder());
         progressBar.setForeground(settingsOptions.getColor());
-        progressBar.setBackground(settingsOptions.getDetailColor());*/
+        progressBar.setBackground(settingsOptions.getDetailColor());
     }
 
     public void setIconAndPlayerNames(SettingsOptions settingsOptions){

@@ -218,9 +218,7 @@ public class ContentFrame extends JFrame implements Serializable {
         });
 
         //ActionListener till inställningsknapp
-        startPage.getSettings().addActionListener(e -> {
-            cardLayout.show(contentPanel, "GroupYellow");
-        });
+        startPage.getSettings().addActionListener(e -> cardLayout.show(contentPanel, "GroupYellow"));
 
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
@@ -277,7 +275,7 @@ public class ContentFrame extends JFrame implements Serializable {
     }
 
     public void runQuestions() {
-//        Timer timer = new Timer(500, evt -> {
+        Timer timer = new Timer(500, evt -> {
             if (playerRound.size() < amountOfQuestions) {
                 questionPage.nextQuestion();
                 cardLayout.show(contentPanel, "QuestionPage");
@@ -323,9 +321,11 @@ public class ContentFrame extends JFrame implements Serializable {
                     writeToServer("game finished", game);
                 }
             }
-//        });
-//        timer.setRepeats(false);
-//        timer.start();
+        });
+
+        timer.setRepeats(false);
+        timer.start();
+    }
 
 
     public void showResultPage() {
@@ -335,9 +335,7 @@ public class ContentFrame extends JFrame implements Serializable {
         resultPage.setIconAndPlayerName(this.settingsOptions);
         resultPage.setDesignOptions(this.settingsOptions);
         contentPanel.add(resultPage, "ResultPage");
-        startPage.getNotifications().addActionListener(ActionEvent -> {
-            cardLayout.show(contentPanel, "ResultPage");
-        });
+        startPage.getNotifications().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ResultPage"));
 
         cardLayout.show(contentPanel, "ResultPage");
     }

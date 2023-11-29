@@ -68,7 +68,7 @@ public class ResultPage extends JPanel {
         opponentPanel = new JPanel();
 
         createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), Integer.compare(playerPoints, opponentPoints), playerPoints);
-        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), Integer.compare(playerPoints, opponentPoints), opponentPoints);
+        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), Integer.compare(opponentPoints, playerPoints), opponentPoints);
 
         northPanel.add(yourPanel);
         northPanel.add(opponentPanel);
@@ -148,7 +148,7 @@ public class ResultPage extends JPanel {
         opponentPanel.removeAll();
 
         createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), Integer.compare(playerPoints, opponentPoints), playerPoints);
-        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), Integer.compare(playerPoints, opponentPoints), opponentPoints);
+        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), Integer.compare(opponentPoints, playerPoints), opponentPoints);
     }
 
     private void actionListenerHandler() {
