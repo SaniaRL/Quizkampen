@@ -27,9 +27,9 @@ public class GroupYellow extends JPanel {
         northPanel.setLayout(new GridLayout(2,2));
 
         generateIconPanels(ImageIconAvatar.SQUID, "Robin");
+        generateIconPanels(ImageIconAvatar.MONKEY, "Simon");
         generateIconPanels(ImageIconAvatar.ELEPHANT, "Sania");
         generateIconPanels(ImageIconAvatar.CRAB, "Sebastian");
-        generateIconPanels(ImageIconAvatar.MONKEY, "Simon");
 
         Border emptyBorder = BorderFactory.createEmptyBorder(90,20,20,20);
         northPanel.setBorder(emptyBorder);
