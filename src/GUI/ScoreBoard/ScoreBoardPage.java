@@ -320,9 +320,7 @@ public class ScoreBoardPage extends JPanel {
 
     public void setScores() {
         player = calculateScore(playerScoreList);
-        setPlayer(player);
         opponent = calculateScore(opponentScoreList);
-        setOpponent(opponent);
         scoreLabel.setText(player + " - " + opponent);
     }
     public int getPlayer() {
