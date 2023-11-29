@@ -24,7 +24,6 @@ import java.io.IOException;
 public class ContentFrame extends JFrame implements Serializable {
 
     JPanel contentPanel;
-
     JMenuBar menuBar;
     JMenu settingsMenu;
     JMenu backgroundMenu;
@@ -34,8 +33,16 @@ public class ContentFrame extends JFrame implements Serializable {
     JMenuItem itemSelectBlue;
     JMenuItem itemSelectGreen;
     JMenuItem itemSelectPig;
-    JMenuItem itemSelectAvatar2;
-    JMenuItem itemSelectAvatar3;
+    JMenuItem itemSelectLobster;
+    JMenuItem itemSelectMonkey;
+    JMenuItem itemSelectCrab;
+    JMenuItem itemSelectTiger;
+    JMenuItem itemSelectCow;
+    JMenuItem itemSelectSquid;
+    JMenuItem itemSelectElephant;
+    JMenuItem itemSelectPanda;
+    JMenuItem itemSelectSnake;
+    JMenuItem itemSelectBunny;
 
 
     CardLayout cardLayout;
@@ -46,6 +53,7 @@ public class ContentFrame extends JFrame implements Serializable {
     ScoreBoardPage scoreBoardPage;
     SettingsPage settingsPage;
     ResultPage resultPage;
+    MenuCreator menuCreator;
     GroupYellow groupYellow;
 
     //Should be moved to game logic later:
@@ -85,13 +93,17 @@ public class ContentFrame extends JFrame implements Serializable {
         settingsPage = new SettingsPage();
         //resultPage = new ResultPage();
         settingsOptions = new SettingsOptions();
+        menuCreator = new MenuCreator();
         groupYellow = new GroupYellow();
 
         //Provat lila tema, ändra fram och tillbaka och kika
         settingsOptions.setColor("hejsan");
         setDesignOptions();
         setIconAndPlayerName();
-        createMenu();
+
+        menuBar = menuCreator.createMenu(this);
+        setJMenuBar(menuBar);
+
         buildFrame();
     }
 
@@ -132,37 +144,6 @@ public class ContentFrame extends JFrame implements Serializable {
         addActionEvents();
         setVisible(true);
     }
-
-    private void createMenu() {
-        Font menuFont = new Font("Arial", Font.BOLD, 14);
-        menuBar = new JMenuBar();
-        setJMenuBar(menuBar);
-
-        settingsMenu = new JMenu("Settings");
-        backgroundMenu = new JMenu("Customize background");
-        avatarMenu = new JMenu("Select avatar");
-        menuBar.add(settingsMenu);
-        settingsMenu.add(backgroundMenu);
-        settingsMenu.add(avatarMenu);
-        settingsMenu.setFont(menuFont);
-
-        itemSelectViolet = new JMenuItem("Violet");
-        itemSelectGreen = new JMenuItem("Green");
-        itemSelectBlue = new JMenuItem("Blue");
-        itemSelectPig = new JMenuItem("Pig");
-        itemSelectAvatar2 = new JMenuItem("Lobster");
-        itemSelectAvatar3 = new JMenuItem("Monkey");
-        itemExit = new JMenuItem("Exit the game");
-        settingsMenu.add(itemExit);
-
-        backgroundMenu.add(itemSelectViolet);
-        backgroundMenu.add(itemSelectGreen);
-        backgroundMenu.add(itemSelectBlue);
-        avatarMenu.add(itemSelectPig);
-        avatarMenu.add(itemSelectAvatar2);
-        avatarMenu.add(itemSelectAvatar3);
-    }
-
 
     public synchronized <T> void writeToServer(String message, T item) {
         try {
@@ -261,37 +242,6 @@ public class ContentFrame extends JFrame implements Serializable {
         });
     }
 
-    private void addActionListenerToSettingsMenu() {
-        itemSelectViolet.addActionListener(e -> {
-
-            settingsOptions.setColor("violet");
-            setDesignOptions();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-
-        itemSelectGreen.addActionListener(e -> {
-            settingsOptions.setColor("green");
-            setDesignOptions();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-
-        itemSelectBlue.addActionListener(e -> {
-            settingsOptions.setColor("sören");
-            setDesignOptions();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-
-        itemSelectPig.addActionListener(e -> {
-            System.out.println("Gris");
-            settingsOptions.setIcon(ImageIconAvatar.PIG.iconPath);
-            setIconAndPlayerName();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-    }
 
     public void addActionListerToStartPage() {
         startPage.getStartNewGame().addActionListener(ActionEvent -> {
@@ -410,6 +360,94 @@ public class ContentFrame extends JFrame implements Serializable {
     public void showScoreBoardPage() {
         scoreBoardPage.setTurnLabel(playerSide == game.getTurn());
         cardLayout.show(contentPanel, "ScoreBoardPage");
+    }
+
+    private void addActionListenerToSettingsMenu() {
+        itemSelectViolet.addActionListener(e -> {
+            settingsOptions.setColor("violet");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectGreen.addActionListener(e -> {
+            settingsOptions.setColor("green");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectBlue.addActionListener(e -> {
+            settingsOptions.setColor("sören");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectPig.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.PIG.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectLobster.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.LOBSTER.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectMonkey.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.MONKEY.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectCrab.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.CRAB.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectTiger.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.TIGER.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectCow.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectSquid.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.SQUID.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectElephant.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.ELEPHANT.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectPanda.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.PANDA.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectSnake.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.SNAKE.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectBunny.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.BUNNY.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+
     }
 
 //Needed for NetWork
