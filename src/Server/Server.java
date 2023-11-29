@@ -1,6 +1,7 @@
 package Server;
 
 import Server.Game.Game;
+import Server.UserData.UserManager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +15,7 @@ import java.util.Properties;
 public class Server {
     private final List<ClientHandler> connectedClients = Collections.synchronizedList(new ArrayList<>());
     private final List<Game> games = Collections.synchronizedList(new ArrayList<>());
+    private UserManager userManager = new UserManager();
     private ServerSocket socket;
     private boolean running = true;
     private String questionsToFind;

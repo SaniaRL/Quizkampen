@@ -174,4 +174,7 @@ public class SettingsOptions {
     public void setPlayer2Icon(String iconPath) {
         this.player2Icon = new ImageIcon(new ImageIcon(iconPath).getImage().getScaledInstance(60,60,Image.SCALE_SMOOTH));
     }
+    public void setPlayer2Icon(ImageIcon icon) {
+        this.player2Icon = icon;
+    }
 }

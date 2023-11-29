@@ -1,6 +1,7 @@
 package Server;
 
 import CustomTypes.GameData;
+import Server.UserData.User;
 
 import java.io.*;
 import java.net.Socket;
@@ -47,9 +48,6 @@ public class ClientHandler extends Thread implements Serializable {
                         System.out.println("Client disconnected");
                         break;
                     }
-                    if (fromClient.equals("new game")) {
-                        protocol.checkIfNewGame((String) fromClient, server, this);
-                    }
                 }
                 if (fromClient instanceof Object[] message) {
                     if (message[1] instanceof GameData) {
@@ -59,6 +57,11 @@ public class ClientHandler extends Thread implements Serializable {
                         }
                         else if (message[0].equals("game finished")) {
                             protocol.gameFinished((String) message[0], (GameData) message[1], server, this);
+                        }
+                    }
+                    if(message[1] instanceof User){
+                        if (message[0].equals("new game")) {
+                            protocol.checkIfNewGame((String) message[0], server, this, (User) message[1]);
                         }
                     }
                 }

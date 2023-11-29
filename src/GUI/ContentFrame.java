@@ -11,7 +11,7 @@ import Question.Question;
 import Enums.QuestionCategory;
 import Question.QuestionCollection;
 import Enums.Turn;
-
+import Server.UserData.User;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.ObjectOutputStream;
@@ -89,10 +89,6 @@ public class ContentFrame extends JFrame implements Serializable {
 
         //Provat lila tema, ändra fram och tillbaka och kika
         settingsOptions.setColor("hejsan");
-        settingsOptions.setPlayer1("Sania");
-        settingsOptions.setPlayer2("Simon");
-        settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
-        settingsOptions.setPlayer2Icon(ImageIconAvatar.MONKEY.iconPath);
         setDesignOptions();
         setIconAndPlayerName();
         createMenu();
@@ -190,6 +186,11 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public void getQuestions() throws IOException {
         System.out.println("existing game found!");
+        if (playerSide == Turn.Player1 && game.getRounds().size() == 2) {
+            settingsOptions.setPlayer2(game.getPlayer2().getName());
+            settingsOptions.setPlayer2Icon(game.getPlayer2().getAvatar());
+            setIconAndPlayerName();
+        }
         scoreBoardPage.clearScoreBoard();
         scoreBoardPage.updateScoreBoard(game);
         showScoreBoardPage();
@@ -293,9 +294,10 @@ public class ContentFrame extends JFrame implements Serializable {
     }
 
     public void addActionListerToStartPage() {
-        startPage.getStartNewGame().addActionListener(ActionEvent ->
-            writeToServer("new game", null)
-        );
+        startPage.getStartNewGame().addActionListener(ActionEvent -> {
+            User user = new User(startPage.getNameField().getText(), settingsOptions.getIcon());
+            writeToServer("new game", user);
+        });
       //  startPage.getNotifications().addActionListener(ActionEvent -> {
       //      cardLayout.show(contentPanel, "ResultPage");
       //  });
@@ -431,5 +433,9 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public void setChosenCategory(boolean chosenCategory) {
         this.chosenCategory = chosenCategory;
+    }
+
+    public SettingsOptions getSettingsOptions() {
+        return settingsOptions;
     }
 }
