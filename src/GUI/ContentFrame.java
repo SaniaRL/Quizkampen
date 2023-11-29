@@ -44,7 +44,6 @@ public class ContentFrame extends JFrame implements Serializable {
     JMenuItem itemSelectSnake;
     JMenuItem itemSelectBunny;
 
-
     CardLayout cardLayout;
     StartPage startPage;
     ChooseCategoryPage chooseCategoryPage;
@@ -219,6 +218,9 @@ public class ContentFrame extends JFrame implements Serializable {
             cardLayout.show(contentPanel, "GroupYellow");
         });
 
+        //GROUP YELLOW
+        groupYellow.addActionListener(e -> cardLayout.show(contentPanel, "StartPage"));
+
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
             boolean player1LatestEmpty = game.getRounds().get(game.getRounds().size() - 1).getPlayer1Score().length == 0;
@@ -248,9 +250,9 @@ public class ContentFrame extends JFrame implements Serializable {
             User user = new User(startPage.getNameField().getText(), settingsOptions.getIcon());
             writeToServer("new game", user);
         });
-      //  startPage.getNotifications().addActionListener(ActionEvent -> {
-      //      cardLayout.show(contentPanel, "ResultPage");
-      //  });
+        startPage.getHomeButton().addActionListener(ActionEvent -> {
+            cardLayout.show(contentPanel, "GroupYellow");
+        });
     }
 
     public void addActionListenerToOptions() {
@@ -325,9 +327,6 @@ public class ContentFrame extends JFrame implements Serializable {
         resultPage.setIconAndPlayerName(this.settingsOptions);
         resultPage.setDesignOptions(this.settingsOptions);
         contentPanel.add(resultPage, "ResultPage");
-        startPage.getNotifications().addActionListener(ActionEvent -> {
-            cardLayout.show(contentPanel, "ResultPage");
-        });
 
         cardLayout.show(contentPanel, "ResultPage");
     }
@@ -447,7 +446,7 @@ public class ContentFrame extends JFrame implements Serializable {
             getContentPane().revalidate();
             getContentPane().repaint();
         });
-
+        itemExit.addActionListener(e -> System.exit(0));
     }
 
 //Needed for NetWork
