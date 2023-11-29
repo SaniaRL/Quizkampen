@@ -1,13 +1,15 @@
 package Server.UserData;
 
 import javax.swing.*;
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable {
     String name;
     ImageIcon avatar;
 
     public User() {
     }
+
     public User(String name) {
         this.name = name;
     }
