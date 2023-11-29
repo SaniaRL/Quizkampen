@@ -86,7 +86,7 @@ public class Client {
                             frame.waitingForPlayer();
                         }
                         if (message[0].equals("game finished")) {
-                            System.out.println("Vi är här hehehe");
+                            frame.setGame(gameData);
                             frame.showResultPage();
                         }
                     }

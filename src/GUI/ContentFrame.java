@@ -313,14 +313,15 @@ public class ContentFrame extends JFrame implements Serializable {
                     playerRound.clear();
                 }
 
-                if (amountOfRounds == game.getRounds().size() && game.getRounds().get(amountOfRounds - 1).getPlayer1Score().length == amountOfQuestions &&
-                        game.getRounds().get(amountOfRounds - 1).getPlayer2Score().length == amountOfQuestions) {
-                    writeToServer("game finished", game);
-                }
                 scoreBoardPage.updateScoreBoard(game);
                 if (playerSide != game.getTurn())
                     scoreBoardPage.hidePlayButton();
                 showScoreBoardPage();
+
+                if (amountOfRounds == game.getRounds().size() && game.getRounds().get(amountOfRounds - 1).getPlayer1Score().length == amountOfQuestions &&
+                        game.getRounds().get(amountOfRounds - 1).getPlayer2Score().length == amountOfQuestions) {
+                    writeToServer("game finished", game);
+                }
             }
 //        });
 //        timer.setRepeats(false);
@@ -328,6 +329,8 @@ public class ContentFrame extends JFrame implements Serializable {
     }
 
     public void showResultPage() {
+        scoreBoardPage.updateScoreBoard(game);
+        scoreBoardPage.setScores();
         resultPage = new ResultPage(scoreBoardPage.getPlayer(),scoreBoardPage.getOpponent());
         resultPage.setIconAndPlayerName(this.settingsOptions);
         resultPage.setDesignOptions(this.settingsOptions);
