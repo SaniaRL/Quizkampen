@@ -204,7 +204,7 @@ public class ContentFrame extends JFrame implements Serializable {
                 questionPage.newQuestions(category);
                 addActionListenerToOptions();
                 cardLayout.show(contentPanel, "QuestionPage");
-                questionPage.getProgressBar().start();
+                //questionPage.getProgressBar().start();
             });
         }
 
@@ -230,7 +230,7 @@ public class ContentFrame extends JFrame implements Serializable {
                 cardLayout.show(contentPanel, "QuestionPage");
                 addActionListenerToOptions();
                 chosenCategory = false;
-                questionPage.getProgressBar().start();
+                //questionPage.getProgressBar().start();
             } else {
                 questionPage.newQuestions(questionCollection.getRandomCategory());
                 SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
@@ -275,7 +275,7 @@ public class ContentFrame extends JFrame implements Serializable {
                 questionPage.nextQuestion();
                 cardLayout.show(contentPanel, "QuestionPage");
                 addActionListenerToOptions();
-                questionPage.getProgressBar().start();
+                //questionPage.getProgressBar().start();
             } else {
                 if (chosenCategory) {
                     game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
