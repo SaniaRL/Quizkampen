@@ -15,10 +15,7 @@ public class StartPage extends JPanel {
     JPanel southPanel;
 
     JButton startNewGame;
-    StartButton settings;
-    StartButton notifications;
     StartButton homeButton;
-    StartButton catButton;
     JTextField nameField;
 
     Border emptyBorder;
@@ -28,9 +25,6 @@ public class StartPage extends JPanel {
     public StartPage(){
         settingsOptions = new SettingsOptions();
 
-        settings = new StartButton("\uD83D\uDD27", new Dimension(150,150), 50, Color.BLACK);
-        notifications = new StartButton("\uD83D\uDCAC", new Dimension(150,150), 50, Color.BLACK);
-        catButton = new StartButton("", new Dimension(150,150), 50, Color.BLACK);
         homeButton = new StartButton("Q", new Dimension(180,180), 130, settingsOptions.getDetailColor());
 
         emptyBorder = BorderFactory.createEmptyBorder();
@@ -119,21 +113,9 @@ public class StartPage extends JPanel {
 
     public void generateNorthPanel(){
         northPanel = new JPanel();
-        northPanel.setLayout(new GridLayout(1,5));
-        Dimension northPanelSize = new Dimension(800,200);
-        northPanel.setSize(northPanelSize);
-        northPanel.setMaximumSize(northPanelSize);
-        northPanel.setMinimumSize(northPanelSize);
+        northPanel.setLayout(new FlowLayout());
+        northPanel.setPreferredSize(new Dimension(800, 200));
         northPanel.setOpaque(false);
-        northPanel.add(settings);
-
-        for(int i = 0; i < 5; i++){
-            JLabel label = new JLabel();
-            label.setOpaque(false);
-            northPanel.add(label);
-        }
-
-        northPanel.add(notifications);
     }
 
     public void generateSouthPanel(){
@@ -148,13 +130,12 @@ public class StartPage extends JPanel {
 
         southPanel.add(homeButton);
 
-        for(int i = 0; i < 2; i++){
+        for(int i = 0; i < 3; i++){
             JLabel label = new JLabel();
             label.setOpaque(false);
             southPanel.add(label);
         }
 
-        southPanel.add(catButton);
     }
 
     public void generateEastWestPanels(String borderLayout){
@@ -164,20 +145,8 @@ public class StartPage extends JPanel {
         panel.setOpaque(false);
     }
 
-    public JButton getSettings() {
-        return settings;
-    }
-
-    public JButton getNotifications() {
-        return notifications;
-    }
-
     public JButton getHomeButton() {
         return homeButton;
-    }
-
-    public JButton getCatButton() {
-        return catButton;
     }
 
     public JTextField getNameField() {

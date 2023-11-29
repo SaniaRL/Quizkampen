@@ -89,7 +89,6 @@ public class ContentFrame extends JFrame implements Serializable {
         });
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
-        settingsPage = new SettingsPage();
         //resultPage = new ResultPage();
         settingsOptions = new SettingsOptions();
         menuCreator = new MenuCreator();
@@ -109,7 +108,6 @@ public class ContentFrame extends JFrame implements Serializable {
     public void setIconAndPlayerName() {
         questionPage.setIconAndPlayerNames(this.settingsOptions);
         scoreBoardPage.setIconAndPlayerName(this.settingsOptions);
-       // resultPage.setIconAndPlayerName(this.settingsOptions);
     }
 
     public void setDesignOptions() {
@@ -117,8 +115,6 @@ public class ContentFrame extends JFrame implements Serializable {
         chooseCategoryPage.setDesignOptions(this.settingsOptions);
         questionPage.setDesignOptions(this.settingsOptions);
         scoreBoardPage.setDesignOptions(this.settingsOptions);
-        settingsPage.setDesignOptions(this.settingsOptions);
-      //  resultPage.setDesignOptions(this.settingsOptions);
     }
 
     public void buildFrame() {
@@ -135,7 +131,6 @@ public class ContentFrame extends JFrame implements Serializable {
         contentPanel.add(questionPage, "QuestionPage");
         contentPanel.add(waitingPage, "WaitingPage");
         contentPanel.add(scoreBoardPage, "ScoreBoardPage");
-        contentPanel.add(settingsPage, "SettingsPage");
         contentPanel.add(groupYellow, "GroupYellow");
       //  contentPanel.add(resultPage, "ResultPage");
 
@@ -211,11 +206,6 @@ public class ContentFrame extends JFrame implements Serializable {
         questionPage.getNextQuestion().addActionListener(ActiveEvent -> {
             playerRound.add(false);
             runQuestions();
-        });
-
-        //ActionListener till inställningsknapp
-        startPage.getSettings().addActionListener(e -> {
-            cardLayout.show(contentPanel, "GroupYellow");
         });
 
         //GROUP YELLOW
@@ -307,7 +297,6 @@ public class ContentFrame extends JFrame implements Serializable {
                     }
                     playerRound.clear();
                 }
-
                 if (amountOfRounds == game.getRounds().size() && game.getRounds().get(amountOfRounds - 1).getPlayer1Score().length == amountOfQuestions &&
                         game.getRounds().get(amountOfRounds - 1).getPlayer2Score().length == amountOfQuestions) {
                     writeToServer("game finished", game);
