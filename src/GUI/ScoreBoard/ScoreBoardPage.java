@@ -16,28 +16,28 @@ import java.util.ArrayList;
 import java.awt.*;
 
 public class ScoreBoardPage extends JPanel {
-    String gameID;
+    private String gameID;
 
-    JPanel centerPanel;
-    JPanel northPanel;
-    JPanel southPanel;
+    private final JPanel centerPanel;
+    private final JPanel northPanel;
+    private final JPanel southPanel;
 
-    JLabel scoreLabel;
-    JLabel turnLabel;
+    private JLabel scoreLabel;
+    private JLabel turnLabel;
 
-    JPanel yourPanel;
-    JPanel opponentPanel;
+    private final JPanel yourPanel;
+    private final JPanel opponentPanel;
 
-    JButton playGame;
+    private final JButton playGame;
 
-    SettingsOptions settingsOptions;
+    private SettingsOptions settingsOptions;
 
     int player; //Tidigare = 0;
     int opponent; //Tidigare = 0;
     private Turn playerSide;
 
-    private List<ScoreCount> scoreCounts;
-    private List<QuestionCategory> categoryList;
+    private final List<ScoreCount> scoreCounts;
+    private final List<QuestionCategory> categoryList;
     private List<List<Boolean>> playerScoreList;
     private List<List<Boolean>> opponentScoreList;
     private final int amountOfRounds;
