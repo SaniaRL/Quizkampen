@@ -180,6 +180,10 @@ public class StartPage extends JPanel {
         return catButton;
     }
 
+    public JTextField getNameField() {
+        return nameField;
+    }
+
     public void setDesignOptions(SettingsOptions settingsOptions) {
         this.settingsOptions = settingsOptions;
         startNewGame.setBorder(new LineBorder(settingsOptions.getColor(), 10));
