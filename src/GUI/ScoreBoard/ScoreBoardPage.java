@@ -328,6 +328,7 @@ public class ScoreBoardPage extends JPanel {
 
     public void setDesignOptions(SettingsOptions settingsOptions) {
         this.settingsOptions = settingsOptions;
+        playGame.setBorder(settingsOptions.getBorder());
     }
 
     public void setIconAndPlayerName(SettingsOptions settingsOptions){

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class SettingsOptions {
     private ImageIcon icon;
-    private Color color;
+    Color color;
     private Color detailColor;
     private String backgroundImagePath;
     private Image backgroundImage;

@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public class ResultPage extends JPanel {
@@ -75,7 +76,7 @@ public class ResultPage extends JPanel {
 
     public void createPlayerPanels(JPanel panel, ImageIcon icon, String text, Boolean win, int playerScore){
         panel.setPreferredSize(new Dimension(400, 600));
-        panel.setLayout(new GridLayout(4, 1));
+        panel.setLayout(new GridLayout(5, 1));
         panel.setOpaque(false);
 
         JLabel place;
@@ -97,10 +98,14 @@ public class ResultPage extends JPanel {
         points.setFont(settingsOptions.getBigText());
         points.setForeground(Color.BLACK);
 
+        JLabel emptyLabel = new JLabel();
+        emptyLabel.setPreferredSize(new Dimension(400,20));
+
         panel.add(place);
         panel.add(iconLabel);
         panel.add(nameLabel);
         panel.add(points);
+        panel.add(emptyLabel);
     }
     public void generateSouthPanel(){
         southPanel.setLayout(new GridLayout(1,2));
@@ -147,5 +152,4 @@ public class ResultPage extends JPanel {
         newGame.addActionListener(e -> ((CardLayout) getParent().getLayout()).show(getParent(), "StartPage"));
         exitGame.addActionListener(ActionEvent -> System.exit(0));
     }
-
 }
