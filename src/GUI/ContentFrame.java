@@ -2,7 +2,6 @@ package GUI;
 
 import CustomTypes.GameData;
 import CustomTypes.Round;
-import Enums.ImageIconAvatar;
 import GUI.CategoryGUI.CategoryButton;
 import GUI.CategoryGUI.ChooseCategoryPage;
 import GUI.ScoreBoard.ScoreBoardPage;
@@ -11,7 +10,7 @@ import Question.Question;
 import Enums.QuestionCategory;
 import Question.QuestionCollection;
 import Enums.Turn;
-
+import Server.UserData.User;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.ObjectOutputStream;
@@ -85,10 +84,6 @@ public class ContentFrame extends JFrame implements Serializable {
 
         //Provat lila tema, ändra fram och tillbaka och kika
         settingsOptions.setColor("hejsan");
-        settingsOptions.setPlayer1("Sania");
-        settingsOptions.setPlayer2("Simon");
-        settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
-        settingsOptions.setPlayer2Icon(ImageIconAvatar.MONKEY.iconPath);
         setDesignOptions();
         setIconAndPlayerName();
         createMenu();
@@ -299,7 +294,8 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public void addActionListerToStartPage() {
         startPage.getStartNewGame().addActionListener(ActionEvent -> {
-            writeToServer("new game", null);
+            User user = new User(startPage.getNameField().getText(), settingsOptions.getIcon());
+            writeToServer("new game", user);
         });
         startPage.getNotifications().addActionListener(ActionEvent -> {
             cardLayout.show(contentPanel, "ResultPage");
@@ -330,8 +326,6 @@ public class ContentFrame extends JFrame implements Serializable {
                 cardLayout.show(contentPanel, "QuestionPage");
                 addActionListenerToOptions();
             } else {
-
-
                 if (chosenCategory) {
                     game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
                     Question[] tempQuestions = new Question[amountOfQuestions];
@@ -350,11 +344,7 @@ public class ContentFrame extends JFrame implements Serializable {
                         game.getRounds().get(game.getRounds().size() - 1).setPlayer1Score(new Boolean[0]);
                         playerRound.clear();
                     }
-
-
                     writeToServer("round finished", game);
-
-
                 } else {
                     System.out.println("time to choose category");
                     if (playerSide == Turn.Player1) {
@@ -433,5 +423,9 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public void setChosenCategory(boolean chosenCategory) {
         this.chosenCategory = chosenCategory;
+    }
+
+    public SettingsOptions getSettingsOptions() {
+        return settingsOptions;
     }
 }
