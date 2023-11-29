@@ -32,6 +32,8 @@ public class ContentFrame extends JFrame implements Serializable {
     JMenuItem itemSelectViolet;
     JMenuItem itemSelectBlue;
     JMenuItem itemSelectGreen;
+    JMenuItem itemSelectRed;
+    JMenuItem itemSelectYellow;
     JMenuItem itemSelectPig;
     JMenuItem itemSelectLobster;
     JMenuItem itemSelectMonkey;
@@ -64,10 +66,8 @@ public class ContentFrame extends JFrame implements Serializable {
     QuestionCategory category = QuestionCategory.MOVIES;
     String gameID = "4556";
     SettingsOptions settingsOptions;
-
     QuestionCollection questionCollection = new QuestionCollection();
     ObjectOutputStream out;
-    int test1 = 0;
     boolean chosenCategory = false;
     private final int amountOfQuestions;
     private final int amountOfRounds;
@@ -205,19 +205,20 @@ public class ContentFrame extends JFrame implements Serializable {
                 addActionListenerToOptions();
                 cardLayout.show(contentPanel, "QuestionPage");
                 questionPage.getProgressBar().start();
+                questionPage.getProgressBar().setVisible(true);
             });
         }
 
         //QUESTION PAGE
         questionPage.getNextQuestion().addActionListener(ActiveEvent -> {
-            playerRound.add(false);
+//            playerRound.add(false);
+            questionPage.getProgressBar().setVisible(true);
+            questionPage.getNextQuestion().setVisible(false);
             runQuestions();
         });
 
         //ActionListener till inställningsknapp
-        startPage.getSettings().addActionListener(e -> {
-            cardLayout.show(contentPanel, "GroupYellow");
-        });
+        startPage.getSettings().addActionListener(e -> cardLayout.show(contentPanel, "GroupYellow"));
 
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
@@ -231,6 +232,7 @@ public class ContentFrame extends JFrame implements Serializable {
                 addActionListenerToOptions();
                 chosenCategory = false;
                 questionPage.getProgressBar().start();
+                questionPage.getProgressBar().setVisible(true);
             } else {
                 questionPage.newQuestions(questionCollection.getRandomCategory());
                 SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
@@ -264,13 +266,15 @@ public class ContentFrame extends JFrame implements Serializable {
 
             option.addActionListener(e -> {
                 checkIfWin(option);
-                runQuestions();
+                questionPage.getNextQuestion().setVisible(true);
+                questionPage.getProgressBar().stop();
+                questionPage.getProgressBar().setVisible(false);
+//                runQuestions();
             });
         }
     }
 
     public void runQuestions() {
-        Timer timer = new Timer(500, evt -> {
             if (playerRound.size() < amountOfQuestions) {
                 questionPage.nextQuestion();
                 cardLayout.show(contentPanel, "QuestionPage");
@@ -306,28 +310,27 @@ public class ContentFrame extends JFrame implements Serializable {
                     playerRound.clear();
                 }
 
-                if (amountOfRounds == game.getRounds().size() && game.getRounds().get(amountOfRounds - 1).getPlayer1Score().length == amountOfQuestions &&
-                        game.getRounds().get(amountOfRounds - 1).getPlayer2Score().length == amountOfQuestions) {
-                    writeToServer("game finished", game);
-                }
                 scoreBoardPage.updateScoreBoard(game);
                 if (playerSide != game.getTurn())
                     scoreBoardPage.hidePlayButton();
                 showScoreBoardPage();
+
+                if (amountOfRounds == game.getRounds().size() && game.getRounds().get(amountOfRounds - 1).getPlayer1Score().length == amountOfQuestions &&
+                        game.getRounds().get(amountOfRounds - 1).getPlayer2Score().length == amountOfQuestions) {
+                    writeToServer("game finished", game);
+                }
             }
-        });
-        timer.setRepeats(false);
-        timer.start();
     }
 
+
     public void showResultPage() {
+        scoreBoardPage.updateScoreBoard(game);
+        scoreBoardPage.setScores();
         resultPage = new ResultPage(scoreBoardPage.getPlayer(),scoreBoardPage.getOpponent());
         resultPage.setIconAndPlayerName(this.settingsOptions);
         resultPage.setDesignOptions(this.settingsOptions);
         contentPanel.add(resultPage, "ResultPage");
-        startPage.getNotifications().addActionListener(ActionEvent -> {
-            cardLayout.show(contentPanel, "ResultPage");
-        });
+        startPage.getNotifications().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ResultPage"));
 
         cardLayout.show(contentPanel, "ResultPage");
     }
@@ -375,8 +378,20 @@ public class ContentFrame extends JFrame implements Serializable {
             getContentPane().revalidate();
             getContentPane().repaint();
         });
+        itemSelectRed.addActionListener(e -> {
+            settingsOptions.setColor("red");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectYellow.addActionListener(e -> {
+            settingsOptions.setColor("yellow");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
         itemSelectBlue.addActionListener(e -> {
-            settingsOptions.setColor("sören");
+            settingsOptions.setColor("blue");
             setDesignOptions();
             getContentPane().revalidate();
             getContentPane().repaint();

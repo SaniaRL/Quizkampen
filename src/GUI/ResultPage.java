@@ -67,24 +67,27 @@ public class ResultPage extends JPanel {
         yourPanel = new JPanel();
         opponentPanel = new JPanel();
 
-        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), playerPoints > opponentPoints, playerPoints);
-        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), opponentPoints > playerPoints, opponentPoints);
+        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), Integer.compare(playerPoints, opponentPoints), playerPoints);
+        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), Integer.compare(opponentPoints, playerPoints), opponentPoints);
 
         northPanel.add(yourPanel);
         northPanel.add(opponentPanel);
     }
 
-    public void createPlayerPanels(JPanel panel, ImageIcon icon, String text, Boolean win, int playerScore){
+    public void createPlayerPanels(JPanel panel, ImageIcon icon, String text, int compare, int playerScore){
         panel.setPreferredSize(new Dimension(400, 600));
         panel.setLayout(new GridLayout(5, 1));
         panel.setOpaque(false);
 
         JLabel place;
-        if(win){
+        if(compare == 1){
             place = new JLabel("WINNER", SwingConstants.CENTER);
         }
-        else{
+        else if (compare == -1){
             place = new JLabel("LOSER", SwingConstants.CENTER);
+        }
+         else {
+             place = new JLabel("TIE", SwingConstants.CENTER);
         }
         place.setFont(settingsOptions.getBigText());
         place.setForeground(Color.BLACK);
@@ -144,8 +147,8 @@ public class ResultPage extends JPanel {
         yourPanel.removeAll();
         opponentPanel.removeAll();
 
-        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), true, playerPoints);
-        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), false, opponentPoints);
+        createPlayerPanels(yourPanel, settingsOptions.getBigIcon(), settingsOptions.getPlayer1(), Integer.compare(playerPoints, opponentPoints), playerPoints);
+        createPlayerPanels(opponentPanel, settingsOptions.getBigPlayer2Icon(), settingsOptions.getPlayer2(), Integer.compare(opponentPoints, playerPoints), opponentPoints);
     }
 
     private void actionListenerHandler() {

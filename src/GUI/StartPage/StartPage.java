@@ -3,37 +3,31 @@ package GUI.StartPage;
 import GUI.SettingsOptions;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class StartPage extends JPanel {
 
-    JPanel northPanel;
-    JPanel nameFieldPanel;
-    JPanel centerPanel;
-    JPanel southPanel;
+    private JPanel northPanel;
+    private JPanel nameFieldPanel;
+    private JPanel centerPanel;
+    private JPanel southPanel;
 
-    JButton startNewGame;
-    StartButton settings;
-    StartButton notifications;
-    StartButton homeButton;
-    StartButton catButton;
-    JTextField nameField;
-
-    Border emptyBorder;
-
-    SettingsOptions settingsOptions;
+    private JButton startNewGame;
+    private final StartButton settings;
+    private final StartButton notifications;
+    private final StartButton homeButton;
+    private final StartButton catButton;
+    private JTextField nameField;
+    private SettingsOptions settingsOptions;
 
     public StartPage(){
         settingsOptions = new SettingsOptions();
-
         settings = new StartButton("\uD83D\uDD27", new Dimension(150,150), 50, Color.BLACK);
         notifications = new StartButton("\uD83D\uDCAC", new Dimension(150,150), 50, Color.BLACK);
         catButton = new StartButton("", new Dimension(150,150), 50, Color.BLACK);
         homeButton = new StartButton("Q", new Dimension(180,180), 130, settingsOptions.getDetailColor());
 
-        emptyBorder = BorderFactory.createEmptyBorder();
         addComponents();
     }
 
@@ -63,20 +57,23 @@ public class StartPage extends JPanel {
 
     public void generateNameFieldPanel(){
         nameFieldPanel = new JPanel();
-        nameFieldPanel.setLayout(new GridLayout(2,1));
-        Dimension nameFieldPanelSize = new Dimension(400, 50);
+        nameFieldPanel.setLayout(new GridLayout(4,1));
+        Dimension nameFieldPanelSize = new Dimension(300, 100);
         nameFieldPanel.setSize(nameFieldPanelSize);
+        nameFieldPanel.setPreferredSize(nameFieldPanelSize);
         nameFieldPanel.setMinimumSize(nameFieldPanelSize);
         nameFieldPanel.setMaximumSize(nameFieldPanelSize);
         nameFieldPanel.setOpaque(false);
 
-        JLabel nameLabel = new JLabel("Please enter your nickname and start your game:");
-        Dimension textFieldSize = new Dimension(380, 25);
+        JLabel textLabel = new JLabel("Please enter your name:");
+        JLabel emptyLabel = new JLabel();
+        textLabel.setFont(settingsOptions.getSmallText());
+        textLabel.setFont(settingsOptions.getSmallText());
         nameField = new JTextField();
-        nameField.setSize(textFieldSize);
-        nameField.setPreferredSize(textFieldSize);
+        nameField.setFont(new Font("Sans Serif", Font.PLAIN, 18));
 
-        nameFieldPanel.add(nameLabel);
+        nameFieldPanel.add(textLabel);
+        nameFieldPanel.add(emptyLabel);
         nameFieldPanel.add(nameField);
 
     }
@@ -106,15 +103,16 @@ public class StartPage extends JPanel {
         startNewGame.setFont(settingsOptions.getTitleFont());
         startNewGame.setBorder(settingsOptions.getBorder());
 
+        JLabel emptyLabel2 = new JLabel();
+        centerPanel.add(emptyLabel2);
+
         generateNameFieldPanel();
         generateEastWestPanels(BorderLayout.WEST);
         centerPanel.add(nameFieldPanel);
         centerPanel.add(startNewGame);
         generateEastWestPanels(BorderLayout.EAST);
 
-        JLabel emptyLabel2 = new JLabel();
         setOpaque(false);
-        centerPanel.add(emptyLabel2);
     }
 
     public void generateNorthPanel(){
@@ -132,13 +130,11 @@ public class StartPage extends JPanel {
             label.setOpaque(false);
             northPanel.add(label);
         }
-
         northPanel.add(notifications);
     }
 
     public void generateSouthPanel(){
         southPanel = new JPanel();
-
         southPanel.setLayout(new GridLayout(1,4));
         Dimension northPanelSize = new Dimension(800,200);
         southPanel.setSize(northPanelSize);
@@ -153,7 +149,6 @@ public class StartPage extends JPanel {
             label.setOpaque(false);
             southPanel.add(label);
         }
-
         southPanel.add(catButton);
     }
 

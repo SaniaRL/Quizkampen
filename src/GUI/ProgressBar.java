@@ -41,4 +41,8 @@ public class ProgressBar extends JProgressBar {
         count = new AtomicInteger(100);
         timer.start();
     }
+
+    public void stop(){
+        if(timer.isRunning())timer.stop();
+    }
 }
