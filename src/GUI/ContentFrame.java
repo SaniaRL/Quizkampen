@@ -53,6 +53,7 @@ public class ContentFrame extends JFrame implements Serializable {
     ScoreBoardPage scoreBoardPage;
     SettingsPage settingsPage;
     ResultPage resultPage;
+    MenuCreator menuCreator;
 
     //Should be moved to game logic later:
     List<List<Boolean>> player1Wins = new ArrayList<>();
@@ -91,6 +92,7 @@ public class ContentFrame extends JFrame implements Serializable {
         settingsPage = new SettingsPage();
         //resultPage = new ResultPage();
         settingsOptions = new SettingsOptions();
+        menuCreator = new MenuCreator();
 
         //Provat lila tema, ändra fram och tillbaka och kika
         settingsOptions.setColor("hejsan");
@@ -101,7 +103,7 @@ public class ContentFrame extends JFrame implements Serializable {
         setDesignOptions();
         setIconAndPlayerName();
 
-        menuBar = MenuCreator.createMenu(this);
+        menuBar = menuCreator.createMenu(this);
         setJMenuBar(menuBar);
 
         buildFrame();
@@ -142,11 +144,6 @@ public class ContentFrame extends JFrame implements Serializable {
         add(contentPanel);
         addActionEvents();
         setVisible(true);
-    }
-
-    private void createMenu() {
-        JMenuBar menuBar = MenuCreator.createMenu(this);
-        setJMenuBar(menuBar);
     }
 
     public synchronized <T> void writeToServer(String message, T item) {
@@ -239,93 +236,6 @@ public class ContentFrame extends JFrame implements Serializable {
         });
     }
 
-    private void addActionListenerToSettingsMenu() {
-        itemSelectViolet.addActionListener(e -> {
-            settingsOptions.setColor("violet");
-            setDesignOptions();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-        itemSelectGreen.addActionListener(e -> {
-            settingsOptions.setColor("green");
-            setDesignOptions();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-        itemSelectBlue.addActionListener(e -> {
-            settingsOptions.setColor("sören");
-            setDesignOptions();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-        itemSelectPig.addActionListener(e -> {
-            settingsOptions.setIcon(ImageIconAvatar.PIG.iconPath);
-            setIconAndPlayerName();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-        itemSelectLobster.addActionListener(e -> {
-            settingsOptions.setIcon(ImageIconAvatar.LOBSTER.iconPath);
-            setIconAndPlayerName();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-        itemSelectMonkey.addActionListener(e -> {
-            settingsOptions.setIcon(ImageIconAvatar.MONKEY.iconPath);
-            setIconAndPlayerName();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-        itemSelectCrab.addActionListener(e -> {
-            settingsOptions.setIcon(ImageIconAvatar.CRAB.iconPath);
-            setIconAndPlayerName();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-        itemSelectTiger.addActionListener(e -> {
-            settingsOptions.setIcon(ImageIconAvatar.TIGER.iconPath);
-            setIconAndPlayerName();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-        itemSelectCow.addActionListener(e -> {
-            settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
-            setIconAndPlayerName();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-        itemSelectSquid.addActionListener(e -> {
-            settingsOptions.setIcon(ImageIconAvatar.SQUID.iconPath);
-            setIconAndPlayerName();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-        itemSelectElephant.addActionListener(e -> {
-            settingsOptions.setIcon(ImageIconAvatar.ELEPHANT.iconPath);
-            setIconAndPlayerName();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-        itemSelectPanda.addActionListener(e -> {
-            settingsOptions.setIcon(ImageIconAvatar.PANDA.iconPath);
-            setIconAndPlayerName();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-        itemSelectSnake.addActionListener(e -> {
-            settingsOptions.setIcon(ImageIconAvatar.SNAKE.iconPath);
-            setIconAndPlayerName();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-        itemSelectBunny.addActionListener(e -> {
-            settingsOptions.setIcon(ImageIconAvatar.BUNNY.iconPath);
-            setIconAndPlayerName();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-
-    }
 
     public void addActionListerToStartPage() {
         startPage.getStartNewGame().addActionListener(ActionEvent ->
@@ -447,6 +357,94 @@ public class ContentFrame extends JFrame implements Serializable {
     public void showScoreBoardPage() {
         scoreBoardPage.setTurnLabel(playerSide == game.getTurn());
         cardLayout.show(contentPanel, "ScoreBoardPage");
+    }
+
+    private void addActionListenerToSettingsMenu() {
+        itemSelectViolet.addActionListener(e -> {
+            settingsOptions.setColor("violet");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectGreen.addActionListener(e -> {
+            settingsOptions.setColor("green");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectBlue.addActionListener(e -> {
+            settingsOptions.setColor("sören");
+            setDesignOptions();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectPig.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.PIG.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectLobster.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.LOBSTER.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectMonkey.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.MONKEY.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectCrab.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.CRAB.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectTiger.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.TIGER.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectCow.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectSquid.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.SQUID.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectElephant.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.ELEPHANT.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectPanda.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.PANDA.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectSnake.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.SNAKE.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+        itemSelectBunny.addActionListener(e -> {
+            settingsOptions.setIcon(ImageIconAvatar.BUNNY.iconPath);
+            setIconAndPlayerName();
+            getContentPane().revalidate();
+            getContentPane().repaint();
+        });
+
     }
 
 //Needed for NetWork

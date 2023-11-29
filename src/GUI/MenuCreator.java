@@ -4,35 +4,30 @@ import javax.swing.*;
 import java.awt.Font;
 
 public class MenuCreator {
+    JMenuBar menuBar = new JMenuBar();
+    JMenu settingsMenu = new JMenu("Settings");
+    JMenu backgroundMenu = new JMenu("Customize background");
+    JMenu avatarMenu = new JMenu("Select avatar");
+    JMenuItem itemSelectViolet = new JMenuItem("Violet");
+    JMenuItem itemSelectGreen = new JMenuItem("Green");
+    JMenuItem itemSelectBlue = new JMenuItem("Blue");
+    JMenuItem itemSelectPig = new JMenuItem("Pig");
+    JMenuItem itemSelectLobster = new JMenuItem("Lobster");
+    JMenuItem itemSelectMonkey = new JMenuItem("Monkey");
+    JMenuItem itemSelectCrab = new JMenuItem("Crab");
+    JMenuItem itemSelectTiger = new JMenuItem("Tiger");
+    JMenuItem itemSelectCow = new JMenuItem("Cow");
+    JMenuItem itemSelectSquid = new JMenuItem("Squid");
+    JMenuItem itemSelectElephant = new JMenuItem("Elephant");
+    JMenuItem itemSelectPanda = new JMenuItem("Panda");
+    JMenuItem itemSelectSnake = new JMenuItem("Snake");
+    JMenuItem itemSelectBunny = new JMenuItem("Bunny");
+    JMenuItem itemExit = new JMenuItem("Exit the game");
 
-    public static JMenuBar createMenu(ContentFrame contentFrame) {
-        JMenuBar menuBar = new JMenuBar();
+    public JMenuBar createMenu(ContentFrame contentFrame) {
         Font menuFont = new Font("Arial", Font.BOLD, 14);
-
-        JMenu settingsMenu = new JMenu("Settings");
-        JMenu backgroundMenu = new JMenu("Customize background");
-        JMenu avatarMenu = new JMenu("Select avatar");
-
         settingsMenu.setFont(menuFont);
 
-        JMenuItem itemSelectViolet = new JMenuItem("Violet");
-        JMenuItem itemSelectGreen = new JMenuItem("Green");
-        JMenuItem itemSelectBlue = new JMenuItem("Blue");
-        JMenuItem itemSelectPig = new JMenuItem("Pig");
-        JMenuItem itemSelectLobster = new JMenuItem("Lobster");
-        JMenuItem itemSelectMonkey = new JMenuItem("Monkey");
-        JMenuItem itemSelectCrab = new JMenuItem("Crab");
-        JMenuItem itemSelectTiger = new JMenuItem("Tiger");
-        JMenuItem itemSelectCow = new JMenuItem("Cow");
-        JMenuItem itemSelectSquid = new JMenuItem("Squid");
-        JMenuItem itemSelectElephant = new JMenuItem("Elephant");
-        JMenuItem itemSelectPanda = new JMenuItem("Panda");
-        JMenuItem itemSelectSnake = new JMenuItem("Snake");
-        JMenuItem itemSelectBunny = new JMenuItem("Bunny");
-        JMenuItem itemExit = new JMenuItem("Exit the game");
-
-
-        // Lägger till item:en till contentFrame
         contentFrame.itemSelectViolet = itemSelectViolet;
         contentFrame.itemSelectGreen = itemSelectGreen;
         contentFrame.itemSelectBlue = itemSelectBlue;
@@ -52,13 +47,16 @@ public class MenuCreator {
         contentFrame.avatarMenu = avatarMenu;
         contentFrame.itemExit = itemExit;
 
-        settingsMenu.add(backgroundMenu);
-        settingsMenu.add(avatarMenu);
-        settingsMenu.add(itemExit);
+        buildMenu();
 
+        return menuBar;
+    }
+
+    public void buildMenu() {
         backgroundMenu.add(itemSelectViolet);
         backgroundMenu.add(itemSelectGreen);
         backgroundMenu.add(itemSelectBlue);
+
         avatarMenu.add(itemSelectPig);
         avatarMenu.add(itemSelectLobster);
         avatarMenu.add(itemSelectMonkey);
@@ -71,9 +69,11 @@ public class MenuCreator {
         avatarMenu.add(itemSelectSnake);
         avatarMenu.add(itemSelectBunny);
 
-        menuBar.add(settingsMenu);
+        settingsMenu.add(backgroundMenu);
+        settingsMenu.add(avatarMenu);
+        settingsMenu.add(itemExit);
 
-        return menuBar;
+        menuBar.add(settingsMenu);
     }
 
 }
