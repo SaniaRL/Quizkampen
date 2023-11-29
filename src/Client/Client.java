@@ -35,6 +35,12 @@ public class Client {
             ContentFrame frame = new ContentFrame(out, amountOfQuestions, amountOfRounds);
             while (true) {
                 fromServer = readFromServer();
+                if(fromServer instanceof String){
+                    if(fromServer.equals("opponent disconnected")){
+                        System.out.println("opponent disconnected");
+                        frame.showResultPage();
+                    }
+                }
                 if (fromServer instanceof Object[] message) {
                     if (message[1] instanceof GameData gameData) {
                         if (message[0].equals("game started")) {

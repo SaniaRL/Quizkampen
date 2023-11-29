@@ -30,10 +30,12 @@ public class QuestionPage extends JPanel {
     JPanel southPanel;
 
     JPanel opponentPanel;
-    JPanel yourPanel;
+    private JPanel yourPanel;
 
+    private ProgressBar progressBar;
+    private QuestionPageParent parent;
 
-    JButton nextQuestion;
+    private JButton nextQuestion;
 
     int indexCount;
     int amountOfQuestions;
@@ -42,7 +44,7 @@ public class QuestionPage extends JPanel {
 
     SettingsOptions settingsOptions;
 
-    public QuestionPage(int amountOfQuestions) throws IOException {
+    public QuestionPage(int amountOfQuestions, QuestionPageParent parent) throws IOException {
         this.amountOfQuestions = amountOfQuestions;
         settingsOptions = new SettingsOptions();
         questionCollection = new QuestionCollection();
@@ -56,6 +58,8 @@ public class QuestionPage extends JPanel {
 
         indexCount = 0;
         optionButtons = new ArrayList<>();
+
+        this.parent = parent;
 
         addComponents();
     }
@@ -146,10 +150,18 @@ public class QuestionPage extends JPanel {
         panel.add(textLabel);
     }
 
-    public void generateSouthPanel(){
+    public void generateSouthPanel() {
         southPanel.setLayout(new BorderLayout());
         southPanel.setPreferredSize(new Dimension(800, 350));
         southPanel.setOpaque(false);
+
+        progressBar = new ProgressBar(4, 50, 500, () -> parent.nextPanel());
+        progressBar.setBorder(settingsOptions.getBorder());
+        progressBar.setForeground(settingsOptions.getColor());
+        progressBar.setBackground(settingsOptions.getDetailColor());
+        JPanel progressBarPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        progressBarPanel.add(progressBar);
+        progressBarPanel.setOpaque(true);
 
         JPanel optionsPanel = new JPanel(new GridLayout(2,2));
         JPanel nextQuestionPanel = new JPanel();
@@ -161,6 +173,8 @@ public class QuestionPage extends JPanel {
         nextQuestionPanel.add(nextQuestion, SwingConstants.CENTER);
         nextQuestionPanel.setOpaque(false);
         nextQuestionPanel.setPreferredSize(new Dimension(800, 100));
+
+        southPanel.add(progressBar, BorderLayout.NORTH);
         southPanel.add(optionsPanel, BorderLayout.CENTER);
         southPanel.add(nextQuestionPanel, BorderLayout.SOUTH);
 
@@ -228,6 +242,10 @@ public class QuestionPage extends JPanel {
     }
     private void updateQuestionText(int index) {
         questionLabel.setText("<html><div style='text-align: center;'>" + (questions.get(index).getQuestion()));
+    }
+
+    public ProgressBar getProgressBar() {
+        return progressBar;
     }
 
     public String getAnswer() {

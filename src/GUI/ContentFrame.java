@@ -2,6 +2,7 @@ package GUI;
 
 import CustomTypes.GameData;
 import CustomTypes.Round;
+import Enums.ImageIconAvatar;
 import GUI.CategoryGUI.CategoryButton;
 import GUI.CategoryGUI.ChooseCategoryPage;
 import GUI.ScoreBoard.ScoreBoardPage;
@@ -30,7 +31,6 @@ public class ContentFrame extends JFrame implements Serializable {
     JMenu avatarMenu;
     JMenuItem itemExit;
     JMenuItem itemSelectViolet;
-    JMenuItem itemSelectBlack;
     JMenuItem itemSelectBlue;
     JMenuItem itemSelectGreen;
     JMenuItem itemSelectPig;
@@ -60,8 +60,8 @@ public class ContentFrame extends JFrame implements Serializable {
     ObjectOutputStream out;
     int test1 = 0;
     boolean chosenCategory = false;
-    private int amountOfQuestions;
-    private int amountOfRounds;
+    private final int amountOfQuestions;
+    private final int amountOfRounds;
     private GameData game;
     private Turn playerSide;
 
@@ -75,11 +75,14 @@ public class ContentFrame extends JFrame implements Serializable {
 
         startPage = new StartPage();
         chooseCategoryPage = new ChooseCategoryPage();
-        questionPage = new QuestionPage(amountOfQuestions);
+        questionPage = new QuestionPage(amountOfQuestions, () -> {
+            playerRound.add(false);
+            runQuestions();
+        });
         waitingPage = new WaitingPage();
         scoreBoardPage = new ScoreBoardPage(gameID, amountOfRounds, amountOfQuestions);
         settingsPage = new SettingsPage();
-        resultPage = new ResultPage();
+        //resultPage = new ResultPage();
         settingsOptions = new SettingsOptions();
 
         //Provat lila tema, ändra fram och tillbaka och kika
@@ -90,19 +93,19 @@ public class ContentFrame extends JFrame implements Serializable {
         buildFrame();
     }
 
-    public void setIconAndPlayerName() { //Uppdaterar alla sidors Ikoner/Avatarer - och namn
+    public void setIconAndPlayerName() {
         questionPage.setIconAndPlayerNames(this.settingsOptions);
         scoreBoardPage.setIconAndPlayerName(this.settingsOptions);
-        resultPage.setIconAndPlayerName(this.settingsOptions);
+       // resultPage.setIconAndPlayerName(this.settingsOptions);
     }
 
-    public void setDesignOptions() { //Uppdaterar alla sidors options
+    public void setDesignOptions() {
         startPage.setDesignOptions(this.settingsOptions);
         chooseCategoryPage.setDesignOptions(this.settingsOptions);
         questionPage.setDesignOptions(this.settingsOptions);
         scoreBoardPage.setDesignOptions(this.settingsOptions);
         settingsPage.setDesignOptions(this.settingsOptions);
-        resultPage.setDesignOptions(this.settingsOptions);
+      //  resultPage.setDesignOptions(this.settingsOptions);
     }
 
     public void buildFrame() {
@@ -120,7 +123,7 @@ public class ContentFrame extends JFrame implements Serializable {
         contentPanel.add(waitingPage, "WaitingPage");
         contentPanel.add(scoreBoardPage, "ScoreBoardPage");
         contentPanel.add(settingsPage, "SettingsPage");
-        contentPanel.add(resultPage, "ResultPage");
+      //  contentPanel.add(resultPage, "ResultPage");
 
         add(contentPanel);
         addActionEvents();
@@ -141,7 +144,6 @@ public class ContentFrame extends JFrame implements Serializable {
         settingsMenu.setFont(menuFont);
 
         itemSelectViolet = new JMenuItem("Violet");
-        itemSelectBlack = new JMenuItem("Black");
         itemSelectGreen = new JMenuItem("Green");
         itemSelectBlue = new JMenuItem("Blue");
         itemSelectPig = new JMenuItem("Pig");
@@ -151,7 +153,6 @@ public class ContentFrame extends JFrame implements Serializable {
         settingsMenu.add(itemExit);
 
         backgroundMenu.add(itemSelectViolet);
-        backgroundMenu.add(itemSelectBlack);
         backgroundMenu.add(itemSelectGreen);
         backgroundMenu.add(itemSelectBlue);
         avatarMenu.add(itemSelectPig);
@@ -174,6 +175,7 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public void newGameStarted() {
         System.out.println("new game started");
+        scoreBoardPage.clearScoreBoard();
         cardLayout.show(contentPanel, "ChooseCategoryPage");
         addActionListenerToOptions();
         chosenCategory = true;
@@ -186,16 +188,18 @@ public class ContentFrame extends JFrame implements Serializable {
             settingsOptions.setPlayer2Icon(game.getPlayer2().getAvatar());
             setIconAndPlayerName();
         }
+        scoreBoardPage.clearScoreBoard();
         scoreBoardPage.updateScoreBoard(game);
-        cardLayout.show(contentPanel, "ScoreBoardPage");
+        showScoreBoardPage();
         scoreBoardPage.showPlayButton();
     }
 
     public void waitingForPlayer() {
         chosenCategory = true;
         System.out.println("waiting for player method");
+        scoreBoardPage.clearScoreBoard();
         scoreBoardPage.hidePlayButton();
-        cardLayout.show(contentPanel, "ScoreBoardPage");
+        showScoreBoardPage();
     }
 
     public void addActionEvents() {
@@ -216,13 +220,14 @@ public class ContentFrame extends JFrame implements Serializable {
                 questionPage.newQuestions(category);
                 addActionListenerToOptions();
                 cardLayout.show(contentPanel, "QuestionPage");
+                questionPage.getProgressBar().start();
             });
         }
 
         //QUESTION PAGE
         questionPage.getNextQuestion().addActionListener(ActiveEvent -> {
             playerRound.add(false);
-            helpMe();
+            runQuestions();
         });
 
         //ActionListener till inställningsknapp
@@ -242,11 +247,13 @@ public class ContentFrame extends JFrame implements Serializable {
                 cardLayout.show(contentPanel, "QuestionPage");
                 addActionListenerToOptions();
                 chosenCategory = false;
+                questionPage.getProgressBar().start();
             } else {
                 questionPage.newQuestions(questionCollection.getRandomCategory());
                 SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
                 cardLayout.show(contentPanel, "ChooseCategoryPage");
-                addActionListenerToOptions();
+                //TODO why add action listener to options?
+//                addActionListenerToOptions();
                 chosenCategory = true;
             }
         });
@@ -256,13 +263,6 @@ public class ContentFrame extends JFrame implements Serializable {
         itemSelectViolet.addActionListener(e -> {
 
             settingsOptions.setColor("violet");
-            setDesignOptions();
-            getContentPane().revalidate();
-            getContentPane().repaint();
-        });
-
-        itemSelectBlack.addActionListener(e -> {
-            settingsOptions.setColor("black");
             setDesignOptions();
             getContentPane().revalidate();
             getContentPane().repaint();
@@ -284,9 +284,8 @@ public class ContentFrame extends JFrame implements Serializable {
 
         itemSelectPig.addActionListener(e -> {
             System.out.println("Gris");
-            ImageIcon yourImageIcon = new ImageIcon(settingsOptions.getIcon().getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)); //hämtar bild
-
-            setDesignOptions();
+            settingsOptions.setIcon(ImageIconAvatar.PIG.iconPath);
+            setIconAndPlayerName();
             getContentPane().revalidate();
             getContentPane().repaint();
         });
@@ -297,9 +296,9 @@ public class ContentFrame extends JFrame implements Serializable {
             User user = new User(startPage.getNameField().getText(), settingsOptions.getIcon());
             writeToServer("new game", user);
         });
-        startPage.getNotifications().addActionListener(ActionEvent -> {
-            cardLayout.show(contentPanel, "ResultPage");
-        });
+      //  startPage.getNotifications().addActionListener(ActionEvent -> {
+      //      cardLayout.show(contentPanel, "ResultPage");
+      //  });
     }
 
     public void addActionListenerToOptions() {
@@ -313,18 +312,18 @@ public class ContentFrame extends JFrame implements Serializable {
 
             option.addActionListener(e -> {
                 checkIfWin(option);
-                helpMe();
+                runQuestions();
             });
         }
     }
 
-    public void helpMe() {
-
+    public void runQuestions() {
         Timer timer = new Timer(500, evt -> {
             if (playerRound.size() < amountOfQuestions) {
                 questionPage.nextQuestion();
                 cardLayout.show(contentPanel, "QuestionPage");
                 addActionListenerToOptions();
+                questionPage.getProgressBar().start();
             } else {
                 if (chosenCategory) {
                     game.setTurn(game.getTurn() == Turn.Player1 ? Turn.Player2 : Turn.Player1);
@@ -362,13 +361,22 @@ public class ContentFrame extends JFrame implements Serializable {
                 scoreBoardPage.updateScoreBoard(game);
                 if (playerSide != game.getTurn())
                     scoreBoardPage.hidePlayButton();
-                cardLayout.show(contentPanel, "ScoreBoardPage");
+                showScoreBoardPage();
             }
         });
         timer.setRepeats(false);
         timer.start();
     }
+
     public void showResultPage() {
+        resultPage = new ResultPage(scoreBoardPage.getPlayer(),scoreBoardPage.getOpponent());
+        resultPage.setIconAndPlayerName(this.settingsOptions);
+        resultPage.setDesignOptions(this.settingsOptions);
+        contentPanel.add(resultPage, "ResultPage");
+        startPage.getNotifications().addActionListener(ActionEvent -> {
+            cardLayout.show(contentPanel, "ResultPage");
+        });
+
         cardLayout.show(contentPanel, "ResultPage");
     }
     public void checkIfWin(JButton option) {
@@ -398,8 +406,8 @@ public class ContentFrame extends JFrame implements Serializable {
     }
 
     public void showScoreBoardPage() {
+        scoreBoardPage.setTurnLabel(playerSide == game.getTurn());
         cardLayout.show(contentPanel, "ScoreBoardPage");
-        chosenCategory = false;
     }
 
 //Needed for NetWork

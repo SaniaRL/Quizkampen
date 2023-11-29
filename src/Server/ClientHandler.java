@@ -78,6 +78,7 @@ public class ClientHandler extends Thread implements Serializable {
             throw new RuntimeException(e);
         } finally {
             try {
+                protocol.clientDisconnected(server, this);
                 closeConnection();
                 server.getConnectedClients().remove(this);
             } catch (IOException e) {
