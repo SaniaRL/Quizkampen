@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ContentFrame extends JFrame implements Serializable {
 
