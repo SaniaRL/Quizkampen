@@ -99,6 +99,7 @@ public class Protocol {
         if (server.getGames().isEmpty())
             return;
         for (Game game : server.getGames()) {
+            if(game.getPlayer2() == null && game.getPlayer1().equals(client)) break;
             if (game.getPlayer1().equals(client)) {
                 game.getPlayer2().writeToClient("opponent disconnected", null);
                 break;
@@ -110,7 +111,7 @@ public class Protocol {
         }
         server.getGames().removeIf(game -> {
             boolean isPlayer1 = game.getPlayer1().equals(client);
-            boolean isPlayer2 = game.getPlayer2().equals(client);
+            boolean isPlayer2 = game.getPlayer2() != null && game.getPlayer2().equals(client);
             return (isPlayer1 || isPlayer2);
         });
     }
