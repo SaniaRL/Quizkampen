@@ -277,6 +277,9 @@ public class QuestionPage extends JPanel {
         }
         nextQuestion.setBorder(settingsOptions.getBorder());
         categoryLabel.setForeground(settingsOptions.getContrastColor());
+        progressBar.setBorder(settingsOptions.getBorder());
+        progressBar.setForeground(settingsOptions.getColor());
+        progressBar.setBackground(settingsOptions.getDetailColor());
     }
 
     public void setIconAndPlayerNames(SettingsOptions settingsOptions){
