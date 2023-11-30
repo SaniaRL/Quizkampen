@@ -79,7 +79,6 @@ public class Protocol {
 
             System.out.println("before if");;
             if (game.getGameData().getTurn() == Turn.Player2) {
-//                game.getPlayer1().writeToClient("opponent turn", null);
                 if (game.getPlayer2() != null) {
                     if (game.getGameData().getPlayer2().getName().equals("OPPONENT")) {
                         game.getGameData().setPlayer2(game.getUser2());
@@ -88,7 +87,6 @@ public class Protocol {
                     System.out.println("player 2 turn");
                 }
             } else {
-//                game.getPlayer2().writeToClient("opponent turn", null);
                 game.getPlayer1().writeToClient("your turn", gameData);
                 System.out.println("player 1 turn");
             }

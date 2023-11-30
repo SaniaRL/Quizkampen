@@ -15,7 +15,6 @@ import java.util.Properties;
 public class Server {
     private final List<ClientHandler> connectedClients = Collections.synchronizedList(new ArrayList<>());
     private final List<Game> games = Collections.synchronizedList(new ArrayList<>());
-    private UserManager userManager = new UserManager();
     private ServerSocket socket;
     private boolean running = true;
     private String questionsToFind;
@@ -25,6 +24,12 @@ public class Server {
         try {
             socket = new ServerSocket(port);
             loadPropertiesServer();
+
+            //Listen for abrupt shutdowns and runs the shutdown method
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                System.out.println("Server is shutting down!");
+                shutdown();
+            }));
 
             while (running) {
                 Socket clientSocket = socket.accept();
@@ -69,8 +74,8 @@ public class Server {
 
         try {
             for (ClientHandler client : connectedClients) {
-                client.writeToClient("Server is shutting down", null);
-                client.interrupt();
+                client.writeToClient("shutdown", null);
+                client.closeConnection();
             }
 
             if (socket != null && !socket.isClosed()) {
