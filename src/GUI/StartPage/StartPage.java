@@ -117,20 +117,10 @@ public class StartPage extends JPanel {
 
     public void generateNorthPanel(){
         northPanel = new JPanel();
-        northPanel.setLayout(new GridLayout(1,5));
-        Dimension northPanelSize = new Dimension(800,200);
-        northPanel.setSize(northPanelSize);
-        northPanel.setMaximumSize(northPanelSize);
-        northPanel.setMinimumSize(northPanelSize);
+        northPanel.setLayout(new FlowLayout());
+        northPanel.setPreferredSize(new Dimension(800, 200));
         northPanel.setOpaque(false);
-        northPanel.add(settings);
 
-        for(int i = 0; i < 5; i++){
-            JLabel label = new JLabel();
-            label.setOpaque(false);
-            northPanel.add(label);
-        }
-        northPanel.add(notifications);
     }
 
     public void generateSouthPanel(){

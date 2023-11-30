@@ -250,6 +250,7 @@ public class ContentFrame extends JFrame implements Serializable {
             User user = new User(startPage.getNameField().getText(), settingsOptions.getIcon());
             writeToServer("new game", user);
         });
+        startPage.getHomeButton().addActionListener(e -> cardLayout.show(contentPanel, "StartPage"));
     }
 
     public void addActionListenerToOptions() {
@@ -360,7 +361,6 @@ public class ContentFrame extends JFrame implements Serializable {
     public void showScoreBoardPage() {
         scoreBoardPage.setTurnLabel(playerSide == game.getTurn());
         cardLayout.show(contentPanel, "ScoreBoardPage");
-        addActionListenerToResultPage();
     }
 
     private void addActionListenerToSettingsMenu() {
