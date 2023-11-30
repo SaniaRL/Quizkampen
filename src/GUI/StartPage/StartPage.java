@@ -117,39 +117,24 @@ public class StartPage extends JPanel {
 
     public void generateNorthPanel(){
         northPanel = new JPanel();
-        northPanel.setLayout(new GridLayout(1,5));
-        Dimension northPanelSize = new Dimension(800,200);
-        northPanel.setSize(northPanelSize);
-        northPanel.setMaximumSize(northPanelSize);
-        northPanel.setMinimumSize(northPanelSize);
+        northPanel.setLayout(new FlowLayout());
+        northPanel.setPreferredSize(new Dimension(800, 100));
         northPanel.setOpaque(false);
-        northPanel.add(settings);
-
-        for(int i = 0; i < 5; i++){
-            JLabel label = new JLabel();
-            label.setOpaque(false);
-            northPanel.add(label);
-        }
-        northPanel.add(notifications);
     }
 
     public void generateSouthPanel(){
         southPanel = new JPanel();
-        southPanel.setLayout(new GridLayout(1,4));
-        Dimension northPanelSize = new Dimension(800,200);
-        southPanel.setSize(northPanelSize);
-        southPanel.setMaximumSize(northPanelSize);
-        southPanel.setMinimumSize(northPanelSize);
+        southPanel.setLayout(new BorderLayout());
+        southPanel.setPreferredSize(new Dimension(800, 200));
         southPanel.setOpaque(false);
 
-        southPanel.add(homeButton);
+        southPanel.add(homeButton, BorderLayout.WEST);
+        homeButton.setPreferredSize(new Dimension(200, 200));
 
-        for(int i = 0; i < 2; i++){
-            JLabel label = new JLabel();
-            label.setOpaque(false);
-            southPanel.add(label);
-        }
-        southPanel.add(catButton);
+        JPanel emptyPanel = new JPanel();
+        emptyPanel.setOpaque(false);
+        emptyPanel.setPreferredSize(new Dimension(600, 200));
+        northPanel.add(emptyPanel, BorderLayout.EAST);
     }
 
     public void generateEastWestPanels(String borderLayout){
