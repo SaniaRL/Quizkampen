@@ -51,6 +51,8 @@ public class ContentFrame extends JFrame implements Serializable {
     private GameData game;
     private Turn playerSide;
 
+    private boolean opponentGaveUp;
+
     public ContentFrame(ObjectOutputStream out, int amountOfQuestions, int amountOfRounds) throws IOException {
         this.amountOfQuestions = amountOfQuestions;
         this.amountOfRounds = amountOfRounds;
@@ -171,6 +173,9 @@ public class ContentFrame extends JFrame implements Serializable {
         //START PAGE
         addActionListerToStartPage();
 
+        //YELLOW GROUP
+        groupYellow.addActionListener(e -> cardLayout.show(contentPanel, "StartPage"));
+
         //WAITING PAGE
         waitingPage.getTextButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ChooseCategoryPage"));
 
@@ -194,9 +199,6 @@ public class ContentFrame extends JFrame implements Serializable {
             questionPage.getNextQuestion().setVisible(false);
             runQuestions();
         });
-
-        //ActionListener till inställningsknapp
-        startPage.getSettings().addActionListener(e -> cardLayout.show(contentPanel, "GroupYellow"));
 
         //SCORE BOARD PAGE
         scoreBoardPage.getPlayGame().addActionListener(ActionEvent -> {
@@ -226,6 +228,7 @@ public class ContentFrame extends JFrame implements Serializable {
             User user = new User(startPage.getNameField().getText(), settingsOptions.getIcon());
             writeToServer("new game", user);
         });
+        startPage.getHomeButton().addActionListener(e -> cardLayout.show(contentPanel, "GroupYellow"));
     }
 
     public void addActionListenerToOptions() {
@@ -298,11 +301,11 @@ public class ContentFrame extends JFrame implements Serializable {
     public void showResultPage() {
         scoreBoardPage.updateScoreBoard(game);
         scoreBoardPage.setScores();
-        resultPage = new ResultPage(scoreBoardPage.getPlayer(),scoreBoardPage.getOpponent());
+        resultPage = new ResultPage(scoreBoardPage.getPlayer(),scoreBoardPage.getOpponent(), opponentGaveUp);
         resultPage.setIconAndPlayerName(this.settingsOptions);
         resultPage.setDesignOptions(this.settingsOptions);
         contentPanel.add(resultPage, "ResultPage");
-        startPage.getNotifications().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "ResultPage"));
+        startPage.getHomeButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "YellowGroup"));
 
         cardLayout.show(contentPanel, "ResultPage");
     }
@@ -344,6 +347,7 @@ public class ContentFrame extends JFrame implements Serializable {
         getContentPane().repaint();
     }
 
+
 //Needed for NetWork
 
     public void setGame(GameData game) {
@@ -361,5 +365,13 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public SettingsOptions getSettingsOptions() {
         return settingsOptions;
+    }
+
+    public void setOpponentGaveUp(boolean opponentGaveUp) {
+        this.opponentGaveUp = opponentGaveUp;
+    }
+
+    public boolean isOpponentGaveUp() {
+        return opponentGaveUp;
     }
 }

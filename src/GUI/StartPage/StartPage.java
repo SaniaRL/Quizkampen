@@ -14,18 +14,12 @@ public class StartPage extends JPanel {
     private JPanel southPanel;
 
     private JButton startNewGame;
-    private final StartButton settings;
-    private final StartButton notifications;
     private final StartButton homeButton;
-    private final StartButton catButton;
     private JTextField nameField;
     private SettingsOptions settingsOptions;
 
     public StartPage(){
         settingsOptions = new SettingsOptions();
-        settings = new StartButton("\uD83D\uDD27", new Dimension(150,150), 50, Color.BLACK);
-        notifications = new StartButton("\uD83D\uDCAC", new Dimension(150,150), 50, Color.BLACK);
-        catButton = new StartButton("", new Dimension(150,150), 50, Color.BLACK);
         homeButton = new StartButton("Q", new Dimension(180,180), 130, settingsOptions.getDetailColor());
 
         addComponents();
@@ -117,39 +111,24 @@ public class StartPage extends JPanel {
 
     public void generateNorthPanel(){
         northPanel = new JPanel();
-        northPanel.setLayout(new GridLayout(1,5));
-        Dimension northPanelSize = new Dimension(800,200);
-        northPanel.setSize(northPanelSize);
-        northPanel.setMaximumSize(northPanelSize);
-        northPanel.setMinimumSize(northPanelSize);
+        northPanel.setLayout(new FlowLayout());
+        northPanel.setPreferredSize(new Dimension(800, 100));
         northPanel.setOpaque(false);
-        northPanel.add(settings);
-
-        for(int i = 0; i < 5; i++){
-            JLabel label = new JLabel();
-            label.setOpaque(false);
-            northPanel.add(label);
-        }
-        northPanel.add(notifications);
     }
 
     public void generateSouthPanel(){
         southPanel = new JPanel();
-        southPanel.setLayout(new GridLayout(1,4));
-        Dimension northPanelSize = new Dimension(800,200);
-        southPanel.setSize(northPanelSize);
-        southPanel.setMaximumSize(northPanelSize);
-        southPanel.setMinimumSize(northPanelSize);
+        southPanel.setLayout(new BorderLayout());
+        southPanel.setPreferredSize(new Dimension(800, 200));
         southPanel.setOpaque(false);
 
-        southPanel.add(homeButton);
+        southPanel.add(homeButton, BorderLayout.WEST);
+        homeButton.setPreferredSize(new Dimension(200, 200));
 
-        for(int i = 0; i < 2; i++){
-            JLabel label = new JLabel();
-            label.setOpaque(false);
-            southPanel.add(label);
-        }
-        southPanel.add(catButton);
+        JPanel emptyPanel = new JPanel();
+        emptyPanel.setOpaque(false);
+        emptyPanel.setPreferredSize(new Dimension(600, 200));
+        northPanel.add(emptyPanel, BorderLayout.EAST);
     }
 
     public void generateEastWestPanels(String borderLayout){
@@ -157,22 +136,6 @@ public class StartPage extends JPanel {
         panel.setPreferredSize(new Dimension(100, 400));
         add(panel, borderLayout);
         panel.setOpaque(false);
-    }
-
-    public JButton getSettings() {
-        return settings;
-    }
-
-    public JButton getNotifications() {
-        return notifications;
-    }
-
-    public JButton getHomeButton() {
-        return homeButton;
-    }
-
-    public JButton getCatButton() {
-        return catButton;
     }
 
     public JTextField getNameField() {
@@ -186,6 +149,7 @@ public class StartPage extends JPanel {
         homeButton.setForeground(settingsOptions.getDetailColor());
     }
 
+    public StartButton getHomeButton() { return homeButton; }
     public JButton getStartNewGame() {
         return startNewGame;
     }

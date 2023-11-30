@@ -81,7 +81,6 @@ public class Protocol {
 
             System.out.println("before if");;
             if (game.getGameData().getTurn() == Turn.Player2) {
-//                game.getPlayer1().writeToClient("opponent turn", null);
                 if (game.getPlayer2() != null) {
                     if (game.getGameData().getPlayer2().getName().equals("OPPONENT")) {
                         game.getGameData().setPlayer2(game.getUser2());
@@ -90,7 +89,6 @@ public class Protocol {
                     System.out.println("player 2 turn");
                 }
             } else {
-//                game.getPlayer2().writeToClient("opponent turn", null);
                 game.getPlayer1().writeToClient("your turn", gameData);
                 System.out.println("player 1 turn");
             }
@@ -103,18 +101,10 @@ public class Protocol {
         for (Game game : server.getGames()) {
             if(game.getPlayer2() == null && game.getPlayer1().equals(client)) break;
             if (game.getPlayer1().equals(client)) {
-                for (Round round : game.getGameData().getRounds()) {
-                    Arrays.fill(round.getPlayer1Score(), false);
-                    Arrays.fill(round.getPlayer2Score(), true);
-                }
                 game.getPlayer2().writeToClient("opponent disconnected", game.getGameData());
                 break;
             }
             if (game.getPlayer2() != null && game.getPlayer2().equals(client)) {
-                for (Round round : game.getGameData().getRounds()) {
-                    Arrays.fill(round.getPlayer2Score(), false);
-                    Arrays.fill(round.getPlayer1Score(), true);
-                }
                 game.getPlayer1().writeToClient("opponent disconnected", game.getGameData());
                 break;
             }

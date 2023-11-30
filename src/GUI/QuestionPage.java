@@ -94,7 +94,6 @@ public class QuestionPage extends JPanel {
         centerPanel.setPreferredSize(new Dimension(800, 200));
         centerPanel.setOpaque(false);
 
-
         questionLabel = new JLabel();
         questionLabel.setHorizontalAlignment(SwingConstants.CENTER);
         questionLabel.setFont(settingsOptions.getSmallText());
