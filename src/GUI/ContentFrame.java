@@ -78,7 +78,6 @@ public class ContentFrame extends JFrame implements Serializable {
         setDesignOptions();
         setIconAndPlayerName();
 
-//        menuCreator = new MenuCreator();
         setJMenuBar(menuCreator);
 
         buildFrame();
