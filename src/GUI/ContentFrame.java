@@ -308,6 +308,7 @@ public class ContentFrame extends JFrame implements Serializable {
         startPage.getHomeButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "YellowGroup"));
 
         cardLayout.show(contentPanel, "ResultPage");
+        opponentGaveUp = false;
     }
     public void checkIfWin(JButton option) {
         JButton rightAnswer = checkRightAnswer();

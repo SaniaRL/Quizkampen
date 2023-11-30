@@ -80,7 +80,7 @@ public class ResultPage extends JPanel {
         panel.setPreferredSize(new Dimension(400, 600));
         panel.setLayout(new GridLayout(5, 1));
         panel.setOpaque(false);
-        
+
         JLabel place;
         if(panel.equals(yourPanel) && opponentGaveUp){
             compare = 1;
