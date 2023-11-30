@@ -1,10 +1,14 @@
 package GUI.StartPage;
 
+import Enums.ImageIconAvatar;
 import GUI.SettingsOptions;
 
+import java.util.List;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class StartPage extends JPanel {
 
@@ -12,6 +16,8 @@ public class StartPage extends JPanel {
     private JPanel nameFieldPanel;
     private JPanel centerPanel;
     private JPanel southPanel;
+
+    private AvatarPanel avatarPanel;
 
     private JButton startNewGame;
     private final StartButton homeButton;
@@ -75,7 +81,7 @@ public class StartPage extends JPanel {
     public void generateCenterPanel(){
         centerPanel = new JPanel();
         centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 25));
-        Dimension centerPanelSize = new Dimension(1000, 600);
+        Dimension centerPanelSize = new Dimension(1000, 400);
         centerPanel.setSize(centerPanelSize);
         centerPanel.setMinimumSize(centerPanelSize);
         centerPanel.setMaximumSize(centerPanelSize);
@@ -111,9 +117,14 @@ public class StartPage extends JPanel {
 
     public void generateNorthPanel(){
         northPanel = new JPanel();
-        northPanel.setLayout(new FlowLayout());
-        northPanel.setPreferredSize(new Dimension(800, 100));
+        northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        northPanel.setPreferredSize(new Dimension(800, 200));
         northPanel.setOpaque(false);
+
+        Border emptyBorder = BorderFactory.createEmptyBorder(100, 0, 0 ,0);
+        northPanel.setBorder(emptyBorder);
+        avatarPanel = new AvatarPanel();
+        northPanel.add(avatarPanel);
     }
 
     public void generateSouthPanel(){
