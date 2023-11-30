@@ -1,10 +1,14 @@
 package GUI.StartPage;
 
+import Enums.ImageIconAvatar;
 import GUI.SettingsOptions;
 
+import java.util.List;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class StartPage extends JPanel {
 
@@ -12,6 +16,8 @@ public class StartPage extends JPanel {
     private JPanel nameFieldPanel;
     private JPanel centerPanel;
     private JPanel southPanel;
+
+    private AvatarPanel avatarPanel;
 
     private JButton startNewGame;
     private final StartButton homeButton;
@@ -75,7 +81,7 @@ public class StartPage extends JPanel {
     public void generateCenterPanel(){
         centerPanel = new JPanel();
         centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 25));
-        Dimension centerPanelSize = new Dimension(1000, 600);
+        Dimension centerPanelSize = new Dimension(1000, 400);
         centerPanel.setSize(centerPanelSize);
         centerPanel.setMinimumSize(centerPanelSize);
         centerPanel.setMaximumSize(centerPanelSize);
@@ -111,23 +117,28 @@ public class StartPage extends JPanel {
 
     public void generateNorthPanel(){
         northPanel = new JPanel();
-        northPanel.setLayout(new FlowLayout());
-        northPanel.setPreferredSize(new Dimension(800, 100));
+        northPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        northPanel.setPreferredSize(new Dimension(800, 200));
         northPanel.setOpaque(false);
+
+        Border emptyBorder = BorderFactory.createEmptyBorder(80, 0, 0 ,0);
+        northPanel.setBorder(emptyBorder);
+        avatarPanel = new AvatarPanel();
+        northPanel.add(avatarPanel);
     }
 
     public void generateSouthPanel(){
         southPanel = new JPanel();
         southPanel.setLayout(new BorderLayout());
-        southPanel.setPreferredSize(new Dimension(800, 200));
+        southPanel.setPreferredSize(new Dimension(800, 160));
         southPanel.setOpaque(false);
 
         southPanel.add(homeButton, BorderLayout.WEST);
-        homeButton.setPreferredSize(new Dimension(200, 200));
+        homeButton.setPreferredSize(new Dimension(200, 160));
 
         JPanel emptyPanel = new JPanel();
         emptyPanel.setOpaque(false);
-        emptyPanel.setPreferredSize(new Dimension(600, 200));
+        emptyPanel.setPreferredSize(new Dimension(600, 160));
         northPanel.add(emptyPanel, BorderLayout.EAST);
     }
 
@@ -147,10 +158,15 @@ public class StartPage extends JPanel {
         startNewGame.setBorder(new LineBorder(settingsOptions.getColor(), 10));
         startNewGame.setBackground(settingsOptions.getDetailColor());
         homeButton.setForeground(settingsOptions.getDetailColor());
+        avatarPanel.setSettingsOptions(settingsOptions);
     }
 
     public StartButton getHomeButton() { return homeButton; }
     public JButton getStartNewGame() {
         return startNewGame;
+    }
+
+    public AvatarPanel getAvatarPanel() {
+        return avatarPanel;
     }
 }

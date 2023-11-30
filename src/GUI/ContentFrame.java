@@ -227,6 +227,8 @@ public class ContentFrame extends JFrame implements Serializable {
             writeToServer("new game", user);
         });
         startPage.getHomeButton().addActionListener(e -> cardLayout.show(contentPanel, "GroupYellow"));
+        startPage.getAvatarPanel().getLeftButton().addActionListener(e -> startPage.getAvatarPanel().previousImage());
+        startPage.getAvatarPanel().getRightButton().addActionListener(e -> startPage.getAvatarPanel().nextImage());
     }
 
     public void addActionListenerToOptions() {

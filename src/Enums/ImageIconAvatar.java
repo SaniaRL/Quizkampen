@@ -1,5 +1,8 @@
 package Enums;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum ImageIconAvatar {
     MONKEY("Icons/apa.png"),
     CRAB("Icons/crab.png"),
@@ -19,4 +22,21 @@ public enum ImageIconAvatar {
         this.iconPath = iconPath;
     }
 
+
+    public static List<ImageIconAvatar> getAll(){
+        List<ImageIconAvatar> imageIconAvatarList = new ArrayList<>();
+        imageIconAvatarList.add(MONKEY);
+        imageIconAvatarList.add(CRAB);
+        imageIconAvatarList.add(ELEPHANT);
+        imageIconAvatarList.add(PIG);
+        imageIconAvatarList.add(BUNNY);
+        imageIconAvatarList.add(COW);
+        imageIconAvatarList.add(LOBSTER);
+        imageIconAvatarList.add(SNAKE);
+        imageIconAvatarList.add(PANDA);
+        imageIconAvatarList.add(SQUID);
+        imageIconAvatarList.add(TIGER);
+
+        return imageIconAvatarList;
     }
+}
