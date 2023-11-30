@@ -24,29 +24,6 @@ import java.io.IOException;
 public class ContentFrame extends JFrame implements Serializable {
 
     JPanel contentPanel;
-//    JMenuBar menuBar;
-//    JMenu settingsMenu;
-//    JMenu backgroundMenu;
-//    JMenu avatarMenu;
-//    JMenuItem itemExit;
-//    JMenuItem itemSelectViolet;
-//    JMenuItem itemSelectBlue;
-//    JMenuItem itemSelectGreen;
-//    JMenuItem itemSelectRed;
-//    JMenuItem itemSelectYellow;
-//    JMenuItem itemSelectPig;
-//    JMenuItem itemSelectLobster;
-//    JMenuItem itemSelectMonkey;
-//    JMenuItem itemSelectCrab;
-//    JMenuItem itemSelectTiger;
-//    JMenuItem itemSelectCow;
-//    JMenuItem itemSelectSquid;
-//    JMenuItem itemSelectElephant;
-//    JMenuItem itemSelectPanda;
-//    JMenuItem itemSelectSnake;
-//    JMenuItem itemSelectBunny;
-
-
     CardLayout cardLayout;
     StartPage startPage;
     ChooseCategoryPage chooseCategoryPage;
@@ -110,7 +87,8 @@ public class ContentFrame extends JFrame implements Serializable {
     public void setIconAndPlayerName() {
         questionPage.setIconAndPlayerNames(this.settingsOptions);
         scoreBoardPage.setIconAndPlayerName(this.settingsOptions);
-       // resultPage.setIconAndPlayerName(this.settingsOptions);
+        if(resultPage != null)
+            resultPage.setIconAndPlayerName(this.settingsOptions);
     }
 
     public void setDesignOptions() {
@@ -119,7 +97,8 @@ public class ContentFrame extends JFrame implements Serializable {
         questionPage.setDesignOptions(this.settingsOptions);
         scoreBoardPage.setDesignOptions(this.settingsOptions);
         settingsPage.setDesignOptions(this.settingsOptions);
-      //  resultPage.setDesignOptions(this.settingsOptions);
+        if(resultPage != null)
+            resultPage.setDesignOptions(this.settingsOptions);
     }
 
     public void buildFrame() {
