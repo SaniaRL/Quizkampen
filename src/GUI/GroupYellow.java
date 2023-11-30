@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public class GroupYellow extends JPanel {
+public class GroupYellow extends JButton {
     String backgroundImagePath;
     Image backgroundImage;
 

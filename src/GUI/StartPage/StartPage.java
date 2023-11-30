@@ -14,18 +14,12 @@ public class StartPage extends JPanel {
     private JPanel southPanel;
 
     private JButton startNewGame;
-    private final StartButton settings;
-    private final StartButton notifications;
     private final StartButton homeButton;
-    private final StartButton catButton;
     private JTextField nameField;
     private SettingsOptions settingsOptions;
 
     public StartPage(){
         settingsOptions = new SettingsOptions();
-        settings = new StartButton("\uD83D\uDD27", new Dimension(150,150), 50, Color.BLACK);
-        notifications = new StartButton("\uD83D\uDCAC", new Dimension(150,150), 50, Color.BLACK);
-        catButton = new StartButton("", new Dimension(150,150), 50, Color.BLACK);
         homeButton = new StartButton("Q", new Dimension(180,180), 130, settingsOptions.getDetailColor());
 
         addComponents();
@@ -144,22 +138,6 @@ public class StartPage extends JPanel {
         panel.setOpaque(false);
     }
 
-    public JButton getSettings() {
-        return settings;
-    }
-
-    public JButton getNotifications() {
-        return notifications;
-    }
-
-    public JButton getHomeButton() {
-        return homeButton;
-    }
-
-    public JButton getCatButton() {
-        return catButton;
-    }
-
     public JTextField getNameField() {
         return nameField;
     }
@@ -171,6 +149,7 @@ public class StartPage extends JPanel {
         homeButton.setForeground(settingsOptions.getDetailColor());
     }
 
+    public StartButton getHomeButton() { return homeButton; }
     public JButton getStartNewGame() {
         return startNewGame;
     }
