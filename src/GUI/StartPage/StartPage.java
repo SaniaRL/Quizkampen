@@ -121,7 +121,7 @@ public class StartPage extends JPanel {
         northPanel.setPreferredSize(new Dimension(800, 200));
         northPanel.setOpaque(false);
 
-        Border emptyBorder = BorderFactory.createEmptyBorder(100, 0, 0 ,0);
+        Border emptyBorder = BorderFactory.createEmptyBorder(80, 0, 0 ,0);
         northPanel.setBorder(emptyBorder);
         avatarPanel = new AvatarPanel();
         northPanel.add(avatarPanel);
@@ -130,15 +130,15 @@ public class StartPage extends JPanel {
     public void generateSouthPanel(){
         southPanel = new JPanel();
         southPanel.setLayout(new BorderLayout());
-        southPanel.setPreferredSize(new Dimension(800, 200));
+        southPanel.setPreferredSize(new Dimension(800, 160));
         southPanel.setOpaque(false);
 
         southPanel.add(homeButton, BorderLayout.WEST);
-        homeButton.setPreferredSize(new Dimension(200, 200));
+        homeButton.setPreferredSize(new Dimension(200, 160));
 
         JPanel emptyPanel = new JPanel();
         emptyPanel.setOpaque(false);
-        emptyPanel.setPreferredSize(new Dimension(600, 200));
+        emptyPanel.setPreferredSize(new Dimension(600, 160));
         northPanel.add(emptyPanel, BorderLayout.EAST);
     }
 
@@ -163,5 +163,9 @@ public class StartPage extends JPanel {
     public StartButton getHomeButton() { return homeButton; }
     public JButton getStartNewGame() {
         return startNewGame;
+    }
+
+    public AvatarPanel getAvatarPanel() {
+        return avatarPanel;
     }
 }
