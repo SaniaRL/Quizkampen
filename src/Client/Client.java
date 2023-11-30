@@ -4,6 +4,7 @@ import CustomTypes.GameData;
 import Enums.Turn;
 import GUI.ContentFrame;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -50,6 +51,8 @@ public class Client {
                         }
                         if (message[0].equals("game started")) {
                             frame.getSettingsOptions().setPlayer1(gameData.getPlayer1().getName());
+                            frame.getSettingsOptions().setPlayer2("Random");
+                            frame.getSettingsOptions().setPlayer2Icon(new ImageIcon("Icons/questionmark.png"));
                             frame.setIconAndPlayerName();
 
                             frame.setGame(gameData);
