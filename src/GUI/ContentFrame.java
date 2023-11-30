@@ -210,8 +210,8 @@ public class ContentFrame extends JFrame implements Serializable {
                 questionPage.getProgressBar().start();
                 questionPage.getProgressBar().setVisible(true);
             } else {
+                chooseCategoryPage.updateQuestionCategories();
                 questionPage.newQuestions(questionCollection.getRandomCategory());
-                SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
                 cardLayout.show(contentPanel, "ChooseCategoryPage");
                 //TODO why add action listener to options?
 //                addActionListenerToOptions();

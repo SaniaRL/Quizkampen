@@ -158,6 +158,10 @@ public class ChooseCategoryPage extends JPanel {
         categoryOption2.updateCategoryButton(randomCategoryList.get(1));
         categoryOption3.updateCategoryButton(randomCategoryList.get(2));
 
+        for (int i = 0; i < categoryOptionsList.size(); i++) {
+            categoryOptionsList.get(i).updateCategoryButton(randomCategoryList.get(i));
+        }
+
         repaint();
         revalidate();
     }
