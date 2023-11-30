@@ -102,5 +102,9 @@ public class AvatarPanel extends JPanel {
 
     public void setSettingsOptions(SettingsOptions settingsOptions) {
         this.settingsOptions = settingsOptions;
+        rightButton.setBackground(settingsOptions.getDetailColor());
+        rightButton.setBorder(settingsOptions.getBorder());
+        leftButton.setBackground(settingsOptions.getDetailColor());
+        leftButton.setBorder(settingsOptions.getBorder());
     }
 }

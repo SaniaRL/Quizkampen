@@ -158,6 +158,7 @@ public class StartPage extends JPanel {
         startNewGame.setBorder(new LineBorder(settingsOptions.getColor(), 10));
         startNewGame.setBackground(settingsOptions.getDetailColor());
         homeButton.setForeground(settingsOptions.getDetailColor());
+        avatarPanel.setSettingsOptions(settingsOptions);
     }
 
     public StartButton getHomeButton() { return homeButton; }
