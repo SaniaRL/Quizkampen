@@ -40,6 +40,10 @@ public class Client {
                         System.out.println("opponent disconnected");
                         frame.showResultPage();
                     }
+                    if (fromServer.equals("shutdown")) {
+                        System.out.println("Server is shutting down!");
+                        break;
+                    }
                 }
                 if (fromServer instanceof Object[] message) {
                     if (message[1] instanceof GameData gameData) {
