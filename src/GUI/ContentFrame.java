@@ -51,6 +51,8 @@ public class ContentFrame extends JFrame implements Serializable {
     private GameData game;
     private Turn playerSide;
 
+    private boolean opponentGaveUp;
+
     public ContentFrame(ObjectOutputStream out, int amountOfQuestions, int amountOfRounds) throws IOException {
         this.amountOfQuestions = amountOfQuestions;
         this.amountOfRounds = amountOfRounds;
@@ -299,13 +301,14 @@ public class ContentFrame extends JFrame implements Serializable {
     public void showResultPage() {
         scoreBoardPage.updateScoreBoard(game);
         scoreBoardPage.setScores();
-        resultPage = new ResultPage(scoreBoardPage.getPlayer(),scoreBoardPage.getOpponent());
+        resultPage = new ResultPage(scoreBoardPage.getPlayer(),scoreBoardPage.getOpponent(), opponentGaveUp);
         resultPage.setIconAndPlayerName(this.settingsOptions);
         resultPage.setDesignOptions(this.settingsOptions);
         contentPanel.add(resultPage, "ResultPage");
         startPage.getHomeButton().addActionListener(ActionEvent -> cardLayout.show(contentPanel, "YellowGroup"));
 
         cardLayout.show(contentPanel, "ResultPage");
+        opponentGaveUp = false;
     }
     public void checkIfWin(JButton option) {
         JButton rightAnswer = checkRightAnswer();
@@ -345,6 +348,7 @@ public class ContentFrame extends JFrame implements Serializable {
         getContentPane().repaint();
     }
 
+
 //Needed for NetWork
 
     public void setGame(GameData game) {
@@ -362,5 +366,13 @@ public class ContentFrame extends JFrame implements Serializable {
 
     public SettingsOptions getSettingsOptions() {
         return settingsOptions;
+    }
+
+    public void setOpponentGaveUp(boolean opponentGaveUp) {
+        this.opponentGaveUp = opponentGaveUp;
+    }
+
+    public boolean isOpponentGaveUp() {
+        return opponentGaveUp;
     }
 }

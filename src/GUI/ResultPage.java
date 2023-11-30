@@ -18,8 +18,9 @@ public class ResultPage extends JPanel {
     int opponentPoints;
 
     SettingsOptions settingsOptions;
+    boolean opponentGaveUp;
 
-    public ResultPage(int playerPoints, int opponentPoints){
+    public ResultPage(int playerPoints, int opponentPoints, boolean opponentGaveUp){
         northPanel = new JPanel();
         southPanel = new JPanel();
 
@@ -30,6 +31,7 @@ public class ResultPage extends JPanel {
 
         this.playerPoints = playerPoints;
         this.opponentPoints = opponentPoints;
+        this.opponentGaveUp = opponentGaveUp;
         System.out.println(this.playerPoints+" Spelarens poäng");
         System.out.println(this.opponentPoints+" Motståndarens poäng");
 
@@ -80,13 +82,20 @@ public class ResultPage extends JPanel {
         panel.setOpaque(false);
 
         JLabel place;
+        if(panel.equals(yourPanel) && opponentGaveUp){
+            compare = 1;
+        }
+        if(panel.equals(opponentPanel) && opponentGaveUp){
+            compare = 2;
+        }
+
         if(compare == 1){
             place = new JLabel("WINNER", SwingConstants.CENTER);
-        }
-        else if (compare == -1){
+        } else if (compare == -1){
             place = new JLabel("LOSER", SwingConstants.CENTER);
-        }
-         else {
+        } else if (compare == 2) {
+            place = new JLabel("GAVE UP", SwingConstants.CENTER);
+        } else {
              place = new JLabel("TIE", SwingConstants.CENTER);
         }
         place.setFont(settingsOptions.getBigText());
@@ -154,5 +163,9 @@ public class ResultPage extends JPanel {
     private void actionListenerHandler() {
         newGame.addActionListener(e -> ((CardLayout) getParent().getLayout()).show(getParent(), "StartPage"));
         exitGame.addActionListener(ActionEvent -> System.exit(0));
+    }
+
+    private void winOrLose(){
+
     }
 }
