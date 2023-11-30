@@ -210,11 +210,9 @@ public class ContentFrame extends JFrame implements Serializable {
                 questionPage.getProgressBar().start();
                 questionPage.getProgressBar().setVisible(true);
             } else {
-                questionPage.newQuestions(questionCollection.getRandomCategory());
                 SwingUtilities.invokeLater(() -> chooseCategoryPage.updateQuestionCategories());
+                questionPage.newQuestions(questionCollection.getRandomCategory());
                 cardLayout.show(contentPanel, "ChooseCategoryPage");
-                //TODO why add action listener to options?
-//                addActionListenerToOptions();
                 chosenCategory = true;
             }
         });
@@ -249,7 +247,6 @@ public class ContentFrame extends JFrame implements Serializable {
             });
         }
     }
-
     public void removeActionListenerFromOptions() {
         List<JButton> optionsButtons = questionPage.getOptionButtons();
         for (JButton option : optionsButtons) {
