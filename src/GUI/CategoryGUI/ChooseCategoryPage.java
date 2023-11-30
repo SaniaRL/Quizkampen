@@ -16,9 +16,6 @@ public class ChooseCategoryPage extends JPanel {
     JPanel northPanel;
     JPanel southPanel;
 
-    CategoryButton categoryOption1;
-    CategoryButton categoryOption2;
-    CategoryButton categoryOption3;
     List<CategoryButton> categoryOptionsList = new ArrayList<>();
 
     QuestionCollection questionCollection;
@@ -34,11 +31,6 @@ public class ChooseCategoryPage extends JPanel {
         northPanel = new JPanel();
         southPanel = new JPanel();
         questionCollection = new QuestionCollection();
-
-        //Initierarar dessa för att förhindra nullpointerexception
-        categoryOption1 = new CategoryButton();
-        categoryOption2 = new CategoryButton();
-        categoryOption3 = new CategoryButton();
 
         randomCategoryList = new ArrayList<>();
 
@@ -135,28 +127,12 @@ public class ChooseCategoryPage extends JPanel {
         }
     }
 
-    public CategoryButton getCategoryOption1() {
-        return categoryOption1;
-    }
-
-    public CategoryButton getCategoryOption2() {
-        return categoryOption2;
-    }
-
-    public CategoryButton getCategoryOption3() {
-        return categoryOption3;
-    }
-
     public List<CategoryButton> getCategoryOptions(){
         return categoryOptionsList;
     }
 
     public void updateQuestionCategories(){
         generateRandomCategoryList();
-
-        categoryOption1.updateCategoryButton(randomCategoryList.get(0));
-        categoryOption2.updateCategoryButton(randomCategoryList.get(1));
-        categoryOption3.updateCategoryButton(randomCategoryList.get(2));
 
         for (int i = 0; i < categoryOptionsList.size(); i++) {
             categoryOptionsList.get(i).updateCategoryButton(randomCategoryList.get(i));
@@ -172,6 +148,5 @@ public class ChooseCategoryPage extends JPanel {
             categoryButton.setBorder(settingsOptions.getBorder());
         }
         text.setForeground(settingsOptions.getContrastColor());
-
     }
 }
