@@ -157,7 +157,7 @@ public class ScoreBoardPage extends JPanel {
         panel.add(textLabel);
     }
 
-    public void setFont (JLabel label){
+    public void setFont(JLabel label) {
         label.setFont(settingsOptions.getSmallText());
         setOpaque(false);
     }
@@ -198,14 +198,15 @@ public class ScoreBoardPage extends JPanel {
         categoryList.clear();
         playerScoreList.clear();
         opponentScoreList.clear();
-        if(playerSide == Turn.Player1){
+        if (playerSide == Turn.Player1) {
             updatePlayer1(game);
         } else {
             updatePlayer2(game);
         }
         setScores();
     }
-    private void updatePlayer1(GameData game){
+
+    private void updatePlayer1(GameData game) {
         int i = 0;
         for (Round round : game.getRounds()) {
             if (round.getPlayer1Score().length != 0 && round.getPlayer2Score().length != 0) {
@@ -222,7 +223,7 @@ public class ScoreBoardPage extends JPanel {
                 playerScoreList.add(Arrays.stream(round.getPlayer1Score()).toList());
                 opponentScoreList.add(Arrays.stream(round.getPlayer2Score()).toList());
             }
-            if(round.getPlayer1Score().length != 0 && round.getPlayer2Score().length == 0) {
+            if (round.getPlayer1Score().length != 0 && round.getPlayer2Score().length == 0) {
                 int j = 0;
                 for (ScoreLabel player1Label : scoreCounts.get(i).getPlayerLabels()) {
                     player1Label.setForeground(round.getPlayer1Score()[j] ? Color.green : Color.RED);
@@ -235,7 +236,7 @@ public class ScoreBoardPage extends JPanel {
         }
     }
 
-    private void updatePlayer2(GameData game){
+    private void updatePlayer2(GameData game) {
         int i = 0;
         for (Round round : game.getRounds()) {
             if (round.getPlayer1Score().length != 0 && round.getPlayer2Score().length != 0) {
@@ -252,7 +253,7 @@ public class ScoreBoardPage extends JPanel {
                 playerScoreList.add(Arrays.stream(round.getPlayer2Score()).toList());
                 opponentScoreList.add(Arrays.stream(round.getPlayer1Score()).toList());
             }
-            if(round.getPlayer2Score().length != 0 && round.getPlayer1Score().length == 0) {
+            if (round.getPlayer2Score().length != 0 && round.getPlayer1Score().length == 0) {
                 int j = 0;
                 for (ScoreLabel playerLabel : scoreCounts.get(i).getPlayerLabels()) {
                     playerLabel.setForeground(round.getPlayer2Score()[j] ? Color.green : Color.RED);
@@ -265,7 +266,7 @@ public class ScoreBoardPage extends JPanel {
         }
     }
 
-    public void clearScoreBoard(){
+    public void clearScoreBoard() {
         for (ScoreCount scoreCount : scoreCounts) {
             scoreCount.setCategoryLabel("");
             for (ScoreLabel playerLabel : scoreCount.getPlayerLabels()) {
@@ -296,6 +297,7 @@ public class ScoreBoardPage extends JPanel {
     public JButton getPlayGame() {
         return playGame;
     }
+
     public JButton getGiveUp() {
         return giveUp;
     }
@@ -334,15 +336,19 @@ public class ScoreBoardPage extends JPanel {
         opponent = calculateScore(opponentScoreList);
         scoreLabel.setText(player + " - " + opponent);
     }
+
     public int getPlayer() {
         return player;
     }
+
     public void setPlayer(int player) {
         this.player = player;
     }
+
     public int getOpponent() {
         return opponent;
     }
+
     public void setOpponent(int opponent) {
         this.opponent = opponent;
     }
@@ -351,9 +357,23 @@ public class ScoreBoardPage extends JPanel {
         this.settingsOptions = settingsOptions;
         playGame.setBorder(settingsOptions.getBorder());
         giveUp.setBorder(settingsOptions.getBorder());
+        updateColorOfScore();
     }
 
-    public void setIconAndPlayerName(SettingsOptions settingsOptions){
+    private void updateColorOfScore() {
+        for (ScoreCount scoreCount : scoreCounts) {
+            for (ScoreLabel playerLabel : scoreCount.playerLabels) {
+                if(playerLabel.getForeground() != Color.red && playerLabel.getForeground() != Color.green)
+                    playerLabel.setForeground(settingsOptions.getColor());
+            }
+            for (ScoreLabel opponentLabel : scoreCount.opponentLabels) {
+                if(opponentLabel.getForeground() != Color.red && opponentLabel.getForeground() != Color.green)
+                    opponentLabel.setForeground(settingsOptions.getColor());
+            }
+        }
+    }
+
+    public void setIconAndPlayerName(SettingsOptions settingsOptions) {
         this.settingsOptions = settingsOptions;
         yourPanel.removeAll();
         opponentPanel.removeAll();

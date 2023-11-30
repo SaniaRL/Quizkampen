@@ -1,12 +1,14 @@
 package Server;
 
 import CustomTypes.GameData;
+import CustomTypes.Round;
 import Enums.Turn;
 import Server.Game.Game;
 import Enums.GameState;
 import Server.UserData.User;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Protocol {
 
@@ -101,11 +103,19 @@ public class Protocol {
         for (Game game : server.getGames()) {
             if(game.getPlayer2() == null && game.getPlayer1().equals(client)) break;
             if (game.getPlayer1().equals(client)) {
-                game.getPlayer2().writeToClient("opponent disconnected", null);
+                for (Round round : game.getGameData().getRounds()) {
+                    Arrays.fill(round.getPlayer1Score(), false);
+                    Arrays.fill(round.getPlayer2Score(), true);
+                }
+                game.getPlayer2().writeToClient("opponent disconnected", game.getGameData());
                 break;
             }
             if (game.getPlayer2() != null && game.getPlayer2().equals(client)) {
-                game.getPlayer1().writeToClient("opponent disconnected", null);
+                for (Round round : game.getGameData().getRounds()) {
+                    Arrays.fill(round.getPlayer2Score(), false);
+                    Arrays.fill(round.getPlayer1Score(), true);
+                }
+                game.getPlayer1().writeToClient("opponent disconnected", game.getGameData());
                 break;
             }
         }

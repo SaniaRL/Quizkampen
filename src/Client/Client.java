@@ -36,13 +36,14 @@ public class Client {
             while (true) {
                 fromServer = readFromServer();
                 if(fromServer instanceof String){
-                    if(fromServer.equals("opponent disconnected")){
-                        System.out.println("opponent disconnected");
-                        frame.showResultPage();
-                    }
                 }
                 if (fromServer instanceof Object[] message) {
                     if (message[1] instanceof GameData gameData) {
+                        if(message[0].equals("opponent disconnected")){
+                            System.out.println("opponent disconnected");
+                            frame.setGame(gameData);
+                            frame.showResultPage();
+                        }
                         if (message[0].equals("game started")) {
                             frame.getSettingsOptions().setPlayer1(gameData.getPlayer1().getName());
                             frame.setIconAndPlayerName();
