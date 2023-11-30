@@ -68,7 +68,7 @@ public class Client {
                                 frame.setGame(gameData);
                                 frame.setPlayerSide(Turn.Player2);
                                 frame.setChosenCategory(true);
-                                frame.getQuestions();
+                                frame.gameUpdate();
                             }
                         }
                         if (message[0].equals("your turn")) {
@@ -76,7 +76,7 @@ public class Client {
                             frame.setGame(gameData);
 
                             System.out.println(gameData);
-                            frame.getQuestions();
+                            frame.gameUpdate();
                         }
                         if (message[0].equals("opponent turn")) {
                             System.out.println("opponent turn size: " + gameData.getRounds().size());
