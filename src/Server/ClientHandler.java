@@ -10,8 +10,8 @@ import java.util.Arrays;
 public class ClientHandler extends Thread implements Serializable {
     protected final Socket socket;
     private final Protocol protocol;
-    Server server;
-    Object propertyObject;
+    private final Server server;
+    private final Object propertyObject;
     private ObjectInputStream in;
     private ObjectOutputStream out;
 
@@ -64,12 +64,9 @@ public class ClientHandler extends Thread implements Serializable {
                             protocol.checkIfNewGame((String) message[0], server, this, (User) message[1]);
                         }
                     }
+                    //if from client -> Protokol?
                 }
-                //if from client -> Protokol?
-
-            } /*else if (fromClient instanceof otherType) {
-                //TODO: Add logic for other types of objects
-                }*/
+            }
         } catch (IOException e) {
             System.out.println("IO Exception from ServerListener: " + e.getMessage());
         } catch (ClassNotFoundException e) {
