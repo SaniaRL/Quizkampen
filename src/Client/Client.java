@@ -72,13 +72,13 @@ public class Client {
                                 frame.setGame(gameData);
                                 frame.setPlayerSide(Turn.Player2);
                                 frame.setChosenCategory(true);
-                                frame.getQuestions();
+                                frame.gameUpdate();
                             }
                         }
                         if (message[0].equals("your turn")) {
                             frame.setGame(gameData);
                             System.out.println(gameData);
-                            frame.getQuestions();
+                            frame.gameUpdate();
                         }
                         if (message[0].equals("game finished")) {
                             frame.setGame(gameData);

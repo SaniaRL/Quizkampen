@@ -1,10 +1,11 @@
 package GUI;
 
+import Enums.ImageIconAvatar;
+
 import javax.swing.*;
 import java.awt.Font;
 
-public class MenuCreator {
-    JMenuBar menuBar = new JMenuBar();
+public class MenuCreator extends JMenuBar{
     JMenu settingsMenu = new JMenu("Settings");
     JMenu backgroundMenu = new JMenu("Customize background");
     JMenu avatarMenu = new JMenu("Select avatar");
@@ -25,37 +26,22 @@ public class MenuCreator {
     JMenuItem itemSelectSnake = new JMenuItem("Snake");
     JMenuItem itemSelectBunny = new JMenuItem("Bunny");
     JMenuItem itemExit = new JMenuItem("Exit the game");
+    ContentFrame contentFrame;
+
+    public MenuCreator(ContentFrame contentFrame){
+        this.contentFrame = contentFrame;
+        Font menuFont = new Font("Arial", Font.BOLD, 14);
+        settingsMenu.setFont(menuFont);
+
+        buildMenu();
+    }
 
     public JMenuBar createMenu(ContentFrame contentFrame) {
         Font menuFont = new Font("Arial", Font.BOLD, 14);
         settingsMenu.setFont(menuFont);
-
-        contentFrame.itemSelectViolet = itemSelectViolet;
-        contentFrame.itemSelectGreen = itemSelectGreen;
-        contentFrame.itemSelectBlue = itemSelectBlue;
-        contentFrame.itemSelectRed = itemSelectRed;
-        contentFrame.itemSelectYellow = itemSelectYellow;
-
-        contentFrame.itemSelectPig = itemSelectPig;
-        contentFrame.itemSelectLobster = itemSelectLobster;
-        contentFrame.itemSelectMonkey = itemSelectMonkey;
-        contentFrame.itemSelectCrab = itemSelectCrab;
-        contentFrame.itemSelectTiger = itemSelectTiger;
-        contentFrame.itemSelectCow = itemSelectCow;
-        contentFrame.itemSelectSquid = itemSelectSquid;
-        contentFrame.itemSelectElephant = itemSelectElephant;
-        contentFrame.itemSelectPanda = itemSelectPanda;
-        contentFrame.itemSelectSnake = itemSelectSnake;
-        contentFrame.itemSelectBunny = itemSelectBunny;
-
-        contentFrame.settingsMenu = settingsMenu;
-        contentFrame.backgroundMenu = backgroundMenu;
-        contentFrame.avatarMenu = avatarMenu;
-        contentFrame.itemExit = itemExit;
-
         buildMenu();
 
-        return menuBar;
+        return new JMenuBar();
     }
 
     public void buildMenu() {
@@ -81,7 +67,80 @@ public class MenuCreator {
         settingsMenu.add(avatarMenu);
         settingsMenu.add(itemExit);
 
-        menuBar.add(settingsMenu);
+        add(settingsMenu);
+    }
+    public void addActionListenerToSettingsMenu() {
+        itemSelectViolet.addActionListener(e -> {
+            contentFrame.settingsOptions.setColor("violet");
+            contentFrame.menuDesignAction();
+        });
+        itemSelectGreen.addActionListener(e -> {
+            contentFrame.settingsOptions.setColor("green");
+            contentFrame.menuDesignAction();
+        });
+        itemSelectRed.addActionListener(e -> {
+            contentFrame.settingsOptions.setColor("red");
+            contentFrame.menuDesignAction();
+        });
+        itemSelectYellow.addActionListener(e -> {
+            contentFrame.settingsOptions.setColor("yellow");
+            contentFrame.menuDesignAction();
+        });
+        itemSelectBlue.addActionListener(e -> {
+            contentFrame.settingsOptions.setColor("blue");
+            contentFrame.menuDesignAction();
+        });
+        itemSelectPig.addActionListener(e -> {
+            contentFrame.settingsOptions.setIcon(ImageIconAvatar.PIG.iconPath);
+            setIconAndPlayerNameAction();
+        });
+        itemSelectLobster.addActionListener(e -> {
+            contentFrame.settingsOptions.setIcon(ImageIconAvatar.LOBSTER.iconPath);
+            setIconAndPlayerNameAction();
+        });
+        itemSelectMonkey.addActionListener(e -> {
+            contentFrame.settingsOptions.setIcon(ImageIconAvatar.MONKEY.iconPath);
+            setIconAndPlayerNameAction();
+        });
+        itemSelectCrab.addActionListener(e -> {
+            contentFrame.settingsOptions.setIcon(ImageIconAvatar.CRAB.iconPath);
+            setIconAndPlayerNameAction();
+        });
+        itemSelectTiger.addActionListener(e -> {
+            contentFrame.settingsOptions.setIcon(ImageIconAvatar.TIGER.iconPath);
+            setIconAndPlayerNameAction();
+        });
+        itemSelectCow.addActionListener(e -> {
+            contentFrame.settingsOptions.setIcon(ImageIconAvatar.COW.iconPath);
+            setIconAndPlayerNameAction();
+        });
+        itemSelectSquid.addActionListener(e -> {
+            contentFrame.settingsOptions.setIcon(ImageIconAvatar.SQUID.iconPath);
+            setIconAndPlayerNameAction();
+        });
+        itemSelectElephant.addActionListener(e -> {
+            contentFrame.settingsOptions.setIcon(ImageIconAvatar.ELEPHANT.iconPath);
+            setIconAndPlayerNameAction();
+        });
+        itemSelectPanda.addActionListener(e -> {
+            contentFrame.settingsOptions.setIcon(ImageIconAvatar.PANDA.iconPath);
+            setIconAndPlayerNameAction();
+        });
+        itemSelectSnake.addActionListener(e -> {
+            contentFrame.settingsOptions.setIcon(ImageIconAvatar.SNAKE.iconPath);
+            setIconAndPlayerNameAction();
+        });
+        itemSelectBunny.addActionListener(e -> {
+            contentFrame.settingsOptions.setIcon(ImageIconAvatar.BUNNY.iconPath);
+            setIconAndPlayerNameAction();
+        });
+        itemExit.addActionListener(e -> System.exit(0));
+    }
+
+    private void setIconAndPlayerNameAction(){
+        contentFrame.setIconAndPlayerName();
+        contentFrame.getContentPane().revalidate();
+        contentFrame.getContentPane().repaint();
     }
 
 }
