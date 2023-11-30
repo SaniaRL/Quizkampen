@@ -243,7 +243,17 @@ public class ContentFrame extends JFrame implements Serializable {
                 questionPage.getNextQuestion().setVisible(true);
                 questionPage.getProgressBar().stop();
                 questionPage.getProgressBar().setVisible(false);
+                removeActionListenerFromOptions();
             });
+        }
+    }
+    public void removeActionListenerFromOptions() {
+        List<JButton> optionsButtons = questionPage.getOptionButtons();
+        for (JButton option : optionsButtons) {
+            ActionListener[] actionListeners = option.getActionListeners();
+            for (ActionListener listener : actionListeners) {
+                option.removeActionListener(listener);
+            }
         }
     }
 
